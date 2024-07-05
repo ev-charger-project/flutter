@@ -35,11 +35,14 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.6
-  google_maps_flutter:
-  riverpod:
-  flutter_riverpod:
-  cached_network_image:
-  freezed:
+  google_maps_flutter: 2.7.0
+  riverpod: 2.5.1
+  flutter_riverpod: 2.5.1
+  cached_network_image: 3.3.1
+  freezed: 2.5.2
+  flutter_platform_widgets: 7.0.0
+  flutter_secure_storage: 9.2.2
+  dio: 5.5.0
 
 dev_dependencies:
   flutter_test:
