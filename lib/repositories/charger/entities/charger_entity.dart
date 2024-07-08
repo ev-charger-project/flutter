@@ -8,14 +8,13 @@ part 'charger_entity.freezed.dart';
 @freezed
 class ChargerEntity with _$ChargerEntity {
   const factory ChargerEntity({
-    required String chargerId,
+    required String id,
     required String locationId,
     required String powerOutputId,
     required String powerPlugTypeId,
-    required int numberOfPorts,
+    required int numberOfPort,
     required String availabity,
-    DateTime? installationDate,
-    DateTime? lastMaintainanceDate,
+
   }) = _ChargerEntity;
 }
 
@@ -23,28 +22,26 @@ class ChargerMapper with EntityConvertible<ChargerEntity, Charger> {
   @override
   Charger fromEntity(ChargerEntity entityObject) {
     return Charger(
-      chargerId: entityObject.chargerId,
+      id: entityObject.id,
       locationId: entityObject.locationId,
       powerOutputId: entityObject.powerOutputId,
       powerPlugTypeId: entityObject.powerPlugTypeId,
-      numberOfPorts: entityObject.numberOfPorts,
+      numberOfPort: entityObject.numberOfPort,
       availabity: entityObject.availabity,
-      installationDate: entityObject.installationDate,
-      lastMaintainanceDate: entityObject.lastMaintainanceDate,
+
     );
   }
 
   @override
   ChargerEntity toEntity(Charger dataModelObject) {
     return ChargerEntity(
-      chargerId: dataModelObject.chargerId,
+      id: dataModelObject.id,
       locationId: dataModelObject.locationId,
       powerOutputId: dataModelObject.powerOutputId,
       powerPlugTypeId: dataModelObject.powerPlugTypeId,
-      numberOfPorts: dataModelObject.numberOfPorts,
+      numberOfPort: dataModelObject.numberOfPort,
       availabity: dataModelObject.availabity,
-      installationDate: dataModelObject.installationDate,
-      lastMaintainanceDate: dataModelObject.lastMaintainanceDate,
+
     );
   }
 }

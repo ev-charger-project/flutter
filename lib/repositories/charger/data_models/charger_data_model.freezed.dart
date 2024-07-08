@@ -20,22 +20,18 @@ Charger _$ChargerFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Charger {
-  @JsonKey(name: 'charger_id')
-  String get chargerId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'id')
+  String get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'location_id')
   String get locationId => throw _privateConstructorUsedError;
   @JsonKey(name: 'power_output_id')
   String get powerOutputId => throw _privateConstructorUsedError;
   @JsonKey(name: 'power_plug_type_id')
   String get powerPlugTypeId => throw _privateConstructorUsedError;
-  @JsonKey(name: 'number_of_ports')
-  int get numberOfPorts => throw _privateConstructorUsedError;
+  @JsonKey(name: 'number_of_port')
+  int get numberOfPort => throw _privateConstructorUsedError;
   @JsonKey(name: 'availabity')
   String get availabity => throw _privateConstructorUsedError;
-  @JsonKey(name: 'installation_date')
-  DateTime? get installationDate => throw _privateConstructorUsedError;
-  @JsonKey(name: 'last_maintainance_date')
-  DateTime? get lastMaintainanceDate => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -48,14 +44,12 @@ abstract class $ChargerCopyWith<$Res> {
       _$ChargerCopyWithImpl<$Res, Charger>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'charger_id') String chargerId,
+      {@JsonKey(name: 'id') String id,
       @JsonKey(name: 'location_id') String locationId,
       @JsonKey(name: 'power_output_id') String powerOutputId,
       @JsonKey(name: 'power_plug_type_id') String powerPlugTypeId,
-      @JsonKey(name: 'number_of_ports') int numberOfPorts,
-      @JsonKey(name: 'availabity') String availabity,
-      @JsonKey(name: 'installation_date') DateTime? installationDate,
-      @JsonKey(name: 'last_maintainance_date') DateTime? lastMaintainanceDate});
+      @JsonKey(name: 'number_of_port') int numberOfPort,
+      @JsonKey(name: 'availabity') String availabity});
 }
 
 /// @nodoc
@@ -71,19 +65,17 @@ class _$ChargerCopyWithImpl<$Res, $Val extends Charger>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? chargerId = null,
+    Object? id = null,
     Object? locationId = null,
     Object? powerOutputId = null,
     Object? powerPlugTypeId = null,
-    Object? numberOfPorts = null,
+    Object? numberOfPort = null,
     Object? availabity = null,
-    Object? installationDate = freezed,
-    Object? lastMaintainanceDate = freezed,
   }) {
     return _then(_value.copyWith(
-      chargerId: null == chargerId
-          ? _value.chargerId
-          : chargerId // ignore: cast_nullable_to_non_nullable
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as String,
       locationId: null == locationId
           ? _value.locationId
@@ -97,22 +89,14 @@ class _$ChargerCopyWithImpl<$Res, $Val extends Charger>
           ? _value.powerPlugTypeId
           : powerPlugTypeId // ignore: cast_nullable_to_non_nullable
               as String,
-      numberOfPorts: null == numberOfPorts
-          ? _value.numberOfPorts
-          : numberOfPorts // ignore: cast_nullable_to_non_nullable
+      numberOfPort: null == numberOfPort
+          ? _value.numberOfPort
+          : numberOfPort // ignore: cast_nullable_to_non_nullable
               as int,
       availabity: null == availabity
           ? _value.availabity
           : availabity // ignore: cast_nullable_to_non_nullable
               as String,
-      installationDate: freezed == installationDate
-          ? _value.installationDate
-          : installationDate // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      lastMaintainanceDate: freezed == lastMaintainanceDate
-          ? _value.lastMaintainanceDate
-          : lastMaintainanceDate // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
     ) as $Val);
   }
 }
@@ -125,14 +109,12 @@ abstract class _$$ChargerImplCopyWith<$Res> implements $ChargerCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'charger_id') String chargerId,
+      {@JsonKey(name: 'id') String id,
       @JsonKey(name: 'location_id') String locationId,
       @JsonKey(name: 'power_output_id') String powerOutputId,
       @JsonKey(name: 'power_plug_type_id') String powerPlugTypeId,
-      @JsonKey(name: 'number_of_ports') int numberOfPorts,
-      @JsonKey(name: 'availabity') String availabity,
-      @JsonKey(name: 'installation_date') DateTime? installationDate,
-      @JsonKey(name: 'last_maintainance_date') DateTime? lastMaintainanceDate});
+      @JsonKey(name: 'number_of_port') int numberOfPort,
+      @JsonKey(name: 'availabity') String availabity});
 }
 
 /// @nodoc
@@ -146,19 +128,17 @@ class __$$ChargerImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? chargerId = null,
+    Object? id = null,
     Object? locationId = null,
     Object? powerOutputId = null,
     Object? powerPlugTypeId = null,
-    Object? numberOfPorts = null,
+    Object? numberOfPort = null,
     Object? availabity = null,
-    Object? installationDate = freezed,
-    Object? lastMaintainanceDate = freezed,
   }) {
     return _then(_$ChargerImpl(
-      chargerId: null == chargerId
-          ? _value.chargerId
-          : chargerId // ignore: cast_nullable_to_non_nullable
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as String,
       locationId: null == locationId
           ? _value.locationId
@@ -172,22 +152,14 @@ class __$$ChargerImplCopyWithImpl<$Res>
           ? _value.powerPlugTypeId
           : powerPlugTypeId // ignore: cast_nullable_to_non_nullable
               as String,
-      numberOfPorts: null == numberOfPorts
-          ? _value.numberOfPorts
-          : numberOfPorts // ignore: cast_nullable_to_non_nullable
+      numberOfPort: null == numberOfPort
+          ? _value.numberOfPort
+          : numberOfPort // ignore: cast_nullable_to_non_nullable
               as int,
       availabity: null == availabity
           ? _value.availabity
           : availabity // ignore: cast_nullable_to_non_nullable
               as String,
-      installationDate: freezed == installationDate
-          ? _value.installationDate
-          : installationDate // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      lastMaintainanceDate: freezed == lastMaintainanceDate
-          ? _value.lastMaintainanceDate
-          : lastMaintainanceDate // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
     ));
   }
 }
@@ -196,21 +168,19 @@ class __$$ChargerImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$ChargerImpl implements _Charger {
   const _$ChargerImpl(
-      {@JsonKey(name: 'charger_id') required this.chargerId,
+      {@JsonKey(name: 'id') required this.id,
       @JsonKey(name: 'location_id') required this.locationId,
       @JsonKey(name: 'power_output_id') required this.powerOutputId,
       @JsonKey(name: 'power_plug_type_id') required this.powerPlugTypeId,
-      @JsonKey(name: 'number_of_ports') required this.numberOfPorts,
-      @JsonKey(name: 'availabity') required this.availabity,
-      @JsonKey(name: 'installation_date') this.installationDate,
-      @JsonKey(name: 'last_maintainance_date') this.lastMaintainanceDate});
+      @JsonKey(name: 'number_of_port') required this.numberOfPort,
+      @JsonKey(name: 'availabity') required this.availabity});
 
   factory _$ChargerImpl.fromJson(Map<String, dynamic> json) =>
       _$$ChargerImplFromJson(json);
 
   @override
-  @JsonKey(name: 'charger_id')
-  final String chargerId;
+  @JsonKey(name: 'id')
+  final String id;
   @override
   @JsonKey(name: 'location_id')
   final String locationId;
@@ -221,21 +191,15 @@ class _$ChargerImpl implements _Charger {
   @JsonKey(name: 'power_plug_type_id')
   final String powerPlugTypeId;
   @override
-  @JsonKey(name: 'number_of_ports')
-  final int numberOfPorts;
+  @JsonKey(name: 'number_of_port')
+  final int numberOfPort;
   @override
   @JsonKey(name: 'availabity')
   final String availabity;
-  @override
-  @JsonKey(name: 'installation_date')
-  final DateTime? installationDate;
-  @override
-  @JsonKey(name: 'last_maintainance_date')
-  final DateTime? lastMaintainanceDate;
 
   @override
   String toString() {
-    return 'Charger(chargerId: $chargerId, locationId: $locationId, powerOutputId: $powerOutputId, powerPlugTypeId: $powerPlugTypeId, numberOfPorts: $numberOfPorts, availabity: $availabity, installationDate: $installationDate, lastMaintainanceDate: $lastMaintainanceDate)';
+    return 'Charger(id: $id, locationId: $locationId, powerOutputId: $powerOutputId, powerPlugTypeId: $powerPlugTypeId, numberOfPort: $numberOfPort, availabity: $availabity)';
   }
 
   @override
@@ -243,36 +207,23 @@ class _$ChargerImpl implements _Charger {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ChargerImpl &&
-            (identical(other.chargerId, chargerId) ||
-                other.chargerId == chargerId) &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.locationId, locationId) ||
                 other.locationId == locationId) &&
             (identical(other.powerOutputId, powerOutputId) ||
                 other.powerOutputId == powerOutputId) &&
             (identical(other.powerPlugTypeId, powerPlugTypeId) ||
                 other.powerPlugTypeId == powerPlugTypeId) &&
-            (identical(other.numberOfPorts, numberOfPorts) ||
-                other.numberOfPorts == numberOfPorts) &&
+            (identical(other.numberOfPort, numberOfPort) ||
+                other.numberOfPort == numberOfPort) &&
             (identical(other.availabity, availabity) ||
-                other.availabity == availabity) &&
-            (identical(other.installationDate, installationDate) ||
-                other.installationDate == installationDate) &&
-            (identical(other.lastMaintainanceDate, lastMaintainanceDate) ||
-                other.lastMaintainanceDate == lastMaintainanceDate));
+                other.availabity == availabity));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      chargerId,
-      locationId,
-      powerOutputId,
-      powerPlugTypeId,
-      numberOfPorts,
-      availabity,
-      installationDate,
-      lastMaintainanceDate);
+  int get hashCode => Object.hash(runtimeType, id, locationId, powerOutputId,
+      powerPlugTypeId, numberOfPort, availabity);
 
   @JsonKey(ignore: true)
   @override
@@ -290,22 +241,20 @@ class _$ChargerImpl implements _Charger {
 
 abstract class _Charger implements Charger {
   const factory _Charger(
-      {@JsonKey(name: 'charger_id') required final String chargerId,
-      @JsonKey(name: 'location_id') required final String locationId,
-      @JsonKey(name: 'power_output_id') required final String powerOutputId,
-      @JsonKey(name: 'power_plug_type_id')
-      required final String powerPlugTypeId,
-      @JsonKey(name: 'number_of_ports') required final int numberOfPorts,
-      @JsonKey(name: 'availabity') required final String availabity,
-      @JsonKey(name: 'installation_date') final DateTime? installationDate,
-      @JsonKey(name: 'last_maintainance_date')
-      final DateTime? lastMaintainanceDate}) = _$ChargerImpl;
+          {@JsonKey(name: 'id') required final String id,
+          @JsonKey(name: 'location_id') required final String locationId,
+          @JsonKey(name: 'power_output_id') required final String powerOutputId,
+          @JsonKey(name: 'power_plug_type_id')
+          required final String powerPlugTypeId,
+          @JsonKey(name: 'number_of_port') required final int numberOfPort,
+          @JsonKey(name: 'availabity') required final String availabity}) =
+      _$ChargerImpl;
 
   factory _Charger.fromJson(Map<String, dynamic> json) = _$ChargerImpl.fromJson;
 
   @override
-  @JsonKey(name: 'charger_id')
-  String get chargerId;
+  @JsonKey(name: 'id')
+  String get id;
   @override
   @JsonKey(name: 'location_id')
   String get locationId;
@@ -316,17 +265,11 @@ abstract class _Charger implements Charger {
   @JsonKey(name: 'power_plug_type_id')
   String get powerPlugTypeId;
   @override
-  @JsonKey(name: 'number_of_ports')
-  int get numberOfPorts;
+  @JsonKey(name: 'number_of_port')
+  int get numberOfPort;
   @override
   @JsonKey(name: 'availabity')
   String get availabity;
-  @override
-  @JsonKey(name: 'installation_date')
-  DateTime? get installationDate;
-  @override
-  @JsonKey(name: 'last_maintainance_date')
-  DateTime? get lastMaintainanceDate;
   @override
   @JsonKey(ignore: true)
   _$$ChargerImplCopyWith<_$ChargerImpl> get copyWith =>

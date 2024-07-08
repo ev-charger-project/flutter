@@ -16,14 +16,12 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$ChargerEntity {
-  String get chargerId => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   String get locationId => throw _privateConstructorUsedError;
   String get powerOutputId => throw _privateConstructorUsedError;
   String get powerPlugTypeId => throw _privateConstructorUsedError;
-  int get numberOfPorts => throw _privateConstructorUsedError;
+  int get numberOfPort => throw _privateConstructorUsedError;
   String get availabity => throw _privateConstructorUsedError;
-  DateTime? get installationDate => throw _privateConstructorUsedError;
-  DateTime? get lastMaintainanceDate => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ChargerEntityCopyWith<ChargerEntity> get copyWith =>
@@ -37,14 +35,12 @@ abstract class $ChargerEntityCopyWith<$Res> {
       _$ChargerEntityCopyWithImpl<$Res, ChargerEntity>;
   @useResult
   $Res call(
-      {String chargerId,
+      {String id,
       String locationId,
       String powerOutputId,
       String powerPlugTypeId,
-      int numberOfPorts,
-      String availabity,
-      DateTime? installationDate,
-      DateTime? lastMaintainanceDate});
+      int numberOfPort,
+      String availabity});
 }
 
 /// @nodoc
@@ -60,19 +56,17 @@ class _$ChargerEntityCopyWithImpl<$Res, $Val extends ChargerEntity>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? chargerId = null,
+    Object? id = null,
     Object? locationId = null,
     Object? powerOutputId = null,
     Object? powerPlugTypeId = null,
-    Object? numberOfPorts = null,
+    Object? numberOfPort = null,
     Object? availabity = null,
-    Object? installationDate = freezed,
-    Object? lastMaintainanceDate = freezed,
   }) {
     return _then(_value.copyWith(
-      chargerId: null == chargerId
-          ? _value.chargerId
-          : chargerId // ignore: cast_nullable_to_non_nullable
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as String,
       locationId: null == locationId
           ? _value.locationId
@@ -86,22 +80,14 @@ class _$ChargerEntityCopyWithImpl<$Res, $Val extends ChargerEntity>
           ? _value.powerPlugTypeId
           : powerPlugTypeId // ignore: cast_nullable_to_non_nullable
               as String,
-      numberOfPorts: null == numberOfPorts
-          ? _value.numberOfPorts
-          : numberOfPorts // ignore: cast_nullable_to_non_nullable
+      numberOfPort: null == numberOfPort
+          ? _value.numberOfPort
+          : numberOfPort // ignore: cast_nullable_to_non_nullable
               as int,
       availabity: null == availabity
           ? _value.availabity
           : availabity // ignore: cast_nullable_to_non_nullable
               as String,
-      installationDate: freezed == installationDate
-          ? _value.installationDate
-          : installationDate // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      lastMaintainanceDate: freezed == lastMaintainanceDate
-          ? _value.lastMaintainanceDate
-          : lastMaintainanceDate // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
     ) as $Val);
   }
 }
@@ -115,14 +101,12 @@ abstract class _$$ChargerEntityImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String chargerId,
+      {String id,
       String locationId,
       String powerOutputId,
       String powerPlugTypeId,
-      int numberOfPorts,
-      String availabity,
-      DateTime? installationDate,
-      DateTime? lastMaintainanceDate});
+      int numberOfPort,
+      String availabity});
 }
 
 /// @nodoc
@@ -136,19 +120,17 @@ class __$$ChargerEntityImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? chargerId = null,
+    Object? id = null,
     Object? locationId = null,
     Object? powerOutputId = null,
     Object? powerPlugTypeId = null,
-    Object? numberOfPorts = null,
+    Object? numberOfPort = null,
     Object? availabity = null,
-    Object? installationDate = freezed,
-    Object? lastMaintainanceDate = freezed,
   }) {
     return _then(_$ChargerEntityImpl(
-      chargerId: null == chargerId
-          ? _value.chargerId
-          : chargerId // ignore: cast_nullable_to_non_nullable
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as String,
       locationId: null == locationId
           ? _value.locationId
@@ -162,22 +144,14 @@ class __$$ChargerEntityImplCopyWithImpl<$Res>
           ? _value.powerPlugTypeId
           : powerPlugTypeId // ignore: cast_nullable_to_non_nullable
               as String,
-      numberOfPorts: null == numberOfPorts
-          ? _value.numberOfPorts
-          : numberOfPorts // ignore: cast_nullable_to_non_nullable
+      numberOfPort: null == numberOfPort
+          ? _value.numberOfPort
+          : numberOfPort // ignore: cast_nullable_to_non_nullable
               as int,
       availabity: null == availabity
           ? _value.availabity
           : availabity // ignore: cast_nullable_to_non_nullable
               as String,
-      installationDate: freezed == installationDate
-          ? _value.installationDate
-          : installationDate // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      lastMaintainanceDate: freezed == lastMaintainanceDate
-          ? _value.lastMaintainanceDate
-          : lastMaintainanceDate // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
     ));
   }
 }
@@ -186,17 +160,15 @@ class __$$ChargerEntityImplCopyWithImpl<$Res>
 
 class _$ChargerEntityImpl implements _ChargerEntity {
   const _$ChargerEntityImpl(
-      {required this.chargerId,
+      {required this.id,
       required this.locationId,
       required this.powerOutputId,
       required this.powerPlugTypeId,
-      required this.numberOfPorts,
-      required this.availabity,
-      this.installationDate,
-      this.lastMaintainanceDate});
+      required this.numberOfPort,
+      required this.availabity});
 
   @override
-  final String chargerId;
+  final String id;
   @override
   final String locationId;
   @override
@@ -204,17 +176,13 @@ class _$ChargerEntityImpl implements _ChargerEntity {
   @override
   final String powerPlugTypeId;
   @override
-  final int numberOfPorts;
+  final int numberOfPort;
   @override
   final String availabity;
-  @override
-  final DateTime? installationDate;
-  @override
-  final DateTime? lastMaintainanceDate;
 
   @override
   String toString() {
-    return 'ChargerEntity(chargerId: $chargerId, locationId: $locationId, powerOutputId: $powerOutputId, powerPlugTypeId: $powerPlugTypeId, numberOfPorts: $numberOfPorts, availabity: $availabity, installationDate: $installationDate, lastMaintainanceDate: $lastMaintainanceDate)';
+    return 'ChargerEntity(id: $id, locationId: $locationId, powerOutputId: $powerOutputId, powerPlugTypeId: $powerPlugTypeId, numberOfPort: $numberOfPort, availabity: $availabity)';
   }
 
   @override
@@ -222,35 +190,22 @@ class _$ChargerEntityImpl implements _ChargerEntity {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ChargerEntityImpl &&
-            (identical(other.chargerId, chargerId) ||
-                other.chargerId == chargerId) &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.locationId, locationId) ||
                 other.locationId == locationId) &&
             (identical(other.powerOutputId, powerOutputId) ||
                 other.powerOutputId == powerOutputId) &&
             (identical(other.powerPlugTypeId, powerPlugTypeId) ||
                 other.powerPlugTypeId == powerPlugTypeId) &&
-            (identical(other.numberOfPorts, numberOfPorts) ||
-                other.numberOfPorts == numberOfPorts) &&
+            (identical(other.numberOfPort, numberOfPort) ||
+                other.numberOfPort == numberOfPort) &&
             (identical(other.availabity, availabity) ||
-                other.availabity == availabity) &&
-            (identical(other.installationDate, installationDate) ||
-                other.installationDate == installationDate) &&
-            (identical(other.lastMaintainanceDate, lastMaintainanceDate) ||
-                other.lastMaintainanceDate == lastMaintainanceDate));
+                other.availabity == availabity));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      chargerId,
-      locationId,
-      powerOutputId,
-      powerPlugTypeId,
-      numberOfPorts,
-      availabity,
-      installationDate,
-      lastMaintainanceDate);
+  int get hashCode => Object.hash(runtimeType, id, locationId, powerOutputId,
+      powerPlugTypeId, numberOfPort, availabity);
 
   @JsonKey(ignore: true)
   @override
@@ -261,17 +216,15 @@ class _$ChargerEntityImpl implements _ChargerEntity {
 
 abstract class _ChargerEntity implements ChargerEntity {
   const factory _ChargerEntity(
-      {required final String chargerId,
+      {required final String id,
       required final String locationId,
       required final String powerOutputId,
       required final String powerPlugTypeId,
-      required final int numberOfPorts,
-      required final String availabity,
-      final DateTime? installationDate,
-      final DateTime? lastMaintainanceDate}) = _$ChargerEntityImpl;
+      required final int numberOfPort,
+      required final String availabity}) = _$ChargerEntityImpl;
 
   @override
-  String get chargerId;
+  String get id;
   @override
   String get locationId;
   @override
@@ -279,13 +232,9 @@ abstract class _ChargerEntity implements ChargerEntity {
   @override
   String get powerPlugTypeId;
   @override
-  int get numberOfPorts;
+  int get numberOfPort;
   @override
   String get availabity;
-  @override
-  DateTime? get installationDate;
-  @override
-  DateTime? get lastMaintainanceDate;
   @override
   @JsonKey(ignore: true)
   _$$ChargerEntityImplCopyWith<_$ChargerEntityImpl> get copyWith =>
