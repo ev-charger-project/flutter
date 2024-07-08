@@ -13,7 +13,6 @@ class User with _$User {
     @JsonKey(name: 'username') required String username,
     @JsonKey(name: 'email') required String email,
     @JsonKey(name: 'phone_number') String? phoneNumber,
-    @JsonKey(name: 'favorites') List<String>? favorites,
   }) = _User;
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
@@ -27,7 +26,6 @@ class UserMapper with EntityConvertible<UserEntity, User> {
       username: entityObject.username,
       email: entityObject.email,
       phoneNumber: entityObject.phoneNumber,
-      favorites: entityObject.favorites,
     );
   }
 
@@ -38,7 +36,6 @@ class UserMapper with EntityConvertible<UserEntity, User> {
       username: dataModelObject.username,
       email: dataModelObject.email,
       phoneNumber: dataModelObject.phoneNumber,
-      favorites: dataModelObject.favorites,
     );
   }
 }

@@ -9,7 +9,6 @@ class UserEntity with _$UserEntity {
     required String username,
     required String email,
     String? phoneNumber,
-    List<String>? favorites,
   }) = _UserEntity;
 
 }

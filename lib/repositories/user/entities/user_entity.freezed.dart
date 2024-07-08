@@ -20,7 +20,6 @@ mixin _$UserEntity {
   String get username => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String? get phoneNumber => throw _privateConstructorUsedError;
-  List<String>? get favorites => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $UserEntityCopyWith<UserEntity> get copyWith =>
@@ -34,11 +33,7 @@ abstract class $UserEntityCopyWith<$Res> {
       _$UserEntityCopyWithImpl<$Res, UserEntity>;
   @useResult
   $Res call(
-      {String userId,
-      String username,
-      String email,
-      String? phoneNumber,
-      List<String>? favorites});
+      {String userId, String username, String email, String? phoneNumber});
 }
 
 /// @nodoc
@@ -58,7 +53,6 @@ class _$UserEntityCopyWithImpl<$Res, $Val extends UserEntity>
     Object? username = null,
     Object? email = null,
     Object? phoneNumber = freezed,
-    Object? favorites = freezed,
   }) {
     return _then(_value.copyWith(
       userId: null == userId
@@ -77,10 +71,6 @@ class _$UserEntityCopyWithImpl<$Res, $Val extends UserEntity>
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
               as String?,
-      favorites: freezed == favorites
-          ? _value.favorites
-          : favorites // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
     ) as $Val);
   }
 }
@@ -94,11 +84,7 @@ abstract class _$$UserEntityImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String userId,
-      String username,
-      String email,
-      String? phoneNumber,
-      List<String>? favorites});
+      {String userId, String username, String email, String? phoneNumber});
 }
 
 /// @nodoc
@@ -116,7 +102,6 @@ class __$$UserEntityImplCopyWithImpl<$Res>
     Object? username = null,
     Object? email = null,
     Object? phoneNumber = freezed,
-    Object? favorites = freezed,
   }) {
     return _then(_$UserEntityImpl(
       userId: null == userId
@@ -135,10 +120,6 @@ class __$$UserEntityImplCopyWithImpl<$Res>
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
               as String?,
-      favorites: freezed == favorites
-          ? _value._favorites
-          : favorites // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
     ));
   }
 }
@@ -150,9 +131,7 @@ class _$UserEntityImpl implements _UserEntity {
       {required this.userId,
       required this.username,
       required this.email,
-      this.phoneNumber,
-      final List<String>? favorites})
-      : _favorites = favorites;
+      this.phoneNumber});
 
   @override
   final String userId;
@@ -162,19 +141,10 @@ class _$UserEntityImpl implements _UserEntity {
   final String email;
   @override
   final String? phoneNumber;
-  final List<String>? _favorites;
-  @override
-  List<String>? get favorites {
-    final value = _favorites;
-    if (value == null) return null;
-    if (_favorites is EqualUnmodifiableListView) return _favorites;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
 
   @override
   String toString() {
-    return 'UserEntity(userId: $userId, username: $username, email: $email, phoneNumber: $phoneNumber, favorites: $favorites)';
+    return 'UserEntity(userId: $userId, username: $username, email: $email, phoneNumber: $phoneNumber)';
   }
 
   @override
@@ -187,14 +157,12 @@ class _$UserEntityImpl implements _UserEntity {
                 other.username == username) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.phoneNumber, phoneNumber) ||
-                other.phoneNumber == phoneNumber) &&
-            const DeepCollectionEquality()
-                .equals(other._favorites, _favorites));
+                other.phoneNumber == phoneNumber));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, userId, username, email,
-      phoneNumber, const DeepCollectionEquality().hash(_favorites));
+  int get hashCode =>
+      Object.hash(runtimeType, userId, username, email, phoneNumber);
 
   @JsonKey(ignore: true)
   @override
@@ -208,8 +176,7 @@ abstract class _UserEntity implements UserEntity {
       {required final String userId,
       required final String username,
       required final String email,
-      final String? phoneNumber,
-      final List<String>? favorites}) = _$UserEntityImpl;
+      final String? phoneNumber}) = _$UserEntityImpl;
 
   @override
   String get userId;
@@ -219,8 +186,6 @@ abstract class _UserEntity implements UserEntity {
   String get email;
   @override
   String? get phoneNumber;
-  @override
-  List<String>? get favorites;
   @override
   @JsonKey(ignore: true)
   _$$UserEntityImplCopyWith<_$UserEntityImpl> get copyWith =>

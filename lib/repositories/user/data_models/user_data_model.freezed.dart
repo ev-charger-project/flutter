@@ -28,8 +28,6 @@ mixin _$User {
   String get email => throw _privateConstructorUsedError;
   @JsonKey(name: 'phone_number')
   String? get phoneNumber => throw _privateConstructorUsedError;
-  @JsonKey(name: 'favorites')
-  List<String>? get favorites => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -45,8 +43,7 @@ abstract class $UserCopyWith<$Res> {
       {@JsonKey(name: 'user_id') String userId,
       @JsonKey(name: 'username') String username,
       @JsonKey(name: 'email') String email,
-      @JsonKey(name: 'phone_number') String? phoneNumber,
-      @JsonKey(name: 'favorites') List<String>? favorites});
+      @JsonKey(name: 'phone_number') String? phoneNumber});
 }
 
 /// @nodoc
@@ -66,7 +63,6 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? username = null,
     Object? email = null,
     Object? phoneNumber = freezed,
-    Object? favorites = freezed,
   }) {
     return _then(_value.copyWith(
       userId: null == userId
@@ -85,10 +81,6 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
               as String?,
-      favorites: freezed == favorites
-          ? _value.favorites
-          : favorites // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
     ) as $Val);
   }
 }
@@ -104,8 +96,7 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
       {@JsonKey(name: 'user_id') String userId,
       @JsonKey(name: 'username') String username,
       @JsonKey(name: 'email') String email,
-      @JsonKey(name: 'phone_number') String? phoneNumber,
-      @JsonKey(name: 'favorites') List<String>? favorites});
+      @JsonKey(name: 'phone_number') String? phoneNumber});
 }
 
 /// @nodoc
@@ -122,7 +113,6 @@ class __$$UserImplCopyWithImpl<$Res>
     Object? username = null,
     Object? email = null,
     Object? phoneNumber = freezed,
-    Object? favorites = freezed,
   }) {
     return _then(_$UserImpl(
       userId: null == userId
@@ -141,10 +131,6 @@ class __$$UserImplCopyWithImpl<$Res>
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
               as String?,
-      favorites: freezed == favorites
-          ? _value._favorites
-          : favorites // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
     ));
   }
 }
@@ -156,9 +142,7 @@ class _$UserImpl implements _User {
       {@JsonKey(name: 'user_id') required this.userId,
       @JsonKey(name: 'username') required this.username,
       @JsonKey(name: 'email') required this.email,
-      @JsonKey(name: 'phone_number') this.phoneNumber,
-      @JsonKey(name: 'favorites') final List<String>? favorites})
-      : _favorites = favorites;
+      @JsonKey(name: 'phone_number') this.phoneNumber});
 
   factory _$UserImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserImplFromJson(json);
@@ -175,20 +159,10 @@ class _$UserImpl implements _User {
   @override
   @JsonKey(name: 'phone_number')
   final String? phoneNumber;
-  final List<String>? _favorites;
-  @override
-  @JsonKey(name: 'favorites')
-  List<String>? get favorites {
-    final value = _favorites;
-    if (value == null) return null;
-    if (_favorites is EqualUnmodifiableListView) return _favorites;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
 
   @override
   String toString() {
-    return 'User(userId: $userId, username: $username, email: $email, phoneNumber: $phoneNumber, favorites: $favorites)';
+    return 'User(userId: $userId, username: $username, email: $email, phoneNumber: $phoneNumber)';
   }
 
   @override
@@ -201,15 +175,13 @@ class _$UserImpl implements _User {
                 other.username == username) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.phoneNumber, phoneNumber) ||
-                other.phoneNumber == phoneNumber) &&
-            const DeepCollectionEquality()
-                .equals(other._favorites, _favorites));
+                other.phoneNumber == phoneNumber));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, userId, username, email,
-      phoneNumber, const DeepCollectionEquality().hash(_favorites));
+  int get hashCode =>
+      Object.hash(runtimeType, userId, username, email, phoneNumber);
 
   @JsonKey(ignore: true)
   @override
@@ -230,8 +202,7 @@ abstract class _User implements User {
       {@JsonKey(name: 'user_id') required final String userId,
       @JsonKey(name: 'username') required final String username,
       @JsonKey(name: 'email') required final String email,
-      @JsonKey(name: 'phone_number') final String? phoneNumber,
-      @JsonKey(name: 'favorites') final List<String>? favorites}) = _$UserImpl;
+      @JsonKey(name: 'phone_number') final String? phoneNumber}) = _$UserImpl;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$UserImpl.fromJson;
 
@@ -247,9 +218,6 @@ abstract class _User implements User {
   @override
   @JsonKey(name: 'phone_number')
   String? get phoneNumber;
-  @override
-  @JsonKey(name: 'favorites')
-  List<String>? get favorites;
   @override
   @JsonKey(ignore: true)
   _$$UserImplCopyWith<_$UserImpl> get copyWith =>
