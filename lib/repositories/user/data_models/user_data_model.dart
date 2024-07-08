@@ -7,35 +7,14 @@ part 'user_data_model.freezed.dart';
 part 'user_data_model.g.dart';
 
 @freezed
-class User with _$User {
-  const factory User({
+class UserDataModel with _$UserDataModel {
+  const factory UserDataModel({
     @JsonKey(name: 'user_id') required String userId,
     @JsonKey(name: 'username') required String username,
     @JsonKey(name: 'email') required String email,
     @JsonKey(name: 'phone_number') String? phoneNumber,
-  }) = _User;
+  }) = _UserDataModel;
 
-  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+  factory UserDataModel.fromJson(Map<String, dynamic> json) => _$UserDataModelFromJson(json);
 }
 
-class UserMapper with EntityConvertible<UserEntity, User> {
-  @override
-  User fromEntity(UserEntity entityObject) {
-    return User(
-      userId: entityObject.userId,
-      username: entityObject.username,
-      email: entityObject.email,
-      phoneNumber: entityObject.phoneNumber,
-    );
-  }
-
-  @override
-  UserEntity toEntity(User dataModelObject) {
-    return UserEntity(
-      userId: dataModelObject.userId,
-      username: dataModelObject.username,
-      email: dataModelObject.email,
-      phoneNumber: dataModelObject.phoneNumber,
-    );
-  }
-}
