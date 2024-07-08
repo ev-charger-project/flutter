@@ -26,10 +26,10 @@ class LocationEntity with _$LocationEntity {
 
 
 
-class LocationMapper with EntityConvertible<LocationEntity, Location> {
+class LocationMapper with EntityConvertible<LocationEntity, LocationDataModel> {
   @override
-  Location fromEntity(LocationEntity entityObject) {
-    return Location(
+  LocationDataModel fromEntity(LocationEntity entityObject) {
+    return LocationDataModel(
       id: entityObject.id,
       name: entityObject.name,
       streetAddress: entityObject.streetAddress,
@@ -51,7 +51,7 @@ class LocationMapper with EntityConvertible<LocationEntity, Location> {
   }
 
   @override
-  LocationEntity toEntity(Location dataModelObject) {
+  LocationEntity toEntity(LocationDataModel dataModelObject) {
     return LocationEntity(
       id: dataModelObject.id,
       name: dataModelObject.name,

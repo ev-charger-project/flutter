@@ -4,8 +4,8 @@ part 'location_data_model.freezed.dart';
 part 'location_data_model.g.dart';
 
 @freezed
-class Location with _$Location {
-  const factory Location({
+class LocationDataModel with _$LocationDataModel {
+  const factory LocationDataModel({
     @JsonKey(name: 'id') required String id,
     @JsonKey(name: 'location_name') required String name,
     @JsonKey(name: 'street') required String streetAddress,
@@ -19,9 +19,9 @@ class Location with _$Location {
     @JsonKey(name: 'pricing') String? pricing,
     @JsonKey(name: 'phone_number') String? phoneNumber,
     @JsonKey(name: 'parking_level') String? parkingLevel,
-  }) = _Location;
+  }) = _LocationDataModel;
 
-  factory Location.fromJson(Map<String, dynamic> json) => _$LocationFromJson(json);
+  factory LocationDataModel.fromJson(Map<String, dynamic> json) => _$LocationDataModelFromJson(json);
 }
 
 @freezed
