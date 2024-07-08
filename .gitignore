@@ -3,3 +3,7 @@
 .vscode/
 build/
 ios/Flutter/Flutter.framework/
+android/local.properties
+.flutter-plugins
+.flutter-plugins-dependencies
+
