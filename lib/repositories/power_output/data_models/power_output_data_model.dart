@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'power_plug_type_data_model.freezed.dart';
-part 'power_plug_type_data_model.g.dart';
+part 'power_output_data_model.freezed.dart';
+part 'power_output_data_model.g.dart';
 
 @freezed
 class PowerOutputDataModel with _$PowerOutputDataModel {

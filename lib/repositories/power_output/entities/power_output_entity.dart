@@ -21,7 +21,7 @@ class PowerOutputMapper with EntityConvertible<PowerOutputEntity, PowerOutputDat
 
   @override
   PowerOutputDataModel fromEntity(PowerOutputEntity entityObject) {
-    return PowerPlugTypeDataModel(
+    return PowerOutputDataModel(
       id: entityObject.id,
       outputValue: entityObject.outputValue,
       chargingSpeed: entityObject.chargingSpeed,
