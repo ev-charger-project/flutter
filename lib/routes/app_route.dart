@@ -1,4 +1,7 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/cupertino.dart';
+
+import '../features/location/presentation/screens/location_page.dart';
 
 
 part 'app_route.gr.dart';
@@ -10,11 +13,10 @@ class AppRouter extends _$AppRouter {
 
   @override
   List<AutoRoute> get routes => [
-        // CustomRoute(
-        //     page: RegisterRoute.page,
-        //     path: '/register',
-        //     transitionsBuilder: TransitionsBuilders.slideLeftWithFade,
-        //     durationInMilliseconds: 800,
-        //     initial: false),
+        CustomRoute(
+            page: LocationRoute.page,
+            transitionsBuilder: TransitionsBuilders.slideLeftWithFade,
+            durationInMilliseconds: 800,
+            initial: true),
       ];
 }

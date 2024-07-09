@@ -6,4 +6,8 @@ ios/Flutter/Flutter.framework/
 android/local.properties
 .flutter-plugins
 .flutter-plugins-dependencies
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!gradle/wrapper/gradle-wrapper.properties
 
