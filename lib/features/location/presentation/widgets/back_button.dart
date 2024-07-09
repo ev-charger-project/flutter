@@ -16,7 +16,7 @@ class backButton extends StatelessWidget {
         shape: BoxShape.circle,
       ),
       child: IconButton(
-        icon: Image.asset('assets/icons/back_arrow_icon.png'),
+        icon: Image.asset('assets/icons/back_arrow_icon.svg'),
         iconSize: 50,
         onPressed: () {
           Navigator.pop(context);

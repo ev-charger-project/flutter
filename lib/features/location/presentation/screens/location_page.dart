@@ -29,16 +29,23 @@ class _LocationPageState extends ConsumerState<LocationPage> {
         child: Column(
           children: [
             locationBanner(),
-            Container(
-              color: Colors.white,
-              child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Text(
-                    'Location ID: ${widget.id}',
-                    style: TextStyle(color: Colors.black, fontSize: 24),
+            Padding(
+              padding: const EdgeInsets.only(left: 30.0, right: 30.0),
+              child: Column(
+                children: [
+                  Container(
+                    color: Colors.white,
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Text(
+                          'Location ID: ${widget.id}',
+                          style: TextStyle(color: Colors.black, fontSize: 24),
+                        ),
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
             ),
             // Add more widgets here to test scrolling

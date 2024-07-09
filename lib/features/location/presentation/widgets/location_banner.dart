@@ -11,7 +11,7 @@ class locationBanner extends StatelessWidget {
       height: 275,
       width: double.infinity,
       child: Image.asset(
-        'assets/images/location_image.png',
+        'assets/images/location_banner.svg',
         fit: BoxFit.cover,
       ),
     );
