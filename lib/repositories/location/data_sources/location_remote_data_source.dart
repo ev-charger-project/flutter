@@ -10,9 +10,8 @@ class LocationRemoteDataSource extends LocationDataSource {
   LocationRemoteDataSource(this.remoteStorageService);
   final PostgresqlStorageService remoteStorageService;
   @override
-  Future<LocationDataModel> fetchLocationData(String locationId) {
-    // TODO: implement fetchLocationData
-    throw UnimplementedError();
+  Future<LocationDataModel> fetchLocationData(String locationId) async {
+    return await remoteStorageService.fetchLocationData(locationId);
   }
 
 }

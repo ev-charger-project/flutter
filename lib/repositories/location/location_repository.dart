@@ -1,5 +1,6 @@
-import 'data_models/location_data_model.dart';
+
+import 'entities/location_entity.dart';
 
 abstract class LocationRepository {
-  Future<LocationDataModel> fetchLocationData(String locationId) ;
+  Future<LocationEntity> fetchLocationData(String locationId) ;
 }
