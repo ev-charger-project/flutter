@@ -49,6 +49,7 @@ dependencies:
   hive_generator: ^2.0.1
   hive_flutter: ^1.1.0
   auto_route: 8.2.0
+  flutter_svg: ^2.0.10+1
 
 
 dev_dependencies:
@@ -72,6 +73,7 @@ flutter:
   uses-material-design: true
   assets:
    - assets/images/location_banner.svg
+   - assets/images/location_banner.png
    - assets/icons/back_arrow_icon.svg
    - assets/icons/car_icon.svg
    - assets/icons/charger_icon.svg

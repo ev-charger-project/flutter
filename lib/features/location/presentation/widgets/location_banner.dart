@@ -1,17 +1,18 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
-class locationBanner extends StatelessWidget {
-  const locationBanner({
+class LocationBanner extends StatelessWidget {
+  const LocationBanner({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 275,
       width: double.infinity,
       child: Image.asset(
-        'assets/images/location_banner.svg',
+        'assets/images/location_banner.png',
         fit: BoxFit.cover,
       ),
     );

@@ -16,14 +16,9 @@ abstract class _$AppRouter extends RootStackRouter {
   @override
   final Map<String, PageFactory> pagesMap = {
     LocationRoute.name: (routeData) {
-      final args = routeData.argsAs<LocationRouteArgs>(
-          orElse: () => const LocationRouteArgs());
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: LocationScreen(
-          key: args.key,
-          id: args.id,
-        ),
+        child: const LocationScreen(),
       );
     }
   };
@@ -31,38 +26,14 @@ abstract class _$AppRouter extends RootStackRouter {
 
 /// generated route for
 /// [LocationScreen]
-class LocationRoute extends PageRouteInfo<LocationRouteArgs> {
-  LocationRoute({
-    Key? key,
-    String id = '5',
-    List<PageRouteInfo>? children,
-  }) : super(
+class LocationRoute extends PageRouteInfo<void> {
+  const LocationRoute({List<PageRouteInfo>? children})
+      : super(
           LocationRoute.name,
-          args: LocationRouteArgs(
-            key: key,
-            id: id,
-          ),
           initialChildren: children,
         );
 
   static const String name = 'LocationRoute';
 
-  static const PageInfo<LocationRouteArgs> page =
-      PageInfo<LocationRouteArgs>(name);
-}
-
-class LocationRouteArgs {
-  const LocationRouteArgs({
-    this.key,
-    this.id = '5',
-  });
-
-  final Key? key;
-
-  final String id;
-
-  @override
-  String toString() {
-    return 'LocationRouteArgs{key: $key, id: $id}';
-  }
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
