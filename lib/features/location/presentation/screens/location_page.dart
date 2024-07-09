@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../widgets/back_button.dart';
+import '../widgets/location_banner.dart';
 
 @RoutePage()
 class LocationPage extends ConsumerStatefulWidget {
@@ -15,31 +17,36 @@ class LocationPage extends ConsumerStatefulWidget {
 class _LocationPageState extends ConsumerState<LocationPage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Scaffold(
-        extendBodyBehindAppBar: true,
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.white),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-        ),
-        body: Container(
-          color: Colors.red,
-          child: Center(
-            child: Container(
-              child: Text(
-                'Location ID: ${widget.id}',
-                style: TextStyle(color: Colors.white, fontSize: 24),
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: backButton(),
+        leadingWidth: 100,
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            locationBanner(),
+            Container(
+              color: Colors.white,
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(
+                    'Location ID: ${widget.id}',
+                    style: TextStyle(color: Colors.black, fontSize: 24),
+                  ),
+                ),
               ),
             ),
-          ),
+            // Add more widgets here to test scrolling
+          ],
         ),
       ),
     );
   }
 }
+
+

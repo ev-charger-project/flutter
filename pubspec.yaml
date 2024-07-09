@@ -71,9 +71,9 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-   - images/location_images.png
-   - icons/back_arrow_icon.png
-   - icons/car_icon.png
-   - icons/charger_icon.png
-   - icons/ev_station_icon.png
-   - icons/location_icon.png
+   - assets/images/location_image.png
+   - assets/icons/back_arrow_icon.png
+   - assets/icons/car_icon.png
+   - assets/icons/charger_icon.png
+   - assets/icons/ev_station_icon.png
+   - assets/icons/location_icon.png
