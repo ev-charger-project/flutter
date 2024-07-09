@@ -21,7 +21,7 @@ class LocationNameAddress extends StatelessWidget {
               'Vincom Plaze Gò Vấp',
               style: TextStyle(
                 color: Colors.black,
-                fontSize: 24,
+                fontSize: 20,
                 fontWeight: FontWeight.bold,
                 height: 1.5,
               ),
@@ -31,7 +31,7 @@ class LocationNameAddress extends StatelessWidget {
               '1242 Trần Hưng Đạo, P.Mỹ Bình, Thành phố Long Xuyên, quan cu chi, vvvvvvvvvvvv',
               style: TextStyle(
                 color: Colors.black,
-                fontSize: 20,
+                fontSize: 18,
                 height: 1.5,
               ),
               maxLines: 2,

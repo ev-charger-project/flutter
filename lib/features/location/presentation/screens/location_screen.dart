@@ -1,9 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../widgets/amount_chargers.dart';
 import '../widgets/back_button.dart';
 import '../widgets/location_banner.dart';
 import '../widgets/location_name_address.dart';
+import '../widgets/route_direction_buttons.dart';
 
 @RoutePage()
 class LocationScreen extends ConsumerStatefulWidget {
@@ -24,27 +26,34 @@ class _LocationPageState extends ConsumerState<LocationScreen> {
         leading: const backButton(),
         leadingWidth: 100,
       ),
-      body: SingleChildScrollView(
+      body: const SingleChildScrollView(
         child: Column(
           children: [
-            const LocationBanner(),
+            LocationBanner(),
             Padding(
-              padding: const EdgeInsets.only(left: 30.0, right: 30.0),
+              padding: EdgeInsets.only(left: 30.0, right: 30.0),
               child: Column(
                 children: [
                   LocationNameAddress(),
-                  const Divider(
+                  Divider(
                     color: Colors.grey,
                     thickness: 1,
                   ),
+                  ChargerNum(),
+                  Divider(
+                    color: Colors.grey,
+                    thickness: 1,
+                  ),
+                  RouteDirectionButtons(),
 
                 ],
               ),
             ),
-            // Add more widgets here to test scrolling
           ],
         ),
       ),
     );
   }
 }
+
+
