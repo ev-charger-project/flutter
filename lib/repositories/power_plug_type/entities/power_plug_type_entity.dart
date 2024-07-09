@@ -2,7 +2,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import '../../../shared/core/mixins/entity_convertible.mixin.dart';
 import 'package:ev_charger/repositories/power_plug_type/data_models/power_plug_type_data_model.dart';
 
-
 part 'power_plug_type_entity.freezed.dart';
 
 @freezed
@@ -15,11 +14,10 @@ class PowerPlugTypeEntity with _$PowerPlugTypeEntity {
     List<String>? usedInRegions,
     String? additionalNotes,
   }) = _PowerPlugTypeEntity;
-
 }
 
-class PowerPlugTypeMapper with EntityConvertible<PowerPlugTypeEntity, PowerPlugTypeDataModel> {
-
+class PowerPlugTypeMapper
+    with EntityConvertible<PowerPlugTypeEntity, PowerPlugTypeDataModel> {
   @override
   PowerPlugTypeDataModel fromEntity(PowerPlugTypeEntity entityObject) {
     return PowerPlugTypeDataModel(

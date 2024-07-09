@@ -1,11 +1,9 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:ev_charger/features/location/presentation/widgets/info_chargers_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../widgets/amount_chargers.dart';
-import '../widgets/back_button.dart';
-import '../widgets/location_banner.dart';
-import '../widgets/location_name_address.dart';
-import '../widgets/route_direction_buttons.dart';
+import '../widgets/widgets.dart';
+import 'package:ev_charger/features/location/presentation/providers/page_state_provider.dart'; // Import the provider file
 
 @RoutePage()
 class LocationScreen extends ConsumerStatefulWidget {
@@ -26,26 +24,38 @@ class _LocationPageState extends ConsumerState<LocationScreen> {
         leading: const backButton(),
         leadingWidth: 100,
       ),
-      body: const SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Column(
           children: [
-            LocationBanner(),
+            const LocationBanner(),
             Padding(
               padding: EdgeInsets.only(left: 30.0, right: 30.0),
               child: Column(
                 children: [
-                  LocationNameAddress(),
-                  Divider(
+                  const LocationNameAddress(),
+                  const Divider(
                     color: Colors.grey,
                     thickness: 1,
                   ),
-                  ChargerNum(),
-                  Divider(
+                  const ChargerNum(),
+                  const Divider(
                     color: Colors.grey,
                     thickness: 1,
                   ),
-                  RouteDirectionButtons(),
-
+                  const RouteDirectionButtons(),
+                  const Divider(
+                    color: Colors.grey,
+                    thickness: 1,
+                  ),
+                  const InfoChargersButtons(),
+                  Consumer(
+                    builder: (context, ref, _) {
+                      final pageState = ref.watch(pageStateProvider);
+                      return pageState == PageState.info
+                          ? const InfoContent()
+                          : const ChargersContent();
+                    },
+                  ),
                 ],
               ),
             ),
@@ -55,5 +65,3 @@ class _LocationPageState extends ConsumerState<LocationScreen> {
     );
   }
 }
-
-

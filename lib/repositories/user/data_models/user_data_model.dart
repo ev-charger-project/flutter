@@ -15,6 +15,6 @@ class UserDataModel with _$UserDataModel {
     @JsonKey(name: 'phone_number') String? phoneNumber,
   }) = _UserDataModel;
 
-  factory UserDataModel.fromJson(Map<String, dynamic> json) => _$UserDataModelFromJson(json);
+  factory UserDataModel.fromJson(Map<String, dynamic> json) =>
+      _$UserDataModelFromJson(json);
 }
-

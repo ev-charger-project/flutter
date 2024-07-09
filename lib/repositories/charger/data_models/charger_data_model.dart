@@ -12,8 +12,8 @@ class Charger with _$Charger {
     @JsonKey(name: 'power_plug_type_id') required String powerPlugTypeId,
     @JsonKey(name: 'number_of_port') required int numberOfPort,
     @JsonKey(name: 'availabity') required String availabity,
-}) = _Charger;
+  }) = _Charger;
 
-    factory Charger.fromJson(Map<String, dynamic> json) =>
-        _$ChargerFromJson(json);
+  factory Charger.fromJson(Map<String, dynamic> json) =>
+      _$ChargerFromJson(json);
 }

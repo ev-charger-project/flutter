@@ -14,7 +14,6 @@ class ChargerEntity with _$ChargerEntity {
     required String powerPlugTypeId,
     required int numberOfPort,
     required String availabity,
-
   }) = _ChargerEntity;
 }
 
@@ -28,7 +27,6 @@ class ChargerMapper with EntityConvertible<ChargerEntity, Charger> {
       powerPlugTypeId: entityObject.powerPlugTypeId,
       numberOfPort: entityObject.numberOfPort,
       availabity: entityObject.availabity,
-
     );
   }
 
@@ -41,7 +39,6 @@ class ChargerMapper with EntityConvertible<ChargerEntity, Charger> {
       powerPlugTypeId: dataModelObject.powerPlugTypeId,
       numberOfPort: dataModelObject.numberOfPort,
       availabity: dataModelObject.availabity,
-
     );
   }
 }

@@ -13,5 +13,6 @@ class PowerOutputDataModel with _$PowerOutputDataModel {
     @JsonKey(name: 'description') String? description,
   }) = _PowerOutputDataModel;
 
-  factory PowerOutputDataModel.fromJson(Map<String, dynamic> json) => _$PowerOutputDataModelFromJson(json);
+  factory PowerOutputDataModel.fromJson(Map<String, dynamic> json) =>
+      _$PowerOutputDataModelFromJson(json);
 }

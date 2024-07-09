@@ -13,9 +13,7 @@ class UserEntity with _$UserEntity {
     required String email,
     String? phoneNumber,
   }) = _UserEntity;
-
 }
-
 
 class UserMapper with EntityConvertible<UserEntity, UserDataModel> {
   @override

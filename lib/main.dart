@@ -1,8 +1,16 @@
 import 'package:ev_charger/routes/app_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'main/observers.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(ProviderScope(
+    observers: [
+      Observers(),
+    ],
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class LocationNameAddress extends StatelessWidget {
-
   const LocationNameAddress({
     super.key,
   });

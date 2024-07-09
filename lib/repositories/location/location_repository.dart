@@ -1,4 +1,1 @@
-
-abstract class LocationRepository {
-
-}
+abstract class LocationRepository {}

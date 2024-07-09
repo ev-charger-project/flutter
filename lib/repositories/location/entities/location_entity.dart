@@ -21,10 +21,7 @@ class LocationEntity with _$LocationEntity {
     String? phoneNumber,
     String? parkingLevel,
   }) = _LocationEntity;
-
 }
-
-
 
 class LocationMapper with EntityConvertible<LocationEntity, LocationDataModel> {
   @override
@@ -39,11 +36,13 @@ class LocationMapper with EntityConvertible<LocationEntity, LocationDataModel> {
       postalCode: entityObject.postalCode,
       latitude: entityObject.latitude,
       longitude: entityObject.longitude,
-      operatingHours: entityObject.operatingHours.map((e) => OperatingHour(
-        day: e.day,
-        open: e.open,
-        close: e.close,
-      )).toList(),
+      operatingHours: entityObject.operatingHours
+          .map((e) => OperatingHour(
+                day: e.day,
+                open: e.open,
+                close: e.close,
+              ))
+          .toList(),
       pricing: entityObject.pricing,
       phoneNumber: entityObject.phoneNumber,
       parkingLevel: entityObject.parkingLevel,
@@ -62,11 +61,13 @@ class LocationMapper with EntityConvertible<LocationEntity, LocationDataModel> {
       postalCode: dataModelObject.postalCode,
       latitude: dataModelObject.latitude,
       longitude: dataModelObject.longitude,
-      operatingHours: dataModelObject.operatingHours.map((e) => OperatingHour(
-        day: e.day,
-        open: e.open,
-        close: e.close,
-      )).toList(),
+      operatingHours: dataModelObject.operatingHours
+          .map((e) => OperatingHour(
+                day: e.day,
+                open: e.open,
+                close: e.close,
+              ))
+          .toList(),
       pricing: dataModelObject.pricing,
       phoneNumber: dataModelObject.phoneNumber,
       parkingLevel: dataModelObject.parkingLevel,

@@ -15,13 +15,15 @@ class LocationDataModel with _$LocationDataModel {
     @JsonKey(name: 'postal_code') String? postalCode,
     @JsonKey(name: 'latitude') required double latitude,
     @JsonKey(name: 'longitude') required double longitude,
-    @JsonKey(name: 'operating_hours') required List<OperatingHour> operatingHours,
+    @JsonKey(name: 'operating_hours')
+    required List<OperatingHour> operatingHours,
     @JsonKey(name: 'pricing') String? pricing,
     @JsonKey(name: 'phone_number') String? phoneNumber,
     @JsonKey(name: 'parking_level') String? parkingLevel,
   }) = _LocationDataModel;
 
-  factory LocationDataModel.fromJson(Map<String, dynamic> json) => _$LocationDataModelFromJson(json);
+  factory LocationDataModel.fromJson(Map<String, dynamic> json) =>
+      _$LocationDataModelFromJson(json);
 }
 
 @freezed
@@ -32,5 +34,6 @@ class OperatingHour with _$OperatingHour {
     required String close,
   }) = _OperatingHour;
 
-  factory OperatingHour.fromJson(Map<String, dynamic> json) => _$OperatingHourFromJson(json);
+  factory OperatingHour.fromJson(Map<String, dynamic> json) =>
+      _$OperatingHourFromJson(json);
 }

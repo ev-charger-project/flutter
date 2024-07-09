@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 
 import '../features/location/presentation/screens/location_screen.dart';
 
-
 part 'app_route.gr.dart';
 
 @AutoRouterConfig(replaceInRouteName: 'Screen,Route')
