@@ -20,7 +20,7 @@ abstract class _$AppRouter extends RootStackRouter {
           orElse: () => const LocationRouteArgs());
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: LocationPage(
+        child: LocationScreen(
           key: args.key,
           id: args.id,
         ),
@@ -30,7 +30,7 @@ abstract class _$AppRouter extends RootStackRouter {
 }
 
 /// generated route for
-/// [LocationPage]
+/// [LocationScreen]
 class LocationRoute extends PageRouteInfo<LocationRouteArgs> {
   LocationRoute({
     Key? key,

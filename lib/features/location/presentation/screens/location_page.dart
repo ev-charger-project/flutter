@@ -5,16 +5,16 @@ import '../widgets/back_button.dart';
 import '../widgets/location_banner.dart';
 
 @RoutePage()
-class LocationPage extends ConsumerStatefulWidget {
+class LocationScreen extends ConsumerStatefulWidget {
   final String id;
 
-  const LocationPage({super.key, this.id = '5'});
+  const LocationScreen({super.key, this.id = '5'});
 
   @override
   _LocationPageState createState() => _LocationPageState();
 }
 
-class _LocationPageState extends ConsumerState<LocationPage> {
+class _LocationPageState extends ConsumerState<LocationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

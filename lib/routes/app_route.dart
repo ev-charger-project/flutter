@@ -6,7 +6,7 @@ import '../features/location/presentation/screens/location_page.dart';
 
 part 'app_route.gr.dart';
 
-@AutoRouterConfig(replaceInRouteName: 'Page,Route')
+@AutoRouterConfig(replaceInRouteName: 'Screen,Route')
 class AppRouter extends _$AppRouter {
   @override
   RouteType get defaultRouteType => const RouteType.material();
