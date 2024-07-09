@@ -2,13 +2,14 @@ import 'dart:developer';
 
 import 'package:riverpod/riverpod.dart';
 
-
 class Observers extends ProviderObserver {
   @override
-  void didUpdateProvider(ProviderBase provider,
-      Object? previousValue,
-      Object? newValue,
-      ProviderContainer container,) {
+  void didUpdateProvider(
+    ProviderBase provider,
+    Object? previousValue,
+    Object? newValue,
+    ProviderContainer container,
+  ) {
     log('''
 {
   "provider": "${provider.name ?? provider.runtimeType}",
@@ -26,21 +27,22 @@ class Observers extends ProviderObserver {
     super.didDisposeProvider(provider, container);
   }
 
-
   @override
-  void didAddProvider(ProviderBase<Object?> provider,
-      Object? value,
-      ProviderContainer container,) {
+  void didAddProvider(
+    ProviderBase<Object?> provider,
+    Object? value,
+    ProviderContainer container,
+  ) {
     print('Provider $provider was initialized with $value');
   }
 
-
   @override
-  void providerDidFail(ProviderBase<Object?> provider,
-      Object error,
-      StackTrace stackTrace,
-      ProviderContainer container,) {
+  void providerDidFail(
+    ProviderBase<Object?> provider,
+    Object error,
+    StackTrace stackTrace,
+    ProviderContainer container,
+  ) {
     print('Provider $provider threw $error at $stackTrace');
   }
-
 }

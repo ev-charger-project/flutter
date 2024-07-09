@@ -2,7 +2,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import '../../../shared/core/mixins/entity_convertible.mixin.dart';
 import '../data_models/power_output_data_model.dart';
 
-
 part 'power_output_entity.freezed.dart';
 
 @freezed
@@ -14,11 +13,10 @@ class PowerOutputEntity with _$PowerOutputEntity {
     required int voltage,
     String? description,
   }) = _PowerOutputEntity;
-
 }
 
-class PowerOutputMapper with EntityConvertible<PowerOutputEntity, PowerOutputDataModel> {
-
+class PowerOutputMapper
+    with EntityConvertible<PowerOutputEntity, PowerOutputDataModel> {
   @override
   PowerOutputDataModel fromEntity(PowerOutputEntity entityObject) {
     return PowerOutputDataModel(

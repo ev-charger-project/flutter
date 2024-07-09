@@ -14,5 +14,6 @@ class PowerPlugTypeDataModel with _$PowerPlugTypeDataModel {
     @JsonKey(name: 'additional_notes') String? additionalNotes,
   }) = _PowerPlugTypeDataModel;
 
-  factory PowerPlugTypeDataModel.fromJson(Map<String, dynamic> json) => _$PowerPlugTypeDataModelFromJson(json);
+  factory PowerPlugTypeDataModel.fromJson(Map<String, dynamic> json) =>
+      _$PowerPlugTypeDataModelFromJson(json);
 }

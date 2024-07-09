@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class backButton extends StatelessWidget {
   const backButton({
@@ -16,7 +17,7 @@ class backButton extends StatelessWidget {
         shape: BoxShape.circle,
       ),
       child: IconButton(
-        icon: Image.asset('assets/icons/back_arrow_icon.svg'),
+        icon: SvgPicture.asset('assets/icons/back_arrow_icon.svg'),
         iconSize: 50,
         onPressed: () {
           Navigator.pop(context);
