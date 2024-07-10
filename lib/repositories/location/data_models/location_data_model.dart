@@ -15,8 +15,8 @@ class LocationDataModel with _$LocationDataModel {
     @JsonKey(name: 'postal_code') String? postalCode,
     @JsonKey(name: 'latitude') required double latitude,
     @JsonKey(name: 'longitude') required double longitude,
-    @JsonKey(name: 'operating_hours')
-    required List<OperatingHour> operatingHours,
+    @JsonKey(name: 'description') String? description,
+    @JsonKey(name: 'working_day') required WorkingDay workingDay,
     @JsonKey(name: 'pricing') String? pricing,
     @JsonKey(name: 'phone_number') String? phoneNumber,
     @JsonKey(name: 'parking_level') String? parkingLevel,
@@ -27,13 +27,17 @@ class LocationDataModel with _$LocationDataModel {
 }
 
 @freezed
-class OperatingHour with _$OperatingHour {
-  const factory OperatingHour({
-    required String day,
-    required String open,
-    required String close,
-  }) = _OperatingHour;
+class WorkingDay with _$WorkingDay {
+  const factory WorkingDay({
+    @JsonKey(name: 'mon') required String mon,
+    @JsonKey(name: 'tue') required String tue,
+    @JsonKey(name: 'wed') required String wed,
+    @JsonKey(name: 'thu') required String thu,
+    @JsonKey(name: 'fri') required String fri,
+    @JsonKey(name: 'sat') required String sat,
+    @JsonKey(name: 'sun') required String sun,
+  }) = _WorkingDay;
 
-  factory OperatingHour.fromJson(Map<String, dynamic> json) =>
-      _$OperatingHourFromJson(json);
+  factory WorkingDay.fromJson(Map<String, String> json) =>
+      _$WorkingDayFromJson(json);
 }

@@ -2,8 +2,7 @@ import 'package:ev_charger/shared/data/data_source/remote/postgresql/postgresql_
 
 import '../data_models/charger_data_model.dart';
 
-
-abstract class ChargerDataSource{
+abstract class ChargerDataSource {
   Future<ChargerDataModel> fetchChargerData(String locationId);
 }
 
@@ -15,5 +14,4 @@ class ChargerRemoteDataSource extends ChargerDataSource {
     // return await remoteStorageService.fetchChargerData(locationId);
     throw UnimplementedError();
   }
-
 }

@@ -8,8 +8,6 @@ class RouteDirectionButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const double width = 150;
-    const double height = 40;
     const double size = 18;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),

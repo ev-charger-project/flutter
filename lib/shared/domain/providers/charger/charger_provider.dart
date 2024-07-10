@@ -4,7 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'charger_repository_provider.dart';
 
-final locationProvider = FutureProvider.autoDispose<LocationEntity>((ref) async {
+final locationProvider =
+    FutureProvider.autoDispose<LocationEntity>((ref) async {
   final locationRepository = ref.read(locationRepositoryProvider);
   final currentLocationId = ref.read(selectedLocationIdProvider);
   return await locationRepository.fetchLocationData(currentLocationId ?? '1');

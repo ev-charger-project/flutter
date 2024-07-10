@@ -25,7 +25,8 @@ mixin _$LocationEntity {
   String? get postalCode => throw _privateConstructorUsedError;
   double get latitude => throw _privateConstructorUsedError;
   double get longitude => throw _privateConstructorUsedError;
-  List<OperatingHour> get operatingHours => throw _privateConstructorUsedError;
+  String? get description => throw _privateConstructorUsedError;
+  WorkingDay get workingDay => throw _privateConstructorUsedError;
   String? get pricing => throw _privateConstructorUsedError;
   String? get phoneNumber => throw _privateConstructorUsedError;
   String? get parkingLevel => throw _privateConstructorUsedError;
@@ -51,10 +52,13 @@ abstract class $LocationEntityCopyWith<$Res> {
       String? postalCode,
       double latitude,
       double longitude,
-      List<OperatingHour> operatingHours,
+      String? description,
+      WorkingDay workingDay,
       String? pricing,
       String? phoneNumber,
       String? parkingLevel});
+
+  $WorkingDayCopyWith<$Res> get workingDay;
 }
 
 /// @nodoc
@@ -79,7 +83,8 @@ class _$LocationEntityCopyWithImpl<$Res, $Val extends LocationEntity>
     Object? postalCode = freezed,
     Object? latitude = null,
     Object? longitude = null,
-    Object? operatingHours = null,
+    Object? description = freezed,
+    Object? workingDay = null,
     Object? pricing = freezed,
     Object? phoneNumber = freezed,
     Object? parkingLevel = freezed,
@@ -121,10 +126,14 @@ class _$LocationEntityCopyWithImpl<$Res, $Val extends LocationEntity>
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
               as double,
-      operatingHours: null == operatingHours
-          ? _value.operatingHours
-          : operatingHours // ignore: cast_nullable_to_non_nullable
-              as List<OperatingHour>,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      workingDay: null == workingDay
+          ? _value.workingDay
+          : workingDay // ignore: cast_nullable_to_non_nullable
+              as WorkingDay,
       pricing: freezed == pricing
           ? _value.pricing
           : pricing // ignore: cast_nullable_to_non_nullable
@@ -138,6 +147,14 @@ class _$LocationEntityCopyWithImpl<$Res, $Val extends LocationEntity>
           : parkingLevel // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $WorkingDayCopyWith<$Res> get workingDay {
+    return $WorkingDayCopyWith<$Res>(_value.workingDay, (value) {
+      return _then(_value.copyWith(workingDay: value) as $Val);
+    });
   }
 }
 
@@ -159,10 +176,14 @@ abstract class _$$LocationEntityImplCopyWith<$Res>
       String? postalCode,
       double latitude,
       double longitude,
-      List<OperatingHour> operatingHours,
+      String? description,
+      WorkingDay workingDay,
       String? pricing,
       String? phoneNumber,
       String? parkingLevel});
+
+  @override
+  $WorkingDayCopyWith<$Res> get workingDay;
 }
 
 /// @nodoc
@@ -185,7 +206,8 @@ class __$$LocationEntityImplCopyWithImpl<$Res>
     Object? postalCode = freezed,
     Object? latitude = null,
     Object? longitude = null,
-    Object? operatingHours = null,
+    Object? description = freezed,
+    Object? workingDay = null,
     Object? pricing = freezed,
     Object? phoneNumber = freezed,
     Object? parkingLevel = freezed,
@@ -227,10 +249,14 @@ class __$$LocationEntityImplCopyWithImpl<$Res>
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
               as double,
-      operatingHours: null == operatingHours
-          ? _value._operatingHours
-          : operatingHours // ignore: cast_nullable_to_non_nullable
-              as List<OperatingHour>,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      workingDay: null == workingDay
+          ? _value.workingDay
+          : workingDay // ignore: cast_nullable_to_non_nullable
+              as WorkingDay,
       pricing: freezed == pricing
           ? _value.pricing
           : pricing // ignore: cast_nullable_to_non_nullable
@@ -260,11 +286,11 @@ class _$LocationEntityImpl implements _LocationEntity {
       this.postalCode,
       required this.latitude,
       required this.longitude,
-      required final List<OperatingHour> operatingHours,
+      this.description,
+      required this.workingDay,
       this.pricing,
       this.phoneNumber,
-      this.parkingLevel})
-      : _operatingHours = operatingHours;
+      this.parkingLevel});
 
   @override
   final String id;
@@ -284,14 +310,10 @@ class _$LocationEntityImpl implements _LocationEntity {
   final double latitude;
   @override
   final double longitude;
-  final List<OperatingHour> _operatingHours;
   @override
-  List<OperatingHour> get operatingHours {
-    if (_operatingHours is EqualUnmodifiableListView) return _operatingHours;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_operatingHours);
-  }
-
+  final String? description;
+  @override
+  final WorkingDay workingDay;
   @override
   final String? pricing;
   @override
@@ -301,7 +323,7 @@ class _$LocationEntityImpl implements _LocationEntity {
 
   @override
   String toString() {
-    return 'LocationEntity(id: $id, name: $name, streetAddress: $streetAddress, district: $district, cityProvince: $cityProvince, country: $country, postalCode: $postalCode, latitude: $latitude, longitude: $longitude, operatingHours: $operatingHours, pricing: $pricing, phoneNumber: $phoneNumber, parkingLevel: $parkingLevel)';
+    return 'LocationEntity(id: $id, name: $name, streetAddress: $streetAddress, district: $district, cityProvince: $cityProvince, country: $country, postalCode: $postalCode, latitude: $latitude, longitude: $longitude, description: $description, workingDay: $workingDay, pricing: $pricing, phoneNumber: $phoneNumber, parkingLevel: $parkingLevel)';
   }
 
   @override
@@ -324,8 +346,10 @@ class _$LocationEntityImpl implements _LocationEntity {
                 other.latitude == latitude) &&
             (identical(other.longitude, longitude) ||
                 other.longitude == longitude) &&
-            const DeepCollectionEquality()
-                .equals(other._operatingHours, _operatingHours) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.workingDay, workingDay) ||
+                other.workingDay == workingDay) &&
             (identical(other.pricing, pricing) || other.pricing == pricing) &&
             (identical(other.phoneNumber, phoneNumber) ||
                 other.phoneNumber == phoneNumber) &&
@@ -345,7 +369,8 @@ class _$LocationEntityImpl implements _LocationEntity {
       postalCode,
       latitude,
       longitude,
-      const DeepCollectionEquality().hash(_operatingHours),
+      description,
+      workingDay,
       pricing,
       phoneNumber,
       parkingLevel);
@@ -369,7 +394,8 @@ abstract class _LocationEntity implements LocationEntity {
       final String? postalCode,
       required final double latitude,
       required final double longitude,
-      required final List<OperatingHour> operatingHours,
+      final String? description,
+      required final WorkingDay workingDay,
       final String? pricing,
       final String? phoneNumber,
       final String? parkingLevel}) = _$LocationEntityImpl;
@@ -393,7 +419,9 @@ abstract class _LocationEntity implements LocationEntity {
   @override
   double get longitude;
   @override
-  List<OperatingHour> get operatingHours;
+  String? get description;
+  @override
+  WorkingDay get workingDay;
   @override
   String? get pricing;
   @override

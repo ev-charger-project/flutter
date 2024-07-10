@@ -38,8 +38,10 @@ mixin _$LocationDataModel {
   double get latitude => throw _privateConstructorUsedError;
   @JsonKey(name: 'longitude')
   double get longitude => throw _privateConstructorUsedError;
-  @JsonKey(name: 'operating_hours')
-  List<OperatingHour> get operatingHours => throw _privateConstructorUsedError;
+  @JsonKey(name: 'description')
+  String? get description => throw _privateConstructorUsedError;
+  @JsonKey(name: 'working_day')
+  WorkingDay get workingDay => throw _privateConstructorUsedError;
   @JsonKey(name: 'pricing')
   String? get pricing => throw _privateConstructorUsedError;
   @JsonKey(name: 'phone_number')
@@ -69,10 +71,13 @@ abstract class $LocationDataModelCopyWith<$Res> {
       @JsonKey(name: 'postal_code') String? postalCode,
       @JsonKey(name: 'latitude') double latitude,
       @JsonKey(name: 'longitude') double longitude,
-      @JsonKey(name: 'operating_hours') List<OperatingHour> operatingHours,
+      @JsonKey(name: 'description') String? description,
+      @JsonKey(name: 'working_day') WorkingDay workingDay,
       @JsonKey(name: 'pricing') String? pricing,
       @JsonKey(name: 'phone_number') String? phoneNumber,
       @JsonKey(name: 'parking_level') String? parkingLevel});
+
+  $WorkingDayCopyWith<$Res> get workingDay;
 }
 
 /// @nodoc
@@ -97,7 +102,8 @@ class _$LocationDataModelCopyWithImpl<$Res, $Val extends LocationDataModel>
     Object? postalCode = freezed,
     Object? latitude = null,
     Object? longitude = null,
-    Object? operatingHours = null,
+    Object? description = freezed,
+    Object? workingDay = null,
     Object? pricing = freezed,
     Object? phoneNumber = freezed,
     Object? parkingLevel = freezed,
@@ -139,10 +145,14 @@ class _$LocationDataModelCopyWithImpl<$Res, $Val extends LocationDataModel>
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
               as double,
-      operatingHours: null == operatingHours
-          ? _value.operatingHours
-          : operatingHours // ignore: cast_nullable_to_non_nullable
-              as List<OperatingHour>,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      workingDay: null == workingDay
+          ? _value.workingDay
+          : workingDay // ignore: cast_nullable_to_non_nullable
+              as WorkingDay,
       pricing: freezed == pricing
           ? _value.pricing
           : pricing // ignore: cast_nullable_to_non_nullable
@@ -156,6 +166,14 @@ class _$LocationDataModelCopyWithImpl<$Res, $Val extends LocationDataModel>
           : parkingLevel // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $WorkingDayCopyWith<$Res> get workingDay {
+    return $WorkingDayCopyWith<$Res>(_value.workingDay, (value) {
+      return _then(_value.copyWith(workingDay: value) as $Val);
+    });
   }
 }
 
@@ -177,10 +195,14 @@ abstract class _$$LocationDataModelImplCopyWith<$Res>
       @JsonKey(name: 'postal_code') String? postalCode,
       @JsonKey(name: 'latitude') double latitude,
       @JsonKey(name: 'longitude') double longitude,
-      @JsonKey(name: 'operating_hours') List<OperatingHour> operatingHours,
+      @JsonKey(name: 'description') String? description,
+      @JsonKey(name: 'working_day') WorkingDay workingDay,
       @JsonKey(name: 'pricing') String? pricing,
       @JsonKey(name: 'phone_number') String? phoneNumber,
       @JsonKey(name: 'parking_level') String? parkingLevel});
+
+  @override
+  $WorkingDayCopyWith<$Res> get workingDay;
 }
 
 /// @nodoc
@@ -203,7 +225,8 @@ class __$$LocationDataModelImplCopyWithImpl<$Res>
     Object? postalCode = freezed,
     Object? latitude = null,
     Object? longitude = null,
-    Object? operatingHours = null,
+    Object? description = freezed,
+    Object? workingDay = null,
     Object? pricing = freezed,
     Object? phoneNumber = freezed,
     Object? parkingLevel = freezed,
@@ -245,10 +268,14 @@ class __$$LocationDataModelImplCopyWithImpl<$Res>
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
               as double,
-      operatingHours: null == operatingHours
-          ? _value._operatingHours
-          : operatingHours // ignore: cast_nullable_to_non_nullable
-              as List<OperatingHour>,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      workingDay: null == workingDay
+          ? _value.workingDay
+          : workingDay // ignore: cast_nullable_to_non_nullable
+              as WorkingDay,
       pricing: freezed == pricing
           ? _value.pricing
           : pricing // ignore: cast_nullable_to_non_nullable
@@ -278,12 +305,11 @@ class _$LocationDataModelImpl implements _LocationDataModel {
       @JsonKey(name: 'postal_code') this.postalCode,
       @JsonKey(name: 'latitude') required this.latitude,
       @JsonKey(name: 'longitude') required this.longitude,
-      @JsonKey(name: 'operating_hours')
-      required final List<OperatingHour> operatingHours,
+      @JsonKey(name: 'description') this.description,
+      @JsonKey(name: 'working_day') required this.workingDay,
       @JsonKey(name: 'pricing') this.pricing,
       @JsonKey(name: 'phone_number') this.phoneNumber,
-      @JsonKey(name: 'parking_level') this.parkingLevel})
-      : _operatingHours = operatingHours;
+      @JsonKey(name: 'parking_level') this.parkingLevel});
 
   factory _$LocationDataModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$LocationDataModelImplFromJson(json);
@@ -315,15 +341,12 @@ class _$LocationDataModelImpl implements _LocationDataModel {
   @override
   @JsonKey(name: 'longitude')
   final double longitude;
-  final List<OperatingHour> _operatingHours;
   @override
-  @JsonKey(name: 'operating_hours')
-  List<OperatingHour> get operatingHours {
-    if (_operatingHours is EqualUnmodifiableListView) return _operatingHours;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_operatingHours);
-  }
-
+  @JsonKey(name: 'description')
+  final String? description;
+  @override
+  @JsonKey(name: 'working_day')
+  final WorkingDay workingDay;
   @override
   @JsonKey(name: 'pricing')
   final String? pricing;
@@ -336,7 +359,7 @@ class _$LocationDataModelImpl implements _LocationDataModel {
 
   @override
   String toString() {
-    return 'LocationDataModel(id: $id, name: $name, streetAddress: $streetAddress, district: $district, cityProvince: $cityProvince, country: $country, postalCode: $postalCode, latitude: $latitude, longitude: $longitude, operatingHours: $operatingHours, pricing: $pricing, phoneNumber: $phoneNumber, parkingLevel: $parkingLevel)';
+    return 'LocationDataModel(id: $id, name: $name, streetAddress: $streetAddress, district: $district, cityProvince: $cityProvince, country: $country, postalCode: $postalCode, latitude: $latitude, longitude: $longitude, description: $description, workingDay: $workingDay, pricing: $pricing, phoneNumber: $phoneNumber, parkingLevel: $parkingLevel)';
   }
 
   @override
@@ -359,8 +382,10 @@ class _$LocationDataModelImpl implements _LocationDataModel {
                 other.latitude == latitude) &&
             (identical(other.longitude, longitude) ||
                 other.longitude == longitude) &&
-            const DeepCollectionEquality()
-                .equals(other._operatingHours, _operatingHours) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.workingDay, workingDay) ||
+                other.workingDay == workingDay) &&
             (identical(other.pricing, pricing) || other.pricing == pricing) &&
             (identical(other.phoneNumber, phoneNumber) ||
                 other.phoneNumber == phoneNumber) &&
@@ -381,7 +406,8 @@ class _$LocationDataModelImpl implements _LocationDataModel {
       postalCode,
       latitude,
       longitude,
-      const DeepCollectionEquality().hash(_operatingHours),
+      description,
+      workingDay,
       pricing,
       phoneNumber,
       parkingLevel);
@@ -412,8 +438,8 @@ abstract class _LocationDataModel implements LocationDataModel {
           @JsonKey(name: 'postal_code') final String? postalCode,
           @JsonKey(name: 'latitude') required final double latitude,
           @JsonKey(name: 'longitude') required final double longitude,
-          @JsonKey(name: 'operating_hours')
-          required final List<OperatingHour> operatingHours,
+          @JsonKey(name: 'description') final String? description,
+          @JsonKey(name: 'working_day') required final WorkingDay workingDay,
           @JsonKey(name: 'pricing') final String? pricing,
           @JsonKey(name: 'phone_number') final String? phoneNumber,
           @JsonKey(name: 'parking_level') final String? parkingLevel}) =
@@ -450,8 +476,11 @@ abstract class _LocationDataModel implements LocationDataModel {
   @JsonKey(name: 'longitude')
   double get longitude;
   @override
-  @JsonKey(name: 'operating_hours')
-  List<OperatingHour> get operatingHours;
+  @JsonKey(name: 'description')
+  String? get description;
+  @override
+  @JsonKey(name: 'working_day')
+  WorkingDay get workingDay;
   @override
   @JsonKey(name: 'pricing')
   String? get pricing;
@@ -467,35 +496,53 @@ abstract class _LocationDataModel implements LocationDataModel {
       throw _privateConstructorUsedError;
 }
 
-OperatingHour _$OperatingHourFromJson(Map<String, dynamic> json) {
-  return _OperatingHour.fromJson(json);
+WorkingDay _$WorkingDayFromJson(Map<String, dynamic> json) {
+  return _WorkingDay.fromJson(json);
 }
 
 /// @nodoc
-mixin _$OperatingHour {
-  String get day => throw _privateConstructorUsedError;
-  String get open => throw _privateConstructorUsedError;
-  String get close => throw _privateConstructorUsedError;
+mixin _$WorkingDay {
+  @JsonKey(name: 'mon')
+  String get mon => throw _privateConstructorUsedError;
+  @JsonKey(name: 'tue')
+  String get tue => throw _privateConstructorUsedError;
+  @JsonKey(name: 'wed')
+  String get wed => throw _privateConstructorUsedError;
+  @JsonKey(name: 'thu')
+  String get thu => throw _privateConstructorUsedError;
+  @JsonKey(name: 'fri')
+  String get fri => throw _privateConstructorUsedError;
+  @JsonKey(name: 'sat')
+  String get sat => throw _privateConstructorUsedError;
+  @JsonKey(name: 'sun')
+  String get sun => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $OperatingHourCopyWith<OperatingHour> get copyWith =>
+  $WorkingDayCopyWith<WorkingDay> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $OperatingHourCopyWith<$Res> {
-  factory $OperatingHourCopyWith(
-          OperatingHour value, $Res Function(OperatingHour) then) =
-      _$OperatingHourCopyWithImpl<$Res, OperatingHour>;
+abstract class $WorkingDayCopyWith<$Res> {
+  factory $WorkingDayCopyWith(
+          WorkingDay value, $Res Function(WorkingDay) then) =
+      _$WorkingDayCopyWithImpl<$Res, WorkingDay>;
   @useResult
-  $Res call({String day, String open, String close});
+  $Res call(
+      {@JsonKey(name: 'mon') String mon,
+      @JsonKey(name: 'tue') String tue,
+      @JsonKey(name: 'wed') String wed,
+      @JsonKey(name: 'thu') String thu,
+      @JsonKey(name: 'fri') String fri,
+      @JsonKey(name: 'sat') String sat,
+      @JsonKey(name: 'sun') String sun});
 }
 
 /// @nodoc
-class _$OperatingHourCopyWithImpl<$Res, $Val extends OperatingHour>
-    implements $OperatingHourCopyWith<$Res> {
-  _$OperatingHourCopyWithImpl(this._value, this._then);
+class _$WorkingDayCopyWithImpl<$Res, $Val extends WorkingDay>
+    implements $WorkingDayCopyWith<$Res> {
+  _$WorkingDayCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -505,65 +552,112 @@ class _$OperatingHourCopyWithImpl<$Res, $Val extends OperatingHour>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? day = null,
-    Object? open = null,
-    Object? close = null,
+    Object? mon = null,
+    Object? tue = null,
+    Object? wed = null,
+    Object? thu = null,
+    Object? fri = null,
+    Object? sat = null,
+    Object? sun = null,
   }) {
     return _then(_value.copyWith(
-      day: null == day
-          ? _value.day
-          : day // ignore: cast_nullable_to_non_nullable
+      mon: null == mon
+          ? _value.mon
+          : mon // ignore: cast_nullable_to_non_nullable
               as String,
-      open: null == open
-          ? _value.open
-          : open // ignore: cast_nullable_to_non_nullable
+      tue: null == tue
+          ? _value.tue
+          : tue // ignore: cast_nullable_to_non_nullable
               as String,
-      close: null == close
-          ? _value.close
-          : close // ignore: cast_nullable_to_non_nullable
+      wed: null == wed
+          ? _value.wed
+          : wed // ignore: cast_nullable_to_non_nullable
+              as String,
+      thu: null == thu
+          ? _value.thu
+          : thu // ignore: cast_nullable_to_non_nullable
+              as String,
+      fri: null == fri
+          ? _value.fri
+          : fri // ignore: cast_nullable_to_non_nullable
+              as String,
+      sat: null == sat
+          ? _value.sat
+          : sat // ignore: cast_nullable_to_non_nullable
+              as String,
+      sun: null == sun
+          ? _value.sun
+          : sun // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$OperatingHourImplCopyWith<$Res>
-    implements $OperatingHourCopyWith<$Res> {
-  factory _$$OperatingHourImplCopyWith(
-          _$OperatingHourImpl value, $Res Function(_$OperatingHourImpl) then) =
-      __$$OperatingHourImplCopyWithImpl<$Res>;
+abstract class _$$WorkingDayImplCopyWith<$Res>
+    implements $WorkingDayCopyWith<$Res> {
+  factory _$$WorkingDayImplCopyWith(
+          _$WorkingDayImpl value, $Res Function(_$WorkingDayImpl) then) =
+      __$$WorkingDayImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String day, String open, String close});
+  $Res call(
+      {@JsonKey(name: 'mon') String mon,
+      @JsonKey(name: 'tue') String tue,
+      @JsonKey(name: 'wed') String wed,
+      @JsonKey(name: 'thu') String thu,
+      @JsonKey(name: 'fri') String fri,
+      @JsonKey(name: 'sat') String sat,
+      @JsonKey(name: 'sun') String sun});
 }
 
 /// @nodoc
-class __$$OperatingHourImplCopyWithImpl<$Res>
-    extends _$OperatingHourCopyWithImpl<$Res, _$OperatingHourImpl>
-    implements _$$OperatingHourImplCopyWith<$Res> {
-  __$$OperatingHourImplCopyWithImpl(
-      _$OperatingHourImpl _value, $Res Function(_$OperatingHourImpl) _then)
+class __$$WorkingDayImplCopyWithImpl<$Res>
+    extends _$WorkingDayCopyWithImpl<$Res, _$WorkingDayImpl>
+    implements _$$WorkingDayImplCopyWith<$Res> {
+  __$$WorkingDayImplCopyWithImpl(
+      _$WorkingDayImpl _value, $Res Function(_$WorkingDayImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? day = null,
-    Object? open = null,
-    Object? close = null,
+    Object? mon = null,
+    Object? tue = null,
+    Object? wed = null,
+    Object? thu = null,
+    Object? fri = null,
+    Object? sat = null,
+    Object? sun = null,
   }) {
-    return _then(_$OperatingHourImpl(
-      day: null == day
-          ? _value.day
-          : day // ignore: cast_nullable_to_non_nullable
+    return _then(_$WorkingDayImpl(
+      mon: null == mon
+          ? _value.mon
+          : mon // ignore: cast_nullable_to_non_nullable
               as String,
-      open: null == open
-          ? _value.open
-          : open // ignore: cast_nullable_to_non_nullable
+      tue: null == tue
+          ? _value.tue
+          : tue // ignore: cast_nullable_to_non_nullable
               as String,
-      close: null == close
-          ? _value.close
-          : close // ignore: cast_nullable_to_non_nullable
+      wed: null == wed
+          ? _value.wed
+          : wed // ignore: cast_nullable_to_non_nullable
+              as String,
+      thu: null == thu
+          ? _value.thu
+          : thu // ignore: cast_nullable_to_non_nullable
+              as String,
+      fri: null == fri
+          ? _value.fri
+          : fri // ignore: cast_nullable_to_non_nullable
+              as String,
+      sat: null == sat
+          ? _value.sat
+          : sat // ignore: cast_nullable_to_non_nullable
+              as String,
+      sun: null == sun
+          ? _value.sun
+          : sun // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -571,70 +665,115 @@ class __$$OperatingHourImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$OperatingHourImpl implements _OperatingHour {
-  const _$OperatingHourImpl(
-      {required this.day, required this.open, required this.close});
+class _$WorkingDayImpl implements _WorkingDay {
+  const _$WorkingDayImpl(
+      {@JsonKey(name: 'mon') required this.mon,
+      @JsonKey(name: 'tue') required this.tue,
+      @JsonKey(name: 'wed') required this.wed,
+      @JsonKey(name: 'thu') required this.thu,
+      @JsonKey(name: 'fri') required this.fri,
+      @JsonKey(name: 'sat') required this.sat,
+      @JsonKey(name: 'sun') required this.sun});
 
-  factory _$OperatingHourImpl.fromJson(Map<String, dynamic> json) =>
-      _$$OperatingHourImplFromJson(json);
+  factory _$WorkingDayImpl.fromJson(Map<String, dynamic> json) =>
+      _$$WorkingDayImplFromJson(json);
 
   @override
-  final String day;
+  @JsonKey(name: 'mon')
+  final String mon;
   @override
-  final String open;
+  @JsonKey(name: 'tue')
+  final String tue;
   @override
-  final String close;
+  @JsonKey(name: 'wed')
+  final String wed;
+  @override
+  @JsonKey(name: 'thu')
+  final String thu;
+  @override
+  @JsonKey(name: 'fri')
+  final String fri;
+  @override
+  @JsonKey(name: 'sat')
+  final String sat;
+  @override
+  @JsonKey(name: 'sun')
+  final String sun;
 
   @override
   String toString() {
-    return 'OperatingHour(day: $day, open: $open, close: $close)';
+    return 'WorkingDay(mon: $mon, tue: $tue, wed: $wed, thu: $thu, fri: $fri, sat: $sat, sun: $sun)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$OperatingHourImpl &&
-            (identical(other.day, day) || other.day == day) &&
-            (identical(other.open, open) || other.open == open) &&
-            (identical(other.close, close) || other.close == close));
+            other is _$WorkingDayImpl &&
+            (identical(other.mon, mon) || other.mon == mon) &&
+            (identical(other.tue, tue) || other.tue == tue) &&
+            (identical(other.wed, wed) || other.wed == wed) &&
+            (identical(other.thu, thu) || other.thu == thu) &&
+            (identical(other.fri, fri) || other.fri == fri) &&
+            (identical(other.sat, sat) || other.sat == sat) &&
+            (identical(other.sun, sun) || other.sun == sun));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, day, open, close);
+  int get hashCode =>
+      Object.hash(runtimeType, mon, tue, wed, thu, fri, sat, sun);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$OperatingHourImplCopyWith<_$OperatingHourImpl> get copyWith =>
-      __$$OperatingHourImplCopyWithImpl<_$OperatingHourImpl>(this, _$identity);
+  _$$WorkingDayImplCopyWith<_$WorkingDayImpl> get copyWith =>
+      __$$WorkingDayImplCopyWithImpl<_$WorkingDayImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$OperatingHourImplToJson(
+    return _$$WorkingDayImplToJson(
       this,
     );
   }
 }
 
-abstract class _OperatingHour implements OperatingHour {
-  const factory _OperatingHour(
-      {required final String day,
-      required final String open,
-      required final String close}) = _$OperatingHourImpl;
+abstract class _WorkingDay implements WorkingDay {
+  const factory _WorkingDay(
+      {@JsonKey(name: 'mon') required final String mon,
+      @JsonKey(name: 'tue') required final String tue,
+      @JsonKey(name: 'wed') required final String wed,
+      @JsonKey(name: 'thu') required final String thu,
+      @JsonKey(name: 'fri') required final String fri,
+      @JsonKey(name: 'sat') required final String sat,
+      @JsonKey(name: 'sun') required final String sun}) = _$WorkingDayImpl;
 
-  factory _OperatingHour.fromJson(Map<String, dynamic> json) =
-      _$OperatingHourImpl.fromJson;
+  factory _WorkingDay.fromJson(Map<String, dynamic> json) =
+      _$WorkingDayImpl.fromJson;
 
   @override
-  String get day;
+  @JsonKey(name: 'mon')
+  String get mon;
   @override
-  String get open;
+  @JsonKey(name: 'tue')
+  String get tue;
   @override
-  String get close;
+  @JsonKey(name: 'wed')
+  String get wed;
+  @override
+  @JsonKey(name: 'thu')
+  String get thu;
+  @override
+  @JsonKey(name: 'fri')
+  String get fri;
+  @override
+  @JsonKey(name: 'sat')
+  String get sat;
+  @override
+  @JsonKey(name: 'sun')
+  String get sun;
   @override
   @JsonKey(ignore: true)
-  _$$OperatingHourImplCopyWith<_$OperatingHourImpl> get copyWith =>
+  _$$WorkingDayImplCopyWith<_$WorkingDayImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
