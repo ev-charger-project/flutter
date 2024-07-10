@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-Charger _$ChargerFromJson(Map<String, dynamic> json) {
+ChargerDataModel _$ChargerFromJson(Map<String, dynamic> json) {
   return _Charger.fromJson(json);
 }
 
@@ -35,13 +35,13 @@ mixin _$Charger {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $ChargerCopyWith<Charger> get copyWith => throw _privateConstructorUsedError;
+  $ChargerCopyWith<ChargerDataModel> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $ChargerCopyWith<$Res> {
-  factory $ChargerCopyWith(Charger value, $Res Function(Charger) then) =
-      _$ChargerCopyWithImpl<$Res, Charger>;
+  factory $ChargerCopyWith(ChargerDataModel value, $Res Function(ChargerDataModel) then) =
+      _$ChargerCopyWithImpl<$Res, ChargerDataModel>;
   @useResult
   $Res call(
       {@JsonKey(name: 'id') String id,
@@ -53,7 +53,7 @@ abstract class $ChargerCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ChargerCopyWithImpl<$Res, $Val extends Charger>
+class _$ChargerCopyWithImpl<$Res, $Val extends ChargerDataModel>
     implements $ChargerCopyWith<$Res> {
   _$ChargerCopyWithImpl(this._value, this._then);
 
@@ -239,7 +239,7 @@ class _$ChargerImpl implements _Charger {
   }
 }
 
-abstract class _Charger implements Charger {
+abstract class _Charger implements ChargerDataModel {
   const factory _Charger(
           {@JsonKey(name: 'id') required final String id,
           @JsonKey(name: 'location_id') required final String locationId,

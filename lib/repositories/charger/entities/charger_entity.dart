@@ -17,10 +17,10 @@ class ChargerEntity with _$ChargerEntity {
   }) = _ChargerEntity;
 }
 
-class ChargerMapper with EntityConvertible<ChargerEntity, Charger> {
+class ChargerMapper with EntityConvertible<ChargerEntity, ChargerDataModel> {
   @override
-  Charger fromEntity(ChargerEntity entityObject) {
-    return Charger(
+  ChargerDataModel fromEntity(ChargerEntity entityObject) {
+    return ChargerDataModel(
       id: entityObject.id,
       locationId: entityObject.locationId,
       powerOutputId: entityObject.powerOutputId,
@@ -31,7 +31,7 @@ class ChargerMapper with EntityConvertible<ChargerEntity, Charger> {
   }
 
   @override
-  ChargerEntity toEntity(Charger dataModelObject) {
+  ChargerEntity toEntity(ChargerDataModel dataModelObject) {
     return ChargerEntity(
       id: dataModelObject.id,
       locationId: dataModelObject.locationId,

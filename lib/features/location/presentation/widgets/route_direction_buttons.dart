@@ -16,37 +16,38 @@ class RouteDirectionButtons extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SizedBox(
-            width: width,
-            height: height,
-            child: OutlinedButton(
-              onPressed: () {},
-              style: OutlinedButton.styleFrom(
-                side: const BorderSide(color: Colors.green),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
+          Expanded(
+            child: SizedBox(
+              child: OutlinedButton(
+                onPressed: () {},
+                style: OutlinedButton.styleFrom(
+                  side: const BorderSide(color: Colors.green),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
                 ),
-              ),
-              child: const Text(
-                'Route Plan',
-                style: TextStyle(color: Colors.green, fontSize: size),
+                child: const Text(
+                  'Route Plan',
+                  style: TextStyle(color: Colors.green, fontSize: size),
+                ),
               ),
             ),
           ),
-          SizedBox(
-            width: width,
-            height: height,
-            child: ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.green,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
+          SizedBox(width: 30),
+          Expanded(
+            child: SizedBox(
+              child: ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
                 ),
-              ),
-              child: const Text(
-                'Direction',
-                style: TextStyle(color: Colors.white, fontSize: size),
+                child: const Text(
+                  'Direction',
+                  style: TextStyle(color: Colors.white, fontSize: size),
+                ),
               ),
             ),
           ),
