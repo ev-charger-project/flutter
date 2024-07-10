@@ -19,32 +19,34 @@ class RouteDirectionButtons extends StatelessWidget {
               child: OutlinedButton(
                 onPressed: () {},
                 style: OutlinedButton.styleFrom(
-                  side: const BorderSide(color: Colors.green),
+                  side: BorderSide(color: Theme.of(context).colorScheme.primary),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
                 ),
-                child: const Text(
+                child: Text(
                   'Route Plan',
-                  style: TextStyle(color: Colors.green, fontSize: size),
+                  style: Theme.of(context).primaryTextTheme.bodyMedium
                 ),
               ),
             ),
           ),
-          SizedBox(width: 30),
+          const SizedBox(width: 30),
           Expanded(
             child: SizedBox(
               child: ElevatedButton(
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green,
+                  backgroundColor: Theme.of(context).colorScheme.primary,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
                 ),
-                child: const Text(
+                child: Text(
                   'Direction',
-                  style: TextStyle(color: Colors.white, fontSize: size),
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: Theme.of(context).colorScheme.onPrimary,
+                  ),
                 ),
               ),
             ),

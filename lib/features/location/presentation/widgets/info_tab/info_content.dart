@@ -22,21 +22,14 @@ class _InfoContentState extends ConsumerState<InfoContent> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         const SizedBox(height: 20),
-        const Text(
+        Text(
           'About',
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-          ),
+          style: Theme.of(context).textTheme.displayMedium,
         ),
         const SizedBox(height: 2),
         Text(
           longText,
-          style: const TextStyle(
-            color: Colors.black,
-            fontSize: 18,
-          ),
+          style: Theme.of(context).textTheme.bodyMedium,
           maxLines: isExpanded ? null : 4,
           overflow: isExpanded ? TextOverflow.visible : TextOverflow.ellipsis,
         ),
@@ -48,11 +41,7 @@ class _InfoContentState extends ConsumerState<InfoContent> {
           },
           child: Text(
             isExpanded ? 'Read less' : 'Read more',
-            style: const TextStyle(
-              color: Colors.green,
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
+            style: Theme.of(context).primaryTextTheme.bodyMedium
           ),
         ),
         const SizedBox(height: 10),
@@ -74,11 +63,11 @@ class _InfoContentState extends ConsumerState<InfoContent> {
               children: [
                 Text(
                   data[index].keys.first,
-                  style: const TextStyle(color: Colors.black),
+                  style: Theme.of(context).textTheme.bodySmall,
                 ),
                 Text(
                   data[index].values.first,
-                  style: const TextStyle(color: Colors.black),
+                  style: Theme.of(context).textTheme.bodySmall,
                 ),
               ],
             ),
@@ -92,8 +81,6 @@ class _InfoContentState extends ConsumerState<InfoContent> {
   Widget build(BuildContext context) {
     final currentLocation = ref.watch(locationProvider);
 
-
-
     return Container(
       child: currentLocation.when(
         data: (location) {
@@ -102,7 +89,7 @@ class _InfoContentState extends ConsumerState<InfoContent> {
             {'Open Hours': '06:00 - 23:00'},
             {'Fee': location.pricing ?? '??'},
             {'Phone': location.phoneNumber ?? '??'},
-            {'Parking Level': location.parkingLevel ?? '??' },
+            {'Parking Level': location.parkingLevel ?? '??'},
           ];
 
           return Column(
@@ -117,13 +104,9 @@ class _InfoContentState extends ConsumerState<InfoContent> {
                   thickness: 1,
                 ),
               ),
-              const Text(
+              Text(
                 'Nearby',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: Theme.of(context).textTheme.displayLarge,
               ),
               const SizedBox(
                 height: 200,

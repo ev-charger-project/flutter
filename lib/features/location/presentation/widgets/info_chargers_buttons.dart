@@ -10,7 +10,7 @@ class InfoChargersButtons extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final pageState = ref.watch(pageStateProvider);
-    const double size = 18;
+    const double width = 3;
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -26,19 +26,16 @@ class InfoChargersButtons extends ConsumerWidget {
                 border: Border(
                   bottom: BorderSide(
                     color: pageState == PageState.info
-                        ? Colors.green
+                        ? Theme.of(context).colorScheme.primary
                         : Colors.transparent,
-                    width: 2,
+                    width: width,
                   ),
                 ),
               ),
-              child: const Center(
+              child: Center(
                 child: Text(
                   'Info',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: size,
-                  ),
+                  style: Theme.of(context).textTheme.bodyMedium
                 ),
               ),
             ),
@@ -55,19 +52,16 @@ class InfoChargersButtons extends ConsumerWidget {
                 border: Border(
                   bottom: BorderSide(
                     color: pageState == PageState.charger
-                        ? Colors.green
+                        ? Theme.of(context).colorScheme.primary
                         : Colors.transparent,
-                    width: 2,
+                    width: width,
                   ),
                 ),
               ),
-              child: const Center(
+              child: Center(
                 child: Text(
                   'Chargers',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: size,
-                  ),
+                  style: Theme.of(context).textTheme.bodyMedium
                 ),
               ),
             ),

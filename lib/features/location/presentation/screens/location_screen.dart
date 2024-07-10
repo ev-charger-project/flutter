@@ -22,6 +22,7 @@ class _LocationPageState extends ConsumerState<LocationScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
+        shadowColor: Colors.transparent,
         leading: const backButton(),
         leadingWidth: 100,
       ),

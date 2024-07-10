@@ -11,7 +11,6 @@ class ChargerNum extends StatelessWidget {
   Widget build(BuildContext context) {
     var chargers = 5;
     return Container(
-      color: Colors.white,
       padding: const EdgeInsets.symmetric(horizontal: 40.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -19,7 +18,7 @@ class ChargerNum extends StatelessWidget {
           Row(
             children: List.generate(
               chargers,
-              (index) => Padding(
+                  (index) => Padding(
                 padding: const EdgeInsets.all(2.5),
                 child: SvgPicture.asset('assets/icons/charger_icon.svg'),
               ),
@@ -27,7 +26,8 @@ class ChargerNum extends StatelessWidget {
           ),
           Text(
             '$chargers chargers',
-            style: TextStyle(color: Colors.green, fontSize: 20),
+            style: Theme.of(context).primaryTextTheme.bodyLarge?.copyWith(
+            ),
             textAlign: TextAlign.left,
           ),
         ],

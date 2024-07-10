@@ -12,8 +12,8 @@ class backButton extends StatelessWidget {
     return Container(
       width: 50,
       height: 50,
-      decoration: const BoxDecoration(
-        color: Color(0x80c8c8c8),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surfaceTint,
         shape: BoxShape.circle,
       ),
       child: IconButton(

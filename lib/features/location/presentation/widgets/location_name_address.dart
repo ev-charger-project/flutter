@@ -12,7 +12,7 @@ class LocationNameAddress extends ConsumerWidget {
     final currentLocation = ref.watch(locationProvider);
 
     return Container(
-      color: Colors.white,
+      color: Theme.of(context).colorScheme.surface,
       padding: const EdgeInsets.only(top: 20.0, left: 20.0, right: 70),
       child: currentLocation.when(
         data: (location) => Column(
@@ -20,26 +20,17 @@ class LocationNameAddress extends ConsumerWidget {
           children: [
             Text(
               location.name,
-              style: const TextStyle(
-                color: Colors.black,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                height: 1.5,
-              ),
+              style: Theme.of(context).textTheme.displayLarge
             ),
             const SizedBox(height: 10),
             Text(
               location.streetAddress,
-              style: const TextStyle(
-                color: Colors.black,
-                fontSize: 18,
-                height: 1.5,
-              ),
+              style: Theme.of(context).textTheme.bodyMedium,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),
             const SizedBox(height: 10),
-            DistanceFromUser(),
+            const DistanceFromUser(),
           ],
         ),
         loading: () => const Center(child: CircularProgressIndicator()),
@@ -72,7 +63,7 @@ class DistanceFromUser extends ConsumerWidget {
         const SizedBox(width: 5),
         Text(
           distance,
-          style: const TextStyle(
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
             color: Colors.black,
             fontSize: 20,
           ),
@@ -82,10 +73,7 @@ class DistanceFromUser extends ConsumerWidget {
         const SizedBox(width: 5),
         Text(
           time,
-          style: const TextStyle(
-            color: Colors.black,
-            fontSize: 20,
-          ),
+          style: Theme.of(context).textTheme.bodyMedium
         ),
         if (!user_allow_access) ...[
           const SizedBox(width: 20),

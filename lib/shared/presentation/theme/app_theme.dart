@@ -1,37 +1,7 @@
 import 'package:flutter/material.dart';
-// import '../../data/data_source/local/storage_service.dart';
-// import '../../domain/providers/hive_storage_service_provider.dart';
 import 'app_colors.dart';
-import 'test_styles.dart';
+import 'text_styles.dart';
 import 'text_theme.dart';
-
-// final appThemeProvider = StateNotifierProvider<AppThemeModeNotifier, ThemeMode>(
-//   (ref) {
-//     final storage = ref.watch(storageServiceProvider);
-//     return AppThemeModeNotifier(storage);
-//   },
-// );
-//
-// class AppThemeModeNotifier extends StateNotifier<ThemeMode> {
-//   final StorageService storageService;
-//
-//   ThemeMode currentTheme = ThemeMode.light;
-//
-//   AppThemeModeNotifier(this.storageService) : super(ThemeMode.light) {
-//     getCurrentTheme();
-//   }
-//
-//   void toggleTheme() {
-//     state = state == ThemeMode.dark ? ThemeMode.light : ThemeMode.dark;
-//     storageService.setAppTheme(state.name);
-//   }
-//
-//   void getCurrentTheme() async {
-//     final theme = await storageService.getAppTheme();
-//     final value = ThemeMode.values.byName(theme);
-//     state = value;
-//   }
-// }
 
 class AppTheme {
   static ThemeData get darkTheme {
@@ -43,7 +13,9 @@ class AppTheme {
         primary: AppColors.primary,
         secondary: AppColors.lightGrey,
         error: AppColors.error,
-        background: AppColors.black,
+        surface: AppColors.black,
+      ).copyWith(
+        surfaceTint: AppColors.transparentGrey, // Adding custom color
       ),
       // backgroundColor: AppColors.black,
       scaffoldBackgroundColor: AppColors.black,
@@ -52,7 +24,7 @@ class AppTheme {
       appBarTheme: const AppBarTheme(
         elevation: 0,
         backgroundColor: AppColors.black,
-        titleTextStyle: AppTextStyles.h2,
+        titleTextStyle: AppTextStyles.b2,
       ),
     );
   }
@@ -66,8 +38,10 @@ class AppTheme {
       primaryTextTheme: TextThemes.primaryTextTheme,
       colorScheme: const ColorScheme.light(
         primary: AppColors.primary,
-        secondary: AppColors.lightGrey,
+        secondary: AppColors.white,
         error: AppColors.error,
+      ).copyWith(
+        surfaceTint: AppColors.transparentGrey, // Adding custom color
       ),
       appBarTheme: const AppBarTheme(
         elevation: 0,
