@@ -4,6 +4,6 @@ import '../../../../repositories/location/data_sources/location_remote_data_sour
 import '../../../data/data_source/remote/postgresql/postgresql_storage_service.dart';
 
 final locationDataSourceProvider =
-Provider.family<LocationRemoteDataSource, PostgresqlStorageService>(
-      (_, networkService) => LocationRemoteDataSource(networkService),
+    Provider.family<LocationRemoteDataSource, PostgresqlStorageService>(
+  (_, networkService) => LocationRemoteDataSource(networkService),
 );

@@ -16,7 +16,8 @@ class LocationEntity with _$LocationEntity {
     String? postalCode,
     required double latitude,
     required double longitude,
-    required List<OperatingHour> operatingHours,
+    String? description,
+    required WorkingDay workingDay,
     String? pricing,
     String? phoneNumber,
     String? parkingLevel,
@@ -36,13 +37,16 @@ class LocationMapper with EntityConvertible<LocationEntity, LocationDataModel> {
       postalCode: entityObject.postalCode,
       latitude: entityObject.latitude,
       longitude: entityObject.longitude,
-      operatingHours: entityObject.operatingHours
-          .map((e) => OperatingHour(
-                day: e.day,
-                open: e.open,
-                close: e.close,
-              ))
-          .toList(),
+      description: entityObject.description,
+      workingDay: WorkingDay(
+        mon: entityObject.workingDay.mon,
+        tue: entityObject.workingDay.tue,
+        wed: entityObject.workingDay.wed,
+        thu: entityObject.workingDay.thu,
+        fri: entityObject.workingDay.fri,
+        sat: entityObject.workingDay.sat,
+        sun: entityObject.workingDay.sun,
+      ),
       pricing: entityObject.pricing,
       phoneNumber: entityObject.phoneNumber,
       parkingLevel: entityObject.parkingLevel,
@@ -61,13 +65,16 @@ class LocationMapper with EntityConvertible<LocationEntity, LocationDataModel> {
       postalCode: dataModelObject.postalCode,
       latitude: dataModelObject.latitude,
       longitude: dataModelObject.longitude,
-      operatingHours: dataModelObject.operatingHours
-          .map((e) => OperatingHour(
-                day: e.day,
-                open: e.open,
-                close: e.close,
-              ))
-          .toList(),
+      description: dataModelObject.description,
+      workingDay: WorkingDay(
+        mon: dataModelObject.workingDay.mon,
+        tue: dataModelObject.workingDay.tue,
+        wed: dataModelObject.workingDay.wed,
+        thu: dataModelObject.workingDay.thu,
+        fri: dataModelObject.workingDay.fri,
+        sat: dataModelObject.workingDay.sat,
+        sun: dataModelObject.workingDay.sun,
+      ),
       pricing: dataModelObject.pricing,
       phoneNumber: dataModelObject.phoneNumber,
       parkingLevel: dataModelObject.parkingLevel,

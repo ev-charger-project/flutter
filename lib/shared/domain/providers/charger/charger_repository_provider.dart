@@ -4,9 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'charger_data_source_provider.dart';
 
-
-
-
 final locationRepositoryProvider = Provider<LocationRepositoryImpl>((ref) {
   final storageService = ref.read(remoteStorageServiceProvider);
 

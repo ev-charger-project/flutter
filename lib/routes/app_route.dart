@@ -17,6 +17,5 @@ class AppRouter extends _$AppRouter {
             transitionsBuilder: TransitionsBuilders.slideLeftWithFade,
             durationInMilliseconds: 800,
             initial: true),
-
       ];
 }

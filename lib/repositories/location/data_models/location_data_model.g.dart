@@ -18,9 +18,9 @@ _$LocationDataModelImpl _$$LocationDataModelImplFromJson(
       postalCode: json['postal_code'] as String?,
       latitude: (json['latitude'] as num).toDouble(),
       longitude: (json['longitude'] as num).toDouble(),
-      operatingHours: (json['operating_hours'] as List<dynamic>)
-          .map((e) => OperatingHour.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      description: json['description'] as String?,
+      workingDay: WorkingDay.fromJson(
+          Map<String, String>.from(json['working_day'] as Map)),
       pricing: json['pricing'] as String?,
       phoneNumber: json['phone_number'] as String?,
       parkingLevel: json['parking_level'] as String?,
@@ -38,22 +38,31 @@ Map<String, dynamic> _$$LocationDataModelImplToJson(
       'postal_code': instance.postalCode,
       'latitude': instance.latitude,
       'longitude': instance.longitude,
-      'operating_hours': instance.operatingHours,
+      'description': instance.description,
+      'working_day': instance.workingDay,
       'pricing': instance.pricing,
       'phone_number': instance.phoneNumber,
       'parking_level': instance.parkingLevel,
     };
 
-_$OperatingHourImpl _$$OperatingHourImplFromJson(Map<String, dynamic> json) =>
-    _$OperatingHourImpl(
-      day: json['day'] as String,
-      open: json['open'] as String,
-      close: json['close'] as String,
+_$WorkingDayImpl _$$WorkingDayImplFromJson(Map<String, dynamic> json) =>
+    _$WorkingDayImpl(
+      mon: json['mon'] as String,
+      tue: json['tue'] as String,
+      wed: json['wed'] as String,
+      thu: json['thu'] as String,
+      fri: json['fri'] as String,
+      sat: json['sat'] as String,
+      sun: json['sun'] as String,
     );
 
-Map<String, dynamic> _$$OperatingHourImplToJson(_$OperatingHourImpl instance) =>
+Map<String, dynamic> _$$WorkingDayImplToJson(_$WorkingDayImpl instance) =>
     <String, dynamic>{
-      'day': instance.day,
-      'open': instance.open,
-      'close': instance.close,
+      'mon': instance.mon,
+      'tue': instance.tue,
+      'wed': instance.wed,
+      'thu': instance.thu,
+      'fri': instance.fri,
+      'sat': instance.sat,
+      'sun': instance.sun,
     };

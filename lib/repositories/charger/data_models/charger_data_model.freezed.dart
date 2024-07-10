@@ -14,12 +14,12 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-ChargerDataModel _$ChargerFromJson(Map<String, dynamic> json) {
+ChargerDataModel _$ChargerDataModelFromJson(Map<String, dynamic> json) {
   return _Charger.fromJson(json);
 }
 
 /// @nodoc
-mixin _$Charger {
+mixin _$ChargerDataModel {
   @JsonKey(name: 'id')
   String get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'location_id')
@@ -35,13 +35,15 @@ mixin _$Charger {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $ChargerCopyWith<ChargerDataModel> get copyWith => throw _privateConstructorUsedError;
+  $ChargerDataModelCopyWith<ChargerDataModel> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ChargerCopyWith<$Res> {
-  factory $ChargerCopyWith(ChargerDataModel value, $Res Function(ChargerDataModel) then) =
-      _$ChargerCopyWithImpl<$Res, ChargerDataModel>;
+abstract class $ChargerDataModelCopyWith<$Res> {
+  factory $ChargerDataModelCopyWith(
+          ChargerDataModel value, $Res Function(ChargerDataModel) then) =
+      _$ChargerDataModelCopyWithImpl<$Res, ChargerDataModel>;
   @useResult
   $Res call(
       {@JsonKey(name: 'id') String id,
@@ -53,9 +55,9 @@ abstract class $ChargerCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ChargerCopyWithImpl<$Res, $Val extends ChargerDataModel>
-    implements $ChargerCopyWith<$Res> {
-  _$ChargerCopyWithImpl(this._value, this._then);
+class _$ChargerDataModelCopyWithImpl<$Res, $Val extends ChargerDataModel>
+    implements $ChargerDataModelCopyWith<$Res> {
+  _$ChargerDataModelCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -102,7 +104,8 @@ class _$ChargerCopyWithImpl<$Res, $Val extends ChargerDataModel>
 }
 
 /// @nodoc
-abstract class _$$ChargerImplCopyWith<$Res> implements $ChargerCopyWith<$Res> {
+abstract class _$$ChargerImplCopyWith<$Res>
+    implements $ChargerDataModelCopyWith<$Res> {
   factory _$$ChargerImplCopyWith(
           _$ChargerImpl value, $Res Function(_$ChargerImpl) then) =
       __$$ChargerImplCopyWithImpl<$Res>;
@@ -119,7 +122,7 @@ abstract class _$$ChargerImplCopyWith<$Res> implements $ChargerCopyWith<$Res> {
 
 /// @nodoc
 class __$$ChargerImplCopyWithImpl<$Res>
-    extends _$ChargerCopyWithImpl<$Res, _$ChargerImpl>
+    extends _$ChargerDataModelCopyWithImpl<$Res, _$ChargerImpl>
     implements _$$ChargerImplCopyWith<$Res> {
   __$$ChargerImplCopyWithImpl(
       _$ChargerImpl _value, $Res Function(_$ChargerImpl) _then)
@@ -199,7 +202,7 @@ class _$ChargerImpl implements _Charger {
 
   @override
   String toString() {
-    return 'Charger(id: $id, locationId: $locationId, powerOutputId: $powerOutputId, powerPlugTypeId: $powerPlugTypeId, numberOfPort: $numberOfPort, availabity: $availabity)';
+    return 'ChargerDataModel(id: $id, locationId: $locationId, powerOutputId: $powerOutputId, powerPlugTypeId: $powerPlugTypeId, numberOfPort: $numberOfPort, availabity: $availabity)';
   }
 
   @override
