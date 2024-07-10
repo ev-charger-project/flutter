@@ -4,8 +4,8 @@ part 'charger_data_model.freezed.dart';
 part 'charger_data_model.g.dart';
 
 @freezed
-class Charger with _$Charger {
-  const factory Charger({
+class ChargerDataModel with _$Charger {
+  const factory ChargerDataModel({
     @JsonKey(name: 'id') required String id,
     @JsonKey(name: 'location_id') required String locationId,
     @JsonKey(name: 'power_output_id') required String powerOutputId,
@@ -14,6 +14,6 @@ class Charger with _$Charger {
     @JsonKey(name: 'availabity') required String availabity,
   }) = _Charger;
 
-  factory Charger.fromJson(Map<String, dynamic> json) =>
+  factory ChargerDataModel.fromJson(Map<String, dynamic> json) =>
       _$ChargerFromJson(json);
 }
