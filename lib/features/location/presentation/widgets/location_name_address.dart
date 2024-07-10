@@ -1,24 +1,26 @@
+import 'package:ev_charger/shared/domain/providers/location/location_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 
-class LocationNameAddress extends StatelessWidget {
-  const LocationNameAddress({
-    super.key,
-  });
+class LocationNameAddress extends ConsumerWidget {
+  const LocationNameAddress({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final currentLocation = ref.watch(locationProvider);
+
     return Container(
       color: Colors.white,
       padding: const EdgeInsets.only(top: 20.0, left: 20.0, right: 70),
-      child: Center(
-        child: Column(
+      child: currentLocation.when(
+        data: (location) => Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Vincom Plaze Gò Vấp',
-              style: TextStyle(
+              location.name,
+              style: const TextStyle(
                 color: Colors.black,
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -27,8 +29,8 @@ class LocationNameAddress extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             Text(
-              '1242 Trần Hưng Đạo, P.Mỹ Bình, Thành phố Long Xuyên, quan cu chi, vvvvvvvvvvvv',
-              style: TextStyle(
+              location.streetAddress,
+              style: const TextStyle(
                 color: Colors.black,
                 fontSize: 18,
                 height: 1.5,
@@ -40,20 +42,20 @@ class LocationNameAddress extends StatelessWidget {
             Row(
               children: [
                 SvgPicture.asset('assets/icons/location_icon.svg'),
-                SizedBox(width: 5),
+                const SizedBox(width: 5),
                 Text(
                   '1.9 km',
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.black,
                     fontSize: 20,
                   ),
                 ),
-                SizedBox(width: 20),
+                const SizedBox(width: 20),
                 SvgPicture.asset('assets/icons/car_icon.svg'),
-                SizedBox(width: 5),
+                const SizedBox(width: 5),
                 Text(
                   '1.9 km',
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.black,
                     fontSize: 20,
                   ),
@@ -62,6 +64,8 @@ class LocationNameAddress extends StatelessWidget {
             ),
           ],
         ),
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (error, stack) => Center(child: Text('Error: $error')),
       ),
     );
   }
