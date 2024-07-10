@@ -39,29 +39,7 @@ class LocationNameAddress extends ConsumerWidget {
               overflow: TextOverflow.ellipsis,
             ),
             const SizedBox(height: 10),
-            Row(
-              children: [
-                SvgPicture.asset('assets/icons/location_icon.svg'),
-                const SizedBox(width: 5),
-                Text(
-                  '1.9 km',
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 20,
-                  ),
-                ),
-                const SizedBox(width: 20),
-                SvgPicture.asset('assets/icons/car_icon.svg'),
-                const SizedBox(width: 5),
-                Text(
-                  '1.9 km',
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 20,
-                  ),
-                ),
-              ],
-            ),
+            DistanceFromUser(),
           ],
         ),
         loading: () => const Center(child: CircularProgressIndicator()),
@@ -69,4 +47,63 @@ class LocationNameAddress extends ConsumerWidget {
       ),
     );
   }
+}
+
+class DistanceFromUser extends ConsumerWidget {
+  const DistanceFromUser({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    bool user_allow_access = false;
+    String distance = '~ km';
+    String time = '~ mins';
+
+    if (user_allow_access) {
+      final map = {'distance': '6.21 km', 'time': '89 mins'};
+      distance = map['distance']!;
+      time = map['time']!;
+    }
+
+    return Row(
+      children: [
+        SvgPicture.asset('assets/icons/location_icon.svg'),
+        const SizedBox(width: 5),
+        Text(
+          distance,
+          style: const TextStyle(
+            color: Colors.black,
+            fontSize: 20,
+          ),
+        ),
+        const SizedBox(width: 20),
+        SvgPicture.asset('assets/icons/car_icon.svg'),
+        const SizedBox(width: 5),
+        Text(
+          time,
+          style: const TextStyle(
+            color: Colors.black,
+            fontSize: 20,
+          ),
+        ),
+        if (!user_allow_access) ...[
+          const SizedBox(width: 20),
+          GestureDetector(
+            onTap: () {
+              // call widget here
+            },
+            child: const Icon(
+              Icons.info_outline,
+              color: Colors.red,
+              size: 30.0,
+            ),
+          ),
+        ],
+      ],
+    );
+  }
+
+
+
 }
