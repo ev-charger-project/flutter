@@ -3,7 +3,7 @@ import 'package:ev_charger/features/location/presentation/widgets/info_chargers_
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../widgets/widgets.dart';
-import 'package:ev_charger/features/location/presentation/providers/page_state_provider.dart'; // Import the provider file
+import 'package:ev_charger/features/location/presentation/providers/page_state_provider.dart';
 
 @RoutePage()
 class LocationScreen extends ConsumerStatefulWidget {
