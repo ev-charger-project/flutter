@@ -6,6 +6,8 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../../../shared/presentation/widgets/button.dart';
+
 @RoutePage()
 class FilterScreen extends ConsumerStatefulWidget {
   const FilterScreen({super.key});
@@ -545,72 +547,37 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                 child: Row(
                   children: [
                     // Reset button
-                    Expanded(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.30),
-                              spreadRadius: 0,
-                              blurRadius: 0,
-                              offset: Offset(0, 4),
-                            ),
-                          ],
-                        ),
-                        child: ElevatedButton(
-                          onPressed: () {
-                            // Reset action
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor:
-                                Color(0xFF34A853).withOpacity(0.30),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            elevation: 0,
-                            padding: EdgeInsets.symmetric(
-                              vertical: 12,
-                            ),
-                          ),
-                          child: Text(
-                            "Reset",
-                            style: TextStyle(
-                              color: Color(0xFF34A853),
-                              fontSize: 17,
-                            ),
-                          ),
-                        ),
+
+                    Button(
+                      onTap: () {
+                        print("Reset pressed");
+                      },
+                      fillColor: Color(0xFFBCDEC5),
+                      border: false,
+                      shadow: true,
+                      shadowOpacity: 0.25,
+                      child: Text(
+                        "Reset",
+                        style:
+                            TextStyle(color: Color(0xFF34A853), fontSize: 17),
                       ),
                     ),
 
-                    SizedBox(
+                    const SizedBox(
                       width: 20,
                     ),
                     // Apply Filter button
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: () {
-                          // Apply Filter action
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xFF34A853),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(40),
-                          ),
-                          elevation: 5,
-                          padding: EdgeInsets.symmetric(
-                            vertical: 12,
-                          ),
-                          shadowColor: Colors.black.withOpacity(0.70),
-                        ),
-                        child: Text(
-                          "Apply Filter",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 17,
-                          ),
-                        ),
+                    Button(
+                      onTap: () {
+                        print("Apply pressed");
+                      },
+                      fillColor: Color(0xFF34A853),
+                      border: false,
+                      shadow: true,
+                      shadowOpacity: 0.35,
+                      child: Text(
+                        "Apply Filter",
+                        style: TextStyle(color: Colors.white, fontSize: 17),
                       ),
                     ),
                   ],
