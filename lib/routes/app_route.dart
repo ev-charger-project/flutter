@@ -22,7 +22,7 @@ class AppRouter extends _$AppRouter {
             page: MapRoute.page,
             transitionsBuilder: TransitionsBuilders.fadeIn,
             durationInMilliseconds: 400,
-            initial: true),
+            initial: false),
         CustomRoute(
           page: FilterRoute.page,
           transitionsBuilder: TransitionsBuilders.slideRightWithFade,
@@ -33,7 +33,7 @@ class AppRouter extends _$AppRouter {
           page: SearchRoute.page,
           transitionsBuilder: TransitionsBuilders.slideRightWithFade,
           durationInMilliseconds: 800,
-          initial: false,
+          initial: true,
         )
       ];
 }

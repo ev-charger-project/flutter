@@ -1,5 +1,8 @@
 import 'dart:convert';
 import 'package:auto_route/annotations.dart';
+import 'package:ev_charger/shared/presentation/widgets/bottom_app_bar.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
@@ -17,13 +20,21 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
   TextEditingController _searchController = TextEditingController();
   List<String> _suggestions = [];
 
+  // check if user is typing in the search bar
+  bool _isTyping = false;
+
   Future<void> _getSuggestions(String query) async {
     if (query.isEmpty) {
       setState(() {
         _suggestions = [];
+        _isTyping = false;
       });
       return;
     }
+
+    setState(() {
+      _isTyping = true;
+    });
 
     final response = await http
         .get(Uri.parse('https://api.example.com/locations?query=$query'));
@@ -55,36 +66,63 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
           child: Column(
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Expanded(
-                    child: TextField(
-                      controller: _searchController,
-                      decoration: InputDecoration(
-                        hintText: 'Search stations',
-                        prefixIcon: Icon(Icons.search),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Color(0xFFECE6F0),
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                      onChanged: (value) {
-                        // Update suggestions based on input
-                        setState(() {
+                      child: TextField(
+                        controller: _searchController,
+                        decoration: InputDecoration(
+                          hintText: 'Search stations',
+                          hintStyle: TextStyle(
+                            color: _isTyping
+                                ? Colors.black
+                                : Colors.black.withOpacity(0.65),
+                          ),
+                          prefixIcon: Icon(
+                            Icons.search,
+                            color: _isTyping
+                                ? Colors.black
+                                : Colors.black.withOpacity(0.65),
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide.none,
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide(
+                              color: Color(0xFFA8CAB1),
+                              width: 2,
+                            ),
+                          ),
+                          contentPadding: EdgeInsets.all(8.0),
+                        ),
+                        style: TextStyle(
+                          color: _isTyping
+                              ? Colors.black
+                              : Colors.black.withOpacity(0.65),
+                        ),
+                        onChanged: (value) {
                           _getSuggestions(value);
-                        });
-                      },
+                        },
+                      ),
                     ),
                   ),
-                  const SizedBox(
-                    width: 10,
-                  ),
+                  const SizedBox(width: 10),
                   Container(
                     decoration: BoxDecoration(
                       color: Color(0xFFECE6F0),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: IconButton(
-                      icon: Icon(
-                        Icons.filter_list,
-                        size: 30,
-                        color: Color(0xFF34A853),
+                      icon: SvgPicture.asset(
+                        'assets/icons/filter_icon.svg',
+                        width: 20,
+                        height: 20,
                       ),
                       onPressed: () {
                         Navigator.pushNamed(context, '/filter');
@@ -112,22 +150,24 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar: SimpleBottomAppBar(),
+
+      /*BottomNavigationBar(
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: SvgPicture.asset('assets/icons/home_icon.svg'),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.route),
+            icon: SvgPicture.asset('assets/icons/route_icon.svg'),
             label: 'Route',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle),
+            icon: SvgPicture.asset('assets/icons/account_icon.svg'),
             label: 'Account',
           ),
         ],
-      ),
+      ),*/
     );
   }
 }
