@@ -35,18 +35,18 @@ class _LocationScreenState extends ConsumerState<LocationScreen> {
               child: Column(
                 children: [
                   const LocationNameAddress(),
-                  const Divider(
-                    color: Colors.grey,
+                  Divider(
+                    color: Theme.of(context).dividerColor,
                     thickness: 1,
                   ),
                   const ChargerNum(),
-                  const Divider(
-                    color: Colors.grey,
+                  Divider(
+                    color: Theme.of(context).dividerColor,
                     thickness: 1,
                   ),
                   const RouteDirectionButtons(),
-                  const Divider(
-                    color: Colors.grey,
+                  Divider(
+                    color: Theme.of(context).dividerColor,
                     thickness: 1,
                   ),
                   const InfoChargersButtons(),

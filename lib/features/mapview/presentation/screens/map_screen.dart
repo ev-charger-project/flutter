@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:auto_route/annotations.dart';
+import 'package:ev_charger/shared/presentation/widgets/bottom_app_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -33,6 +34,7 @@ class _MapScreenState extends ConsumerState<MapScreen> {
           _controller.complete(controller);
         },
       ),
+      bottomNavigationBar: const SimpleBottomAppBar(),
     );
   }
 

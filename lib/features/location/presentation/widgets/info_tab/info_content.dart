@@ -97,10 +97,10 @@ class _InfoContentState extends ConsumerState<InfoContent> {
             children: [
               _buildAboutSection(longText),
               _buildDataList(data),
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 10.0),
+               Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10.0),
                 child: Divider(
-                  color: Colors.grey,
+                  color: Theme.of(context).dividerColor,
                   thickness: 1,
                 ),
               ),

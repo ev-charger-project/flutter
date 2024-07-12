@@ -15,13 +15,13 @@ class AppRouter extends _$AppRouter {
   List<AutoRoute> get routes => [
         CustomRoute(
             page: LocationRoute.page,
-            transitionsBuilder: TransitionsBuilders.slideLeftWithFade,
-            durationInMilliseconds: 800,
+            transitionsBuilder: TransitionsBuilders.fadeIn,
+            durationInMilliseconds: 400,
             initial: false),
         CustomRoute(
             page: MapRoute.page,
-            transitionsBuilder: TransitionsBuilders.slideLeftWithFade,
-            durationInMilliseconds: 800,
+            transitionsBuilder: TransitionsBuilders.fadeIn,
+            durationInMilliseconds: 400,
             initial: true),
       ];
 }
