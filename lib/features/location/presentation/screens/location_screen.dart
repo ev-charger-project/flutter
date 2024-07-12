@@ -10,10 +10,10 @@ class LocationScreen extends ConsumerStatefulWidget {
   const LocationScreen({super.key});
 
   @override
-  _LocationPageState createState() => _LocationPageState();
+  _LocationScreenState createState() => _LocationScreenState();
 }
 
-class _LocationPageState extends ConsumerState<LocationScreen> {
+class _LocationScreenState extends ConsumerState<LocationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
