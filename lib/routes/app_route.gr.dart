@@ -21,10 +21,17 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const LocationScreen(),
       );
     },
+<<<<<<< HEAD
     MapRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const MapScreen(),
+=======
+    SearchRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const SearchScreen(),
+>>>>>>> b212884 (search_screen)
       );
     },
   };
@@ -45,6 +52,7 @@ class LocationRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+<<<<<<< HEAD
 /// [MapScreen]
 class MapRoute extends PageRouteInfo<void> {
   const MapRoute({List<PageRouteInfo>? children})
@@ -54,6 +62,17 @@ class MapRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'MapRoute';
+=======
+/// [SearchScreen]
+class SearchRoute extends PageRouteInfo<void> {
+  const SearchRoute({List<PageRouteInfo>? children})
+      : super(
+          SearchRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'SearchRoute';
+>>>>>>> b212884 (search_screen)
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

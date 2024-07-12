@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:ev_charger/features/search/presentation/screens/search_screen.dart';
 import '../features/location/presentation/screens/location_screen.dart';
 import '../features/mapview/presentation/screens/map_screen.dart';
 
@@ -21,5 +22,17 @@ class AppRouter extends _$AppRouter {
             transitionsBuilder: TransitionsBuilders.fadeIn,
             durationInMilliseconds: 400,
             initial: true),
+        CustomRoute(
+          page: FilterRoute.page,
+          transitionsBuilder: TransitionsBuilders.slideRightWithFade,
+          durationInMilliseconds: 800,
+          initial: false,
+        ),
+        CustomRoute(
+          page: SearchRoute.page,
+          transitionsBuilder: TransitionsBuilders.slideRightWithFade,
+          durationInMilliseconds: 800,
+          initial: true,
+        )
       ];
 }
