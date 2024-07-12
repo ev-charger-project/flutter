@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:ev_charger/shared/presentation/widgets/bottom_app_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hive/hive.dart';
@@ -7,6 +8,8 @@ import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../../../routes/app_route.dart';
 
 @RoutePage()
 class SearchScreen extends ConsumerStatefulWidget {
@@ -125,7 +128,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                         height: 20,
                       ),
                       onPressed: () {
-                        Navigator.pushNamed(context, '/filter');
+                        context.router.push(FilterRoute());
                       },
                     ),
                   ),

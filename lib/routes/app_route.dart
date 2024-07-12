@@ -25,13 +25,13 @@ class AppRouter extends _$AppRouter {
             initial: true),
         CustomRoute(
           page: FilterRoute.page,
-          transitionsBuilder: TransitionsBuilders.slideRightWithFade,
+          transitionsBuilder: TransitionsBuilders.slideLeft,
           durationInMilliseconds: 800,
           initial: false,
         ),
         CustomRoute(
           page: SearchRoute.page,
-          transitionsBuilder: TransitionsBuilders.slideRightWithFade,
+          transitionsBuilder: TransitionsBuilders.noTransition,
           durationInMilliseconds: 800,
           initial: false,
         )

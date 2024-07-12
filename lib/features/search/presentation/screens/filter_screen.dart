@@ -3,6 +3,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hive/hive.dart';
 
 import '../../../../shared/presentation/widgets/button.dart';
 import 'package:ev_charger/features/search/presentation/widgets/widgets.dart';
@@ -19,44 +21,44 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        automaticallyImplyLeading: false,
+        flexibleSpace: Padding(
+          padding: const EdgeInsets.only(
+            left: 20.0,
+            top: 30,
+          ),
+          child: Row(
+            children: [
+              IconButton(
+                icon: SvgPicture.asset('assets/icons/close_icon.svg'),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              Text(
+                'Filter',
+                style: Theme.of(context).textTheme.displayLarge,
+              ),
+            ],
+          ),
+        ),
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.only(
             left: 30,
             right: 30,
-            top: 60,
-            bottom: 60,
+            top: 0,
+            bottom: 30,
           ),
           child: Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  IconButton(
-                    icon: Icon(
-                      Icons.cancel_outlined,
-                      size: 30,
-                      color: Colors.black,
-                    ),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    'Filter',
-                    style: Theme.of(context).textTheme.displayLarge,
-                    /*TextStyle(
-                      color: Colors.black,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),*/
-                  ),
-                ],
-              ),
-
               // station count
               StationCount(),
 
