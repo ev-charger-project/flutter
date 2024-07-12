@@ -72,10 +72,5 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-   - assets/images/location_banner.svg
-   - assets/images/location_banner.png
-   - assets/icons/back_arrow_icon.svg
-   - assets/icons/car_icon.svg
-   - assets/icons/charger_icon.svg
-   - assets/icons/location_marker_icon.svg
-   - assets/icons/location_icon.svg
+    - assets/images/
+    - assets/icons/

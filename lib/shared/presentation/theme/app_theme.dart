@@ -9,6 +9,7 @@ class AppTheme {
       brightness: Brightness.dark,
       fontFamily: AppTextStyles.fontFamily,
       primaryColor: AppColors.primary,
+      dividerColor: AppColors.dividerColor,
       colorScheme: const ColorScheme.dark(
         primary: AppColors.primary,
         secondary: AppColors.lightGrey,
@@ -36,10 +37,12 @@ class AppTheme {
       primaryColor: AppColors.primary,
       textTheme: TextThemes.textTheme,
       primaryTextTheme: TextThemes.primaryTextTheme,
+      dividerColor: AppColors.dividerColor,
       colorScheme: const ColorScheme.light(
         primary: AppColors.primary,
         secondary: AppColors.white,
         error: AppColors.error,
+
       ).copyWith(
         surfaceTint: AppColors.transparentGrey, // Adding custom color
       ),

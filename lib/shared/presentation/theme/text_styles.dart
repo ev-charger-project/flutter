@@ -15,7 +15,7 @@ class AppTextStyles {
   );
 
   static const TextStyle bodySm = TextStyle(
-    fontSize: 12,
+    fontSize: 16,
     fontWeight: FontWeight.w300,
   );
 

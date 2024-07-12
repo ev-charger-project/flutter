@@ -3,17 +3,17 @@ import 'package:ev_charger/features/location/presentation/widgets/info_chargers_
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../widgets/widgets.dart';
-import 'package:ev_charger/features/location/presentation/providers/page_state_provider.dart'; // Import the provider file
+import 'package:ev_charger/features/location/presentation/providers/page_state_provider.dart';
 
 @RoutePage()
 class LocationScreen extends ConsumerStatefulWidget {
   const LocationScreen({super.key});
 
   @override
-  _LocationPageState createState() => _LocationPageState();
+  _LocationScreenState createState() => _LocationScreenState();
 }
 
-class _LocationPageState extends ConsumerState<LocationScreen> {
+class _LocationScreenState extends ConsumerState<LocationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,18 +35,18 @@ class _LocationPageState extends ConsumerState<LocationScreen> {
               child: Column(
                 children: [
                   const LocationNameAddress(),
-                  const Divider(
-                    color: Colors.grey,
+                  Divider(
+                    color: Theme.of(context).dividerColor,
                     thickness: 1,
                   ),
                   const ChargerNum(),
-                  const Divider(
-                    color: Colors.grey,
+                  Divider(
+                    color: Theme.of(context).dividerColor,
                     thickness: 1,
                   ),
                   const RouteDirectionButtons(),
-                  const Divider(
-                    color: Colors.grey,
+                  Divider(
+                    color: Theme.of(context).dividerColor,
                     thickness: 1,
                   ),
                   const InfoChargersButtons(),

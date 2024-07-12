@@ -9,6 +9,7 @@ class TextThemes {
     return const TextTheme(
       bodyLarge: AppTextStyles.bodyLg,
       bodyMedium: AppTextStyles.body,
+      bodySmall: AppTextStyles.bodySm,
       titleMedium: AppTextStyles.bodySm,
       titleSmall: AppTextStyles.bodyXs,
       displayLarge: AppTextStyles.b1,
