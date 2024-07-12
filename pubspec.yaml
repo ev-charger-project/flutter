@@ -51,6 +51,7 @@ dependencies:
   hive_flutter: ^1.1.0
   auto_route: 8.2.0
   flutter_svg: ^2.0.10+1
+  flutter_image_converter: 0.3.3
 
 
 dev_dependencies:
