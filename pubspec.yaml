@@ -51,9 +51,13 @@ dependencies:
   hive_flutter: ^1.1.0
   auto_route: 8.2.0
   flutter_svg: ^2.0.10+1
+
   flutter_image_converter: 0.3.3
   http: 1.2.1
   syncfusion_flutter_sliders:
+
+
+
 
 
 dev_dependencies:
@@ -71,6 +75,7 @@ dev_dependencies:
   freezed:
   build_runner:
   auto_route_generator:
+  syncfusion_flutter_sliders: ^26.1.41
 
 
 flutter:
@@ -78,3 +83,7 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - assets/icons/home_icon.svg
+    - assets/icons/account_icon.svg
+    - assets/icons/route_icon.svg
+
