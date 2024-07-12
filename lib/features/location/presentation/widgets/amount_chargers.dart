@@ -11,7 +11,7 @@ class ChargerNum extends StatelessWidget {
   Widget build(BuildContext context) {
     var chargers = 5;
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 40.0),
+      padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.015),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
