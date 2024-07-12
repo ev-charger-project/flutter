@@ -53,6 +53,7 @@ dependencies:
   flutter_svg: ^2.0.10+1
   flutter_image_converter: 0.3.3
   http: 1.2.1
+  syncfusion_flutter_sliders:
 
 
 dev_dependencies:
