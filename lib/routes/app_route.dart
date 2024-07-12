@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/cupertino.dart';
-
+import 'package:ev_charger/features/search/presentation/screens/search_screen.dart';
 import '../features/location/presentation/screens/location_screen.dart';
 import '../features/mapview/presentation/screens/map_screen.dart';
+import '../features/search/presentation/screens/filter_screen.dart';
 
 part 'app_route.gr.dart';
 
@@ -23,5 +23,17 @@ class AppRouter extends _$AppRouter {
             transitionsBuilder: TransitionsBuilders.fadeIn,
             durationInMilliseconds: 400,
             initial: true),
+        CustomRoute(
+          page: FilterRoute.page,
+          transitionsBuilder: TransitionsBuilders.slideLeft,
+          durationInMilliseconds: 800,
+          initial: false,
+        ),
+        CustomRoute(
+          page: SearchRoute.page,
+          transitionsBuilder: TransitionsBuilders.noTransition,
+          durationInMilliseconds: 800,
+          initial: false,
+        )
       ];
 }
