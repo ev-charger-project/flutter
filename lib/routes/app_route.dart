@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:ev_charger/features/search/presentation/screens/search_screen.dart';
 import '../features/location/presentation/screens/location_screen.dart';
 import '../features/mapview/presentation/screens/map_screen.dart';
+import '../features/search/presentation/screens/filter_screen.dart';
 
 part 'app_route.gr.dart';
 
@@ -32,7 +33,7 @@ class AppRouter extends _$AppRouter {
           page: SearchRoute.page,
           transitionsBuilder: TransitionsBuilders.slideRightWithFade,
           durationInMilliseconds: 800,
-          initial: true,
+          initial: false,
         )
       ];
 }
