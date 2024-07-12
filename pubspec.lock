@@ -592,7 +592,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.2"
-<<<<<<< HEAD
   image:
     dependency: transitive
     description:
@@ -601,8 +600,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.2.0"
-=======
->>>>>>> f4e522e02ce633aa870850f5d175a72b865c1aa5
   intl:
     dependency: transitive
     description:
@@ -993,11 +990,7 @@ packages:
     source: hosted
     version: "26.1.41"
   syncfusion_flutter_sliders:
-<<<<<<< HEAD
-    dependency: "direct main"
-=======
     dependency: "direct dev"
->>>>>>> f4e522e02ce633aa870850f5d175a72b865c1aa5
     description:
       name: syncfusion_flutter_sliders
       sha256: "5f791953a045b80dc7a1925b3433c431ad6f7842ebecdc89efd070b589bbda3b"

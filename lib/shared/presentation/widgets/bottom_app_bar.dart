@@ -53,7 +53,11 @@ class SimpleBottomAppBar extends StatelessWidget {
       case BottomAppBarButton.account:
         assetName = 'assets/icons/account_icon.svg';
         label = 'Account';
-        onPressed = onAccountPressed;
+        onPressed = () {
+          if (!_isCurrentRoute(context, SearchRoute.name)) {
+            context.router.push(const SearchRoute());
+          }
+        };
         break;
     }
 
