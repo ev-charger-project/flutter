@@ -1,4 +1,4 @@
-import 'package:ev_charger/repositories/location/data_models/charger_marker_data_model.dart';
+import 'package:ev_charger/repositories/marker/data_models/charger_marker_data_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../shared/core/mixins/entity_convertible.mixin.dart';
@@ -33,4 +33,8 @@ class MarkerMapper with EntityConvertible<ChargerMarkerEntity, ChargerMarkerData
 
     );
   }
+  List<ChargerMarkerEntity> toEntityList(List<ChargerMarkerDataModel> dataModels) {
+    return dataModels.map((dataModel) => toEntity(dataModel)).toList();
+  }
+
 }
