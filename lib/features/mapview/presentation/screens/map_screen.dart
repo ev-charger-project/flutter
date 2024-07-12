@@ -39,7 +39,7 @@ class _MapScreenState extends ConsumerState<MapScreen> {
           return GoogleMap(
             mapType: MapType.normal,
             initialCameraPosition: _kGooglePlex,
-            markers: googleMapMarkers,
+            markers: googleMapMarkers,mapToolbarEnabled: false, zoomControlsEnabled: false,
             onMapCreated: (GoogleMapController controller) {
               _controller.complete(controller);
             },
@@ -49,13 +49,13 @@ class _MapScreenState extends ConsumerState<MapScreen> {
         error: (error, stack) => Center(child: Text('Error: $error')),
       ),
       floatingActionButton: FloatingActionButton(
-        shape: CircleBorder(),
+        shape: const CircleBorder(),
         onPressed: () async {
 
           LatLng fixedLocation = LatLng(10.8023163, 106.6645121);
           _markers.add(
             Marker(
-              markerId: MarkerId("user_location"),
+              markerId: const MarkerId("user_location"),
               position: fixedLocation,
 
             ),

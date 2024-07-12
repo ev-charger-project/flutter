@@ -31,7 +31,7 @@ class _LocationScreenState extends ConsumerState<LocationScreen> {
           children: [
             const LocationBanner(),
             Padding(
-              padding: EdgeInsets.only(left: 30.0, right: 30.0),
+              padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.065),
               child: Column(
                 children: [
                   const LocationNameAddress(),

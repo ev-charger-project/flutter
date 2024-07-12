@@ -10,7 +10,7 @@ class RouteDirectionButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     const double size = 18;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10.0),
+      padding:EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.015, vertical: 10.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -31,7 +31,7 @@ class RouteDirectionButtons extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(width: 30),
+          SizedBox(width: MediaQuery.of(context).size.width * 0.015),
           Expanded(
             child: SizedBox(
               child: ElevatedButton(
