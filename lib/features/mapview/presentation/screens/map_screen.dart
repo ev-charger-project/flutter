@@ -18,7 +18,8 @@ class MapScreen extends ConsumerStatefulWidget {
 }
 
 class _MapScreenState extends ConsumerState<MapScreen> {
-  final Completer<GoogleMapController> _controller = Completer<GoogleMapController>();
+  final Completer<GoogleMapController> _controller =
+      Completer<GoogleMapController>();
   static const CameraPosition _kGooglePlex = CameraPosition(
     target: LatLng(10.8023163, 106.6645121),
     zoom: 16,
@@ -39,7 +40,8 @@ class _MapScreenState extends ConsumerState<MapScreen> {
               final Set<Marker> googleMapMarkers = markers.map((marker) {
                 return marker.copyWith(
                   onTapParam: () {
-                    ref.read(selectedLocationIdProvider.notifier).state = marker.markerId.value;
+                    ref.read(selectedLocationIdProvider.notifier).state =
+                        marker.markerId.value;
                     setState(() {
                       _isInfoVisible = true;
                     });
@@ -76,7 +78,9 @@ class _MapScreenState extends ConsumerState<MapScreen> {
           ),
           AnimatedPositioned(
             duration: const Duration(milliseconds: 300),
-            bottom: _isInfoVisible ? 280.0 : 16.0,
+            bottom: _isInfoVisible
+                ? MediaQuery.of(context).size.height * 0.30
+                : 16.0,
             right: 16.0,
             child: FloatingActionButton(
               shape: const CircleBorder(),
@@ -96,7 +100,8 @@ class _MapScreenState extends ConsumerState<MapScreen> {
                 );
 
                 final GoogleMapController controller = await _controller.future;
-                controller.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+                controller.animateCamera(
+                    CameraUpdate.newCameraPosition(cameraPosition));
                 setState(() {});
               },
               child: SvgPicture.asset('assets/icons/floating_button_icon.svg'),
@@ -108,4 +113,3 @@ class _MapScreenState extends ConsumerState<MapScreen> {
     );
   }
 }
-
