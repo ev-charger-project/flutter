@@ -82,7 +82,7 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                       border: false,
                       shadow: true,
                       shadowOpacity: 0.25,
-                      child: Text(
+                      child: const Text(
                         "Reset",
                         style:
                             TextStyle(color: Color(0xFF34A853), fontSize: 17),
@@ -102,7 +102,7 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                       border: false,
                       shadow: true,
                       shadowOpacity: 0.35,
-                      child: Text(
+                      child: const Text(
                         "Apply Filter",
                         style: TextStyle(color: Colors.white, fontSize: 17),
                       ),
