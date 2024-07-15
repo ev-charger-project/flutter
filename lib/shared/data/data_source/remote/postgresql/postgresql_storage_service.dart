@@ -27,24 +27,22 @@ class PostgresqlStorageService extends RemoteStorageService {
   }
 
   @override
-  Future<List<ChargerMarkerDataModel>> fetchMarker(int radius) async {
-    await Future.delayed(Duration(seconds: 1));
-    return const [
-      ChargerMarkerDataModel(
-          id: '1a', latitude: '10.802940', longitude: '106.665078'),
-      ChargerMarkerDataModel(
-          id: '1b', latitude: '10.803778', longitude: '106.662877'),
-      ChargerMarkerDataModel(
-          id: '1c', latitude: '10.801026', longitude: '106.662651'),
-      ChargerMarkerDataModel(
-          id: '1d', latitude: '10.802940', longitude: '106.665093'),
-      ChargerMarkerDataModel(
-          id: '1e', latitude: '10.801163', longitude: '106.664041'),
-      ChargerMarkerDataModel(
-          id: '1f', latitude: '10.800105', longitude: '106.664666'),
-      ChargerMarkerDataModel(
-          id: '1g', latitude: '10.798799', longitude: '106.663463'),
+  Future<List<ChargerMarkerDataModel>> fetchMarker(String userLat, String userLong, int radius) async {
 
-    ];
+    double baseLat = 10.802940;
+    double baseLong = 106.66505;
+
+    List<ChargerMarkerDataModel> markers = [];
+
+    for (int i = 0; i < 10; i++) {
+      for (int j = 0; j < 10; j++) {
+        String id = 'id_${i * 10 + j}';
+        String lat = (baseLat + i * 0.005).toString();
+        String long = (baseLong + j * 0.005).toString();
+        markers.add(ChargerMarkerDataModel(id: id, latitude: lat, longitude: long));
+      }
+    }
+
+    return markers;
   }
 }
