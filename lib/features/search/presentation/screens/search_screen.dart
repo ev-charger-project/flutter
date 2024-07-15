@@ -1,10 +1,8 @@
-import 'dart:convert';
 import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:ev_charger/features/search/presentation/widgets/search_bar_and_filter.dart';
 import 'package:ev_charger/shared/presentation/widgets/bottom_app_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:hive/hive.dart';
-import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -21,10 +19,43 @@ class SearchScreen extends ConsumerStatefulWidget {
 
 class _SearchScreenState extends ConsumerState<SearchScreen> {
   TextEditingController _searchController = TextEditingController();
-  List<String> _suggestions = [];
+  List<Map<String, String>> _suggestions = [];
 
   // check if user is typing in the search bar
   bool _isTyping = false;
+
+  // example dataset
+  @override
+  void initState() {
+    super.initState();
+    _suggestions = generateChargerLocationsBasedOnStreetName();
+  }
+
+  List<Map<String, String>> generateChargerLocationsBasedOnStreetName() {
+    List<Map<String, String>> chargerLocations = [];
+    List<String> streetNames = [
+      'Main St',
+      'Elm St',
+      'Pine St',
+      'Oak St',
+      'Maple St',
+      'Birch St',
+      'Cedar St',
+      'Spruce St',
+      'Willow St',
+      'Aspen St'
+    ];
+
+    for (int i = 0; i < streetNames.length; i++) {
+      chargerLocations.add({
+        'name': 'Charger @ ${streetNames[i]}',
+        'details':
+            '${i * 123 + 100} ${streetNames[i]}, City ${String.fromCharCode(65 + i)}',
+      });
+    }
+
+    return chargerLocations;
+  }
 
   Future<void> _getSuggestions(String query) async {
     if (query.isEmpty) {
@@ -37,9 +68,13 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
 
     setState(() {
       _isTyping = true;
+      _suggestions = generateChargerLocationsBasedOnStreetName()
+          .where((location) =>
+              location['name']!.toLowerCase().contains(query.toLowerCase()))
+          .toList();
     });
 
-    final response = await http
+    /*final response = await http
         .get(Uri.parse('https://api.example.com/locations?query=$query'));
 
     if (response.statusCode == 200) {
@@ -52,99 +87,179 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
       setState(() {
         _suggestions = [];
       });
-    }
+    }*/
+  }
+
+  Widget _buildListItem(BuildContext context, int index) {
+    return Column(
+      children: [
+        ListTile(
+          title: Row(
+            children: [
+              SvgPicture.asset(
+                'assets/icons/station_marker.svg',
+                width: 50,
+                height: 50,
+              ),
+              const SizedBox(width: 20),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      _suggestions[index]['name']!,
+                      style: Theme.of(context).textTheme.displayMedium,
+                    ),
+                    Text(
+                      _suggestions[index]['details']!,
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                  ],
+                ),
+              ),
+              const Icon(Icons.arrow_forward_ios),
+            ],
+          ),
+          onTap: () => print("Location tapped"),
+        ),
+        Divider(
+          color: Theme.of(context).dividerColor,
+          thickness: 1,
+        ),
+      ],
+    );
   }
 
   @override
   Widget build(BuildContext context) {
+    final bottomPadding = MediaQuery.of(context).size.height * 0.1;
     return Scaffold(
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 70, left: 30, right: 30),
+            child: SearchBarAndFilter(
+              controller: _searchController,
+              onChanged: _getSuggestions,
+              isTyping: _isTyping,
+              onFilterPressed: () => context.router.push(FilterRoute()),
+            ),
+          ),
+          Expanded(
+            child: Padding(
+              padding:
+                  EdgeInsets.only(left: 30, right: 30, bottom: bottomPadding),
+              child: ListView.builder(
+                itemCount: _suggestions.length,
+                itemBuilder: _buildListItem,
+              ),
+            ),
+          ),
+        ],
+      ),
+      bottomNavigationBar: const SimpleBottomAppBar(),
+    );
+
+    /*return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(
-            left: 30,
-            right: 30,
-            top: 60,
-            bottom: 60,
-          ),
+          padding:
+              const EdgeInsets.only(top: 70, left: 30, right: 30, bottom: 30),
           child: Column(
             children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Color(0xFFECE6F0),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: TextField(
-                        controller: _searchController,
-                        decoration: InputDecoration(
-                          hintText: 'Search stations',
-                          hintStyle: TextStyle(
-                            color: _isTyping
-                                ? Colors.black
-                                : Colors.black.withOpacity(0.65),
-                          ),
-                          prefixIcon: Icon(
-                            Icons.search,
-                            color: _isTyping
-                                ? Colors.black
-                                : Colors.black.withOpacity(0.65),
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide.none,
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide(
-                              color: Color(0xFFA8CAB1),
-                              width: 2,
-                            ),
-                          ),
-                          contentPadding: EdgeInsets.all(8.0),
-                        ),
-                        style: TextStyle(
-                          color: _isTyping
-                              ? Colors.black
-                              : Colors.black.withOpacity(0.65),
-                        ),
-                        onChanged: (value) {
-                          _getSuggestions(value);
-                        },
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 10),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Color(0xFFECE6F0),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: IconButton(
-                      icon: SvgPicture.asset(
-                        'assets/icons/filter_icon.svg',
-                        width: 20,
-                        height: 20,
-                      ),
-                      onPressed: () {
-                        context.router.push(FilterRoute());
-                      },
-                    ),
-                  ),
-                ],
+              SearchBarAndFilter(
+                controller: _searchController,
+                onChanged: _getSuggestions,
+                isTyping: _isTyping,
+                onFilterPressed: () {
+                  context.router.push(FilterRoute());
+                },
               ),
               if (_suggestions.isNotEmpty)
-                Expanded(
+                Padding(
+                  padding: EdgeInsets.only(bottom: bottomPadding),
                   child: ListView.builder(
                     shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: _suggestions.length,
+                    itemBuilder: _buildListItem,
+                  ),
+                ),
+            ],
+          ),
+        ),
+      ),
+      bottomNavigationBar: SimpleBottomAppBar(),
+    );*/
+    /*return Scaffold(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding:
+              const EdgeInsets.only(top: 70, left: 30, right: 30, bottom: 30),
+          child: Column(
+            children: [
+              SearchBarAndFilter(
+                controller: _searchController,
+                onChanged: _getSuggestions,
+                isTyping: _isTyping,
+                onFilterPressed: () {
+                  context.router.push(FilterRoute());
+                },
+              ),
+              if (_suggestions.isNotEmpty)
+                Padding(
+                  padding: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).size.height * 0.1),
+                  // Adjust this value based on your bottom navigation bar's height
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
                     itemCount: _suggestions.length,
                     itemBuilder: (context, index) {
-                      return ListTile(
-                        title: Text(_suggestions[index]),
-                        onTap: () {
-                          // Handle suggestion tap
-                        },
+                      return Column(
+                        children: [
+                          ListTile(
+                            title: Row(
+                              children: [
+                                SvgPicture.asset(
+                                  'assets/icons/station_marker.svg',
+                                  // Station icon
+                                  width: 50,
+                                  height: 50,
+                                ),
+                                SizedBox(width: 20),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        _suggestions[index]['name']!,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displayMedium,
+                                      ),
+                                      Text(
+                                        _suggestions[index]['details']!,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Icon(Icons.arrow_forward_ios),
+                              ],
+                            ),
+                            onTap: () {
+                              print("Location tapped");
+                            },
+                          ),
+                          Divider(
+                            color: Theme.of(context).dividerColor,
+                            thickness: 1,
+                          ),
+                        ],
                       );
                     },
                   ),
@@ -154,23 +269,6 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
         ),
       ),
       bottomNavigationBar: SimpleBottomAppBar(),
-
-      /*BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset('assets/icons/home_icon.svg'),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset('assets/icons/route_icon.svg'),
-            label: 'Route',
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset('assets/icons/account_icon.svg'),
-            label: 'Account',
-          ),
-        ],
-      ),*/
-    );
+    );*/
   }
 }
