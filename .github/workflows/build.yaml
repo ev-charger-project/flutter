@@ -25,9 +25,9 @@ jobs:
           flutter-version: "3.22.2"
           channel: "stable"
           cache: true
-        environment:
-          sdk: ">=3.4.1 <4.0.0"
-          flutter: 3.19.0
+          environment:
+            sdk: ">=3.4.1 <4.0.0"
+            flutter: 3.19.0
       # 12
       - name: Get dependencies
         run: flutter pub get
