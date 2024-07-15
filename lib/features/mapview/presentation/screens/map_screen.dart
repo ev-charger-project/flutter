@@ -76,7 +76,7 @@ class _MapScreenState extends ConsumerState<MapScreen> {
           ),
           AnimatedPositioned(
             duration: const Duration(milliseconds: 300),
-            bottom: _isInfoVisible ? 270.0 : 16.0,
+            bottom: _isInfoVisible ? 280.0 : 16.0,
             right: 16.0,
             child: FloatingActionButton(
               shape: const CircleBorder(),
