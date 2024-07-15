@@ -1,0 +1,49 @@
+import 'package:ev_charger/features/location/presentation/widgets/location_name_address.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../../location/presentation/widgets/amount_chargers.dart';
+import '../../../location/presentation/widgets/route_direction_buttons.dart';
+
+class ShortInfoUI extends ConsumerWidget {
+  const ShortInfoUI({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Padding(
+      padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.045),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Center(
+          child: Padding(
+            padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.055),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.015),
+                  child: const LocationNameAddress(),
+                ),
+                Divider(
+                  color: Theme.of(context).dividerColor,
+                  thickness: 1,
+                ),
+                const ChargerNum(),
+                Divider(
+                  color: Theme.of(context).dividerColor,
+                  thickness: 1,
+                ),
+                const RouteDirectionButtons(),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

@@ -13,7 +13,6 @@ class LocationNameAddress extends ConsumerWidget {
 
     return Container(
       color: Theme.of(context).colorScheme.surface,
-      padding: EdgeInsets.only(top: 20.0, left: MediaQuery.of(context).size.width * 0.015, right: 70),
       child: currentLocation.when(
         data: (location) => Column(
           crossAxisAlignment: CrossAxisAlignment.start,

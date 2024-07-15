@@ -34,7 +34,10 @@ class _LocationScreenState extends ConsumerState<LocationScreen> {
               padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.065),
               child: Column(
                 children: [
-                  const LocationNameAddress(),
+                  Padding(
+                    padding: EdgeInsets.only(top: 20.0, left: MediaQuery.of(context).size.width * 0.015, right: 70),
+                    child: const LocationNameAddress(),
+                  ),
                   Divider(
                     color: Theme.of(context).dividerColor,
                     thickness: 1,
@@ -44,7 +47,10 @@ class _LocationScreenState extends ConsumerState<LocationScreen> {
                     color: Theme.of(context).dividerColor,
                     thickness: 1,
                   ),
-                  const RouteDirectionButtons(),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.015, vertical: 10.0),
+                    child: const RouteDirectionButtons(),
+                  ),
                   Divider(
                     color: Theme.of(context).dividerColor,
                     thickness: 1,

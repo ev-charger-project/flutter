@@ -18,10 +18,7 @@ final markerProvider = FutureProvider.family.autoDispose<List<Marker>, int>((ref
         markerId: MarkerId(markerData.id),
         position: LatLng(double.parse(markerData.latitude), double.parse(markerData.longitude)),
         icon: BitmapDescriptor.bytes(customIconBytes),
-        infoWindow: InfoWindow(
-          title: 'Charger ${markerData.id}',
-          snippet: 'Latitude: ${markerData.latitude}, Longitude: ${markerData.longitude}',
-        ),
+
       ),
     );
   }
