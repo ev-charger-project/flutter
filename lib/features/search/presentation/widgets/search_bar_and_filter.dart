@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class SearchBarAndFilter extends StatelessWidget {
+class SearchBarAndFilter extends ConsumerWidget {
   final TextEditingController controller;
   final Function(String) onChanged;
   final bool isTyping;
@@ -16,7 +17,7 @@ class SearchBarAndFilter extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Row(
       children: [
         Expanded(
