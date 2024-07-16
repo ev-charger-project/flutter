@@ -1,17 +1,17 @@
 on:
   push:
     branches: ["ci/cd"]
-# 4
+permissions:
+      packages: write
+      contents: read
+      attestations: write
+      id-token: write
 jobs:
   # 5
   build:
     # 6
     runs-on: ubuntu-latest
-    permissions:
-      packages: write
-      contents: read
-      attestations: write
-      id-token: write
+    
     # 7
     steps:
       # 8
