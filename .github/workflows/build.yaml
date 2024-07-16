@@ -1,13 +1,15 @@
 on:
   push:
     branches: ["ci/cd"]
+      tags:
+      - 'v*' 
 permissions: write-all
 jobs:
   # 5
   build:
     # 6
     runs-on: ubuntu-latest
-    
+
     # 7
     steps:
       # 8
