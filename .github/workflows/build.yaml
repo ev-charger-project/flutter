@@ -1,7 +1,8 @@
 on:
   push:
     branches: ["ci/cd"]
-permissions: read-all | write-all
+permissions: read-all
+
 jobs:
   # 5
   build:
