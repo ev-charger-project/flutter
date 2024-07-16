@@ -5,6 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 final userIconProvider = FutureProvider<BitmapDescriptor>((ref) async {
-  final Uint8List customIconBytes = await AssetImage('assets/icons/user_icon.png').pngUint8List;
+  final Uint8List customIconBytes = await const AssetImage('assets/icons/user_icon.png').pngUint8List;
   return BitmapDescriptor.bytes(customIconBytes);
 });
