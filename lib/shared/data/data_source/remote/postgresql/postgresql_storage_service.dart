@@ -27,7 +27,7 @@ class PostgresqlStorageService extends RemoteStorageService {
   }
 
   @override
-  Future<List<ChargerMarkerDataModel>> fetchMarker(String userLat, String userLong, int radius) async {
+  Future<List<ChargerMarkerDataModel>> fetchMarker(double userLat, double userLong, double radius) async {
 
     double baseLat = 10.802940;
     double baseLong = 106.66505;

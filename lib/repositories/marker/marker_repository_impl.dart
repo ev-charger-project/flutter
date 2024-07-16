@@ -10,8 +10,8 @@ class MarkerRepositoryImpl extends MarkerRepository {
   final MarkerRemoteDataSource remoteDataSource;
 
   @override
-  Future<List<ChargerMarkerEntity>> fetchMarkers(int radius) async {
-    final markerDataModelResult = await remoteDataSource.fetchMarkers(radius);
+  Future<List<ChargerMarkerEntity>> fetchMarkers(double userLat, double userLong, double radius) async {
+    final markerDataModelResult = await remoteDataSource.fetchMarkers(userLat,userLong,radius);
     final result = MarkerMapper().toEntityList(markerDataModelResult);
     return result;
   }

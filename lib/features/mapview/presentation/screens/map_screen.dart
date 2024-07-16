@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import '../../../../shared/domain/providers/marker/marker_provider.dart';
 import '../../../location/presentation/providers/selected_location_id_provider.dart';
+import '../../domain/providers/marker/marker_provider.dart';
+import '../../domain/providers/screen_center_provider.dart';
 import '../widgets/short_info_ui.dart';
 
 @RoutePage()
@@ -30,7 +31,8 @@ class _MapScreenState extends ConsumerState<MapScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final markerAsyncValue = ref.watch(markerProvider(2));
+    final markerAsyncValue = ref.watch(markerProvider);
+    final screenCenterNotifier = ref.read(screenCenterProvider.notifier);
 
     return Scaffold(
       body: Stack(
@@ -42,6 +44,7 @@ class _MapScreenState extends ConsumerState<MapScreen> {
                   onTapParam: () {
                     ref.read(selectedLocationIdProvider.notifier).state =
                         marker.markerId.value;
+
                     setState(() {
                       _isInfoVisible = true;
                     });
@@ -56,8 +59,24 @@ class _MapScreenState extends ConsumerState<MapScreen> {
                 markers: googleMapMarkers,
                 mapToolbarEnabled: false,
                 zoomControlsEnabled: false,
+                minMaxZoomPreference: const MinMaxZoomPreference(10, 20),
                 onMapCreated: (GoogleMapController controller) {
                   _controller.complete(controller);
+                },
+                onCameraIdle: () async {
+                  final GoogleMapController controller =
+                      await _controller.future;
+                  LatLngBounds visibleRegion =
+                      await controller.getVisibleRegion();
+                  LatLng center = LatLng(
+                    (visibleRegion.northeast.latitude +
+                            visibleRegion.southwest.latitude) /
+                        2,
+                    (visibleRegion.northeast.longitude +
+                            visibleRegion.southwest.longitude) /
+                        2,
+                  );
+                  screenCenterNotifier.state = center;
                 },
                 onTap: (LatLng position) {
                   setState(() {
@@ -71,7 +90,7 @@ class _MapScreenState extends ConsumerState<MapScreen> {
           ),
           AnimatedPositioned(
             duration: const Duration(milliseconds: 300),
-            bottom: _isInfoVisible ? 0.0 : -300.0,
+            bottom: _isInfoVisible ? 0 : -300.0,
             left: 0,
             right: 0,
             child: const ShortInfoUI(),
@@ -79,13 +98,13 @@ class _MapScreenState extends ConsumerState<MapScreen> {
           AnimatedPositioned(
             duration: const Duration(milliseconds: 300),
             bottom: _isInfoVisible
-                ? MediaQuery.of(context).size.height * 0.30
+                ? MediaQuery.of(context).size.height * 0.065 + 230
                 : 16.0,
             right: 16.0,
             child: FloatingActionButton(
               shape: const CircleBorder(),
               onPressed: () async {
-                LatLng fixedLocation = const LatLng(10.8023163, 106.6645121);
+                LatLng fixedLocation = LatLng(10.8023163, 106.6645121);
                 _markers.add(
                   Marker(
                     markerId: const MarkerId("user_location"),
@@ -93,7 +112,6 @@ class _MapScreenState extends ConsumerState<MapScreen> {
                   ),
                 );
 
-                // Update camera position to the fixed location
                 CameraPosition cameraPosition = CameraPosition(
                   target: fixedLocation,
                   zoom: 16,

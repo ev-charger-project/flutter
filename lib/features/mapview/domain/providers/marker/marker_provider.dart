@@ -1,13 +1,19 @@
 import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_image_converter/flutter_image_converter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import '../radius_provider.dart';
+import '../screen_center_provider.dart';
 import 'marker_repository_provider.dart';
-final markerProvider = FutureProvider.family.autoDispose<List<Marker>, int>((ref, radius) async {
+
+final markerProvider = FutureProvider.autoDispose<List<Marker>>((ref) async {
+  final userLatLng =ref.watch(screenCenterProvider);
+  final userLat = userLatLng.latitude;
+  final userLong = userLatLng.longitude;
+  // final radius = ref.watch(radiusProvider);
   final markerRepository = ref.read(markerRepositoryProvider);
-  final markersData = await markerRepository.fetchMarkers(radius);
+  final markersData = await markerRepository.fetchMarkers(userLat, userLong, 50);
   final Uint8List customIconBytes = await const AssetImage('assets/icons/marker_icon.png').pngUint8List;
 
   List<Marker> markers = [];
@@ -18,7 +24,6 @@ final markerProvider = FutureProvider.family.autoDispose<List<Marker>, int>((ref
         markerId: MarkerId(markerData.id),
         position: LatLng(double.parse(markerData.latitude), double.parse(markerData.longitude)),
         icon: BitmapDescriptor.bytes(customIconBytes),
-
       ),
     );
   }
