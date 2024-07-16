@@ -1,11 +1,7 @@
 on:
   push:
     branches: ["ci/cd"]
-permissions:
-      packages: write
-      contents: read
-      attestations: write
-      id-token: write
+permissions: read-all | write-all
 jobs:
   # 5
   build:
