@@ -49,11 +49,23 @@ class SuggestionList extends ConsumerWidget {
                         ),
                         title: Text(
                           suggestion.locationName,
-                          style: Theme.of(context).textTheme.displayMedium,
+                          style: TextStyle(
+                            fontFamily: 'Exo',
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+
+                          //Theme.of(context).textTheme.displayMedium,
                         ),
                         subtitle: Text(
                           '${suggestion.street}, ${suggestion.district}, ${suggestion.city}',
-                          style: Theme.of(context).textTheme.bodySmall,
+                          style: TextStyle(
+                            fontFamily: 'Exo',
+                            fontSize: 16,
+                            fontWeight: FontWeight.normal,
+                          ),
+
+                          /*Theme.of(context).textTheme.bodySmall,*/
                         ),
                         trailing: const Icon(Icons.arrow_forward_ios),
                         onTap: () => print("Tapped on item $index"),
