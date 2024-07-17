@@ -8,11 +8,12 @@ import 'package:dio/dio.dart';
 
 class PostgresqlStorageService extends RemoteStorageService {
   final Dio _dio = Dio();
+
   @override
   Future<LocationDataModel> fetchLocationData(String locationId) async {
     const url = 'http://172.16.11.139:14000/api/v1/location_details';
-
-    try {
+    throw UnimplementedError();
+    /*try {
       final response = await _dio.get(url, queryParameters: {
         'id': locationId,
       });
@@ -24,7 +25,7 @@ class PostgresqlStorageService extends RemoteStorageService {
       }
     } catch (e) {
       throw Exception('Failed to load markers: $e');
-    }
+    }*/
   }
 
   @override
