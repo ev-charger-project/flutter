@@ -6,9 +6,9 @@ part 'charger_marker_data_model.g.dart';
 @freezed
 class ChargerMarkerDataModel with _$ChargerMarkerDataModel {
   const factory ChargerMarkerDataModel({
-    @JsonKey(name: 'location_id') required String id,
-    required String latitude,
-    required String longitude,
+    @JsonKey(name: 'id') required String id,
+    required double latitude,
+    required double longitude,
   }) = _ChargerMarkerDataModel;
 
   factory ChargerMarkerDataModel.fromJson(Map<String, dynamic> json) =>

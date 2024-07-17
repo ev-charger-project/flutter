@@ -19,10 +19,11 @@ final markerProvider = FutureProvider.autoDispose<List<Marker>>((ref) async {
   List<Marker> markers = [];
 
   for (var markerData in markersData) {
+    print('Trying to create a marker with ${markerData.latitude}, ${markerData.longitude}');
     markers.add(
       Marker(
         markerId: MarkerId(markerData.id),
-        position: LatLng(double.parse(markerData.latitude), double.parse(markerData.longitude)),
+        position: LatLng(markerData.latitude, markerData.longitude),
         icon: BitmapDescriptor.bytes(customIconBytes),
       ),
     );

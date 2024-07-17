@@ -17,8 +17,8 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$ChargerMarkerEntity {
   String get id => throw _privateConstructorUsedError;
-  String get latitude => throw _privateConstructorUsedError;
-  String get longitude => throw _privateConstructorUsedError;
+  double get latitude => throw _privateConstructorUsedError;
+  double get longitude => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ChargerMarkerEntityCopyWith<ChargerMarkerEntity> get copyWith =>
@@ -31,7 +31,7 @@ abstract class $ChargerMarkerEntityCopyWith<$Res> {
           ChargerMarkerEntity value, $Res Function(ChargerMarkerEntity) then) =
       _$ChargerMarkerEntityCopyWithImpl<$Res, ChargerMarkerEntity>;
   @useResult
-  $Res call({String id, String latitude, String longitude});
+  $Res call({String id, double latitude, double longitude});
 }
 
 /// @nodoc
@@ -59,11 +59,11 @@ class _$ChargerMarkerEntityCopyWithImpl<$Res, $Val extends ChargerMarkerEntity>
       latitude: null == latitude
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
-              as String,
+              as double,
       longitude: null == longitude
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
-              as String,
+              as double,
     ) as $Val);
   }
 }
@@ -76,7 +76,7 @@ abstract class _$$ChargerMarkerEntityImplCopyWith<$Res>
       __$$ChargerMarkerEntityImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String latitude, String longitude});
+  $Res call({String id, double latitude, double longitude});
 }
 
 /// @nodoc
@@ -102,11 +102,11 @@ class __$$ChargerMarkerEntityImplCopyWithImpl<$Res>
       latitude: null == latitude
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
-              as String,
+              as double,
       longitude: null == longitude
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
-              as String,
+              as double,
     ));
   }
 }
@@ -120,9 +120,9 @@ class _$ChargerMarkerEntityImpl implements _ChargerMarkerEntity {
   @override
   final String id;
   @override
-  final String latitude;
+  final double latitude;
   @override
-  final String longitude;
+  final double longitude;
 
   @override
   String toString() {
@@ -155,15 +155,15 @@ class _$ChargerMarkerEntityImpl implements _ChargerMarkerEntity {
 abstract class _ChargerMarkerEntity implements ChargerMarkerEntity {
   const factory _ChargerMarkerEntity(
       {required final String id,
-      required final String latitude,
-      required final String longitude}) = _$ChargerMarkerEntityImpl;
+      required final double latitude,
+      required final double longitude}) = _$ChargerMarkerEntityImpl;
 
   @override
   String get id;
   @override
-  String get latitude;
+  double get latitude;
   @override
-  String get longitude;
+  double get longitude;
   @override
   @JsonKey(ignore: true)
   _$$ChargerMarkerEntityImplCopyWith<_$ChargerMarkerEntityImpl> get copyWith =>

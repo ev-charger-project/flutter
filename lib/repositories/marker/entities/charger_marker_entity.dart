@@ -9,8 +9,8 @@ part 'charger_marker_entity.freezed.dart';
 class ChargerMarkerEntity with _$ChargerMarkerEntity {
   const factory ChargerMarkerEntity({
     required String id,
-    required String latitude,
-    required String longitude,
+    required double latitude,
+    required double longitude,
   }) = _ChargerMarkerEntity;
 }
 class MarkerMapper with EntityConvertible<ChargerMarkerEntity, ChargerMarkerDataModel> {

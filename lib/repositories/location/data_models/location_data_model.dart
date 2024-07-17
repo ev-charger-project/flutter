@@ -1,25 +1,25 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../charger/data_models/charger_data_model.dart';
+
 part 'location_data_model.freezed.dart';
 part 'location_data_model.g.dart';
 
 @freezed
 class LocationDataModel with _$LocationDataModel {
   const factory LocationDataModel({
-    @JsonKey(name: 'id') required String id,
     @JsonKey(name: 'location_name') required String name,
-    @JsonKey(name: 'street') required String streetAddress,
+    @JsonKey(name: 'street') required String street,
     @JsonKey(name: 'district') String? district,
-    @JsonKey(name: 'city') required String cityProvince,
+    @JsonKey(name: 'city') required String city,
+    @JsonKey(name: 'postal_code') String? postal,
     @JsonKey(name: 'country') required String country,
-    @JsonKey(name: 'postal_code') String? postalCode,
-    @JsonKey(name: 'latitude') required double latitude,
-    @JsonKey(name: 'longitude') required double longitude,
     @JsonKey(name: 'description') String? description,
     @JsonKey(name: 'working_day') required WorkingDay workingDay,
     @JsonKey(name: 'pricing') String? pricing,
     @JsonKey(name: 'phone_number') String? phoneNumber,
     @JsonKey(name: 'parking_level') String? parkingLevel,
+    @JsonKey(name: 'ev_chargers') required List<ChargerDataModel> ev_chargers,
   }) = _LocationDataModel;
 
   factory LocationDataModel.fromJson(Map<String, dynamic> json) =>

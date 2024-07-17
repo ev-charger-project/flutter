@@ -9,10 +9,11 @@ class LocationRepositoryImpl extends LocationRepository {
 
   @override
   Future<LocationEntity> fetchLocationData(String locationId) async {
-    final locationDataModelResult =
-        await remoteDataSource.fetchLocationData(locationId);
-    final result = LocationMapper().toEntity(locationDataModelResult);
-    return result;
+    // final locationDataModelResult =
+    //     await remoteDataSource.fetchLocationData(locationId);
+    // final result = LocationMapper().toEntity(locationDataModelResult);
+    // return result;
+    throw UnimplementedError();
   }
 
 

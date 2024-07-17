@@ -10,11 +10,6 @@ abstract class MarkerDataSource {
 class MarkerRemoteDataSource extends MarkerDataSource {
   MarkerRemoteDataSource(this.remoteStorageService);
   final RemoteStorageService remoteStorageService;
-  final Map<String, String> userLocation = {
-    'userLat': '108.0',
-    'userLong': '68.0',
-  };
-
 
   @override
   Future<List<ChargerMarkerDataModel>> fetchMarkers(double userLat, double userLong,double radius) async{

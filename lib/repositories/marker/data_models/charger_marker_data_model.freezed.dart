@@ -21,10 +21,10 @@ ChargerMarkerDataModel _$ChargerMarkerDataModelFromJson(
 
 /// @nodoc
 mixin _$ChargerMarkerDataModel {
-  @JsonKey(name: 'location_id')
+  @JsonKey(name: 'id')
   String get id => throw _privateConstructorUsedError;
-  String get latitude => throw _privateConstructorUsedError;
-  String get longitude => throw _privateConstructorUsedError;
+  double get latitude => throw _privateConstructorUsedError;
+  double get longitude => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -39,9 +39,7 @@ abstract class $ChargerMarkerDataModelCopyWith<$Res> {
       _$ChargerMarkerDataModelCopyWithImpl<$Res, ChargerMarkerDataModel>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'location_id') String id,
-      String latitude,
-      String longitude});
+      {@JsonKey(name: 'id') String id, double latitude, double longitude});
 }
 
 /// @nodoc
@@ -70,11 +68,11 @@ class _$ChargerMarkerDataModelCopyWithImpl<$Res,
       latitude: null == latitude
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
-              as String,
+              as double,
       longitude: null == longitude
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
-              as String,
+              as double,
     ) as $Val);
   }
 }
@@ -89,9 +87,7 @@ abstract class _$$ChargerMarkerDataModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'location_id') String id,
-      String latitude,
-      String longitude});
+      {@JsonKey(name: 'id') String id, double latitude, double longitude});
 }
 
 /// @nodoc
@@ -119,11 +115,11 @@ class __$$ChargerMarkerDataModelImplCopyWithImpl<$Res>
       latitude: null == latitude
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
-              as String,
+              as double,
       longitude: null == longitude
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
-              as String,
+              as double,
     ));
   }
 }
@@ -132,7 +128,7 @@ class __$$ChargerMarkerDataModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$ChargerMarkerDataModelImpl implements _ChargerMarkerDataModel {
   const _$ChargerMarkerDataModelImpl(
-      {@JsonKey(name: 'location_id') required this.id,
+      {@JsonKey(name: 'id') required this.id,
       required this.latitude,
       required this.longitude});
 
@@ -140,12 +136,12 @@ class _$ChargerMarkerDataModelImpl implements _ChargerMarkerDataModel {
       _$$ChargerMarkerDataModelImplFromJson(json);
 
   @override
-  @JsonKey(name: 'location_id')
+  @JsonKey(name: 'id')
   final String id;
   @override
-  final String latitude;
+  final double latitude;
   @override
-  final String longitude;
+  final double longitude;
 
   @override
   String toString() {
@@ -185,20 +181,20 @@ class _$ChargerMarkerDataModelImpl implements _ChargerMarkerDataModel {
 
 abstract class _ChargerMarkerDataModel implements ChargerMarkerDataModel {
   const factory _ChargerMarkerDataModel(
-      {@JsonKey(name: 'location_id') required final String id,
-      required final String latitude,
-      required final String longitude}) = _$ChargerMarkerDataModelImpl;
+      {@JsonKey(name: 'id') required final String id,
+      required final double latitude,
+      required final double longitude}) = _$ChargerMarkerDataModelImpl;
 
   factory _ChargerMarkerDataModel.fromJson(Map<String, dynamic> json) =
       _$ChargerMarkerDataModelImpl.fromJson;
 
   @override
-  @JsonKey(name: 'location_id')
+  @JsonKey(name: 'id')
   String get id;
   @override
-  String get latitude;
+  double get latitude;
   @override
-  String get longitude;
+  double get longitude;
   @override
   @JsonKey(ignore: true)
   _$$ChargerMarkerDataModelImplCopyWith<_$ChargerMarkerDataModelImpl>

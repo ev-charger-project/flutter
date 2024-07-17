@@ -9,15 +9,15 @@ part of 'charger_marker_data_model.dart';
 _$ChargerMarkerDataModelImpl _$$ChargerMarkerDataModelImplFromJson(
         Map<String, dynamic> json) =>
     _$ChargerMarkerDataModelImpl(
-      id: json['location_id'] as String,
-      latitude: json['latitude'] as String,
-      longitude: json['longitude'] as String,
+      id: json['id'] as String,
+      latitude: (json['latitude'] as num).toDouble(),
+      longitude: (json['longitude'] as num).toDouble(),
     );
 
 Map<String, dynamic> _$$ChargerMarkerDataModelImplToJson(
         _$ChargerMarkerDataModelImpl instance) =>
     <String, dynamic>{
-      'location_id': instance.id,
+      'id': instance.id,
       'latitude': instance.latitude,
       'longitude': instance.longitude,
     };
