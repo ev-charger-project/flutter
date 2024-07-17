@@ -10,7 +10,7 @@ _$ChargerImpl _$$ChargerImplFromJson(Map<String, dynamic> json) =>
     _$ChargerImpl(
       station_name: json['station_name'] as String,
       availability: json['availability'] as String,
-      ports: (json['ports'] as List<dynamic>)
+      ports: (json['ev_charger_ports'] as List<dynamic>)
           .map(
               (e) => PortDataModel.fromJson(Map<String, String>.from(e as Map)))
           .toList(),
@@ -20,7 +20,7 @@ Map<String, dynamic> _$$ChargerImplToJson(_$ChargerImpl instance) =>
     <String, dynamic>{
       'station_name': instance.station_name,
       'availability': instance.availability,
-      'ports': instance.ports,
+      'ev_charger_ports': instance.ports,
     };
 
 _$PortDataModelImpl _$$PortDataModelImplFromJson(Map<String, dynamic> json) =>

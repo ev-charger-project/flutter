@@ -16,11 +16,9 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$PowerOutputEntity {
-  String get id => throw _privateConstructorUsedError;
   int get outputValue => throw _privateConstructorUsedError;
   String get chargingSpeed => throw _privateConstructorUsedError;
   int get voltage => throw _privateConstructorUsedError;
-  String? get description => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $PowerOutputEntityCopyWith<PowerOutputEntity> get copyWith =>
@@ -33,12 +31,7 @@ abstract class $PowerOutputEntityCopyWith<$Res> {
           PowerOutputEntity value, $Res Function(PowerOutputEntity) then) =
       _$PowerOutputEntityCopyWithImpl<$Res, PowerOutputEntity>;
   @useResult
-  $Res call(
-      {String id,
-      int outputValue,
-      String chargingSpeed,
-      int voltage,
-      String? description});
+  $Res call({int outputValue, String chargingSpeed, int voltage});
 }
 
 /// @nodoc
@@ -54,17 +47,11 @@ class _$PowerOutputEntityCopyWithImpl<$Res, $Val extends PowerOutputEntity>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
     Object? outputValue = null,
     Object? chargingSpeed = null,
     Object? voltage = null,
-    Object? description = freezed,
   }) {
     return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
       outputValue: null == outputValue
           ? _value.outputValue
           : outputValue // ignore: cast_nullable_to_non_nullable
@@ -77,10 +64,6 @@ class _$PowerOutputEntityCopyWithImpl<$Res, $Val extends PowerOutputEntity>
           ? _value.voltage
           : voltage // ignore: cast_nullable_to_non_nullable
               as int,
-      description: freezed == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String?,
     ) as $Val);
   }
 }
@@ -93,12 +76,7 @@ abstract class _$$PowerOutputEntityImplCopyWith<$Res>
       __$$PowerOutputEntityImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String id,
-      int outputValue,
-      String chargingSpeed,
-      int voltage,
-      String? description});
+  $Res call({int outputValue, String chargingSpeed, int voltage});
 }
 
 /// @nodoc
@@ -112,17 +90,11 @@ class __$$PowerOutputEntityImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
     Object? outputValue = null,
     Object? chargingSpeed = null,
     Object? voltage = null,
-    Object? description = freezed,
   }) {
     return _then(_$PowerOutputEntityImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
       outputValue: null == outputValue
           ? _value.outputValue
           : outputValue // ignore: cast_nullable_to_non_nullable
@@ -135,10 +107,6 @@ class __$$PowerOutputEntityImplCopyWithImpl<$Res>
           ? _value.voltage
           : voltage // ignore: cast_nullable_to_non_nullable
               as int,
-      description: freezed == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String?,
     ));
   }
 }
@@ -147,26 +115,20 @@ class __$$PowerOutputEntityImplCopyWithImpl<$Res>
 
 class _$PowerOutputEntityImpl implements _PowerOutputEntity {
   const _$PowerOutputEntityImpl(
-      {required this.id,
-      required this.outputValue,
+      {required this.outputValue,
       required this.chargingSpeed,
-      required this.voltage,
-      this.description});
+      required this.voltage});
 
-  @override
-  final String id;
   @override
   final int outputValue;
   @override
   final String chargingSpeed;
   @override
   final int voltage;
-  @override
-  final String? description;
 
   @override
   String toString() {
-    return 'PowerOutputEntity(id: $id, outputValue: $outputValue, chargingSpeed: $chargingSpeed, voltage: $voltage, description: $description)';
+    return 'PowerOutputEntity(outputValue: $outputValue, chargingSpeed: $chargingSpeed, voltage: $voltage)';
   }
 
   @override
@@ -174,19 +136,16 @@ class _$PowerOutputEntityImpl implements _PowerOutputEntity {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PowerOutputEntityImpl &&
-            (identical(other.id, id) || other.id == id) &&
             (identical(other.outputValue, outputValue) ||
                 other.outputValue == outputValue) &&
             (identical(other.chargingSpeed, chargingSpeed) ||
                 other.chargingSpeed == chargingSpeed) &&
-            (identical(other.voltage, voltage) || other.voltage == voltage) &&
-            (identical(other.description, description) ||
-                other.description == description));
+            (identical(other.voltage, voltage) || other.voltage == voltage));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, outputValue, chargingSpeed, voltage, description);
+  int get hashCode =>
+      Object.hash(runtimeType, outputValue, chargingSpeed, voltage);
 
   @JsonKey(ignore: true)
   @override
@@ -198,22 +157,16 @@ class _$PowerOutputEntityImpl implements _PowerOutputEntity {
 
 abstract class _PowerOutputEntity implements PowerOutputEntity {
   const factory _PowerOutputEntity(
-      {required final String id,
-      required final int outputValue,
+      {required final int outputValue,
       required final String chargingSpeed,
-      required final int voltage,
-      final String? description}) = _$PowerOutputEntityImpl;
+      required final int voltage}) = _$PowerOutputEntityImpl;
 
-  @override
-  String get id;
   @override
   int get outputValue;
   @override
   String get chargingSpeed;
   @override
   int get voltage;
-  @override
-  String? get description;
   @override
   @JsonKey(ignore: true)
   _$$PowerOutputEntityImplCopyWith<_$PowerOutputEntityImpl> get copyWith =>

@@ -21,8 +21,6 @@ PowerPlugTypeDataModel _$PowerPlugTypeDataModelFromJson(
 
 /// @nodoc
 mixin _$PowerPlugTypeDataModel {
-  @JsonKey(name: 'id')
-  String get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'power_model')
   String get powerModel => throw _privateConstructorUsedError;
   @JsonKey(name: 'plug_type')
@@ -47,8 +45,7 @@ abstract class $PowerPlugTypeDataModelCopyWith<$Res> {
       _$PowerPlugTypeDataModelCopyWithImpl<$Res, PowerPlugTypeDataModel>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'id') String id,
-      @JsonKey(name: 'power_model') String powerModel,
+      {@JsonKey(name: 'power_model') String powerModel,
       @JsonKey(name: 'plug_type') String plugType,
       @JsonKey(name: 'plug_image') String? plugImage,
       @JsonKey(name: 'used_in_regions') List<String>? usedInRegions,
@@ -69,7 +66,6 @@ class _$PowerPlugTypeDataModelCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
     Object? powerModel = null,
     Object? plugType = null,
     Object? plugImage = freezed,
@@ -77,10 +73,6 @@ class _$PowerPlugTypeDataModelCopyWithImpl<$Res,
     Object? additionalNotes = freezed,
   }) {
     return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
       powerModel: null == powerModel
           ? _value.powerModel
           : powerModel // ignore: cast_nullable_to_non_nullable
@@ -115,8 +107,7 @@ abstract class _$$PowerPlugTypeDataModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'id') String id,
-      @JsonKey(name: 'power_model') String powerModel,
+      {@JsonKey(name: 'power_model') String powerModel,
       @JsonKey(name: 'plug_type') String plugType,
       @JsonKey(name: 'plug_image') String? plugImage,
       @JsonKey(name: 'used_in_regions') List<String>? usedInRegions,
@@ -136,7 +127,6 @@ class __$$PowerPlugTypeDataModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
     Object? powerModel = null,
     Object? plugType = null,
     Object? plugImage = freezed,
@@ -144,10 +134,6 @@ class __$$PowerPlugTypeDataModelImplCopyWithImpl<$Res>
     Object? additionalNotes = freezed,
   }) {
     return _then(_$PowerPlugTypeDataModelImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
       powerModel: null == powerModel
           ? _value.powerModel
           : powerModel // ignore: cast_nullable_to_non_nullable
@@ -176,8 +162,7 @@ class __$$PowerPlugTypeDataModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$PowerPlugTypeDataModelImpl implements _PowerPlugTypeDataModel {
   const _$PowerPlugTypeDataModelImpl(
-      {@JsonKey(name: 'id') required this.id,
-      @JsonKey(name: 'power_model') required this.powerModel,
+      {@JsonKey(name: 'power_model') required this.powerModel,
       @JsonKey(name: 'plug_type') required this.plugType,
       @JsonKey(name: 'plug_image') this.plugImage,
       @JsonKey(name: 'used_in_regions') final List<String>? usedInRegions,
@@ -187,9 +172,6 @@ class _$PowerPlugTypeDataModelImpl implements _PowerPlugTypeDataModel {
   factory _$PowerPlugTypeDataModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$PowerPlugTypeDataModelImplFromJson(json);
 
-  @override
-  @JsonKey(name: 'id')
-  final String id;
   @override
   @JsonKey(name: 'power_model')
   final String powerModel;
@@ -216,7 +198,7 @@ class _$PowerPlugTypeDataModelImpl implements _PowerPlugTypeDataModel {
 
   @override
   String toString() {
-    return 'PowerPlugTypeDataModel(id: $id, powerModel: $powerModel, plugType: $plugType, plugImage: $plugImage, usedInRegions: $usedInRegions, additionalNotes: $additionalNotes)';
+    return 'PowerPlugTypeDataModel(powerModel: $powerModel, plugType: $plugType, plugImage: $plugImage, usedInRegions: $usedInRegions, additionalNotes: $additionalNotes)';
   }
 
   @override
@@ -224,7 +206,6 @@ class _$PowerPlugTypeDataModelImpl implements _PowerPlugTypeDataModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PowerPlugTypeDataModelImpl &&
-            (identical(other.id, id) || other.id == id) &&
             (identical(other.powerModel, powerModel) ||
                 other.powerModel == powerModel) &&
             (identical(other.plugType, plugType) ||
@@ -239,14 +220,8 @@ class _$PowerPlugTypeDataModelImpl implements _PowerPlugTypeDataModel {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      powerModel,
-      plugType,
-      plugImage,
-      const DeepCollectionEquality().hash(_usedInRegions),
-      additionalNotes);
+  int get hashCode => Object.hash(runtimeType, powerModel, plugType, plugImage,
+      const DeepCollectionEquality().hash(_usedInRegions), additionalNotes);
 
   @JsonKey(ignore: true)
   @override
@@ -265,8 +240,7 @@ class _$PowerPlugTypeDataModelImpl implements _PowerPlugTypeDataModel {
 
 abstract class _PowerPlugTypeDataModel implements PowerPlugTypeDataModel {
   const factory _PowerPlugTypeDataModel(
-          {@JsonKey(name: 'id') required final String id,
-          @JsonKey(name: 'power_model') required final String powerModel,
+          {@JsonKey(name: 'power_model') required final String powerModel,
           @JsonKey(name: 'plug_type') required final String plugType,
           @JsonKey(name: 'plug_image') final String? plugImage,
           @JsonKey(name: 'used_in_regions') final List<String>? usedInRegions,
@@ -276,9 +250,6 @@ abstract class _PowerPlugTypeDataModel implements PowerPlugTypeDataModel {
   factory _PowerPlugTypeDataModel.fromJson(Map<String, dynamic> json) =
       _$PowerPlugTypeDataModelImpl.fromJson;
 
-  @override
-  @JsonKey(name: 'id')
-  String get id;
   @override
   @JsonKey(name: 'power_model')
   String get powerModel;

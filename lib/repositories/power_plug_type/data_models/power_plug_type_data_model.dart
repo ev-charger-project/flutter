@@ -6,7 +6,6 @@ part 'power_plug_type_data_model.g.dart';
 @freezed
 class PowerPlugTypeDataModel with _$PowerPlugTypeDataModel {
   const factory PowerPlugTypeDataModel({
-    @JsonKey(name: 'id') required String id,
     @JsonKey(name: 'power_model') required String powerModel,
     @JsonKey(name: 'plug_type') required String plugType,
     @JsonKey(name: 'plug_image') String? plugImage,

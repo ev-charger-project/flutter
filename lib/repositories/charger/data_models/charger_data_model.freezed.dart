@@ -24,7 +24,7 @@ mixin _$ChargerDataModel {
   String get station_name => throw _privateConstructorUsedError;
   @JsonKey(name: 'availability')
   String get availability => throw _privateConstructorUsedError;
-  @JsonKey(name: 'ports')
+  @JsonKey(name: 'ev_charger_ports')
   List<PortDataModel> get ports => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -42,7 +42,7 @@ abstract class $ChargerDataModelCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'station_name') String station_name,
       @JsonKey(name: 'availability') String availability,
-      @JsonKey(name: 'ports') List<PortDataModel> ports});
+      @JsonKey(name: 'ev_charger_ports') List<PortDataModel> ports});
 }
 
 /// @nodoc
@@ -90,7 +90,7 @@ abstract class _$$ChargerImplCopyWith<$Res>
   $Res call(
       {@JsonKey(name: 'station_name') String station_name,
       @JsonKey(name: 'availability') String availability,
-      @JsonKey(name: 'ports') List<PortDataModel> ports});
+      @JsonKey(name: 'ev_charger_ports') List<PortDataModel> ports});
 }
 
 /// @nodoc
@@ -131,7 +131,8 @@ class _$ChargerImpl implements _Charger {
   const _$ChargerImpl(
       {@JsonKey(name: 'station_name') required this.station_name,
       @JsonKey(name: 'availability') required this.availability,
-      @JsonKey(name: 'ports') required final List<PortDataModel> ports})
+      @JsonKey(name: 'ev_charger_ports')
+      required final List<PortDataModel> ports})
       : _ports = ports;
 
   factory _$ChargerImpl.fromJson(Map<String, dynamic> json) =>
@@ -145,7 +146,7 @@ class _$ChargerImpl implements _Charger {
   final String availability;
   final List<PortDataModel> _ports;
   @override
-  @JsonKey(name: 'ports')
+  @JsonKey(name: 'ev_charger_ports')
   List<PortDataModel> get ports {
     if (_ports is EqualUnmodifiableListView) return _ports;
     // ignore: implicit_dynamic_type
@@ -190,10 +191,10 @@ class _$ChargerImpl implements _Charger {
 
 abstract class _Charger implements ChargerDataModel {
   const factory _Charger(
-          {@JsonKey(name: 'station_name') required final String station_name,
-          @JsonKey(name: 'availability') required final String availability,
-          @JsonKey(name: 'ports') required final List<PortDataModel> ports}) =
-      _$ChargerImpl;
+      {@JsonKey(name: 'station_name') required final String station_name,
+      @JsonKey(name: 'availability') required final String availability,
+      @JsonKey(name: 'ev_charger_ports')
+      required final List<PortDataModel> ports}) = _$ChargerImpl;
 
   factory _Charger.fromJson(Map<String, dynamic> json) = _$ChargerImpl.fromJson;
 
@@ -204,7 +205,7 @@ abstract class _Charger implements ChargerDataModel {
   @JsonKey(name: 'availability')
   String get availability;
   @override
-  @JsonKey(name: 'ports')
+  @JsonKey(name: 'ev_charger_ports')
   List<PortDataModel> get ports;
   @override
   @JsonKey(ignore: true)
