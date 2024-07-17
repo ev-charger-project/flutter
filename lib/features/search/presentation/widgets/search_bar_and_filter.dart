@@ -63,6 +63,7 @@ class SearchBarAndFilter extends ConsumerWidget {
                 style: TextStyle(
                   color:
                       isTyping ? Colors.black : Colors.black.withOpacity(0.65),
+                  fontFamily: 'Exo',
                 ),
                 onChanged: onChanged,
               ),
