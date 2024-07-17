@@ -20,18 +20,12 @@ ChargerDataModel _$ChargerDataModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ChargerDataModel {
-  @JsonKey(name: 'id')
-  String get id => throw _privateConstructorUsedError;
-  @JsonKey(name: 'location_id')
-  String get locationId => throw _privateConstructorUsedError;
-  @JsonKey(name: 'power_output_id')
-  String get powerOutputId => throw _privateConstructorUsedError;
-  @JsonKey(name: 'power_plug_type_id')
-  String get powerPlugTypeId => throw _privateConstructorUsedError;
-  @JsonKey(name: 'number_of_port')
-  int get numberOfPort => throw _privateConstructorUsedError;
-  @JsonKey(name: 'availabity')
-  String get availabity => throw _privateConstructorUsedError;
+  @JsonKey(name: 'station_name')
+  String get station_name => throw _privateConstructorUsedError;
+  @JsonKey(name: 'availability')
+  String get availability => throw _privateConstructorUsedError;
+  @JsonKey(name: 'ports')
+  List<PortDataModel> get ports => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -46,12 +40,9 @@ abstract class $ChargerDataModelCopyWith<$Res> {
       _$ChargerDataModelCopyWithImpl<$Res, ChargerDataModel>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'id') String id,
-      @JsonKey(name: 'location_id') String locationId,
-      @JsonKey(name: 'power_output_id') String powerOutputId,
-      @JsonKey(name: 'power_plug_type_id') String powerPlugTypeId,
-      @JsonKey(name: 'number_of_port') int numberOfPort,
-      @JsonKey(name: 'availabity') String availabity});
+      {@JsonKey(name: 'station_name') String station_name,
+      @JsonKey(name: 'availability') String availability,
+      @JsonKey(name: 'ports') List<PortDataModel> ports});
 }
 
 /// @nodoc
@@ -67,38 +58,23 @@ class _$ChargerDataModelCopyWithImpl<$Res, $Val extends ChargerDataModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
-    Object? locationId = null,
-    Object? powerOutputId = null,
-    Object? powerPlugTypeId = null,
-    Object? numberOfPort = null,
-    Object? availabity = null,
+    Object? station_name = null,
+    Object? availability = null,
+    Object? ports = null,
   }) {
     return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
+      station_name: null == station_name
+          ? _value.station_name
+          : station_name // ignore: cast_nullable_to_non_nullable
               as String,
-      locationId: null == locationId
-          ? _value.locationId
-          : locationId // ignore: cast_nullable_to_non_nullable
+      availability: null == availability
+          ? _value.availability
+          : availability // ignore: cast_nullable_to_non_nullable
               as String,
-      powerOutputId: null == powerOutputId
-          ? _value.powerOutputId
-          : powerOutputId // ignore: cast_nullable_to_non_nullable
-              as String,
-      powerPlugTypeId: null == powerPlugTypeId
-          ? _value.powerPlugTypeId
-          : powerPlugTypeId // ignore: cast_nullable_to_non_nullable
-              as String,
-      numberOfPort: null == numberOfPort
-          ? _value.numberOfPort
-          : numberOfPort // ignore: cast_nullable_to_non_nullable
-              as int,
-      availabity: null == availabity
-          ? _value.availabity
-          : availabity // ignore: cast_nullable_to_non_nullable
-              as String,
+      ports: null == ports
+          ? _value.ports
+          : ports // ignore: cast_nullable_to_non_nullable
+              as List<PortDataModel>,
     ) as $Val);
   }
 }
@@ -112,12 +88,9 @@ abstract class _$$ChargerImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'id') String id,
-      @JsonKey(name: 'location_id') String locationId,
-      @JsonKey(name: 'power_output_id') String powerOutputId,
-      @JsonKey(name: 'power_plug_type_id') String powerPlugTypeId,
-      @JsonKey(name: 'number_of_port') int numberOfPort,
-      @JsonKey(name: 'availabity') String availabity});
+      {@JsonKey(name: 'station_name') String station_name,
+      @JsonKey(name: 'availability') String availability,
+      @JsonKey(name: 'ports') List<PortDataModel> ports});
 }
 
 /// @nodoc
@@ -131,38 +104,23 @@ class __$$ChargerImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
-    Object? locationId = null,
-    Object? powerOutputId = null,
-    Object? powerPlugTypeId = null,
-    Object? numberOfPort = null,
-    Object? availabity = null,
+    Object? station_name = null,
+    Object? availability = null,
+    Object? ports = null,
   }) {
     return _then(_$ChargerImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
+      station_name: null == station_name
+          ? _value.station_name
+          : station_name // ignore: cast_nullable_to_non_nullable
               as String,
-      locationId: null == locationId
-          ? _value.locationId
-          : locationId // ignore: cast_nullable_to_non_nullable
+      availability: null == availability
+          ? _value.availability
+          : availability // ignore: cast_nullable_to_non_nullable
               as String,
-      powerOutputId: null == powerOutputId
-          ? _value.powerOutputId
-          : powerOutputId // ignore: cast_nullable_to_non_nullable
-              as String,
-      powerPlugTypeId: null == powerPlugTypeId
-          ? _value.powerPlugTypeId
-          : powerPlugTypeId // ignore: cast_nullable_to_non_nullable
-              as String,
-      numberOfPort: null == numberOfPort
-          ? _value.numberOfPort
-          : numberOfPort // ignore: cast_nullable_to_non_nullable
-              as int,
-      availabity: null == availabity
-          ? _value.availabity
-          : availabity // ignore: cast_nullable_to_non_nullable
-              as String,
+      ports: null == ports
+          ? _value._ports
+          : ports // ignore: cast_nullable_to_non_nullable
+              as List<PortDataModel>,
     ));
   }
 }
@@ -171,38 +129,32 @@ class __$$ChargerImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$ChargerImpl implements _Charger {
   const _$ChargerImpl(
-      {@JsonKey(name: 'id') required this.id,
-      @JsonKey(name: 'location_id') required this.locationId,
-      @JsonKey(name: 'power_output_id') required this.powerOutputId,
-      @JsonKey(name: 'power_plug_type_id') required this.powerPlugTypeId,
-      @JsonKey(name: 'number_of_port') required this.numberOfPort,
-      @JsonKey(name: 'availabity') required this.availabity});
+      {@JsonKey(name: 'station_name') required this.station_name,
+      @JsonKey(name: 'availability') required this.availability,
+      @JsonKey(name: 'ports') required final List<PortDataModel> ports})
+      : _ports = ports;
 
   factory _$ChargerImpl.fromJson(Map<String, dynamic> json) =>
       _$$ChargerImplFromJson(json);
 
   @override
-  @JsonKey(name: 'id')
-  final String id;
+  @JsonKey(name: 'station_name')
+  final String station_name;
   @override
-  @JsonKey(name: 'location_id')
-  final String locationId;
+  @JsonKey(name: 'availability')
+  final String availability;
+  final List<PortDataModel> _ports;
   @override
-  @JsonKey(name: 'power_output_id')
-  final String powerOutputId;
-  @override
-  @JsonKey(name: 'power_plug_type_id')
-  final String powerPlugTypeId;
-  @override
-  @JsonKey(name: 'number_of_port')
-  final int numberOfPort;
-  @override
-  @JsonKey(name: 'availabity')
-  final String availabity;
+  @JsonKey(name: 'ports')
+  List<PortDataModel> get ports {
+    if (_ports is EqualUnmodifiableListView) return _ports;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_ports);
+  }
 
   @override
   String toString() {
-    return 'ChargerDataModel(id: $id, locationId: $locationId, powerOutputId: $powerOutputId, powerPlugTypeId: $powerPlugTypeId, numberOfPort: $numberOfPort, availabity: $availabity)';
+    return 'ChargerDataModel(station_name: $station_name, availability: $availability, ports: $ports)';
   }
 
   @override
@@ -210,23 +162,17 @@ class _$ChargerImpl implements _Charger {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ChargerImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.locationId, locationId) ||
-                other.locationId == locationId) &&
-            (identical(other.powerOutputId, powerOutputId) ||
-                other.powerOutputId == powerOutputId) &&
-            (identical(other.powerPlugTypeId, powerPlugTypeId) ||
-                other.powerPlugTypeId == powerPlugTypeId) &&
-            (identical(other.numberOfPort, numberOfPort) ||
-                other.numberOfPort == numberOfPort) &&
-            (identical(other.availabity, availabity) ||
-                other.availabity == availabity));
+            (identical(other.station_name, station_name) ||
+                other.station_name == station_name) &&
+            (identical(other.availability, availability) ||
+                other.availability == availability) &&
+            const DeepCollectionEquality().equals(other._ports, _ports));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, locationId, powerOutputId,
-      powerPlugTypeId, numberOfPort, availabity);
+  int get hashCode => Object.hash(runtimeType, station_name, availability,
+      const DeepCollectionEquality().hash(_ports));
 
   @JsonKey(ignore: true)
   @override
@@ -244,37 +190,220 @@ class _$ChargerImpl implements _Charger {
 
 abstract class _Charger implements ChargerDataModel {
   const factory _Charger(
-          {@JsonKey(name: 'id') required final String id,
-          @JsonKey(name: 'location_id') required final String locationId,
-          @JsonKey(name: 'power_output_id') required final String powerOutputId,
-          @JsonKey(name: 'power_plug_type_id')
-          required final String powerPlugTypeId,
-          @JsonKey(name: 'number_of_port') required final int numberOfPort,
-          @JsonKey(name: 'availabity') required final String availabity}) =
+          {@JsonKey(name: 'station_name') required final String station_name,
+          @JsonKey(name: 'availability') required final String availability,
+          @JsonKey(name: 'ports') required final List<PortDataModel> ports}) =
       _$ChargerImpl;
 
   factory _Charger.fromJson(Map<String, dynamic> json) = _$ChargerImpl.fromJson;
 
   @override
-  @JsonKey(name: 'id')
-  String get id;
+  @JsonKey(name: 'station_name')
+  String get station_name;
   @override
-  @JsonKey(name: 'location_id')
-  String get locationId;
+  @JsonKey(name: 'availability')
+  String get availability;
   @override
-  @JsonKey(name: 'power_output_id')
-  String get powerOutputId;
-  @override
-  @JsonKey(name: 'power_plug_type_id')
-  String get powerPlugTypeId;
-  @override
-  @JsonKey(name: 'number_of_port')
-  int get numberOfPort;
-  @override
-  @JsonKey(name: 'availabity')
-  String get availabity;
+  @JsonKey(name: 'ports')
+  List<PortDataModel> get ports;
   @override
   @JsonKey(ignore: true)
   _$$ChargerImplCopyWith<_$ChargerImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+PortDataModel _$PortDataModelFromJson(Map<String, dynamic> json) {
+  return _PortDataModel.fromJson(json);
+}
+
+/// @nodoc
+mixin _$PortDataModel {
+  @JsonKey(name: 'power_plug_type')
+  PowerPlugTypeDataModel get power_plug_type =>
+      throw _privateConstructorUsedError;
+  @JsonKey(name: 'power_model')
+  PowerOutputDataModel get power_model => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $PortDataModelCopyWith<PortDataModel> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $PortDataModelCopyWith<$Res> {
+  factory $PortDataModelCopyWith(
+          PortDataModel value, $Res Function(PortDataModel) then) =
+      _$PortDataModelCopyWithImpl<$Res, PortDataModel>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'power_plug_type') PowerPlugTypeDataModel power_plug_type,
+      @JsonKey(name: 'power_model') PowerOutputDataModel power_model});
+
+  $PowerPlugTypeDataModelCopyWith<$Res> get power_plug_type;
+  $PowerOutputDataModelCopyWith<$Res> get power_model;
+}
+
+/// @nodoc
+class _$PortDataModelCopyWithImpl<$Res, $Val extends PortDataModel>
+    implements $PortDataModelCopyWith<$Res> {
+  _$PortDataModelCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? power_plug_type = null,
+    Object? power_model = null,
+  }) {
+    return _then(_value.copyWith(
+      power_plug_type: null == power_plug_type
+          ? _value.power_plug_type
+          : power_plug_type // ignore: cast_nullable_to_non_nullable
+              as PowerPlugTypeDataModel,
+      power_model: null == power_model
+          ? _value.power_model
+          : power_model // ignore: cast_nullable_to_non_nullable
+              as PowerOutputDataModel,
+    ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PowerPlugTypeDataModelCopyWith<$Res> get power_plug_type {
+    return $PowerPlugTypeDataModelCopyWith<$Res>(_value.power_plug_type,
+        (value) {
+      return _then(_value.copyWith(power_plug_type: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PowerOutputDataModelCopyWith<$Res> get power_model {
+    return $PowerOutputDataModelCopyWith<$Res>(_value.power_model, (value) {
+      return _then(_value.copyWith(power_model: value) as $Val);
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$$PortDataModelImplCopyWith<$Res>
+    implements $PortDataModelCopyWith<$Res> {
+  factory _$$PortDataModelImplCopyWith(
+          _$PortDataModelImpl value, $Res Function(_$PortDataModelImpl) then) =
+      __$$PortDataModelImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'power_plug_type') PowerPlugTypeDataModel power_plug_type,
+      @JsonKey(name: 'power_model') PowerOutputDataModel power_model});
+
+  @override
+  $PowerPlugTypeDataModelCopyWith<$Res> get power_plug_type;
+  @override
+  $PowerOutputDataModelCopyWith<$Res> get power_model;
+}
+
+/// @nodoc
+class __$$PortDataModelImplCopyWithImpl<$Res>
+    extends _$PortDataModelCopyWithImpl<$Res, _$PortDataModelImpl>
+    implements _$$PortDataModelImplCopyWith<$Res> {
+  __$$PortDataModelImplCopyWithImpl(
+      _$PortDataModelImpl _value, $Res Function(_$PortDataModelImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? power_plug_type = null,
+    Object? power_model = null,
+  }) {
+    return _then(_$PortDataModelImpl(
+      power_plug_type: null == power_plug_type
+          ? _value.power_plug_type
+          : power_plug_type // ignore: cast_nullable_to_non_nullable
+              as PowerPlugTypeDataModel,
+      power_model: null == power_model
+          ? _value.power_model
+          : power_model // ignore: cast_nullable_to_non_nullable
+              as PowerOutputDataModel,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$PortDataModelImpl implements _PortDataModel {
+  const _$PortDataModelImpl(
+      {@JsonKey(name: 'power_plug_type') required this.power_plug_type,
+      @JsonKey(name: 'power_model') required this.power_model});
+
+  factory _$PortDataModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PortDataModelImplFromJson(json);
+
+  @override
+  @JsonKey(name: 'power_plug_type')
+  final PowerPlugTypeDataModel power_plug_type;
+  @override
+  @JsonKey(name: 'power_model')
+  final PowerOutputDataModel power_model;
+
+  @override
+  String toString() {
+    return 'PortDataModel(power_plug_type: $power_plug_type, power_model: $power_model)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$PortDataModelImpl &&
+            (identical(other.power_plug_type, power_plug_type) ||
+                other.power_plug_type == power_plug_type) &&
+            (identical(other.power_model, power_model) ||
+                other.power_model == power_model));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, power_plug_type, power_model);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$PortDataModelImplCopyWith<_$PortDataModelImpl> get copyWith =>
+      __$$PortDataModelImplCopyWithImpl<_$PortDataModelImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$PortDataModelImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _PortDataModel implements PortDataModel {
+  const factory _PortDataModel(
+      {@JsonKey(name: 'power_plug_type')
+      required final PowerPlugTypeDataModel power_plug_type,
+      @JsonKey(name: 'power_model')
+      required final PowerOutputDataModel power_model}) = _$PortDataModelImpl;
+
+  factory _PortDataModel.fromJson(Map<String, dynamic> json) =
+      _$PortDataModelImpl.fromJson;
+
+  @override
+  @JsonKey(name: 'power_plug_type')
+  PowerPlugTypeDataModel get power_plug_type;
+  @override
+  @JsonKey(name: 'power_model')
+  PowerOutputDataModel get power_model;
+  @override
+  @JsonKey(ignore: true)
+  _$$PortDataModelImplCopyWith<_$PortDataModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -16,20 +16,18 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$LocationEntity {
-  String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  String get streetAddress => throw _privateConstructorUsedError;
+  String get street => throw _privateConstructorUsedError;
   String? get district => throw _privateConstructorUsedError;
-  String get cityProvince => throw _privateConstructorUsedError;
-  String get country => throw _privateConstructorUsedError;
+  String get city => throw _privateConstructorUsedError;
   String? get postalCode => throw _privateConstructorUsedError;
-  double get latitude => throw _privateConstructorUsedError;
-  double get longitude => throw _privateConstructorUsedError;
+  String get country => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
   WorkingDay get workingDay => throw _privateConstructorUsedError;
   String? get pricing => throw _privateConstructorUsedError;
   String? get phoneNumber => throw _privateConstructorUsedError;
   String? get parkingLevel => throw _privateConstructorUsedError;
+  ChargerDataModel get chargerDataModel => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $LocationEntityCopyWith<LocationEntity> get copyWith =>
@@ -43,22 +41,21 @@ abstract class $LocationEntityCopyWith<$Res> {
       _$LocationEntityCopyWithImpl<$Res, LocationEntity>;
   @useResult
   $Res call(
-      {String id,
-      String name,
-      String streetAddress,
+      {String name,
+      String street,
       String? district,
-      String cityProvince,
-      String country,
+      String city,
       String? postalCode,
-      double latitude,
-      double longitude,
+      String country,
       String? description,
       WorkingDay workingDay,
       String? pricing,
       String? phoneNumber,
-      String? parkingLevel});
+      String? parkingLevel,
+      ChargerDataModel chargerDataModel});
 
   $WorkingDayCopyWith<$Res> get workingDay;
+  $ChargerDataModelCopyWith<$Res> get chargerDataModel;
 }
 
 /// @nodoc
@@ -74,58 +71,44 @@ class _$LocationEntityCopyWithImpl<$Res, $Val extends LocationEntity>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
     Object? name = null,
-    Object? streetAddress = null,
+    Object? street = null,
     Object? district = freezed,
-    Object? cityProvince = null,
-    Object? country = null,
+    Object? city = null,
     Object? postalCode = freezed,
-    Object? latitude = null,
-    Object? longitude = null,
+    Object? country = null,
     Object? description = freezed,
     Object? workingDay = null,
     Object? pricing = freezed,
     Object? phoneNumber = freezed,
     Object? parkingLevel = freezed,
+    Object? chargerDataModel = null,
   }) {
     return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      streetAddress: null == streetAddress
-          ? _value.streetAddress
-          : streetAddress // ignore: cast_nullable_to_non_nullable
+      street: null == street
+          ? _value.street
+          : street // ignore: cast_nullable_to_non_nullable
               as String,
       district: freezed == district
           ? _value.district
           : district // ignore: cast_nullable_to_non_nullable
               as String?,
-      cityProvince: null == cityProvince
-          ? _value.cityProvince
-          : cityProvince // ignore: cast_nullable_to_non_nullable
-              as String,
-      country: null == country
-          ? _value.country
-          : country // ignore: cast_nullable_to_non_nullable
+      city: null == city
+          ? _value.city
+          : city // ignore: cast_nullable_to_non_nullable
               as String,
       postalCode: freezed == postalCode
           ? _value.postalCode
           : postalCode // ignore: cast_nullable_to_non_nullable
               as String?,
-      latitude: null == latitude
-          ? _value.latitude
-          : latitude // ignore: cast_nullable_to_non_nullable
-              as double,
-      longitude: null == longitude
-          ? _value.longitude
-          : longitude // ignore: cast_nullable_to_non_nullable
-              as double,
+      country: null == country
+          ? _value.country
+          : country // ignore: cast_nullable_to_non_nullable
+              as String,
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -146,6 +129,10 @@ class _$LocationEntityCopyWithImpl<$Res, $Val extends LocationEntity>
           ? _value.parkingLevel
           : parkingLevel // ignore: cast_nullable_to_non_nullable
               as String?,
+      chargerDataModel: null == chargerDataModel
+          ? _value.chargerDataModel
+          : chargerDataModel // ignore: cast_nullable_to_non_nullable
+              as ChargerDataModel,
     ) as $Val);
   }
 
@@ -154,6 +141,14 @@ class _$LocationEntityCopyWithImpl<$Res, $Val extends LocationEntity>
   $WorkingDayCopyWith<$Res> get workingDay {
     return $WorkingDayCopyWith<$Res>(_value.workingDay, (value) {
       return _then(_value.copyWith(workingDay: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ChargerDataModelCopyWith<$Res> get chargerDataModel {
+    return $ChargerDataModelCopyWith<$Res>(_value.chargerDataModel, (value) {
+      return _then(_value.copyWith(chargerDataModel: value) as $Val);
     });
   }
 }
@@ -167,23 +162,23 @@ abstract class _$$LocationEntityImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String id,
-      String name,
-      String streetAddress,
+      {String name,
+      String street,
       String? district,
-      String cityProvince,
-      String country,
+      String city,
       String? postalCode,
-      double latitude,
-      double longitude,
+      String country,
       String? description,
       WorkingDay workingDay,
       String? pricing,
       String? phoneNumber,
-      String? parkingLevel});
+      String? parkingLevel,
+      ChargerDataModel chargerDataModel});
 
   @override
   $WorkingDayCopyWith<$Res> get workingDay;
+  @override
+  $ChargerDataModelCopyWith<$Res> get chargerDataModel;
 }
 
 /// @nodoc
@@ -197,58 +192,44 @@ class __$$LocationEntityImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
     Object? name = null,
-    Object? streetAddress = null,
+    Object? street = null,
     Object? district = freezed,
-    Object? cityProvince = null,
-    Object? country = null,
+    Object? city = null,
     Object? postalCode = freezed,
-    Object? latitude = null,
-    Object? longitude = null,
+    Object? country = null,
     Object? description = freezed,
     Object? workingDay = null,
     Object? pricing = freezed,
     Object? phoneNumber = freezed,
     Object? parkingLevel = freezed,
+    Object? chargerDataModel = null,
   }) {
     return _then(_$LocationEntityImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      streetAddress: null == streetAddress
-          ? _value.streetAddress
-          : streetAddress // ignore: cast_nullable_to_non_nullable
+      street: null == street
+          ? _value.street
+          : street // ignore: cast_nullable_to_non_nullable
               as String,
       district: freezed == district
           ? _value.district
           : district // ignore: cast_nullable_to_non_nullable
               as String?,
-      cityProvince: null == cityProvince
-          ? _value.cityProvince
-          : cityProvince // ignore: cast_nullable_to_non_nullable
-              as String,
-      country: null == country
-          ? _value.country
-          : country // ignore: cast_nullable_to_non_nullable
+      city: null == city
+          ? _value.city
+          : city // ignore: cast_nullable_to_non_nullable
               as String,
       postalCode: freezed == postalCode
           ? _value.postalCode
           : postalCode // ignore: cast_nullable_to_non_nullable
               as String?,
-      latitude: null == latitude
-          ? _value.latitude
-          : latitude // ignore: cast_nullable_to_non_nullable
-              as double,
-      longitude: null == longitude
-          ? _value.longitude
-          : longitude // ignore: cast_nullable_to_non_nullable
-              as double,
+      country: null == country
+          ? _value.country
+          : country // ignore: cast_nullable_to_non_nullable
+              as String,
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -269,6 +250,10 @@ class __$$LocationEntityImplCopyWithImpl<$Res>
           ? _value.parkingLevel
           : parkingLevel // ignore: cast_nullable_to_non_nullable
               as String?,
+      chargerDataModel: null == chargerDataModel
+          ? _value.chargerDataModel
+          : chargerDataModel // ignore: cast_nullable_to_non_nullable
+              as ChargerDataModel,
     ));
   }
 }
@@ -277,39 +262,31 @@ class __$$LocationEntityImplCopyWithImpl<$Res>
 
 class _$LocationEntityImpl implements _LocationEntity {
   const _$LocationEntityImpl(
-      {required this.id,
-      required this.name,
-      required this.streetAddress,
+      {required this.name,
+      required this.street,
       this.district,
-      required this.cityProvince,
-      required this.country,
+      required this.city,
       this.postalCode,
-      required this.latitude,
-      required this.longitude,
+      required this.country,
       this.description,
       required this.workingDay,
       this.pricing,
       this.phoneNumber,
-      this.parkingLevel});
+      this.parkingLevel,
+      required this.chargerDataModel});
 
-  @override
-  final String id;
   @override
   final String name;
   @override
-  final String streetAddress;
+  final String street;
   @override
   final String? district;
   @override
-  final String cityProvince;
-  @override
-  final String country;
+  final String city;
   @override
   final String? postalCode;
   @override
-  final double latitude;
-  @override
-  final double longitude;
+  final String country;
   @override
   final String? description;
   @override
@@ -320,10 +297,12 @@ class _$LocationEntityImpl implements _LocationEntity {
   final String? phoneNumber;
   @override
   final String? parkingLevel;
+  @override
+  final ChargerDataModel chargerDataModel;
 
   @override
   String toString() {
-    return 'LocationEntity(id: $id, name: $name, streetAddress: $streetAddress, district: $district, cityProvince: $cityProvince, country: $country, postalCode: $postalCode, latitude: $latitude, longitude: $longitude, description: $description, workingDay: $workingDay, pricing: $pricing, phoneNumber: $phoneNumber, parkingLevel: $parkingLevel)';
+    return 'LocationEntity(name: $name, street: $street, district: $district, city: $city, postalCode: $postalCode, country: $country, description: $description, workingDay: $workingDay, pricing: $pricing, phoneNumber: $phoneNumber, parkingLevel: $parkingLevel, chargerDataModel: $chargerDataModel)';
   }
 
   @override
@@ -331,21 +310,14 @@ class _$LocationEntityImpl implements _LocationEntity {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$LocationEntityImpl &&
-            (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.streetAddress, streetAddress) ||
-                other.streetAddress == streetAddress) &&
+            (identical(other.street, street) || other.street == street) &&
             (identical(other.district, district) ||
                 other.district == district) &&
-            (identical(other.cityProvince, cityProvince) ||
-                other.cityProvince == cityProvince) &&
-            (identical(other.country, country) || other.country == country) &&
+            (identical(other.city, city) || other.city == city) &&
             (identical(other.postalCode, postalCode) ||
                 other.postalCode == postalCode) &&
-            (identical(other.latitude, latitude) ||
-                other.latitude == latitude) &&
-            (identical(other.longitude, longitude) ||
-                other.longitude == longitude) &&
+            (identical(other.country, country) || other.country == country) &&
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.workingDay, workingDay) ||
@@ -354,26 +326,26 @@ class _$LocationEntityImpl implements _LocationEntity {
             (identical(other.phoneNumber, phoneNumber) ||
                 other.phoneNumber == phoneNumber) &&
             (identical(other.parkingLevel, parkingLevel) ||
-                other.parkingLevel == parkingLevel));
+                other.parkingLevel == parkingLevel) &&
+            (identical(other.chargerDataModel, chargerDataModel) ||
+                other.chargerDataModel == chargerDataModel));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      id,
       name,
-      streetAddress,
+      street,
       district,
-      cityProvince,
-      country,
+      city,
       postalCode,
-      latitude,
-      longitude,
+      country,
       description,
       workingDay,
       pricing,
       phoneNumber,
-      parkingLevel);
+      parkingLevel,
+      chargerDataModel);
 
   @JsonKey(ignore: true)
   @override
@@ -385,39 +357,31 @@ class _$LocationEntityImpl implements _LocationEntity {
 
 abstract class _LocationEntity implements LocationEntity {
   const factory _LocationEntity(
-      {required final String id,
-      required final String name,
-      required final String streetAddress,
+      {required final String name,
+      required final String street,
       final String? district,
-      required final String cityProvince,
-      required final String country,
+      required final String city,
       final String? postalCode,
-      required final double latitude,
-      required final double longitude,
+      required final String country,
       final String? description,
       required final WorkingDay workingDay,
       final String? pricing,
       final String? phoneNumber,
-      final String? parkingLevel}) = _$LocationEntityImpl;
+      final String? parkingLevel,
+      required final ChargerDataModel chargerDataModel}) = _$LocationEntityImpl;
 
-  @override
-  String get id;
   @override
   String get name;
   @override
-  String get streetAddress;
+  String get street;
   @override
   String? get district;
   @override
-  String get cityProvince;
-  @override
-  String get country;
+  String get city;
   @override
   String? get postalCode;
   @override
-  double get latitude;
-  @override
-  double get longitude;
+  String get country;
   @override
   String? get description;
   @override
@@ -428,6 +392,8 @@ abstract class _LocationEntity implements LocationEntity {
   String? get phoneNumber;
   @override
   String? get parkingLevel;
+  @override
+  ChargerDataModel get chargerDataModel;
   @override
   @JsonKey(ignore: true)
   _$$LocationEntityImplCopyWith<_$LocationEntityImpl> get copyWith =>

@@ -16,29 +16,29 @@ class ChargerEntity with _$ChargerEntity {
     required String availabity,
   }) = _ChargerEntity;
 }
-
-class ChargerMapper with EntityConvertible<ChargerEntity, ChargerDataModel> {
-  @override
-  ChargerDataModel fromEntity(ChargerEntity entityObject) {
-    return ChargerDataModel(
-      id: entityObject.id,
-      locationId: entityObject.locationId,
-      powerOutputId: entityObject.powerOutputId,
-      powerPlugTypeId: entityObject.powerPlugTypeId,
-      numberOfPort: entityObject.numberOfPort,
-      availabity: entityObject.availabity,
-    );
-  }
-
-  @override
-  ChargerEntity toEntity(ChargerDataModel dataModelObject) {
-    return ChargerEntity(
-      id: dataModelObject.id,
-      locationId: dataModelObject.locationId,
-      powerOutputId: dataModelObject.powerOutputId,
-      powerPlugTypeId: dataModelObject.powerPlugTypeId,
-      numberOfPort: dataModelObject.numberOfPort,
-      availabity: dataModelObject.availabity,
-    );
-  }
-}
+//
+// class ChargerMapper with EntityConvertible<ChargerEntity, ChargerDataModel> {
+//   @override
+//   ChargerDataModel fromEntity(ChargerEntity entityObject) {
+//     return ChargerDataModel(
+//       id: entityObject.id,
+//       locationId: entityObject.locationId,
+//       powerOutputId: entityObject.powerOutputId,
+//       powerPlugTypeId: entityObject.powerPlugTypeId,
+//       numberOfPort: entityObject.numberOfPort,
+//       availabity: entityObject.availabity,
+//     );
+//   }
+//
+//   @override
+//   ChargerEntity toEntity(ChargerDataModel dataModelObject) {
+//     return ChargerEntity(
+//       id: dataModelObject.id,
+//       locationId: dataModelObject.locationId,
+//       powerOutputId: dataModelObject.powerOutputId,
+//       powerPlugTypeId: dataModelObject.powerPlugTypeId,
+//       numberOfPort: dataModelObject.numberOfPort,
+//       availabity: dataModelObject.availabity,
+//     );
+//   }
+// }

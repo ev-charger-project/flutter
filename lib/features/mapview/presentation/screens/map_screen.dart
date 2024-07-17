@@ -31,8 +31,8 @@ class _MapScreenState extends ConsumerState<MapScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final markerAsyncValue = ref.watch(markerProvider);
     final screenCenterNotifier = ref.read(screenCenterProvider.notifier);
+    final markerAsyncValue = ref.watch(markerProvider);
 
     return Scaffold(
       body: Stack(
