@@ -22,7 +22,7 @@ class SearchScreen extends ConsumerWidget {
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(top: 70, left: 30, right: 30),
+            padding: const EdgeInsets.only(top: 50, left: 20, right: 20),
             child: SearchBarAndFilter(
               controller: _searchController,
               onChanged: (text) {
