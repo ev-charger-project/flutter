@@ -10,7 +10,7 @@ class ChargerDataModel with _$ChargerDataModel {
   const factory ChargerDataModel({
     @JsonKey(name: 'station_name') required String station_name,
     @JsonKey(name: 'availability') required String availability,
-    @JsonKey(name: 'ports') required List<PortDataModel> ports,
+    @JsonKey(name: 'ev_charger_ports') required List<PortDataModel> ports,
   }) = _Charger;
 
   factory ChargerDataModel.fromJson(Map<String, dynamic> json) =>

@@ -16,12 +16,9 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$ChargerEntity {
-  String get id => throw _privateConstructorUsedError;
-  String get locationId => throw _privateConstructorUsedError;
-  String get powerOutputId => throw _privateConstructorUsedError;
-  String get powerPlugTypeId => throw _privateConstructorUsedError;
-  int get numberOfPort => throw _privateConstructorUsedError;
-  String get availabity => throw _privateConstructorUsedError;
+  String get station_name => throw _privateConstructorUsedError;
+  String get availability => throw _privateConstructorUsedError;
+  List<Port> get ports => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ChargerEntityCopyWith<ChargerEntity> get copyWith =>
@@ -34,13 +31,7 @@ abstract class $ChargerEntityCopyWith<$Res> {
           ChargerEntity value, $Res Function(ChargerEntity) then) =
       _$ChargerEntityCopyWithImpl<$Res, ChargerEntity>;
   @useResult
-  $Res call(
-      {String id,
-      String locationId,
-      String powerOutputId,
-      String powerPlugTypeId,
-      int numberOfPort,
-      String availabity});
+  $Res call({String station_name, String availability, List<Port> ports});
 }
 
 /// @nodoc
@@ -56,38 +47,23 @@ class _$ChargerEntityCopyWithImpl<$Res, $Val extends ChargerEntity>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
-    Object? locationId = null,
-    Object? powerOutputId = null,
-    Object? powerPlugTypeId = null,
-    Object? numberOfPort = null,
-    Object? availabity = null,
+    Object? station_name = null,
+    Object? availability = null,
+    Object? ports = null,
   }) {
     return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
+      station_name: null == station_name
+          ? _value.station_name
+          : station_name // ignore: cast_nullable_to_non_nullable
               as String,
-      locationId: null == locationId
-          ? _value.locationId
-          : locationId // ignore: cast_nullable_to_non_nullable
+      availability: null == availability
+          ? _value.availability
+          : availability // ignore: cast_nullable_to_non_nullable
               as String,
-      powerOutputId: null == powerOutputId
-          ? _value.powerOutputId
-          : powerOutputId // ignore: cast_nullable_to_non_nullable
-              as String,
-      powerPlugTypeId: null == powerPlugTypeId
-          ? _value.powerPlugTypeId
-          : powerPlugTypeId // ignore: cast_nullable_to_non_nullable
-              as String,
-      numberOfPort: null == numberOfPort
-          ? _value.numberOfPort
-          : numberOfPort // ignore: cast_nullable_to_non_nullable
-              as int,
-      availabity: null == availabity
-          ? _value.availabity
-          : availabity // ignore: cast_nullable_to_non_nullable
-              as String,
+      ports: null == ports
+          ? _value.ports
+          : ports // ignore: cast_nullable_to_non_nullable
+              as List<Port>,
     ) as $Val);
   }
 }
@@ -100,13 +76,7 @@ abstract class _$$ChargerEntityImplCopyWith<$Res>
       __$$ChargerEntityImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String id,
-      String locationId,
-      String powerOutputId,
-      String powerPlugTypeId,
-      int numberOfPort,
-      String availabity});
+  $Res call({String station_name, String availability, List<Port> ports});
 }
 
 /// @nodoc
@@ -120,38 +90,23 @@ class __$$ChargerEntityImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
-    Object? locationId = null,
-    Object? powerOutputId = null,
-    Object? powerPlugTypeId = null,
-    Object? numberOfPort = null,
-    Object? availabity = null,
+    Object? station_name = null,
+    Object? availability = null,
+    Object? ports = null,
   }) {
     return _then(_$ChargerEntityImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
+      station_name: null == station_name
+          ? _value.station_name
+          : station_name // ignore: cast_nullable_to_non_nullable
               as String,
-      locationId: null == locationId
-          ? _value.locationId
-          : locationId // ignore: cast_nullable_to_non_nullable
+      availability: null == availability
+          ? _value.availability
+          : availability // ignore: cast_nullable_to_non_nullable
               as String,
-      powerOutputId: null == powerOutputId
-          ? _value.powerOutputId
-          : powerOutputId // ignore: cast_nullable_to_non_nullable
-              as String,
-      powerPlugTypeId: null == powerPlugTypeId
-          ? _value.powerPlugTypeId
-          : powerPlugTypeId // ignore: cast_nullable_to_non_nullable
-              as String,
-      numberOfPort: null == numberOfPort
-          ? _value.numberOfPort
-          : numberOfPort // ignore: cast_nullable_to_non_nullable
-              as int,
-      availabity: null == availabity
-          ? _value.availabity
-          : availabity // ignore: cast_nullable_to_non_nullable
-              as String,
+      ports: null == ports
+          ? _value._ports
+          : ports // ignore: cast_nullable_to_non_nullable
+              as List<Port>,
     ));
   }
 }
@@ -160,29 +115,26 @@ class __$$ChargerEntityImplCopyWithImpl<$Res>
 
 class _$ChargerEntityImpl implements _ChargerEntity {
   const _$ChargerEntityImpl(
-      {required this.id,
-      required this.locationId,
-      required this.powerOutputId,
-      required this.powerPlugTypeId,
-      required this.numberOfPort,
-      required this.availabity});
+      {required this.station_name,
+      required this.availability,
+      required final List<Port> ports})
+      : _ports = ports;
 
   @override
-  final String id;
+  final String station_name;
   @override
-  final String locationId;
+  final String availability;
+  final List<Port> _ports;
   @override
-  final String powerOutputId;
-  @override
-  final String powerPlugTypeId;
-  @override
-  final int numberOfPort;
-  @override
-  final String availabity;
+  List<Port> get ports {
+    if (_ports is EqualUnmodifiableListView) return _ports;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_ports);
+  }
 
   @override
   String toString() {
-    return 'ChargerEntity(id: $id, locationId: $locationId, powerOutputId: $powerOutputId, powerPlugTypeId: $powerPlugTypeId, numberOfPort: $numberOfPort, availabity: $availabity)';
+    return 'ChargerEntity(station_name: $station_name, availability: $availability, ports: $ports)';
   }
 
   @override
@@ -190,22 +142,16 @@ class _$ChargerEntityImpl implements _ChargerEntity {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ChargerEntityImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.locationId, locationId) ||
-                other.locationId == locationId) &&
-            (identical(other.powerOutputId, powerOutputId) ||
-                other.powerOutputId == powerOutputId) &&
-            (identical(other.powerPlugTypeId, powerPlugTypeId) ||
-                other.powerPlugTypeId == powerPlugTypeId) &&
-            (identical(other.numberOfPort, numberOfPort) ||
-                other.numberOfPort == numberOfPort) &&
-            (identical(other.availabity, availabity) ||
-                other.availabity == availabity));
+            (identical(other.station_name, station_name) ||
+                other.station_name == station_name) &&
+            (identical(other.availability, availability) ||
+                other.availability == availability) &&
+            const DeepCollectionEquality().equals(other._ports, _ports));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, locationId, powerOutputId,
-      powerPlugTypeId, numberOfPort, availabity);
+  int get hashCode => Object.hash(runtimeType, station_name, availability,
+      const DeepCollectionEquality().hash(_ports));
 
   @JsonKey(ignore: true)
   @override
@@ -216,27 +162,180 @@ class _$ChargerEntityImpl implements _ChargerEntity {
 
 abstract class _ChargerEntity implements ChargerEntity {
   const factory _ChargerEntity(
-      {required final String id,
-      required final String locationId,
-      required final String powerOutputId,
-      required final String powerPlugTypeId,
-      required final int numberOfPort,
-      required final String availabity}) = _$ChargerEntityImpl;
+      {required final String station_name,
+      required final String availability,
+      required final List<Port> ports}) = _$ChargerEntityImpl;
 
   @override
-  String get id;
+  String get station_name;
   @override
-  String get locationId;
+  String get availability;
   @override
-  String get powerOutputId;
-  @override
-  String get powerPlugTypeId;
-  @override
-  int get numberOfPort;
-  @override
-  String get availabity;
+  List<Port> get ports;
   @override
   @JsonKey(ignore: true)
   _$$ChargerEntityImplCopyWith<_$ChargerEntityImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$Port {
+  PowerPlugTypeEntity get power_plug_type => throw _privateConstructorUsedError;
+  PowerOutputEntity get power_model => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $PortCopyWith<Port> get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $PortCopyWith<$Res> {
+  factory $PortCopyWith(Port value, $Res Function(Port) then) =
+      _$PortCopyWithImpl<$Res, Port>;
+  @useResult
+  $Res call(
+      {PowerPlugTypeEntity power_plug_type, PowerOutputEntity power_model});
+
+  $PowerPlugTypeEntityCopyWith<$Res> get power_plug_type;
+  $PowerOutputEntityCopyWith<$Res> get power_model;
+}
+
+/// @nodoc
+class _$PortCopyWithImpl<$Res, $Val extends Port>
+    implements $PortCopyWith<$Res> {
+  _$PortCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? power_plug_type = null,
+    Object? power_model = null,
+  }) {
+    return _then(_value.copyWith(
+      power_plug_type: null == power_plug_type
+          ? _value.power_plug_type
+          : power_plug_type // ignore: cast_nullable_to_non_nullable
+              as PowerPlugTypeEntity,
+      power_model: null == power_model
+          ? _value.power_model
+          : power_model // ignore: cast_nullable_to_non_nullable
+              as PowerOutputEntity,
+    ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PowerPlugTypeEntityCopyWith<$Res> get power_plug_type {
+    return $PowerPlugTypeEntityCopyWith<$Res>(_value.power_plug_type, (value) {
+      return _then(_value.copyWith(power_plug_type: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PowerOutputEntityCopyWith<$Res> get power_model {
+    return $PowerOutputEntityCopyWith<$Res>(_value.power_model, (value) {
+      return _then(_value.copyWith(power_model: value) as $Val);
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$$PortDataModelImplCopyWith<$Res>
+    implements $PortCopyWith<$Res> {
+  factory _$$PortDataModelImplCopyWith(
+          _$PortDataModelImpl value, $Res Function(_$PortDataModelImpl) then) =
+      __$$PortDataModelImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {PowerPlugTypeEntity power_plug_type, PowerOutputEntity power_model});
+
+  @override
+  $PowerPlugTypeEntityCopyWith<$Res> get power_plug_type;
+  @override
+  $PowerOutputEntityCopyWith<$Res> get power_model;
+}
+
+/// @nodoc
+class __$$PortDataModelImplCopyWithImpl<$Res>
+    extends _$PortCopyWithImpl<$Res, _$PortDataModelImpl>
+    implements _$$PortDataModelImplCopyWith<$Res> {
+  __$$PortDataModelImplCopyWithImpl(
+      _$PortDataModelImpl _value, $Res Function(_$PortDataModelImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? power_plug_type = null,
+    Object? power_model = null,
+  }) {
+    return _then(_$PortDataModelImpl(
+      power_plug_type: null == power_plug_type
+          ? _value.power_plug_type
+          : power_plug_type // ignore: cast_nullable_to_non_nullable
+              as PowerPlugTypeEntity,
+      power_model: null == power_model
+          ? _value.power_model
+          : power_model // ignore: cast_nullable_to_non_nullable
+              as PowerOutputEntity,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$PortDataModelImpl implements _PortDataModel {
+  const _$PortDataModelImpl(
+      {required this.power_plug_type, required this.power_model});
+
+  @override
+  final PowerPlugTypeEntity power_plug_type;
+  @override
+  final PowerOutputEntity power_model;
+
+  @override
+  String toString() {
+    return 'Port(power_plug_type: $power_plug_type, power_model: $power_model)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$PortDataModelImpl &&
+            (identical(other.power_plug_type, power_plug_type) ||
+                other.power_plug_type == power_plug_type) &&
+            (identical(other.power_model, power_model) ||
+                other.power_model == power_model));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, power_plug_type, power_model);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$PortDataModelImplCopyWith<_$PortDataModelImpl> get copyWith =>
+      __$$PortDataModelImplCopyWithImpl<_$PortDataModelImpl>(this, _$identity);
+}
+
+abstract class _PortDataModel implements Port {
+  const factory _PortDataModel(
+      {required final PowerPlugTypeEntity power_plug_type,
+      required final PowerOutputEntity power_model}) = _$PortDataModelImpl;
+
+  @override
+  PowerPlugTypeEntity get power_plug_type;
+  @override
+  PowerOutputEntity get power_model;
+  @override
+  @JsonKey(ignore: true)
+  _$$PortDataModelImplCopyWith<_$PortDataModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

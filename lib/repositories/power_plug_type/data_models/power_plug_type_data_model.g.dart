@@ -9,7 +9,6 @@ part of 'power_plug_type_data_model.dart';
 _$PowerPlugTypeDataModelImpl _$$PowerPlugTypeDataModelImplFromJson(
         Map<String, dynamic> json) =>
     _$PowerPlugTypeDataModelImpl(
-      id: json['id'] as String,
       powerModel: json['power_model'] as String,
       plugType: json['plug_type'] as String,
       plugImage: json['plug_image'] as String?,
@@ -22,7 +21,6 @@ _$PowerPlugTypeDataModelImpl _$$PowerPlugTypeDataModelImplFromJson(
 Map<String, dynamic> _$$PowerPlugTypeDataModelImplToJson(
         _$PowerPlugTypeDataModelImpl instance) =>
     <String, dynamic>{
-      'id': instance.id,
       'power_model': instance.powerModel,
       'plug_type': instance.plugType,
       'plug_image': instance.plugImage,

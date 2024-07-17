@@ -1,44 +1,22 @@
-import 'package:ev_charger/shared/core/mixins/entity_convertible.mixin.dart';
+import 'package:ev_charger/repositories/power_output/entities/power_output_entity.dart';
+import 'package:ev_charger/repositories/power_plug_type/entities/power_plug_type_entity.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-
-import '../data_models/charger_data_model.dart';
-
 part 'charger_entity.freezed.dart';
 
 @freezed
 class ChargerEntity with _$ChargerEntity {
   const factory ChargerEntity({
-    required String id,
-    required String locationId,
-    required String powerOutputId,
-    required String powerPlugTypeId,
-    required int numberOfPort,
-    required String availabity,
+    required String station_name,
+    required String availability,
+    required List<Port> ports,
   }) = _ChargerEntity;
 }
-//
-// class ChargerMapper with EntityConvertible<ChargerEntity, ChargerDataModel> {
-//   @override
-//   ChargerDataModel fromEntity(ChargerEntity entityObject) {
-//     return ChargerDataModel(
-//       id: entityObject.id,
-//       locationId: entityObject.locationId,
-//       powerOutputId: entityObject.powerOutputId,
-//       powerPlugTypeId: entityObject.powerPlugTypeId,
-//       numberOfPort: entityObject.numberOfPort,
-//       availabity: entityObject.availabity,
-//     );
-//   }
-//
-//   @override
-//   ChargerEntity toEntity(ChargerDataModel dataModelObject) {
-//     return ChargerEntity(
-//       id: dataModelObject.id,
-//       locationId: dataModelObject.locationId,
-//       powerOutputId: dataModelObject.powerOutputId,
-//       powerPlugTypeId: dataModelObject.powerPlugTypeId,
-//       numberOfPort: dataModelObject.numberOfPort,
-//       availabity: dataModelObject.availabity,
-//     );
-//   }
-// }
+
+@freezed
+class Port with _$Port {
+  const factory Port({
+    required PowerPlugTypeEntity power_plug_type,
+    required PowerOutputEntity power_model,
+  }) = _PortDataModel;
+
+}

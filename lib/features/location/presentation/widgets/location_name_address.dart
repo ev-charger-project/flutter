@@ -23,8 +23,7 @@ class LocationNameAddress extends ConsumerWidget {
             ),
             const SizedBox(height: 10),
             Text(
-              // location.streetAddress,
-              "Missing",
+              location.street,
               style: Theme.of(context).textTheme.bodyMedium,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,

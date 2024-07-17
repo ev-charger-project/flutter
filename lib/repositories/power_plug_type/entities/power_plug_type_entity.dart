@@ -7,7 +7,6 @@ part 'power_plug_type_entity.freezed.dart';
 @freezed
 class PowerPlugTypeEntity with _$PowerPlugTypeEntity {
   const factory PowerPlugTypeEntity({
-    required String id,
     required String powerModel,
     required String plugType,
     String? plugImage,
@@ -21,7 +20,6 @@ class PowerPlugTypeMapper
   @override
   PowerPlugTypeDataModel fromEntity(PowerPlugTypeEntity entityObject) {
     return PowerPlugTypeDataModel(
-      id: entityObject.id,
       powerModel: entityObject.powerModel,
       plugType: entityObject.plugType,
       plugImage: entityObject.plugImage,
@@ -33,7 +31,6 @@ class PowerPlugTypeMapper
   @override
   PowerPlugTypeEntity toEntity(PowerPlugTypeDataModel dataModelObject) {
     return PowerPlugTypeEntity(
-      id: dataModelObject.id,
       powerModel: dataModelObject.powerModel,
       plugType: dataModelObject.plugType,
       plugImage: dataModelObject.plugImage,

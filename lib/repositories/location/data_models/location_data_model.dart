@@ -1,7 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-
 import '../../charger/data_models/charger_data_model.dart';
-
 part 'location_data_model.freezed.dart';
 part 'location_data_model.g.dart';
 
@@ -14,6 +12,8 @@ class LocationDataModel with _$LocationDataModel {
     @JsonKey(name: 'city') required String city,
     @JsonKey(name: 'postal_code') String? postal,
     @JsonKey(name: 'country') required String country,
+    @JsonKey(name: 'latitude') required double latitude,
+    @JsonKey(name: 'longitude') required double longitude,
     @JsonKey(name: 'description') String? description,
     @JsonKey(name: 'working_day') required WorkingDay workingDay,
     @JsonKey(name: 'pricing') String? pricing,

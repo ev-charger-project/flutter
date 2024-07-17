@@ -32,6 +32,10 @@ mixin _$LocationDataModel {
   String? get postal => throw _privateConstructorUsedError;
   @JsonKey(name: 'country')
   String get country => throw _privateConstructorUsedError;
+  @JsonKey(name: 'latitude')
+  double get latitude => throw _privateConstructorUsedError;
+  @JsonKey(name: 'longitude')
+  double get longitude => throw _privateConstructorUsedError;
   @JsonKey(name: 'description')
   String? get description => throw _privateConstructorUsedError;
   @JsonKey(name: 'working_day')
@@ -64,6 +68,8 @@ abstract class $LocationDataModelCopyWith<$Res> {
       @JsonKey(name: 'city') String city,
       @JsonKey(name: 'postal_code') String? postal,
       @JsonKey(name: 'country') String country,
+      @JsonKey(name: 'latitude') double latitude,
+      @JsonKey(name: 'longitude') double longitude,
       @JsonKey(name: 'description') String? description,
       @JsonKey(name: 'working_day') WorkingDay workingDay,
       @JsonKey(name: 'pricing') String? pricing,
@@ -93,6 +99,8 @@ class _$LocationDataModelCopyWithImpl<$Res, $Val extends LocationDataModel>
     Object? city = null,
     Object? postal = freezed,
     Object? country = null,
+    Object? latitude = null,
+    Object? longitude = null,
     Object? description = freezed,
     Object? workingDay = null,
     Object? pricing = freezed,
@@ -125,6 +133,14 @@ class _$LocationDataModelCopyWithImpl<$Res, $Val extends LocationDataModel>
           ? _value.country
           : country // ignore: cast_nullable_to_non_nullable
               as String,
+      latitude: null == latitude
+          ? _value.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as double,
+      longitude: null == longitude
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as double,
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -176,6 +192,8 @@ abstract class _$$LocationDataModelImplCopyWith<$Res>
       @JsonKey(name: 'city') String city,
       @JsonKey(name: 'postal_code') String? postal,
       @JsonKey(name: 'country') String country,
+      @JsonKey(name: 'latitude') double latitude,
+      @JsonKey(name: 'longitude') double longitude,
       @JsonKey(name: 'description') String? description,
       @JsonKey(name: 'working_day') WorkingDay workingDay,
       @JsonKey(name: 'pricing') String? pricing,
@@ -204,6 +222,8 @@ class __$$LocationDataModelImplCopyWithImpl<$Res>
     Object? city = null,
     Object? postal = freezed,
     Object? country = null,
+    Object? latitude = null,
+    Object? longitude = null,
     Object? description = freezed,
     Object? workingDay = null,
     Object? pricing = freezed,
@@ -236,6 +256,14 @@ class __$$LocationDataModelImplCopyWithImpl<$Res>
           ? _value.country
           : country // ignore: cast_nullable_to_non_nullable
               as String,
+      latitude: null == latitude
+          ? _value.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as double,
+      longitude: null == longitude
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as double,
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -274,6 +302,8 @@ class _$LocationDataModelImpl implements _LocationDataModel {
       @JsonKey(name: 'city') required this.city,
       @JsonKey(name: 'postal_code') this.postal,
       @JsonKey(name: 'country') required this.country,
+      @JsonKey(name: 'latitude') required this.latitude,
+      @JsonKey(name: 'longitude') required this.longitude,
       @JsonKey(name: 'description') this.description,
       @JsonKey(name: 'working_day') required this.workingDay,
       @JsonKey(name: 'pricing') this.pricing,
@@ -305,6 +335,12 @@ class _$LocationDataModelImpl implements _LocationDataModel {
   @JsonKey(name: 'country')
   final String country;
   @override
+  @JsonKey(name: 'latitude')
+  final double latitude;
+  @override
+  @JsonKey(name: 'longitude')
+  final double longitude;
+  @override
   @JsonKey(name: 'description')
   final String? description;
   @override
@@ -330,7 +366,7 @@ class _$LocationDataModelImpl implements _LocationDataModel {
 
   @override
   String toString() {
-    return 'LocationDataModel(name: $name, street: $street, district: $district, city: $city, postal: $postal, country: $country, description: $description, workingDay: $workingDay, pricing: $pricing, phoneNumber: $phoneNumber, parkingLevel: $parkingLevel, ev_chargers: $ev_chargers)';
+    return 'LocationDataModel(name: $name, street: $street, district: $district, city: $city, postal: $postal, country: $country, latitude: $latitude, longitude: $longitude, description: $description, workingDay: $workingDay, pricing: $pricing, phoneNumber: $phoneNumber, parkingLevel: $parkingLevel, ev_chargers: $ev_chargers)';
   }
 
   @override
@@ -345,6 +381,10 @@ class _$LocationDataModelImpl implements _LocationDataModel {
             (identical(other.city, city) || other.city == city) &&
             (identical(other.postal, postal) || other.postal == postal) &&
             (identical(other.country, country) || other.country == country) &&
+            (identical(other.latitude, latitude) ||
+                other.latitude == latitude) &&
+            (identical(other.longitude, longitude) ||
+                other.longitude == longitude) &&
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.workingDay, workingDay) ||
@@ -368,6 +408,8 @@ class _$LocationDataModelImpl implements _LocationDataModel {
       city,
       postal,
       country,
+      latitude,
+      longitude,
       description,
       workingDay,
       pricing,
@@ -398,6 +440,8 @@ abstract class _LocationDataModel implements LocationDataModel {
           @JsonKey(name: 'city') required final String city,
           @JsonKey(name: 'postal_code') final String? postal,
           @JsonKey(name: 'country') required final String country,
+          @JsonKey(name: 'latitude') required final double latitude,
+          @JsonKey(name: 'longitude') required final double longitude,
           @JsonKey(name: 'description') final String? description,
           @JsonKey(name: 'working_day') required final WorkingDay workingDay,
           @JsonKey(name: 'pricing') final String? pricing,
@@ -428,6 +472,12 @@ abstract class _LocationDataModel implements LocationDataModel {
   @override
   @JsonKey(name: 'country')
   String get country;
+  @override
+  @JsonKey(name: 'latitude')
+  double get latitude;
+  @override
+  @JsonKey(name: 'longitude')
+  double get longitude;
   @override
   @JsonKey(name: 'description')
   String? get description;

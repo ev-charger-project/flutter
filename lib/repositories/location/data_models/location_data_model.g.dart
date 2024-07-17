@@ -15,6 +15,8 @@ _$LocationDataModelImpl _$$LocationDataModelImplFromJson(
       city: json['city'] as String,
       postal: json['postal_code'] as String?,
       country: json['country'] as String,
+      latitude: (json['latitude'] as num).toDouble(),
+      longitude: (json['longitude'] as num).toDouble(),
       description: json['description'] as String?,
       workingDay: WorkingDay.fromJson(
           Map<String, String>.from(json['working_day'] as Map)),
@@ -35,6 +37,8 @@ Map<String, dynamic> _$$LocationDataModelImplToJson(
       'city': instance.city,
       'postal_code': instance.postal,
       'country': instance.country,
+      'latitude': instance.latitude,
+      'longitude': instance.longitude,
       'description': instance.description,
       'working_day': instance.workingDay,
       'pricing': instance.pricing,

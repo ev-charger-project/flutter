@@ -10,11 +10,26 @@ class PostgresqlStorageService extends RemoteStorageService {
   final Dio _dio = Dio();
   @override
   Future<LocationDataModel> fetchLocationData(String locationId) async {
-    await Future.delayed(Duration(seconds: 1));
-    throw UnimplementedError();}
+    const url = 'http://172.16.11.139:14000/api/v1/location_details';
+
+    try {
+      final response = await _dio.get(url, queryParameters: {
+        'id': locationId,
+      });
+      if (response.statusCode == 200) {
+        return response.data.map((item) =>
+            ChargerMarkerDataModel.fromJson(item as Map<String, dynamic>));
+      } else {
+        throw Exception('Failed to load markers using DataModel');
+      }
+    } catch (e) {
+      throw Exception('Failed to load markers: $e');
+    }
+  }
 
   @override
-  Future<List<ChargerMarkerDataModel>> fetchMarker(double userLat, double userLong, double radius) async {
+  Future<List<ChargerMarkerDataModel>> fetchMarker(
+      double userLat, double userLong, double radius) async {
     const url = 'http://172.16.11.139:14000/api/v1/locations/by_radius';
 
     try {
@@ -25,7 +40,8 @@ class PostgresqlStorageService extends RemoteStorageService {
       });
       if (response.statusCode == 200) {
         return (response.data as List)
-            .map((item) => ChargerMarkerDataModel.fromJson(item as Map<String, dynamic>))
+            .map((item) =>
+                ChargerMarkerDataModel.fromJson(item as Map<String, dynamic>))
             .toList();
       } else {
         throw Exception('Failed to load markers using DataModel');

@@ -16,7 +16,6 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$PowerPlugTypeEntity {
-  String get id => throw _privateConstructorUsedError;
   String get powerModel => throw _privateConstructorUsedError;
   String get plugType => throw _privateConstructorUsedError;
   String? get plugImage => throw _privateConstructorUsedError;
@@ -35,8 +34,7 @@ abstract class $PowerPlugTypeEntityCopyWith<$Res> {
       _$PowerPlugTypeEntityCopyWithImpl<$Res, PowerPlugTypeEntity>;
   @useResult
   $Res call(
-      {String id,
-      String powerModel,
+      {String powerModel,
       String plugType,
       String? plugImage,
       List<String>? usedInRegions,
@@ -56,7 +54,6 @@ class _$PowerPlugTypeEntityCopyWithImpl<$Res, $Val extends PowerPlugTypeEntity>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
     Object? powerModel = null,
     Object? plugType = null,
     Object? plugImage = freezed,
@@ -64,10 +61,6 @@ class _$PowerPlugTypeEntityCopyWithImpl<$Res, $Val extends PowerPlugTypeEntity>
     Object? additionalNotes = freezed,
   }) {
     return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
       powerModel: null == powerModel
           ? _value.powerModel
           : powerModel // ignore: cast_nullable_to_non_nullable
@@ -101,8 +94,7 @@ abstract class _$$PowerPlugTypeEntityImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String id,
-      String powerModel,
+      {String powerModel,
       String plugType,
       String? plugImage,
       List<String>? usedInRegions,
@@ -120,7 +112,6 @@ class __$$PowerPlugTypeEntityImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
     Object? powerModel = null,
     Object? plugType = null,
     Object? plugImage = freezed,
@@ -128,10 +119,6 @@ class __$$PowerPlugTypeEntityImplCopyWithImpl<$Res>
     Object? additionalNotes = freezed,
   }) {
     return _then(_$PowerPlugTypeEntityImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
       powerModel: null == powerModel
           ? _value.powerModel
           : powerModel // ignore: cast_nullable_to_non_nullable
@@ -160,16 +147,13 @@ class __$$PowerPlugTypeEntityImplCopyWithImpl<$Res>
 
 class _$PowerPlugTypeEntityImpl implements _PowerPlugTypeEntity {
   const _$PowerPlugTypeEntityImpl(
-      {required this.id,
-      required this.powerModel,
+      {required this.powerModel,
       required this.plugType,
       this.plugImage,
       final List<String>? usedInRegions,
       this.additionalNotes})
       : _usedInRegions = usedInRegions;
 
-  @override
-  final String id;
   @override
   final String powerModel;
   @override
@@ -191,7 +175,7 @@ class _$PowerPlugTypeEntityImpl implements _PowerPlugTypeEntity {
 
   @override
   String toString() {
-    return 'PowerPlugTypeEntity(id: $id, powerModel: $powerModel, plugType: $plugType, plugImage: $plugImage, usedInRegions: $usedInRegions, additionalNotes: $additionalNotes)';
+    return 'PowerPlugTypeEntity(powerModel: $powerModel, plugType: $plugType, plugImage: $plugImage, usedInRegions: $usedInRegions, additionalNotes: $additionalNotes)';
   }
 
   @override
@@ -199,7 +183,6 @@ class _$PowerPlugTypeEntityImpl implements _PowerPlugTypeEntity {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PowerPlugTypeEntityImpl &&
-            (identical(other.id, id) || other.id == id) &&
             (identical(other.powerModel, powerModel) ||
                 other.powerModel == powerModel) &&
             (identical(other.plugType, plugType) ||
@@ -213,14 +196,8 @@ class _$PowerPlugTypeEntityImpl implements _PowerPlugTypeEntity {
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      powerModel,
-      plugType,
-      plugImage,
-      const DeepCollectionEquality().hash(_usedInRegions),
-      additionalNotes);
+  int get hashCode => Object.hash(runtimeType, powerModel, plugType, plugImage,
+      const DeepCollectionEquality().hash(_usedInRegions), additionalNotes);
 
   @JsonKey(ignore: true)
   @override
@@ -232,15 +209,12 @@ class _$PowerPlugTypeEntityImpl implements _PowerPlugTypeEntity {
 
 abstract class _PowerPlugTypeEntity implements PowerPlugTypeEntity {
   const factory _PowerPlugTypeEntity(
-      {required final String id,
-      required final String powerModel,
+      {required final String powerModel,
       required final String plugType,
       final String? plugImage,
       final List<String>? usedInRegions,
       final String? additionalNotes}) = _$PowerPlugTypeEntityImpl;
 
-  @override
-  String get id;
   @override
   String get powerModel;
   @override
