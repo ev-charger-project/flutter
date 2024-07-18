@@ -17,31 +17,40 @@ class SearchScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final TextEditingController _searchController = TextEditingController();
+    final screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 50, left: 20, right: 20),
-            child: SearchBarAndFilter(
-              controller: _searchController,
-              onChanged: (text) {
-                ref.read(SearchQueryProvider.notifier).state = text;
-              },
-              isTyping: true,
-              onFilterPressed: () => context.router.push(FilterRoute()),
-            ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.only(
-                left: 30,
-                right: 30,
+      body: OrientationBuilder(
+        builder: (context, orientation) {
+          return Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(
+                  top: screenSize.height * 0.05,
+                  left: screenSize.width * 0.05,
+                  right: screenSize.width * 0.05,
+                ),
+                child: SearchBarAndFilter(
+                  controller: _searchController,
+                  onChanged: (text) {
+                    ref.read(SearchQueryProvider.notifier).state = text;
+                  },
+                  isTyping: true,
+                  onFilterPressed: () => context.router.push(FilterRoute()),
+                ),
               ),
-              child: const SuggestionList(),
-            ),
-          ),
-        ],
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.only(
+                    left: screenSize.width * 0.075,
+                    right: screenSize.width * 0.075,
+                  ),
+                  child: const SuggestionList(),
+                ),
+              ),
+            ],
+          );
+        },
       ),
       bottomNavigationBar: const SimpleBottomAppBar(),
     );

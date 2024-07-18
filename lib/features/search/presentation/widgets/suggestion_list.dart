@@ -12,6 +12,15 @@ class SuggestionList extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final suggestions = ref.watch(suggestionProvider);
+
+    final screenSize = MediaQuery.of(context).size;
+    final isPortrait =
+        MediaQuery.of(context).orientation == Orientation.portrait;
+
+    // Define responsive font sizes
+    final double titleFontSize = isPortrait ? 20 : 24;
+    final double subtitleFontSize = isPortrait ? 16 : 20;
+
     return suggestions.when(
       data: (suggestions) {
         print('Data fetched with ${suggestions.length} items');
