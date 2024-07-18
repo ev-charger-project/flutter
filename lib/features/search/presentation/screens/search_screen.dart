@@ -2,24 +2,42 @@ import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:ev_charger/features/search/presentation/widgets/search_bar_and_filter.dart';
 import 'package:ev_charger/shared/presentation/widgets/bottom_app_bar.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import '../../../../routes/app_route.dart';
 import '../../domain/providers/search_query_provider.dart';
 import '../widgets/suggestion_list.dart';
 
 @RoutePage()
-class SearchScreen extends ConsumerWidget {
+class SearchScreen extends ConsumerStatefulWidget {
   const SearchScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final TextEditingController _searchController = TextEditingController();
+  ConsumerState<SearchScreen> createState() => _SearchScreenState();
+}
+
+class _SearchScreenState extends ConsumerState<SearchScreen> {
+  late TextEditingController _searchController;
+
+  @override
+  void initState() {
+    super.initState();
+    _searchController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
+    final searchQuery = ref.watch(SearchQueryProvider);
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: OrientationBuilder(
         builder: (context, orientation) {
           return Column(
@@ -45,7 +63,11 @@ class SearchScreen extends ConsumerWidget {
                     left: screenSize.width * 0.075,
                     right: screenSize.width * 0.075,
                   ),
-                  child: const SuggestionList(),
+                  child: searchQuery.isEmpty
+                      ? const Center(
+                    child: Text('Enter search text to see results.'),
+                  )
+                      : const SuggestionList(),
                 ),
               ),
             ],
