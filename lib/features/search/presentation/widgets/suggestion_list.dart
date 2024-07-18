@@ -28,19 +28,34 @@ class SuggestionList extends ConsumerWidget {
             ? Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset('assets/images/not_found.png'),
+                  Image.asset(
+                    'assets/images/not_found.png',
+                    width: isPortrait
+                        ? screenSize.width * 0.6
+                        : screenSize.width * 0.4,
+                  ),
                   SizedBox(
-                    height: 10,
+                    height: screenSize.height * 0.01,
                   ),
                   Text(
                     "Not found",
-                    style: Theme.of(context).textTheme.displayLarge,
+                    style: Theme.of(context)
+                        .textTheme
+                        .displayLarge
+                        ?.copyWith(fontSize: isPortrait ? 24 : 28),
                     textAlign: TextAlign.center,
                   ),
-                  Text(
-                    "We're sorry, the key word you were looking for could not be found. Please try again with another key words.",
-                    style: Theme.of(context).textTheme.bodyLarge,
-                    textAlign: TextAlign.center,
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: screenSize.width * 0.1, vertical: 20),
+                    child: Text(
+                      "We're sorry, the key word you were looking for could not be found. Please try again with another key words.",
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyLarge
+                          ?.copyWith(fontSize: isPortrait ? 16 : 20),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 ],
               )
@@ -53,14 +68,14 @@ class SuggestionList extends ConsumerWidget {
                       ListTile(
                         leading: SvgPicture.asset(
                           'assets/icons/station_marker.svg',
-                          width: 50,
-                          height: 50,
+                          width: isPortrait ? 50 : 60,
+                          height: isPortrait ? 50 : 60,
                         ),
                         title: Text(
                           suggestion.locationName,
                           style: TextStyle(
                             fontFamily: 'Exo',
-                            fontSize: 20,
+                            fontSize: titleFontSize,
                             fontWeight: FontWeight.bold,
                           ),
 
@@ -70,7 +85,7 @@ class SuggestionList extends ConsumerWidget {
                           '${suggestion.street}, ${suggestion.district}, ${suggestion.city}',
                           style: TextStyle(
                             fontFamily: 'Exo',
-                            fontSize: 16,
+                            fontSize: subtitleFontSize,
                             fontWeight: FontWeight.normal,
                           ),
 

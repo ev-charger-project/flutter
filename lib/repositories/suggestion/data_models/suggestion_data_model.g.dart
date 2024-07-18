@@ -8,7 +8,7 @@ part of 'suggestion_data_model.dart';
 
 _$SuggestionImpl _$$SuggestionImplFromJson(Map<String, dynamic> json) =>
     _$SuggestionImpl(
-      locationId: json['location_id'] as String,
+      locationId: json['id'] as String,
       locationName: json['location_name'] as String,
       street: json['street'] as String,
       district: json['district'] as String,
@@ -20,7 +20,7 @@ _$SuggestionImpl _$$SuggestionImplFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$SuggestionImplToJson(_$SuggestionImpl instance) =>
     <String, dynamic>{
-      'location_id': instance.locationId,
+      'id': instance.locationId,
       'location_name': instance.locationName,
       'street': instance.street,
       'district': instance.district,

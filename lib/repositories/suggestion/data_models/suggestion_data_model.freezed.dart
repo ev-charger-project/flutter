@@ -20,7 +20,7 @@ SuggestionDataModel _$SuggestionDataModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$SuggestionDataModel {
-  @JsonKey(name: 'location_id')
+  @JsonKey(name: 'id')
   String get locationId => throw _privateConstructorUsedError;
   @JsonKey(name: 'location_name')
   String get locationName => throw _privateConstructorUsedError;
@@ -50,7 +50,7 @@ abstract class $SuggestionDataModelCopyWith<$Res> {
       _$SuggestionDataModelCopyWithImpl<$Res, SuggestionDataModel>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'location_id') String locationId,
+      {@JsonKey(name: 'id') String locationId,
       @JsonKey(name: 'location_name') String locationName,
       @JsonKey(name: 'street') String street,
       @JsonKey(name: 'district') String district,
@@ -128,7 +128,7 @@ abstract class _$$SuggestionImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'location_id') String locationId,
+      {@JsonKey(name: 'id') String locationId,
       @JsonKey(name: 'location_name') String locationName,
       @JsonKey(name: 'street') String street,
       @JsonKey(name: 'district') String district,
@@ -199,7 +199,7 @@ class __$$SuggestionImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$SuggestionImpl implements _Suggestion {
   const _$SuggestionImpl(
-      {@JsonKey(name: 'location_id') required this.locationId,
+      {@JsonKey(name: 'id') required this.locationId,
       @JsonKey(name: 'location_name') required this.locationName,
       @JsonKey(name: 'street') required this.street,
       @JsonKey(name: 'district') required this.district,
@@ -212,7 +212,7 @@ class _$SuggestionImpl implements _Suggestion {
       _$$SuggestionImplFromJson(json);
 
   @override
-  @JsonKey(name: 'location_id')
+  @JsonKey(name: 'id')
   final String locationId;
   @override
   @JsonKey(name: 'location_name')
@@ -282,7 +282,7 @@ class _$SuggestionImpl implements _Suggestion {
 
 abstract class _Suggestion implements SuggestionDataModel {
   const factory _Suggestion(
-          {@JsonKey(name: 'location_id') required final String locationId,
+          {@JsonKey(name: 'id') required final String locationId,
           @JsonKey(name: 'location_name') required final String locationName,
           @JsonKey(name: 'street') required final String street,
           @JsonKey(name: 'district') required final String district,
@@ -296,7 +296,7 @@ abstract class _Suggestion implements SuggestionDataModel {
       _$SuggestionImpl.fromJson;
 
   @override
-  @JsonKey(name: 'location_id')
+  @JsonKey(name: 'id')
   String get locationId;
   @override
   @JsonKey(name: 'location_name')
