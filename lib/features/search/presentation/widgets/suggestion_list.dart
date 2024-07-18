@@ -21,10 +21,6 @@ class SuggestionList extends ConsumerWidget {
     final isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
 
-    // Define responsive font sizes
-    final double titleFontSize = isPortrait ? 20 : 24;
-    final double subtitleFontSize = isPortrait ? 16 : 20;
-
     return suggestions.when(
       data: (suggestions) {
         return suggestions.isEmpty
@@ -76,30 +72,19 @@ class SuggestionList extends ConsumerWidget {
                         ),
                         title: Text(
                           suggestion.locationName,
-                          style: TextStyle(
-                            fontFamily: 'Exo',
-                            fontSize: titleFontSize,
-                            fontWeight: FontWeight.bold,
-                          ),
-
-                          //Theme.of(context).textTheme.displayMedium,
+                          style: Theme.of(context).textTheme.displayMedium,
                         ),
                         subtitle: Text(
                           '${suggestion.street}, ${suggestion.district}, ${suggestion.city}',
-                          style: TextStyle(
-                            fontFamily: 'Exo',
-                            fontSize: subtitleFontSize,
-                            fontWeight: FontWeight.normal,
-                          ),
-
-                          /*Theme.of(context).textTheme.bodySmall,*/
+                          style: Theme.of(context).textTheme.bodySmall,
                         ),
                         trailing: const Icon(Icons.arrow_forward_ios),
                         onTap: () {
-                            ref.read(selectedLocationIdProvider.notifier).state = suggestion.locationId;
-                            ref.read(isInfoVisibleProvider.notifier).state = true ;
-                            context.router.push(const MapRoute());
-                        }
+                          ref.read(selectedLocationIdProvider.notifier).state =
+                              suggestion.locationId;
+                          ref.read(isInfoVisibleProvider.notifier).state = true;
+                          context.router.push(const MapRoute());
+                        },
                       ),
                       Divider(
                         color: Theme.of(context).dividerColor,

@@ -64,9 +64,12 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                     right: screenSize.width * 0.075,
                   ),
                   child: searchQuery.isEmpty
-                      ? const Center(
-                    child: Text('Enter search text to see results.'),
-                  )
+                      ? Center(
+                          child: Text(
+                            'Enter search text to see results.',
+                            style: Theme.of(context).textTheme.bodySmall,
+                          ),
+                        )
                       : const SuggestionList(),
                 ),
               ),
