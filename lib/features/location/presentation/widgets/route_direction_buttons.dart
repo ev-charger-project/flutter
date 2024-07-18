@@ -1,21 +1,39 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class RouteDirectionButtons extends StatelessWidget {
+import '../../../../shared/domain/providers/permission/permission_provider.dart';
+import '../../../notification/screens/permission_screen.dart';
+
+class RouteDirectionButtons extends ConsumerWidget {
   const RouteDirectionButtons({
     super.key,
   });
 
   @override
-  Widget build(BuildContext context) {
-    const double size = 18;
+  Widget build(BuildContext context, WidgetRef ref) {
+
+    void handleButtonPress() {
+      final permissionState = ref.read(permissionProvider);
+
+      if (!permissionState.hasPermission) {
+        showDialog(
+          context: context,
+          builder: (context) => const PermissionScreen(),
+        );
+      } else {
+        // Permission granted, handle the intended functionality here
+        Navigator.of(context).pop(); // Example to pop the current screen
+      }
+    }
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(
           child: SizedBox(
             child: OutlinedButton(
-              onPressed: () {},
+              onPressed: handleButtonPress,
               style: OutlinedButton.styleFrom(
                 side: BorderSide(color: Theme.of(context).colorScheme.primary),
                 shape: RoundedRectangleBorder(
@@ -23,8 +41,8 @@ class RouteDirectionButtons extends StatelessWidget {
                 ),
               ),
               child: Text(
-                'Route Plan',
-                style: Theme.of(context).primaryTextTheme.bodyMedium
+                  'Route Plan',
+                  style: Theme.of(context).primaryTextTheme.bodyMedium
               ),
             ),
           ),
@@ -33,7 +51,7 @@ class RouteDirectionButtons extends StatelessWidget {
         Expanded(
           child: SizedBox(
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: handleButtonPress,
               style: ElevatedButton.styleFrom(
                 backgroundColor: Theme.of(context).colorScheme.primary,
                 shape: RoundedRectangleBorder(

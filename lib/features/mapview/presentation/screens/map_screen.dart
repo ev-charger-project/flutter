@@ -18,7 +18,7 @@ class MapScreen extends ConsumerStatefulWidget {
   _MapScreenState createState() => _MapScreenState();
 }
 
-class _MapScreenState extends ConsumerState<MapScreen> {
+class _MapScreenState extends ConsumerState<MapScreen> with WidgetsBindingObserver{
   final Completer<GoogleMapController> _controller = Completer<GoogleMapController>();
   GoogleMapController? _mapController;
   final List<Marker> _markers = <Marker>[];
@@ -26,6 +26,30 @@ class _MapScreenState extends ConsumerState<MapScreen> {
     target: LatLng(10.8023163, 106.6645121),
     zoom: 16,
   );
+
+  @override
+  void dispose() {
+    print('mapview is dispose');
+    WidgetsBinding.instance.removeObserver(this);
+    _mapController?.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state){
+    if(state==AppLifecycleState.paused ||state==AppLifecycleState.inactive ){
+
+      _mapController?.dispose();
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
