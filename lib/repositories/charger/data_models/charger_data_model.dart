@@ -22,9 +22,9 @@ class ChargerDataModel with _$ChargerDataModel {
 class PortDataModel with _$PortDataModel {
   const factory PortDataModel({
     @JsonKey(name: 'power_plug_type') required PowerPlugTypeDataModel power_plug_type,
-    @JsonKey(name: 'power_model') required PowerOutputDataModel power_model,
+    @JsonKey(name: 'power_output') required PowerOutputDataModel power_model,
   }) = _PortDataModel;
 
-  factory PortDataModel.fromJson(Map<String, String> json) =>
+  factory PortDataModel.fromJson(Map<String, dynamic> json) =>
       _$PortDataModelFromJson(json);
 }

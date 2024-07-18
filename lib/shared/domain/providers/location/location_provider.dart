@@ -7,6 +7,6 @@ import 'location_repository_provider.dart';
 final locationProvider =
     FutureProvider.autoDispose<LocationEntity>((ref) async {
   final locationRepository = ref.read(locationRepositoryProvider);
-  final currentLocationId = ref.read(selectedLocationIdProvider);
-  return await locationRepository.fetchLocationData(currentLocationId ?? '1');
+  final currentLocationId = ref.watch(selectedLocationIdProvider);
+  return await locationRepository.fetchLocationData(currentLocationId);
 });

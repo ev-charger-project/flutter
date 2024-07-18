@@ -11,21 +11,27 @@ class PostgresqlStorageService extends RemoteStorageService {
 
   @override
   Future<LocationDataModel> fetchLocationData(String locationId) async {
-    const url = 'http://172.16.11.139:14000/api/v1/location_details';
-    throw UnimplementedError();
-    /*try {
-      final response = await _dio.get(url, queryParameters: {
-        'id': locationId,
-      });
+    const url = 'http://172.16.11.139:14000/api/v1/locations';
+    try {
+      final response = await _dio.get('$url/$locationId');
+
       if (response.statusCode == 200) {
-        return response.data.map((item) =>
-            ChargerMarkerDataModel.fromJson(item as Map<String, dynamic>));
+        final dynamic responseData = response.data;
+
+        print('Response Data: $responseData');
+
+        if (responseData is Map<String, dynamic>) {
+          return LocationDataModel.fromJson(responseData);
+        } else {
+          throw Exception('Invalid response format');
+        }
       } else {
-        throw Exception('Failed to load markers using DataModel');
+        throw Exception('Failed to load location data');
       }
     } catch (e) {
-      throw Exception('Failed to load markers: $e');
-    }*/
+      print('Error: $e');
+      throw Exception('Failed to load location data: $e');
+    }
   }
 
   @override

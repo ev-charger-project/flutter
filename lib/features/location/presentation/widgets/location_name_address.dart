@@ -10,7 +10,7 @@ class LocationNameAddress extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final currentLocation = ref.watch(locationProvider);
-
+    print("Location is $currentLocation");
     return Container(
       color: Theme.of(context).colorScheme.surface,
       child: currentLocation.when(

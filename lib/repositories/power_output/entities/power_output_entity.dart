@@ -7,9 +7,9 @@ part 'power_output_entity.freezed.dart';
 @freezed
 class PowerOutputEntity with _$PowerOutputEntity {
   const factory PowerOutputEntity({
-    required int outputValue,
+    required double outputValue,
     required String chargingSpeed,
-    required int voltage,
+    required double voltage,
   }) = _PowerOutputEntity;
 }
 

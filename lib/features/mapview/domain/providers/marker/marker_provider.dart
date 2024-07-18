@@ -11,15 +11,13 @@ final markerProvider = FutureProvider.autoDispose<List<Marker>>((ref) async {
   final userLatLng =ref.watch(screenCenterProvider);
   final userLat = userLatLng.latitude;
   final userLong = userLatLng.longitude;
-  // final radius = ref.watch(radiusProvider);
   final markerRepository = ref.read(markerRepositoryProvider);
-  final markersData = await markerRepository.fetchMarkers(userLat, userLong, 50);
+  final markersData = await markerRepository.fetchMarkers(userLat, userLong, 1000);
   final Uint8List customIconBytes = await const AssetImage('assets/icons/marker_icon.png').pngUint8List;
 
   List<Marker> markers = [];
 
   for (var markerData in markersData) {
-    print('Trying to create a marker with ${markerData.latitude}, ${markerData.longitude}');
     markers.add(
       Marker(
         markerId: MarkerId(markerData.id),

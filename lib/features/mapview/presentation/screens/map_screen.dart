@@ -31,7 +31,6 @@ class _MapScreenState extends ConsumerState<MapScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final screenCenterNotifier = ref.read(screenCenterProvider.notifier);
     final markerAsyncValue = ref.watch(markerProvider);
 
     return Scaffold(
@@ -42,6 +41,7 @@ class _MapScreenState extends ConsumerState<MapScreen> {
               final Set<Marker> googleMapMarkers = markers.map((marker) {
                 return marker.copyWith(
                   onTapParam: () {
+                    print('Location tapped');
                     ref.read(selectedLocationIdProvider.notifier).state =
                         marker.markerId.value;
 
@@ -76,7 +76,12 @@ class _MapScreenState extends ConsumerState<MapScreen> {
                             visibleRegion.southwest.longitude) /
                         2,
                   );
-                  screenCenterNotifier.state = center;
+                  print ("Center is: $center");
+                  Future.delayed(const Duration(seconds: 5), (){
+
+                    // screenCenterNotifier.state = center;
+
+                  });
                 },
                 onTap: (LatLng position) {
                   setState(() {
@@ -90,7 +95,7 @@ class _MapScreenState extends ConsumerState<MapScreen> {
           ),
           AnimatedPositioned(
             duration: const Duration(milliseconds: 300),
-            bottom: _isInfoVisible ? 0 : -300.0,
+            bottom: _isInfoVisible ? 0 : -1000.0,
             left: 0,
             right: 0,
             child: const ShortInfoUI(),

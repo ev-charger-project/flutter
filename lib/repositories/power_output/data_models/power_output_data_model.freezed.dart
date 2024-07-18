@@ -21,11 +21,11 @@ PowerOutputDataModel _$PowerOutputDataModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$PowerOutputDataModel {
   @JsonKey(name: 'output_value')
-  int get outputValue => throw _privateConstructorUsedError;
+  double get outputValue => throw _privateConstructorUsedError;
   @JsonKey(name: 'charging_speed')
   String get chargingSpeed => throw _privateConstructorUsedError;
   @JsonKey(name: 'voltage')
-  int get voltage => throw _privateConstructorUsedError;
+  double get voltage => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -40,9 +40,9 @@ abstract class $PowerOutputDataModelCopyWith<$Res> {
       _$PowerOutputDataModelCopyWithImpl<$Res, PowerOutputDataModel>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'output_value') int outputValue,
+      {@JsonKey(name: 'output_value') double outputValue,
       @JsonKey(name: 'charging_speed') String chargingSpeed,
-      @JsonKey(name: 'voltage') int voltage});
+      @JsonKey(name: 'voltage') double voltage});
 }
 
 /// @nodoc
@@ -67,7 +67,7 @@ class _$PowerOutputDataModelCopyWithImpl<$Res,
       outputValue: null == outputValue
           ? _value.outputValue
           : outputValue // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       chargingSpeed: null == chargingSpeed
           ? _value.chargingSpeed
           : chargingSpeed // ignore: cast_nullable_to_non_nullable
@@ -75,7 +75,7 @@ class _$PowerOutputDataModelCopyWithImpl<$Res,
       voltage: null == voltage
           ? _value.voltage
           : voltage // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
     ) as $Val);
   }
 }
@@ -89,9 +89,9 @@ abstract class _$$PowerOutputDataModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'output_value') int outputValue,
+      {@JsonKey(name: 'output_value') double outputValue,
       @JsonKey(name: 'charging_speed') String chargingSpeed,
-      @JsonKey(name: 'voltage') int voltage});
+      @JsonKey(name: 'voltage') double voltage});
 }
 
 /// @nodoc
@@ -113,7 +113,7 @@ class __$$PowerOutputDataModelImplCopyWithImpl<$Res>
       outputValue: null == outputValue
           ? _value.outputValue
           : outputValue // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       chargingSpeed: null == chargingSpeed
           ? _value.chargingSpeed
           : chargingSpeed // ignore: cast_nullable_to_non_nullable
@@ -121,7 +121,7 @@ class __$$PowerOutputDataModelImplCopyWithImpl<$Res>
       voltage: null == voltage
           ? _value.voltage
           : voltage // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
     ));
   }
 }
@@ -139,13 +139,13 @@ class _$PowerOutputDataModelImpl implements _PowerOutputDataModel {
 
   @override
   @JsonKey(name: 'output_value')
-  final int outputValue;
+  final double outputValue;
   @override
   @JsonKey(name: 'charging_speed')
   final String chargingSpeed;
   @override
   @JsonKey(name: 'voltage')
-  final int voltage;
+  final double voltage;
 
   @override
   String toString() {
@@ -187,9 +187,9 @@ class _$PowerOutputDataModelImpl implements _PowerOutputDataModel {
 
 abstract class _PowerOutputDataModel implements PowerOutputDataModel {
   const factory _PowerOutputDataModel(
-          {@JsonKey(name: 'output_value') required final int outputValue,
+          {@JsonKey(name: 'output_value') required final double outputValue,
           @JsonKey(name: 'charging_speed') required final String chargingSpeed,
-          @JsonKey(name: 'voltage') required final int voltage}) =
+          @JsonKey(name: 'voltage') required final double voltage}) =
       _$PowerOutputDataModelImpl;
 
   factory _PowerOutputDataModel.fromJson(Map<String, dynamic> json) =
@@ -197,13 +197,13 @@ abstract class _PowerOutputDataModel implements PowerOutputDataModel {
 
   @override
   @JsonKey(name: 'output_value')
-  int get outputValue;
+  double get outputValue;
   @override
   @JsonKey(name: 'charging_speed')
   String get chargingSpeed;
   @override
   @JsonKey(name: 'voltage')
-  int get voltage;
+  double get voltage;
   @override
   @JsonKey(ignore: true)
   _$$PowerOutputDataModelImplCopyWith<_$PowerOutputDataModelImpl>
