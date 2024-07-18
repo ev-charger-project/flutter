@@ -17,9 +17,6 @@ class PostgresqlStorageService extends RemoteStorageService {
 
       if (response.statusCode == 200) {
         final dynamic responseData = response.data;
-
-        print('Response Data: $responseData');
-
         if (responseData is Map<String, dynamic>) {
           return LocationDataModel.fromJson(responseData);
         } else {

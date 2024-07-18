@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:auto_route/annotations.dart';
+import 'package:ev_charger/features/mapview/domain/providers/screen_center_provider.dart';
 import 'package:ev_charger/shared/presentation/widgets/bottom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -62,6 +63,7 @@ class _MapScreenState extends ConsumerState<MapScreen> {
                 (visibleRegion.northeast.latitude + visibleRegion.southwest.latitude) / 2,
                 (visibleRegion.northeast.longitude + visibleRegion.southwest.longitude) / 2,
               );
+              ref.read(screenCenterProvider.notifier).state = center;
             },
             onTap: (LatLng position) {
               ref.read(isInfoVisibleProvider.notifier).state = false;
