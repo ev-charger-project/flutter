@@ -49,7 +49,7 @@ class _MapScreenState extends ConsumerState<MapScreen> {
             markers: Set<Marker>.of(_markers),
             mapToolbarEnabled: false,
             zoomControlsEnabled: false,
-            minMaxZoomPreference: const MinMaxZoomPreference(13.5, 17),
+            minMaxZoomPreference: const MinMaxZoomPreference(10, 17),
             onMapCreated: (GoogleMapController controller) {
               if (!_controller.isCompleted) {
                 _controller.complete(controller);
