@@ -9,9 +9,9 @@ part of 'power_output_data_model.dart';
 _$PowerOutputDataModelImpl _$$PowerOutputDataModelImplFromJson(
         Map<String, dynamic> json) =>
     _$PowerOutputDataModelImpl(
-      outputValue: (json['output_value'] as num).toInt(),
+      outputValue: (json['output_value'] as num).toDouble(),
       chargingSpeed: json['charging_speed'] as String,
-      voltage: (json['voltage'] as num).toInt(),
+      voltage: (json['voltage'] as num).toDouble(),
     );
 
 Map<String, dynamic> _$$PowerOutputDataModelImplToJson(

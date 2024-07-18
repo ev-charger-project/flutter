@@ -16,9 +16,9 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$PowerOutputEntity {
-  int get outputValue => throw _privateConstructorUsedError;
+  double get outputValue => throw _privateConstructorUsedError;
   String get chargingSpeed => throw _privateConstructorUsedError;
-  int get voltage => throw _privateConstructorUsedError;
+  double get voltage => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $PowerOutputEntityCopyWith<PowerOutputEntity> get copyWith =>
@@ -31,7 +31,7 @@ abstract class $PowerOutputEntityCopyWith<$Res> {
           PowerOutputEntity value, $Res Function(PowerOutputEntity) then) =
       _$PowerOutputEntityCopyWithImpl<$Res, PowerOutputEntity>;
   @useResult
-  $Res call({int outputValue, String chargingSpeed, int voltage});
+  $Res call({double outputValue, String chargingSpeed, double voltage});
 }
 
 /// @nodoc
@@ -55,7 +55,7 @@ class _$PowerOutputEntityCopyWithImpl<$Res, $Val extends PowerOutputEntity>
       outputValue: null == outputValue
           ? _value.outputValue
           : outputValue // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       chargingSpeed: null == chargingSpeed
           ? _value.chargingSpeed
           : chargingSpeed // ignore: cast_nullable_to_non_nullable
@@ -63,7 +63,7 @@ class _$PowerOutputEntityCopyWithImpl<$Res, $Val extends PowerOutputEntity>
       voltage: null == voltage
           ? _value.voltage
           : voltage // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
     ) as $Val);
   }
 }
@@ -76,7 +76,7 @@ abstract class _$$PowerOutputEntityImplCopyWith<$Res>
       __$$PowerOutputEntityImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int outputValue, String chargingSpeed, int voltage});
+  $Res call({double outputValue, String chargingSpeed, double voltage});
 }
 
 /// @nodoc
@@ -98,7 +98,7 @@ class __$$PowerOutputEntityImplCopyWithImpl<$Res>
       outputValue: null == outputValue
           ? _value.outputValue
           : outputValue // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       chargingSpeed: null == chargingSpeed
           ? _value.chargingSpeed
           : chargingSpeed // ignore: cast_nullable_to_non_nullable
@@ -106,7 +106,7 @@ class __$$PowerOutputEntityImplCopyWithImpl<$Res>
       voltage: null == voltage
           ? _value.voltage
           : voltage // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
     ));
   }
 }
@@ -120,11 +120,11 @@ class _$PowerOutputEntityImpl implements _PowerOutputEntity {
       required this.voltage});
 
   @override
-  final int outputValue;
+  final double outputValue;
   @override
   final String chargingSpeed;
   @override
-  final int voltage;
+  final double voltage;
 
   @override
   String toString() {
@@ -157,16 +157,16 @@ class _$PowerOutputEntityImpl implements _PowerOutputEntity {
 
 abstract class _PowerOutputEntity implements PowerOutputEntity {
   const factory _PowerOutputEntity(
-      {required final int outputValue,
+      {required final double outputValue,
       required final String chargingSpeed,
-      required final int voltage}) = _$PowerOutputEntityImpl;
+      required final double voltage}) = _$PowerOutputEntityImpl;
 
   @override
-  int get outputValue;
+  double get outputValue;
   @override
   String get chargingSpeed;
   @override
-  int get voltage;
+  double get voltage;
   @override
   @JsonKey(ignore: true)
   _$$PowerOutputEntityImplCopyWith<_$PowerOutputEntityImpl> get copyWith =>

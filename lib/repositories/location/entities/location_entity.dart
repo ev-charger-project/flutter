@@ -34,14 +34,14 @@ class LocationMapper with EntityConvertible<LocationEntity, LocationDataModel> {
   @override
   LocationDataModel fromEntity(LocationEntity entityObject) {
     return LocationDataModel(
-      name: entityObject.name,
-      street: entityObject.street,
-      district: entityObject.district,
-      city: entityObject.city,
-      country: entityObject.country,
-      postal: entityObject.postalCode ,
-      latitude: entityObject.latitude,
-      longitude: entityObject.longitude,
+      name: entityObject.name ,
+      street: entityObject.street ,
+      district: entityObject.district ,
+      city: entityObject.city ,
+      country: entityObject.country ,
+      postal: entityObject.postalCode  ,
+      latitude: entityObject.latitude ,
+      longitude: entityObject.longitude ,
       description: entityObject.description,
       workingDay: WorkingDay(
         mon: entityObject.workingDay.mon,
@@ -56,8 +56,8 @@ class LocationMapper with EntityConvertible<LocationEntity, LocationDataModel> {
       phoneNumber: entityObject.phoneNumber,
       parkingLevel: entityObject.parkingLevel,
       ev_chargers: entityObject.ev_chargers.map((charger) => ChargerDataModel(
-        station_name: charger.station_name,
-        availability: charger.availability,
+        station_name: charger.station_name?? ' Missing Name',
+        availability: charger.availability?? ' Missing Name',
         ports: charger.ports.map((port) => PortDataModel(
           power_plug_type: PowerPlugTypeDataModel(
             powerModel: port.power_plug_type.powerModel,

@@ -222,7 +222,7 @@ mixin _$PortDataModel {
   @JsonKey(name: 'power_plug_type')
   PowerPlugTypeDataModel get power_plug_type =>
       throw _privateConstructorUsedError;
-  @JsonKey(name: 'power_model')
+  @JsonKey(name: 'power_output')
   PowerOutputDataModel get power_model => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -239,7 +239,7 @@ abstract class $PortDataModelCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(name: 'power_plug_type') PowerPlugTypeDataModel power_plug_type,
-      @JsonKey(name: 'power_model') PowerOutputDataModel power_model});
+      @JsonKey(name: 'power_output') PowerOutputDataModel power_model});
 
   $PowerPlugTypeDataModelCopyWith<$Res> get power_plug_type;
   $PowerOutputDataModelCopyWith<$Res> get power_model;
@@ -301,7 +301,7 @@ abstract class _$$PortDataModelImplCopyWith<$Res>
   @useResult
   $Res call(
       {@JsonKey(name: 'power_plug_type') PowerPlugTypeDataModel power_plug_type,
-      @JsonKey(name: 'power_model') PowerOutputDataModel power_model});
+      @JsonKey(name: 'power_output') PowerOutputDataModel power_model});
 
   @override
   $PowerPlugTypeDataModelCopyWith<$Res> get power_plug_type;
@@ -341,7 +341,7 @@ class __$$PortDataModelImplCopyWithImpl<$Res>
 class _$PortDataModelImpl implements _PortDataModel {
   const _$PortDataModelImpl(
       {@JsonKey(name: 'power_plug_type') required this.power_plug_type,
-      @JsonKey(name: 'power_model') required this.power_model});
+      @JsonKey(name: 'power_output') required this.power_model});
 
   factory _$PortDataModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$PortDataModelImplFromJson(json);
@@ -350,7 +350,7 @@ class _$PortDataModelImpl implements _PortDataModel {
   @JsonKey(name: 'power_plug_type')
   final PowerPlugTypeDataModel power_plug_type;
   @override
-  @JsonKey(name: 'power_model')
+  @JsonKey(name: 'power_output')
   final PowerOutputDataModel power_model;
 
   @override
@@ -391,7 +391,7 @@ abstract class _PortDataModel implements PortDataModel {
   const factory _PortDataModel(
       {@JsonKey(name: 'power_plug_type')
       required final PowerPlugTypeDataModel power_plug_type,
-      @JsonKey(name: 'power_model')
+      @JsonKey(name: 'power_output')
       required final PowerOutputDataModel power_model}) = _$PortDataModelImpl;
 
   factory _PortDataModel.fromJson(Map<String, dynamic> json) =
@@ -401,7 +401,7 @@ abstract class _PortDataModel implements PortDataModel {
   @JsonKey(name: 'power_plug_type')
   PowerPlugTypeDataModel get power_plug_type;
   @override
-  @JsonKey(name: 'power_model')
+  @JsonKey(name: 'power_output')
   PowerOutputDataModel get power_model;
   @override
   @JsonKey(ignore: true)
