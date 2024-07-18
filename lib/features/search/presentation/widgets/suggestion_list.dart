@@ -1,7 +1,11 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:ev_charger/features/location/presentation/providers/selected_location_id_provider.dart';
+import 'package:ev_charger/features/mapview/domain/providers/is_info_visible_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../../../routes/app_route.dart';
 import '../../../../shared/domain/providers/suggestion/suggestion_provider.dart';
 
 class SuggestionList extends ConsumerWidget {
@@ -23,7 +27,6 @@ class SuggestionList extends ConsumerWidget {
 
     return suggestions.when(
       data: (suggestions) {
-        print('Data fetched with ${suggestions.length} items');
         return suggestions.isEmpty
             ? Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -92,7 +95,11 @@ class SuggestionList extends ConsumerWidget {
                           /*Theme.of(context).textTheme.bodySmall,*/
                         ),
                         trailing: const Icon(Icons.arrow_forward_ios),
-                        onTap: () => print("Tapped on item $index"),
+                        onTap: () {
+                            ref.read(selectedLocationIdProvider.notifier).state = suggestion.locationId;
+                            ref.read(isInfoVisibleProvider.notifier).state = true ;
+                            context.router.push(const MapRoute());
+                        }
                       ),
                       Divider(
                         color: Theme.of(context).dividerColor,
