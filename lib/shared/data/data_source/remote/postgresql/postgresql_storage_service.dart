@@ -57,7 +57,25 @@ class PostgresqlStorageService extends RemoteStorageService {
 
   @override
   Future<List<SuggestionDataModel>> fetchSuggestion(String searchString) async {
-    await Future.delayed(Duration(seconds: 1));
+    const url = 'http://172.16.11.139:14000/api/v1/locations/search';
+
+    try {
+      final response = await _dio.get(url, queryParameters: {
+        'query': searchString,
+      });
+      if (response.statusCode == 200) {
+        return (response.data as List)
+            .map((item) =>
+                SuggestionDataModel.fromJson(item as Map<String, dynamic>))
+            .toList();
+      } else {
+        throw Exception('Failed to load suggestions using DataModel');
+      }
+    } catch (e) {
+      throw Exception('Failed to load suggestions: $e');
+    }
+
+    /*await Future.delayed(Duration(seconds: 1));
     return const [
       SuggestionDataModel(
         locationId: '1',
@@ -139,6 +157,6 @@ class PostgresqlStorageService extends RemoteStorageService {
         city: 'Dustville',
         country: 'Freedonia',
       ),
-    ];
+    ];*/
   }
 }

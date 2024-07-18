@@ -18,8 +18,18 @@ class SearchBarAndFilter extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final screenSize = MediaQuery.of(context).size;
+    final isPortrait =
+        MediaQuery.of(context).orientation == Orientation.portrait;
+
+    // Define responsive values
+    final double fontSize = isPortrait ? 14 : 16;
+    final EdgeInsets padding =
+        EdgeInsets.symmetric(horizontal: 10, vertical: isPortrait ? 20 : 15);
+    final double iconSize = isPortrait ? 20 : 24;
+
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+      padding: padding,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
@@ -40,12 +50,14 @@ class SearchBarAndFilter extends ConsumerWidget {
                     color: isTyping
                         ? Colors.black
                         : Colors.black.withOpacity(0.65),
+                    fontSize: fontSize,
                   ),
                   prefixIcon: Icon(
                     Icons.search,
                     color: isTyping
                         ? Colors.black
                         : Colors.black.withOpacity(0.65),
+                    size: iconSize,
                   ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
@@ -64,12 +76,13 @@ class SearchBarAndFilter extends ConsumerWidget {
                   color:
                       isTyping ? Colors.black : Colors.black.withOpacity(0.65),
                   fontFamily: 'Exo',
+                  fontSize: fontSize,
                 ),
                 onChanged: onChanged,
               ),
             ),
           ),
-          const SizedBox(width: 10),
+          SizedBox(width: screenSize.width * 0.015),
           Container(
             decoration: BoxDecoration(
               color: Color(0xFFECE6F0),
@@ -78,8 +91,8 @@ class SearchBarAndFilter extends ConsumerWidget {
             child: IconButton(
               icon: SvgPicture.asset(
                 'assets/icons/filter_icon.svg',
-                width: 20,
-                height: 20,
+                width: iconSize,
+                height: iconSize,
               ),
               onPressed: onFilterPressed,
             ),
