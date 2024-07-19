@@ -24,8 +24,6 @@ class AppTextStyles {
     fontWeight: FontWeight.w300,
   );
 
-
-
   /// Text style for bold
 
   static const TextStyle b1 = TextStyle(

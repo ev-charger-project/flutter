@@ -4,10 +4,15 @@ import 'package:ev_charger/features/mapview/domain/providers/screen_center_provi
 import 'package:ev_charger/shared/presentation/widgets/bottom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import '../../../../shared/domain/providers/location/user_location_provider.dart';
+import '../../../../shared/domain/providers/permission/permission_provider.dart';
+import '../../../notification/screens/permission_screen.dart';
 import '../../domain/providers/is_info_visible_provider.dart';
 import '../../domain/providers/marker/marker_provider.dart';
+import '../../domain/providers/marker/user_icon_provider.dart';
 import '../widgets/short_info_ui.dart';
 
 @RoutePage()
@@ -18,47 +23,68 @@ class MapScreen extends ConsumerStatefulWidget {
   _MapScreenState createState() => _MapScreenState();
 }
 
-class _MapScreenState extends ConsumerState<MapScreen> with WidgetsBindingObserver{
+class _MapScreenState extends ConsumerState<MapScreen> with WidgetsBindingObserver {
   final Completer<GoogleMapController> _controller = Completer<GoogleMapController>();
   GoogleMapController? _mapController;
   final List<Marker> _markers = <Marker>[];
-  static const CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(10.8023163, 106.6645121),
-    zoom: 16,
-  );
+  static const LatLng _fixedLocation = LatLng(10.8023163, 106.6645121);
+
+  static CameraPosition _initialCameraPosition(Position? currentLocation) {
+    return CameraPosition(
+      target: currentLocation != null
+          ? LatLng(currentLocation.latitude, currentLocation.longitude)
+          : _fixedLocation,
+      zoom: 16,
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+
+    // Check for location permission when the app starts
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _checkLocationPermission();
+    });
+  }
 
   @override
   void dispose() {
-    print('mapview is dispose');
     WidgetsBinding.instance.removeObserver(this);
     _mapController?.dispose();
     super.dispose();
   }
 
-  @override
-  void initState() {
+  Future<void> _checkLocationPermission() async {
+    final permissionState = ref.read(permissionProvider);
 
-    super.initState();
-    WidgetsBinding.instance.addObserver(this);
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state){
-    if(state==AppLifecycleState.paused ||state==AppLifecycleState.inactive ){
-
-      _mapController?.dispose();
+    if (!permissionState.hasPermission) {
+      showDialog(
+        context: context,
+        builder: (context) => const PermissionScreen(),
+      );
+    } else {
+      await ref.read(userLocationProvider.notifier).getUserLocation();
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
     final isInfoVisible = ref.watch(isInfoVisibleProvider);
     final markerAsyncValue = ref.watch(markerProvider);
+    final currentLocation = ref.watch(userLocationProvider);
+    final userIconAsyncValue = ref.watch(userIconProvider);
 
     markerAsyncValue.when(
       data: (markers) {
-        _updateMarkers(markers);
+        userIconAsyncValue.when(
+          data: (userIcon) {
+            _updateMarkers(markers, currentLocation, userIcon);
+          },
+          loading: () {},
+          error: (error, stack) => print('Error: $error'),
+        );
       },
       loading: () {},
       error: (error, stack) => print('Error: $error'),
@@ -69,7 +95,7 @@ class _MapScreenState extends ConsumerState<MapScreen> with WidgetsBindingObserv
         children: [
           GoogleMap(
             mapType: MapType.normal,
-            initialCameraPosition: _kGooglePlex,
+            initialCameraPosition: _initialCameraPosition(currentLocation),
             markers: Set<Marker>.of(_markers),
             mapToolbarEnabled: false,
             zoomControlsEnabled: false,
@@ -92,8 +118,8 @@ class _MapScreenState extends ConsumerState<MapScreen> with WidgetsBindingObserv
             onTap: (LatLng position) {
               ref.read(isInfoVisibleProvider.notifier).state = false;
             },
-
           ),
+
           AnimatedPositioned(
             duration: const Duration(milliseconds: 300),
             bottom: isInfoVisible ? 0 : -1000.0,
@@ -110,9 +136,13 @@ class _MapScreenState extends ConsumerState<MapScreen> with WidgetsBindingObserv
             child: FloatingActionButton(
               shape: const CircleBorder(),
               onPressed: () async {
-                LatLng fixedLocation = LatLng(10.8023163, 106.6645121);
+                await ref.read(userLocationProvider.notifier).getUserLocation();
+                final currentLocation = ref.read(userLocationProvider);
+                LatLng targetLocation = currentLocation != null
+                    ? LatLng(currentLocation.latitude, currentLocation.longitude)
+                    : _fixedLocation;
                 CameraPosition cameraPosition = CameraPosition(
-                  target: fixedLocation,
+                  target: targetLocation,
                   zoom: 16,
                 );
                 final GoogleMapController controller = await _controller.future;
@@ -127,11 +157,19 @@ class _MapScreenState extends ConsumerState<MapScreen> with WidgetsBindingObserv
     );
   }
 
-  void _updateMarkers(List<Marker> markers) {
+  void _updateMarkers(List<Marker> markers, Position? currentLocation, BitmapDescriptor userIcon) {
     setState(() {
       _markers.clear();
       _markers.addAll(markers);
+      if (currentLocation != null) {
+        _markers.add(
+          Marker(
+            markerId: const MarkerId('currentLocation'),
+            position: LatLng(currentLocation.latitude, currentLocation.longitude),
+            icon: userIcon,
+          ),
+        );
+      }
     });
   }
-
 }

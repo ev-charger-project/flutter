@@ -3,14 +3,14 @@ import 'package:geolocator/geolocator.dart';
 
 import '../permission/permission_provider.dart';
 
-final currentLocationProvider = StateNotifierProvider<CurrentLocationNotifier, Position?>((ref) {
-  return CurrentLocationNotifier(ref);
+final userLocationProvider = StateNotifierProvider<UserLocationNotifier, Position?>((ref) {
+  return UserLocationNotifier(ref);
 });
 
-class CurrentLocationNotifier extends StateNotifier<Position?> {
+class UserLocationNotifier extends StateNotifier<Position?> {
   final Ref ref;
 
-  CurrentLocationNotifier(this.ref) : super(null) {
+  UserLocationNotifier(this.ref) : super(null) {
     _init();
   }
 
@@ -18,7 +18,7 @@ class CurrentLocationNotifier extends StateNotifier<Position?> {
     // Listen to permission changes
     ref.listen<PermissionState>(permissionProvider, (previous, next) {
       if (next.hasPermission) {
-        getCurrentLocation();
+        getUserLocation();
       } else {
         state = null;
       }
@@ -32,13 +32,13 @@ class CurrentLocationNotifier extends StateNotifier<Position?> {
     final permissionState = ref.read(permissionProvider);
 
     if (permissionState.hasPermission) {
-      await getCurrentLocation();
+      await getUserLocation();
     } else {
       state = null;
     }
   }
 
-  Future<void> getCurrentLocation() async {
+  Future<void> getUserLocation() async {
     try {
       final position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
       state = position;
