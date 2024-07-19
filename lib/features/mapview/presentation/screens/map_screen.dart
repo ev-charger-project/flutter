@@ -184,8 +184,8 @@ class _MapScreenState extends ConsumerState<MapScreen>
             child: FloatingActionButton(
               shape: const CircleBorder(),
               onPressed: () async {
-                await ref.read(userLocationProvider.notifier).getUserLocation();
-                final currentLocation = ref.read(userLocationProvider);
+                // await ref.read(userLocationProvider.notifier).getUserLocation();
+                // final currentLocation = ref.read(userLocationProvider);
 
                 LatLng targetLocation = currentLocation != null
                     ? LatLng(
