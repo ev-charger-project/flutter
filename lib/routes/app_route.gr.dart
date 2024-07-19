@@ -44,10 +44,7 @@ abstract class _$AppRouter extends RootStackRouter {
           orElse: () => const SearchRouteArgs());
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: SearchScreen(
-          key: args.key,
-          searchQuery: args.searchQuery,
-        ),
+        child: SearchScreen(key: args.key),
       );
     },
   };
@@ -128,14 +125,10 @@ class MapRouteArgs {
 class SearchRoute extends PageRouteInfo<SearchRouteArgs> {
   SearchRoute({
     Key? key,
-    String? searchQuery,
     List<PageRouteInfo>? children,
   }) : super(
           SearchRoute.name,
-          args: SearchRouteArgs(
-            key: key,
-            searchQuery: searchQuery,
-          ),
+          args: SearchRouteArgs(key: key),
           initialChildren: children,
         );
 
@@ -145,17 +138,12 @@ class SearchRoute extends PageRouteInfo<SearchRouteArgs> {
 }
 
 class SearchRouteArgs {
-  const SearchRouteArgs({
-    this.key,
-    this.searchQuery,
-  });
+  const SearchRouteArgs({this.key});
 
   final Key? key;
 
-  final String? searchQuery;
-
   @override
   String toString() {
-    return 'SearchRouteArgs{key: $key, searchQuery: $searchQuery}';
+    return 'SearchRouteArgs{key: $key}';
   }
 }

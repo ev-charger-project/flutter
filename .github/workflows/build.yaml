@@ -1,39 +1,46 @@
 on:
   push:
     tags:
-      - 'v*'
-      
+      - "v*"
+
 permissions: write-all
 jobs:
-  # 5
   build:
-    # 6
     runs-on: ubuntu-latest
-    
-    # 7
+    name: Build and Create Release
     steps:
-      # 8
       - uses: actions/checkout@v3
-      # 9
       - uses: actions/setup-java@v3
         with:
           distribution: "zulu"
           java-version: "12.x"
           cache: "gradle"
-      # 10
       - uses: subosito/flutter-action@v2
         with:
-          # 11
           channel: "stable"
           cache: true
           flutter-version-file: pubspec.yaml
-      # 12
+
       - name: Get dependencies
         run: flutter pub get
 
-      # Runs a set of commands using the runners shell
       - name: Start release build
         run: dart run build_runner build --delete-conflicting-outputs && flutter build apk --release
+
+      - name: Set release type
+        id: set_release_type
+        run: |
+          if [[ "${GITHUB_REF##*/}" == *"-alpha"* || "${GITHUB_REF##*/}" == *"-beta"* ]]; then
+            echo "::set-output name=release_type::prerelease"
+          else
+            echo "::set-output name=release_type::release"
+          fi
+
+      - name: Create Release Notes
+        id: create-release-notes
+        uses: johnyherangi/create-release-notes@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create Release
         id: create_release
@@ -44,7 +51,8 @@ jobs:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
           draft: false
-          prerelease: false
+          prerelease: ${{ steps.set_release_type.outputs.release_type == 'prerelease' }}
+          body: ${{ steps.create-release-notes.outputs.release-notes }}
       - name: Upload Release Asset
         id: upload-release-asset
         uses: actions/upload-release-asset@v1

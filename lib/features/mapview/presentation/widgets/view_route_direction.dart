@@ -14,6 +14,8 @@ class ViewRouteDirectionButtons extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
 
     void handleButtonPress() {
       final permissionState = ref.read(permissionProvider);
@@ -44,12 +46,12 @@ class ViewRouteDirectionButtons extends ConsumerWidget {
               ),
               child: Text(
                   'View',
-                  style: Theme.of(context).primaryTextTheme.bodyMedium
+                  style: Theme.of(context).primaryTextTheme.bodyMedium?.copyWith(fontSize: height * 0.02),
               ),
             ),
           ),
         ),
-        SizedBox(width: MediaQuery.of(context).size.width * 0.01),
+        SizedBox(width: width * 0.01),
         Expanded(
           child: SizedBox(
             
@@ -64,12 +66,12 @@ class ViewRouteDirectionButtons extends ConsumerWidget {
               ),
               child: Text(
                   'Route Plan',
-                  style: Theme.of(context).primaryTextTheme.bodyMedium
+                style: Theme.of(context).primaryTextTheme.bodyMedium?.copyWith(fontSize: height * 0.02),
               ),
             ),
           ),
         ),
-        SizedBox(width: MediaQuery.of(context).size.width * 0.01),
+        SizedBox(width: width * 0.01),
         Expanded(
           child: SizedBox(
             child: ElevatedButton(
@@ -84,6 +86,7 @@ class ViewRouteDirectionButtons extends ConsumerWidget {
                 'Direction',
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   color: Theme.of(context).colorScheme.onPrimary,
+                  fontSize: height * 0.02,
                 ),
               ),
             ),

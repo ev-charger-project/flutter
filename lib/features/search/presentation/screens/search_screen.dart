@@ -10,9 +10,7 @@ import '../widgets/suggestion_list.dart';
 
 @RoutePage()
 class SearchScreen extends ConsumerStatefulWidget {
-  String? searchQuery;
-
-  SearchScreen({super.key, this.searchQuery});
+  SearchScreen({super.key});
 
   @override
   ConsumerState<SearchScreen> createState() => _SearchScreenState();
@@ -24,7 +22,9 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
   @override
   void initState() {
     super.initState();
-    _searchController = TextEditingController(text: widget.searchQuery);
+    // Initialize the TextEditingController with the current search query
+    final currentSearchQuery = ref.read(SearchQueryProvider);
+    _searchController = TextEditingController(text: currentSearchQuery);
   }
 
   @override
