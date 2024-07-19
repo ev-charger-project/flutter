@@ -1,4 +1,3 @@
-import 'package:ev_charger/shared/domain/providers/location/current_location_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -60,6 +59,39 @@ class ChargerNum extends ConsumerWidget {
     //   loading: () => const Center(child: CircularProgressIndicator()),
     //   error: (error, stack) => Center(child: Text('Error: $error')),
     // );
-    return SizedBox();
+    return Container(
+              padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.015),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: List.generate(
+                      3,
+                          (index) => Padding(
+                        padding: const EdgeInsets.all(2.5),
+                        child: SvgPicture.asset('assets/icons/charger_icon.svg'),
+                      ),
+                    ),
+                  ),
+                  // Row(
+                  //   children: [
+                  //     SvgPicture.asset('assets/icons/charger_icon.svg'),
+                  //     Text(
+                  //       ' x $ports',
+                  //       style: Theme.of(context).primaryTextTheme.bodyLarge?.copyWith(
+                  //       ),
+                  //       textAlign: TextAlign.left,
+                  //     ),
+                  //   ],
+                  // ),
+                  Text(
+                    '3 chargers',
+                    style: Theme.of(context).primaryTextTheme.bodyLarge?.copyWith(
+                    ),
+                    textAlign: TextAlign.left,
+                  ),
+                ],
+              ),
+            );
   }
 }

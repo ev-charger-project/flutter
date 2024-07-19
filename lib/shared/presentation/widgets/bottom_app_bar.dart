@@ -37,7 +37,7 @@ class SimpleBottomAppBar extends StatelessWidget {
         label = 'Home';
         onPressed = () {
           if (!_isCurrentRoute(context, MapRoute.name)) {
-            context.router.push(const MapRoute());
+            context.router.push(MapRoute());
           }
         };
         break;

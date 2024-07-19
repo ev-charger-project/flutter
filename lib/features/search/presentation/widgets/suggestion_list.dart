@@ -83,7 +83,7 @@ class SuggestionList extends ConsumerWidget {
                           ref.read(selectedLocationIdProvider.notifier).state =
                               suggestion.locationId;
                           ref.read(isInfoVisibleProvider.notifier).state = true;
-                          context.router.push(const MapRoute());
+                          context.router.push(MapRoute(longitude: suggestion.longitude,latitude: suggestion.latitude));
                         },
                       ),
                       Divider(
