@@ -58,7 +58,7 @@ jobs:
         with:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
-          draft: true
+          draft: false
           prerelease: ${{ steps.set_release_type.outputs.release_type == 'prerelease' }}
           body: ${{ steps.create-release-notes.outputs.release-notes }}
       - name: Upload Release Asset
