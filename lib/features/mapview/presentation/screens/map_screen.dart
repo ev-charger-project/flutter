@@ -40,7 +40,6 @@ class _MapScreenState extends ConsumerState<MapScreen>
   static const LatLng _fixedLocation = LatLng(10.8023163, 106.6645121);
 
   late TextEditingController _searchController;
-  bool _hasNavigatedToSearch = false;
 
   static CameraPosition _initialCameraPosition(Position? currentLocation,
       {double? latitude, double? longitude}) {
@@ -62,6 +61,7 @@ class _MapScreenState extends ConsumerState<MapScreen>
   void initState() {
     super.initState();
     _searchController = TextEditingController();
+
     WidgetsBinding.instance.addObserver(this);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -100,6 +100,9 @@ class _MapScreenState extends ConsumerState<MapScreen>
 
     final screenSize = MediaQuery.of(context).size;
     final searchQuery = ref.watch(SearchQueryProvider);
+
+    // Ensure the TextEditingController is updated with the current search query
+    _searchController.text = searchQuery;
 
     markerAsyncValue.when(
       data: (markers) {
@@ -153,19 +156,20 @@ class _MapScreenState extends ConsumerState<MapScreen>
             top: screenSize.height * 0.05,
             left: screenSize.width * 0.05,
             right: screenSize.width * 0.05,
-            child: SearchBarAndFilter(
-              controller: _searchController,
-              onChanged: (text) {
-                if (text.isNotEmpty && !_hasNavigatedToSearch) {
-                  _hasNavigatedToSearch = true;
-                  context.router.push(SearchRoute(searchQuery: text)).then((_) {
-                    // Reset the flag when the SearchScreen is popped
-                    _hasNavigatedToSearch = false;
-                  });
-                }
+            child: GestureDetector(
+              onTap: () {
+                // Ensure navigation to SearchScreen is triggered here
+                context.router.push(SearchRoute());
               },
-              isTyping: true,
-              onFilterPressed: () => context.router.push(FilterRoute()),
+              child: SearchBarAndFilter(
+                controller: _searchController,
+                onChanged: (text) {
+                  ref.read(SearchQueryProvider.notifier).state = text;
+                },
+                isTyping: true,
+                onFilterPressed: () => context.router.push(FilterRoute()),
+                textFieldInteractable: false,
+              ),
             ),
           ),
           AnimatedPositioned(
