@@ -20,6 +20,8 @@ mixin _$SuggestionEntity {
   String get locationName => throw _privateConstructorUsedError;
   String get street => throw _privateConstructorUsedError;
   String get district => throw _privateConstructorUsedError;
+  double get latitude => throw _privateConstructorUsedError;
+  double get longitude => throw _privateConstructorUsedError;
   String get city => throw _privateConstructorUsedError;
   String get country => throw _privateConstructorUsedError;
   String? get postalCode => throw _privateConstructorUsedError;
@@ -40,6 +42,8 @@ abstract class $SuggestionEntityCopyWith<$Res> {
       String locationName,
       String street,
       String district,
+      double latitude,
+      double longitude,
       String city,
       String country,
       String? postalCode});
@@ -62,6 +66,8 @@ class _$SuggestionEntityCopyWithImpl<$Res, $Val extends SuggestionEntity>
     Object? locationName = null,
     Object? street = null,
     Object? district = null,
+    Object? latitude = null,
+    Object? longitude = null,
     Object? city = null,
     Object? country = null,
     Object? postalCode = freezed,
@@ -83,6 +89,14 @@ class _$SuggestionEntityCopyWithImpl<$Res, $Val extends SuggestionEntity>
           ? _value.district
           : district // ignore: cast_nullable_to_non_nullable
               as String,
+      latitude: null == latitude
+          ? _value.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as double,
+      longitude: null == longitude
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as double,
       city: null == city
           ? _value.city
           : city // ignore: cast_nullable_to_non_nullable
@@ -112,6 +126,8 @@ abstract class _$$SuggestionEntityImplCopyWith<$Res>
       String locationName,
       String street,
       String district,
+      double latitude,
+      double longitude,
       String city,
       String country,
       String? postalCode});
@@ -132,6 +148,8 @@ class __$$SuggestionEntityImplCopyWithImpl<$Res>
     Object? locationName = null,
     Object? street = null,
     Object? district = null,
+    Object? latitude = null,
+    Object? longitude = null,
     Object? city = null,
     Object? country = null,
     Object? postalCode = freezed,
@@ -153,6 +171,14 @@ class __$$SuggestionEntityImplCopyWithImpl<$Res>
           ? _value.district
           : district // ignore: cast_nullable_to_non_nullable
               as String,
+      latitude: null == latitude
+          ? _value.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as double,
+      longitude: null == longitude
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as double,
       city: null == city
           ? _value.city
           : city // ignore: cast_nullable_to_non_nullable
@@ -177,6 +203,8 @@ class _$SuggestionEntityImpl implements _SuggestionEntity {
       required this.locationName,
       required this.street,
       required this.district,
+      required this.latitude,
+      required this.longitude,
       required this.city,
       required this.country,
       this.postalCode});
@@ -190,6 +218,10 @@ class _$SuggestionEntityImpl implements _SuggestionEntity {
   @override
   final String district;
   @override
+  final double latitude;
+  @override
+  final double longitude;
+  @override
   final String city;
   @override
   final String country;
@@ -198,7 +230,7 @@ class _$SuggestionEntityImpl implements _SuggestionEntity {
 
   @override
   String toString() {
-    return 'SuggestionEntity(locationId: $locationId, locationName: $locationName, street: $street, district: $district, city: $city, country: $country, postalCode: $postalCode)';
+    return 'SuggestionEntity(locationId: $locationId, locationName: $locationName, street: $street, district: $district, latitude: $latitude, longitude: $longitude, city: $city, country: $country, postalCode: $postalCode)';
   }
 
   @override
@@ -213,6 +245,10 @@ class _$SuggestionEntityImpl implements _SuggestionEntity {
             (identical(other.street, street) || other.street == street) &&
             (identical(other.district, district) ||
                 other.district == district) &&
+            (identical(other.latitude, latitude) ||
+                other.latitude == latitude) &&
+            (identical(other.longitude, longitude) ||
+                other.longitude == longitude) &&
             (identical(other.city, city) || other.city == city) &&
             (identical(other.country, country) || other.country == country) &&
             (identical(other.postalCode, postalCode) ||
@@ -221,7 +257,7 @@ class _$SuggestionEntityImpl implements _SuggestionEntity {
 
   @override
   int get hashCode => Object.hash(runtimeType, locationId, locationName, street,
-      district, city, country, postalCode);
+      district, latitude, longitude, city, country, postalCode);
 
   @JsonKey(ignore: true)
   @override
@@ -237,6 +273,8 @@ abstract class _SuggestionEntity implements SuggestionEntity {
       required final String locationName,
       required final String street,
       required final String district,
+      required final double latitude,
+      required final double longitude,
       required final String city,
       required final String country,
       final String? postalCode}) = _$SuggestionEntityImpl;
@@ -249,6 +287,10 @@ abstract class _SuggestionEntity implements SuggestionEntity {
   String get street;
   @override
   String get district;
+  @override
+  double get latitude;
+  @override
+  double get longitude;
   @override
   String get city;
   @override
