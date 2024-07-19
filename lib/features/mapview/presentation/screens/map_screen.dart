@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:ui';
 import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:ev_charger/features/mapview/domain/providers/screen_center_provider.dart';
 import 'package:ev_charger/shared/presentation/widgets/bottom_app_bar.dart';
 import 'package:flutter/material.dart';
@@ -8,9 +9,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import '../../../../routes/app_route.dart';
 import '../../../../shared/domain/providers/location/user_location_provider.dart';
 import '../../../../shared/domain/providers/permission/permission_provider.dart';
 import '../../../notification/screens/permission_screen.dart';
+import '../../../search/domain/providers/search_query_provider.dart';
+import '../../../search/presentation/widgets/search_bar_and_filter.dart';
 import '../../domain/providers/is_info_visible_provider.dart';
 import '../../domain/providers/marker/marker_provider.dart';
 import '../../domain/providers/marker/user_icon_provider.dart';
@@ -27,13 +31,19 @@ class MapScreen extends ConsumerStatefulWidget {
   _MapScreenState createState() => _MapScreenState();
 }
 
-class _MapScreenState extends ConsumerState<MapScreen> with WidgetsBindingObserver {
-  final Completer<GoogleMapController> _controller = Completer<GoogleMapController>();
+class _MapScreenState extends ConsumerState<MapScreen>
+    with WidgetsBindingObserver {
+  final Completer<GoogleMapController> _controller =
+      Completer<GoogleMapController>();
   GoogleMapController? _mapController;
   final List<Marker> _markers = <Marker>[];
   static const LatLng _fixedLocation = LatLng(10.8023163, 106.6645121);
 
-  static CameraPosition _initialCameraPosition(Position? currentLocation, {double? latitude, double? longitude}) {
+  late TextEditingController _searchController;
+  bool _hasNavigatedToSearch = false;
+
+  static CameraPosition _initialCameraPosition(Position? currentLocation,
+      {double? latitude, double? longitude}) {
     if (latitude != null && longitude != null) {
       return CameraPosition(
         target: LatLng(latitude, longitude),
@@ -51,6 +61,7 @@ class _MapScreenState extends ConsumerState<MapScreen> with WidgetsBindingObserv
   @override
   void initState() {
     super.initState();
+    _searchController = TextEditingController();
     WidgetsBinding.instance.addObserver(this);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -62,6 +73,7 @@ class _MapScreenState extends ConsumerState<MapScreen> with WidgetsBindingObserv
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
     _mapController?.dispose();
+    _searchController.dispose();
     super.dispose();
   }
 
@@ -86,6 +98,9 @@ class _MapScreenState extends ConsumerState<MapScreen> with WidgetsBindingObserv
     final currentLocation = ref.watch(userLocationProvider);
     final userIconAsyncValue = ref.watch(userIconProvider);
 
+    final screenSize = MediaQuery.of(context).size;
+    final searchQuery = ref.watch(SearchQueryProvider);
+
     markerAsyncValue.when(
       data: (markers) {
         userIconAsyncValue.when(
@@ -105,7 +120,8 @@ class _MapScreenState extends ConsumerState<MapScreen> with WidgetsBindingObserv
         children: [
           GoogleMap(
             mapType: MapType.normal,
-            initialCameraPosition: _initialCameraPosition(currentLocation, latitude: widget.latitude, longitude: widget.longitude),
+            initialCameraPosition: _initialCameraPosition(currentLocation,
+                latitude: widget.latitude, longitude: widget.longitude),
             markers: Set<Marker>.of(_markers),
             mapToolbarEnabled: false,
             zoomControlsEnabled: false,
@@ -120,14 +136,37 @@ class _MapScreenState extends ConsumerState<MapScreen> with WidgetsBindingObserv
               final GoogleMapController controller = await _controller.future;
               LatLngBounds visibleRegion = await controller.getVisibleRegion();
               LatLng center = LatLng(
-                (visibleRegion.northeast.latitude + visibleRegion.southwest.latitude) / 2,
-                (visibleRegion.northeast.longitude + visibleRegion.southwest.longitude) / 2,
+                (visibleRegion.northeast.latitude +
+                        visibleRegion.southwest.latitude) /
+                    2,
+                (visibleRegion.northeast.longitude +
+                        visibleRegion.southwest.longitude) /
+                    2,
               );
               ref.read(screenCenterProvider.notifier).state = center;
             },
             onTap: (LatLng position) {
               ref.read(isInfoVisibleProvider.notifier).state = false;
             },
+          ),
+          Positioned(
+            top: screenSize.height * 0.05,
+            left: screenSize.width * 0.05,
+            right: screenSize.width * 0.05,
+            child: SearchBarAndFilter(
+              controller: _searchController,
+              onChanged: (text) {
+                if (text.isNotEmpty && !_hasNavigatedToSearch) {
+                  _hasNavigatedToSearch = true;
+                  context.router.push(SearchRoute(searchQuery: text)).then((_) {
+                    // Reset the flag when the SearchScreen is popped
+                    _hasNavigatedToSearch = false;
+                  });
+                }
+              },
+              isTyping: true,
+              onFilterPressed: () => context.router.push(FilterRoute()),
+            ),
           ),
           AnimatedPositioned(
             duration: const Duration(milliseconds: 300),
@@ -149,14 +188,16 @@ class _MapScreenState extends ConsumerState<MapScreen> with WidgetsBindingObserv
                 final currentLocation = ref.read(userLocationProvider);
 
                 LatLng targetLocation = currentLocation != null
-                    ? LatLng(currentLocation.latitude, currentLocation.longitude)
+                    ? LatLng(
+                        currentLocation.latitude, currentLocation.longitude)
                     : _fixedLocation;
                 CameraPosition cameraPosition = CameraPosition(
                   target: targetLocation,
                   zoom: 16,
                 );
                 final GoogleMapController controller = await _controller.future;
-                controller.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+                controller.animateCamera(
+                    CameraUpdate.newCameraPosition(cameraPosition));
               },
               child: SvgPicture.asset('assets/icons/floating_button_icon.svg'),
             ),
@@ -167,7 +208,8 @@ class _MapScreenState extends ConsumerState<MapScreen> with WidgetsBindingObserv
     );
   }
 
-  void _updateMarkers(List<Marker> markers, Position? currentLocation, BitmapDescriptor userIcon) {
+  void _updateMarkers(List<Marker> markers, Position? currentLocation,
+      BitmapDescriptor userIcon) {
     setState(() {
       _markers.clear();
       _markers.addAll(markers);
@@ -175,7 +217,8 @@ class _MapScreenState extends ConsumerState<MapScreen> with WidgetsBindingObserv
         _markers.add(
           Marker(
             markerId: const MarkerId('currentLocation'),
-            position: LatLng(currentLocation.latitude, currentLocation.longitude),
+            position:
+                LatLng(currentLocation.latitude, currentLocation.longitude),
             icon: userIcon,
             anchor: const Offset(0.5, 0.5),
           ),
