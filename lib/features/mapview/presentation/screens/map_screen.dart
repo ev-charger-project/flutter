@@ -17,7 +17,10 @@ import '../widgets/short_info_ui.dart';
 
 @RoutePage()
 class MapScreen extends ConsumerStatefulWidget {
-  const MapScreen({super.key});
+  final double? latitude;
+  final double? longitude;
+
+  const MapScreen({super.key, this.latitude, this.longitude});
 
   @override
   _MapScreenState createState() => _MapScreenState();
@@ -29,7 +32,13 @@ class _MapScreenState extends ConsumerState<MapScreen> with WidgetsBindingObserv
   final List<Marker> _markers = <Marker>[];
   static const LatLng _fixedLocation = LatLng(10.8023163, 106.6645121);
 
-  static CameraPosition _initialCameraPosition(Position? currentLocation) {
+  static CameraPosition _initialCameraPosition(Position? currentLocation, {double? latitude, double? longitude}) {
+    if (latitude != null && longitude != null) {
+      return CameraPosition(
+        target: LatLng(latitude, longitude),
+        zoom: 16,
+      );
+    }
     return CameraPosition(
       target: currentLocation != null
           ? LatLng(currentLocation.latitude, currentLocation.longitude)
@@ -43,7 +52,6 @@ class _MapScreenState extends ConsumerState<MapScreen> with WidgetsBindingObserv
     super.initState();
     WidgetsBinding.instance.addObserver(this);
 
-    // Check for location permission when the app starts
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _checkLocationPermission();
     });
@@ -95,11 +103,11 @@ class _MapScreenState extends ConsumerState<MapScreen> with WidgetsBindingObserv
         children: [
           GoogleMap(
             mapType: MapType.normal,
-            initialCameraPosition: _initialCameraPosition(currentLocation),
+            initialCameraPosition: _initialCameraPosition(currentLocation, latitude: widget.latitude, longitude: widget.longitude),
             markers: Set<Marker>.of(_markers),
             mapToolbarEnabled: false,
             zoomControlsEnabled: false,
-            minMaxZoomPreference: const MinMaxZoomPreference(10, 17),
+            minMaxZoomPreference: const MinMaxZoomPreference(12, 17),
             onMapCreated: (GoogleMapController controller) {
               if (!_controller.isCompleted) {
                 _controller.complete(controller);
@@ -119,10 +127,9 @@ class _MapScreenState extends ConsumerState<MapScreen> with WidgetsBindingObserv
               ref.read(isInfoVisibleProvider.notifier).state = false;
             },
           ),
-
           AnimatedPositioned(
             duration: const Duration(milliseconds: 300),
-            bottom: isInfoVisible ? 0 : -1000.0,
+            bottom: isInfoVisible ? 0 : -10000.0,
             left: 0,
             right: 0,
             child: const ShortInfoUI(),

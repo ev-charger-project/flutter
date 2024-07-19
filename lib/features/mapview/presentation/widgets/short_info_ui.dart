@@ -1,4 +1,5 @@
 import 'package:ev_charger/features/location/presentation/widgets/location_name_address.dart';
+import 'package:ev_charger/features/mapview/presentation/widgets/view_route_direction.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -13,7 +14,7 @@ class ShortInfoUI extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
-      padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.045),
+      padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.035),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -21,7 +22,7 @@ class ShortInfoUI extends ConsumerWidget {
         ),
         child: Center(
           child: Padding(
-            padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.055),
+            padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.035),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -38,7 +39,7 @@ class ShortInfoUI extends ConsumerWidget {
                   color: Theme.of(context).dividerColor,
                   thickness: 1,
                 ),
-                const RouteDirectionButtons(),
+                const ViewRouteDirectionButtons(),
               ],
             ),
           ),

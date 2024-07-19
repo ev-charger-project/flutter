@@ -28,9 +28,15 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     MapRoute.name: (routeData) {
+      final args =
+          routeData.argsAs<MapRouteArgs>(orElse: () => const MapRouteArgs());
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const MapScreen(),
+        child: MapScreen(
+          key: args.key,
+          latitude: args.latitude,
+          longitude: args.longitude,
+        ),
       );
     },
     SearchRoute.name: (routeData) {
@@ -72,16 +78,44 @@ class LocationRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [MapScreen]
-class MapRoute extends PageRouteInfo<void> {
-  const MapRoute({List<PageRouteInfo>? children})
-      : super(
+class MapRoute extends PageRouteInfo<MapRouteArgs> {
+  MapRoute({
+    Key? key,
+    double? latitude,
+    double? longitude,
+    List<PageRouteInfo>? children,
+  }) : super(
           MapRoute.name,
+          args: MapRouteArgs(
+            key: key,
+            latitude: latitude,
+            longitude: longitude,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'MapRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<MapRouteArgs> page = PageInfo<MapRouteArgs>(name);
+}
+
+class MapRouteArgs {
+  const MapRouteArgs({
+    this.key,
+    this.latitude,
+    this.longitude,
+  });
+
+  final Key? key;
+
+  final double? latitude;
+
+  final double? longitude;
+
+  @override
+  String toString() {
+    return 'MapRouteArgs{key: $key, latitude: $latitude, longitude: $longitude}';
+  }
 }
 
 /// generated route for
