@@ -70,13 +70,6 @@ class _MapScreenState extends ConsumerState<MapScreen> with WidgetsBindingObserv
   }
 
   @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed) {
-      ref.read(permissionProvider.notifier).checkAndRequestPermission();
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
     final isInfoVisible = ref.watch(isInfoVisibleProvider);
     final markerAsyncValue = ref.watch(markerProvider);
@@ -126,13 +119,7 @@ class _MapScreenState extends ConsumerState<MapScreen> with WidgetsBindingObserv
               ref.read(isInfoVisibleProvider.notifier).state = false;
             },
           ),
-          if (currentLocation != null) ...[
-            Positioned(
-              top: 10.0,
-              left: 10.0,
-              child: Text('Current Location: ${currentLocation.latitude}, ${currentLocation.longitude}'),
-            ),
-          ],
+
           AnimatedPositioned(
             duration: const Duration(milliseconds: 300),
             bottom: isInfoVisible ? 0 : -1000.0,
@@ -149,6 +136,8 @@ class _MapScreenState extends ConsumerState<MapScreen> with WidgetsBindingObserv
             child: FloatingActionButton(
               shape: const CircleBorder(),
               onPressed: () async {
+                await ref.read(userLocationProvider.notifier).getUserLocation();
+                final currentLocation = ref.read(userLocationProvider);
                 LatLng targetLocation = currentLocation != null
                     ? LatLng(currentLocation.latitude, currentLocation.longitude)
                     : _fixedLocation;
