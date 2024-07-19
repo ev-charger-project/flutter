@@ -23,8 +23,8 @@ _$LocationDataModelImpl _$$LocationDataModelImplFromJson(
       pricing: json['pricing'] as String?,
       phoneNumber: json['phone_number'] as String?,
       parkingLevel: json['parking_level'] as String?,
-      ev_chargers: (json['ev_chargers'] as List<dynamic>)
-          .map((e) => ChargerDataModel.fromJson(e as Map<String, dynamic>))
+      ev_chargers: (json['ev_chargers'] as List<dynamic>?)
+          ?.map((e) => ChargerDataModel.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

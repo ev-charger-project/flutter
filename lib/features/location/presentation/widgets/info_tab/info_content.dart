@@ -12,6 +12,22 @@ class InfoContent extends ConsumerStatefulWidget {
 
 class _InfoContentState extends ConsumerState<InfoContent> {
   bool isExpanded = false;
+  bool isOverflowing = false;
+  final GlobalKey _textKey = GlobalKey();
+
+  void _checkTextOverflow() {
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      final RenderBox renderBox = _textKey.currentContext?.findRenderObject() as RenderBox;
+      final size = renderBox.size;
+      final double maxHeight = 4 * Theme.of(context).textTheme.bodyMedium!.fontSize! * 1.2;
+
+      if (size.height > maxHeight) {
+        setState(() {
+          isOverflowing = true;
+        });
+      }
+    });
+  }
 
   Widget _buildAboutSection(String? longText) {
     if (longText == null || longText.isEmpty) {
@@ -29,21 +45,23 @@ class _InfoContentState extends ConsumerState<InfoContent> {
         const SizedBox(height: 2),
         Text(
           longText,
+          key: _textKey,
           style: Theme.of(context).textTheme.bodyMedium,
           maxLines: isExpanded ? null : 4,
           overflow: isExpanded ? TextOverflow.visible : TextOverflow.ellipsis,
         ),
-        GestureDetector(
-          onTap: () {
-            setState(() {
-              isExpanded = !isExpanded;
-            });
-          },
-          child: Text(
-            isExpanded ? 'Read less' : 'Read more',
-            style: Theme.of(context).primaryTextTheme.bodyMedium
+        if (isOverflowing || isExpanded)
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                isExpanded = !isExpanded;
+              });
+            },
+            child: Text(
+              isExpanded ? 'Read less' : 'Read more',
+              style: Theme.of(context).primaryTextTheme.bodyMedium,
+            ),
           ),
-        ),
         const SizedBox(height: 10),
       ],
     );
@@ -85,19 +103,26 @@ class _InfoContentState extends ConsumerState<InfoContent> {
       child: currentLocation.when(
         data: (location) {
           final String? longText = location.description;
-          final List<Map<String, String>> data = [
-            {'Open Hours': '06:00 - 23:00'},
-            {'Fee': location.pricing ?? '??'},
-            {'Phone': location.phoneNumber ?? '??'},
-            {'Parking Level': location.parkingLevel ?? '??'},
-          ];
+          final List<Map<String, String>> data = [];
+
+          if (location.pricing != null && location.pricing!.isNotEmpty) {
+            data.add({'Fee': location.pricing!});
+          }
+          if (location.phoneNumber != null && location.phoneNumber!.isNotEmpty) {
+            data.add({'Phone': location.phoneNumber!});
+          }
+          if (location.parkingLevel != null && location.parkingLevel!.isNotEmpty) {
+            data.add({'Parking Level': location.parkingLevel!});
+          }
+
+          WidgetsBinding.instance?.addPostFrameCallback((_) => _checkTextOverflow());
 
           return Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               _buildAboutSection(longText),
               _buildDataList(data),
-               Padding(
+              Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10.0),
                 child: Divider(
                   color: Theme.of(context).dividerColor,

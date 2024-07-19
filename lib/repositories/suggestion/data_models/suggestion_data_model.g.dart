@@ -14,6 +14,8 @@ _$SuggestionImpl _$$SuggestionImplFromJson(Map<String, dynamic> json) =>
       district: json['district'] as String,
       city: json['city'] as String,
       country: json['country'] as String,
+      latitude: (json['latitude'] as num).toDouble(),
+      longitude: (json['longitude'] as num).toDouble(),
       postalCode: json['postal_code'] as String?,
       description: json['description'] as String?,
     );
@@ -26,6 +28,8 @@ Map<String, dynamic> _$$SuggestionImplToJson(_$SuggestionImpl instance) =>
       'district': instance.district,
       'city': instance.city,
       'country': instance.country,
+      'latitude': instance.latitude,
+      'longitude': instance.longitude,
       'postal_code': instance.postalCode,
       'description': instance.description,
     };

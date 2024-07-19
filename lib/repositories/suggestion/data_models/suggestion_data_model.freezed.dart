@@ -32,6 +32,10 @@ mixin _$SuggestionDataModel {
   String get city => throw _privateConstructorUsedError;
   @JsonKey(name: 'country')
   String get country => throw _privateConstructorUsedError;
+  @JsonKey(name: 'latitude')
+  double get latitude => throw _privateConstructorUsedError;
+  @JsonKey(name: 'longitude')
+  double get longitude => throw _privateConstructorUsedError;
   @JsonKey(name: 'postal_code')
   String? get postalCode => throw _privateConstructorUsedError;
   @JsonKey(name: 'description')
@@ -56,6 +60,8 @@ abstract class $SuggestionDataModelCopyWith<$Res> {
       @JsonKey(name: 'district') String district,
       @JsonKey(name: 'city') String city,
       @JsonKey(name: 'country') String country,
+      @JsonKey(name: 'latitude') double latitude,
+      @JsonKey(name: 'longitude') double longitude,
       @JsonKey(name: 'postal_code') String? postalCode,
       @JsonKey(name: 'description') String? description});
 }
@@ -79,6 +85,8 @@ class _$SuggestionDataModelCopyWithImpl<$Res, $Val extends SuggestionDataModel>
     Object? district = null,
     Object? city = null,
     Object? country = null,
+    Object? latitude = null,
+    Object? longitude = null,
     Object? postalCode = freezed,
     Object? description = freezed,
   }) {
@@ -107,6 +115,14 @@ class _$SuggestionDataModelCopyWithImpl<$Res, $Val extends SuggestionDataModel>
           ? _value.country
           : country // ignore: cast_nullable_to_non_nullable
               as String,
+      latitude: null == latitude
+          ? _value.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as double,
+      longitude: null == longitude
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as double,
       postalCode: freezed == postalCode
           ? _value.postalCode
           : postalCode // ignore: cast_nullable_to_non_nullable
@@ -134,6 +150,8 @@ abstract class _$$SuggestionImplCopyWith<$Res>
       @JsonKey(name: 'district') String district,
       @JsonKey(name: 'city') String city,
       @JsonKey(name: 'country') String country,
+      @JsonKey(name: 'latitude') double latitude,
+      @JsonKey(name: 'longitude') double longitude,
       @JsonKey(name: 'postal_code') String? postalCode,
       @JsonKey(name: 'description') String? description});
 }
@@ -155,6 +173,8 @@ class __$$SuggestionImplCopyWithImpl<$Res>
     Object? district = null,
     Object? city = null,
     Object? country = null,
+    Object? latitude = null,
+    Object? longitude = null,
     Object? postalCode = freezed,
     Object? description = freezed,
   }) {
@@ -183,6 +203,14 @@ class __$$SuggestionImplCopyWithImpl<$Res>
           ? _value.country
           : country // ignore: cast_nullable_to_non_nullable
               as String,
+      latitude: null == latitude
+          ? _value.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as double,
+      longitude: null == longitude
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as double,
       postalCode: freezed == postalCode
           ? _value.postalCode
           : postalCode // ignore: cast_nullable_to_non_nullable
@@ -205,6 +233,8 @@ class _$SuggestionImpl implements _Suggestion {
       @JsonKey(name: 'district') required this.district,
       @JsonKey(name: 'city') required this.city,
       @JsonKey(name: 'country') required this.country,
+      @JsonKey(name: 'latitude') required this.latitude,
+      @JsonKey(name: 'longitude') required this.longitude,
       @JsonKey(name: 'postal_code') this.postalCode,
       @JsonKey(name: 'description') this.description});
 
@@ -230,6 +260,12 @@ class _$SuggestionImpl implements _Suggestion {
   @JsonKey(name: 'country')
   final String country;
   @override
+  @JsonKey(name: 'latitude')
+  final double latitude;
+  @override
+  @JsonKey(name: 'longitude')
+  final double longitude;
+  @override
   @JsonKey(name: 'postal_code')
   final String? postalCode;
   @override
@@ -238,7 +274,7 @@ class _$SuggestionImpl implements _Suggestion {
 
   @override
   String toString() {
-    return 'SuggestionDataModel(locationId: $locationId, locationName: $locationName, street: $street, district: $district, city: $city, country: $country, postalCode: $postalCode, description: $description)';
+    return 'SuggestionDataModel(locationId: $locationId, locationName: $locationName, street: $street, district: $district, city: $city, country: $country, latitude: $latitude, longitude: $longitude, postalCode: $postalCode, description: $description)';
   }
 
   @override
@@ -255,6 +291,10 @@ class _$SuggestionImpl implements _Suggestion {
                 other.district == district) &&
             (identical(other.city, city) || other.city == city) &&
             (identical(other.country, country) || other.country == country) &&
+            (identical(other.latitude, latitude) ||
+                other.latitude == latitude) &&
+            (identical(other.longitude, longitude) ||
+                other.longitude == longitude) &&
             (identical(other.postalCode, postalCode) ||
                 other.postalCode == postalCode) &&
             (identical(other.description, description) ||
@@ -264,7 +304,7 @@ class _$SuggestionImpl implements _Suggestion {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, locationId, locationName, street,
-      district, city, country, postalCode, description);
+      district, city, country, latitude, longitude, postalCode, description);
 
   @JsonKey(ignore: true)
   @override
@@ -288,6 +328,8 @@ abstract class _Suggestion implements SuggestionDataModel {
           @JsonKey(name: 'district') required final String district,
           @JsonKey(name: 'city') required final String city,
           @JsonKey(name: 'country') required final String country,
+          @JsonKey(name: 'latitude') required final double latitude,
+          @JsonKey(name: 'longitude') required final double longitude,
           @JsonKey(name: 'postal_code') final String? postalCode,
           @JsonKey(name: 'description') final String? description}) =
       _$SuggestionImpl;
@@ -313,6 +355,12 @@ abstract class _Suggestion implements SuggestionDataModel {
   @override
   @JsonKey(name: 'country')
   String get country;
+  @override
+  @JsonKey(name: 'latitude')
+  double get latitude;
+  @override
+  @JsonKey(name: 'longitude')
+  double get longitude;
   @override
   @JsonKey(name: 'postal_code')
   String? get postalCode;
