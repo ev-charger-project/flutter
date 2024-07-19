@@ -12,6 +12,8 @@ class RouteDirectionButtons extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
 
     void handleButtonPress() {
       final permissionState = ref.read(permissionProvider);
@@ -34,7 +36,7 @@ class RouteDirectionButtons extends ConsumerWidget {
           child: SizedBox(
             child: OutlinedButton(
               onPressed: handleButtonPress,
-              style: OutlinedButton.styleFrom(
+              style: OutlinedButton.styleFrom(padding: EdgeInsets.all(0),
                 side: BorderSide(color: Theme.of(context).colorScheme.primary),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30),
@@ -47,7 +49,7 @@ class RouteDirectionButtons extends ConsumerWidget {
             ),
           ),
         ),
-        SizedBox(width: MediaQuery.of(context).size.width * 0.015),
+        SizedBox(width: width * 0.015),
         Expanded(
           child: SizedBox(
             child: ElevatedButton(
@@ -62,6 +64,7 @@ class RouteDirectionButtons extends ConsumerWidget {
                 'Direction',
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   color: Theme.of(context).colorScheme.onPrimary,
+                  fontSize: height * 0.02,
                 ),
               ),
             ),
