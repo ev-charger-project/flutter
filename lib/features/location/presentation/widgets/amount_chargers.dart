@@ -1,4 +1,3 @@
-import 'package:ev_charger/shared/domain/providers/location/current_location_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
