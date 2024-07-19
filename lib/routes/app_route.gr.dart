@@ -40,9 +40,14 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     SearchRoute.name: (routeData) {
+      final args = routeData.argsAs<SearchRouteArgs>(
+          orElse: () => const SearchRouteArgs());
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const SearchScreen(),
+        child: SearchScreen(
+          key: args.key,
+          searchQuery: args.searchQuery,
+        ),
       );
     },
   };
@@ -120,14 +125,37 @@ class MapRouteArgs {
 
 /// generated route for
 /// [SearchScreen]
-class SearchRoute extends PageRouteInfo<void> {
-  const SearchRoute({List<PageRouteInfo>? children})
-      : super(
+class SearchRoute extends PageRouteInfo<SearchRouteArgs> {
+  SearchRoute({
+    Key? key,
+    String? searchQuery,
+    List<PageRouteInfo>? children,
+  }) : super(
           SearchRoute.name,
+          args: SearchRouteArgs(
+            key: key,
+            searchQuery: searchQuery,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'SearchRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<SearchRouteArgs> page = PageInfo<SearchRouteArgs>(name);
+}
+
+class SearchRouteArgs {
+  const SearchRouteArgs({
+    this.key,
+    this.searchQuery,
+  });
+
+  final Key? key;
+
+  final String? searchQuery;
+
+  @override
+  String toString() {
+    return 'SearchRouteArgs{key: $key, searchQuery: $searchQuery}';
+  }
 }

@@ -55,7 +55,7 @@ class SimpleBottomAppBar extends StatelessWidget {
         label = 'Account';
         onPressed = () {
           if (!_isCurrentRoute(context, SearchRoute.name)) {
-            context.router.push(const SearchRoute());
+            context.router.push(SearchRoute());
           }
         };
         break;
