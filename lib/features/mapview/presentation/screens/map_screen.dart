@@ -73,7 +73,7 @@ class _MapScreenState extends ConsumerState<MapScreen> with WidgetsBindingObserv
             markers: Set<Marker>.of(_markers),
             mapToolbarEnabled: false,
             zoomControlsEnabled: false,
-            minMaxZoomPreference: const MinMaxZoomPreference(10, 17),
+            minMaxZoomPreference: const MinMaxZoomPreference(12, 17),
             onMapCreated: (GoogleMapController controller) {
               if (!_controller.isCompleted) {
                 _controller.complete(controller);
@@ -96,7 +96,7 @@ class _MapScreenState extends ConsumerState<MapScreen> with WidgetsBindingObserv
           ),
           AnimatedPositioned(
             duration: const Duration(milliseconds: 300),
-            bottom: isInfoVisible ? 0 : -1000.0,
+            bottom: isInfoVisible ? 0 : -10000.0,
             left: 0,
             right: 0,
             child: const ShortInfoUI(),

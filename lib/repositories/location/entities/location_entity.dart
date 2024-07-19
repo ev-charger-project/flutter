@@ -55,9 +55,9 @@ class LocationMapper with EntityConvertible<LocationEntity, LocationDataModel> {
       pricing: entityObject.pricing,
       phoneNumber: entityObject.phoneNumber,
       parkingLevel: entityObject.parkingLevel,
-      ev_chargers: entityObject.ev_chargers.map((charger) => ChargerDataModel(
-        station_name: charger.station_name?? ' Missing Name',
-        availability: charger.availability?? ' Missing Name',
+      ev_chargers: entityObject.ev_chargers?.map((charger) => ChargerDataModel(
+        station_name: charger.station_name,
+        availability: charger.availability,
         ports: charger.ports.map((port) => PortDataModel(
           power_plug_type: PowerPlugTypeDataModel(
             powerModel: port.power_plug_type.powerModel,
@@ -100,7 +100,7 @@ class LocationMapper with EntityConvertible<LocationEntity, LocationDataModel> {
       pricing: dataModelObject.pricing,
       phoneNumber: dataModelObject.phoneNumber,
       parkingLevel: dataModelObject.parkingLevel,
-      ev_chargers: dataModelObject.ev_chargers.map((charger) => ChargerEntity(
+      ev_chargers: dataModelObject.ev_chargers?.map((charger) => ChargerEntity(
         station_name: charger.station_name,
         availability: charger.availability,
         ports: charger.ports.map((port) => Port(
@@ -117,7 +117,7 @@ class LocationMapper with EntityConvertible<LocationEntity, LocationDataModel> {
             voltage: port.power_model.voltage,
           ),
         )).toList(),
-      )).toList(),
+      )).toList() ?? [],
     );
   }
 }

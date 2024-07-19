@@ -13,6 +13,8 @@ class SuggestionDataModel with _$SuggestionDataModel {
     @JsonKey(name: 'district') required String district,
     @JsonKey(name: 'city') required String city,
     @JsonKey(name: 'country') required String country,
+    @JsonKey(name: 'latitude') required double latitude,
+    @JsonKey(name: 'longitude') required double longitude,
     @JsonKey(name: 'postal_code') String? postalCode,
     @JsonKey(name: 'description') String? description,
   }) = _Suggestion;

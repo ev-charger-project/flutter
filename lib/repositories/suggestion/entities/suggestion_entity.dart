@@ -11,6 +11,8 @@ class SuggestionEntity with _$SuggestionEntity {
     required String locationName,
     required String street,
     required String district,
+    required double latitude,
+    required double longitude,
     required String city,
     required String country,
     String? postalCode,
@@ -27,6 +29,8 @@ class SuggestionMapper
       street: entityObject.street,
       district: entityObject.district,
       city: entityObject.city,
+      latitude: entityObject.latitude,
+      longitude: entityObject.longitude,
       country: entityObject.country,
       postalCode: entityObject.postalCode,
     );
@@ -40,6 +44,8 @@ class SuggestionMapper
       street: dataModelObject.street,
       district: dataModelObject.district,
       city: dataModelObject.city,
+      latitude: dataModelObject.latitude,
+      longitude: dataModelObject.longitude,
       country: dataModelObject.country,
       postalCode: dataModelObject.postalCode,
     );
