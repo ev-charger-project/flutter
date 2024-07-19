@@ -22,7 +22,7 @@ class LocationNameAddress extends ConsumerWidget {
             ),
             const SizedBox(height: 10),
             Text(
-              location.street,
+              '${location.street}, ${location.district}, ${location.city}',
               style: Theme.of(context).textTheme.bodyMedium,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,

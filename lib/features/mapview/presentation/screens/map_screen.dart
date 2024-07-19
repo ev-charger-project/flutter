@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui';
 import 'package:auto_route/annotations.dart';
 import 'package:ev_charger/features/mapview/domain/providers/screen_center_provider.dart';
 import 'package:ev_charger/shared/presentation/widgets/bottom_app_bar.dart';
@@ -65,6 +66,7 @@ class _MapScreenState extends ConsumerState<MapScreen> with WidgetsBindingObserv
   }
 
   Future<void> _checkLocationPermission() async {
+    await ref.read(permissionProvider.notifier).reCheckPermission();
     final permissionState = ref.read(permissionProvider);
 
     if (!permissionState.hasPermission) {
@@ -145,6 +147,7 @@ class _MapScreenState extends ConsumerState<MapScreen> with WidgetsBindingObserv
               onPressed: () async {
                 await ref.read(userLocationProvider.notifier).getUserLocation();
                 final currentLocation = ref.read(userLocationProvider);
+
                 LatLng targetLocation = currentLocation != null
                     ? LatLng(currentLocation.latitude, currentLocation.longitude)
                     : _fixedLocation;
@@ -174,6 +177,7 @@ class _MapScreenState extends ConsumerState<MapScreen> with WidgetsBindingObserv
             markerId: const MarkerId('currentLocation'),
             position: LatLng(currentLocation.latitude, currentLocation.longitude),
             icon: userIcon,
+            anchor: const Offset(0.5, 0.5),
           ),
         );
       }
