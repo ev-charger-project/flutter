@@ -1,12 +1,17 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../../../routes/app_route.dart';
+
 class SearchBarAndFilter extends ConsumerWidget {
   final TextEditingController controller;
+
   final Function(String) onChanged;
   final bool isTyping;
   final VoidCallback onFilterPressed;
+  final bool textFieldInteractable;
 
   const SearchBarAndFilter({
     Key? key,
@@ -14,6 +19,7 @@ class SearchBarAndFilter extends ConsumerWidget {
     required this.onChanged,
     required this.isTyping,
     required this.onFilterPressed,
+    this.textFieldInteractable = true,
   }) : super(key: key);
 
   @override
@@ -42,43 +48,47 @@ class SearchBarAndFilter extends ConsumerWidget {
                 color: Color(0xFFECE6F0),
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: TextField(
-                controller: controller,
-                decoration: InputDecoration(
-                  hintText: 'Search stations',
-                  hintStyle: TextStyle(
+              child: IgnorePointer(
+                ignoring: !textFieldInteractable,
+                child: TextField(
+                  controller: controller,
+                  decoration: InputDecoration(
+                    hintText: 'Search stations',
+                    hintStyle: TextStyle(
+                      color: isTyping
+                          ? Colors.black
+                          : Colors.black.withOpacity(0.65),
+                      fontSize: fontSize,
+                    ),
+                    prefixIcon: Icon(
+                      Icons.search,
+                      color: isTyping
+                          ? Colors.black
+                          : Colors.black.withOpacity(0.65),
+                      size: iconSize,
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide.none,
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                        color: Color(0xFFA8CAB1),
+                        width: 2,
+                      ),
+                    ),
+                    contentPadding: EdgeInsets.all(8.0),
+                  ),
+                  style: TextStyle(
                     color: isTyping
                         ? Colors.black
                         : Colors.black.withOpacity(0.65),
+                    fontFamily: 'Exo',
                     fontSize: fontSize,
                   ),
-                  prefixIcon: Icon(
-                    Icons.search,
-                    color: isTyping
-                        ? Colors.black
-                        : Colors.black.withOpacity(0.65),
-                    size: iconSize,
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide.none,
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(
-                      color: Color(0xFFA8CAB1),
-                      width: 2,
-                    ),
-                  ),
-                  contentPadding: EdgeInsets.all(8.0),
+                  onChanged: onChanged,
                 ),
-                style: TextStyle(
-                  color:
-                      isTyping ? Colors.black : Colors.black.withOpacity(0.65),
-                  fontFamily: 'Exo',
-                  fontSize: fontSize,
-                ),
-                onChanged: onChanged,
               ),
             ),
           ),
