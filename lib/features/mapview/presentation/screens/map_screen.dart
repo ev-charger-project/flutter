@@ -171,7 +171,7 @@ class _MapScreenState extends ConsumerState<MapScreen>
                 },
                 isTyping: true,
                 onFilterPressed: () => context.router.push(FilterRoute()),
-                textFieldInteractable: false,
+                textFieldInteractable: false, focusNode: null,
               ),
             ),
           ),
