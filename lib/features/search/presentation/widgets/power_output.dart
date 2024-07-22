@@ -1,3 +1,4 @@
+import 'package:ev_charger/shared/presentation/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
@@ -21,7 +22,7 @@ class _PowerOutputState extends ConsumerState<PowerOutput> {
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.secondary,
+          color: Theme.of(context).powerOutputGrey,
           borderRadius: BorderRadius.circular(8),
         ),
         child: Column(
