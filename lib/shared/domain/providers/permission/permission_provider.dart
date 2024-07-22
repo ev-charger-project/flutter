@@ -21,9 +21,8 @@ class PermissionProvider extends StateNotifier<PermissionState> {
     _updatePermissionState(permission);
   }
 
-  Future<void> openSettings() async {
-    await Geolocator.openAppSettings();
-    await checkAndRequestPermission();
+  Future<bool> openSettings() async {
+    return  await Geolocator.openAppSettings();
   }
 
   void _updatePermissionState(LocationPermission permission) {

@@ -88,6 +88,19 @@ class _MapScreenState extends ConsumerState<MapScreen>
       );
     } else {
       await ref.read(userLocationProvider.notifier).getUserLocation();
+      final currentLocation = ref.read(userLocationProvider);
+
+      if(currentLocation != null) {
+        LatLng targetLocation = LatLng(currentLocation.latitude, currentLocation.longitude);
+        CameraPosition cameraPosition = CameraPosition(
+          target: targetLocation,
+          zoom: 16,
+        );
+        final GoogleMapController controller = await _controller.future;
+        controller.animateCamera(
+            CameraUpdate.newCameraPosition(cameraPosition)
+        );
+      }
     }
   }
 
@@ -191,20 +204,7 @@ class _MapScreenState extends ConsumerState<MapScreen>
             child: FloatingActionButton(
               shape: const CircleBorder(),
               onPressed: () async {
-                // await ref.read(userLocationProvider.notifier).getUserLocation();
-                // final currentLocation = ref.read(userLocationProvider);
-
-                LatLng targetLocation = currentLocation != null
-                    ? LatLng(
-                        currentLocation.latitude, currentLocation.longitude)
-                    : _fixedLocation;
-                CameraPosition cameraPosition = CameraPosition(
-                  target: targetLocation,
-                  zoom: 16,
-                );
-                final GoogleMapController controller = await _controller.future;
-                controller.animateCamera(
-                    CameraUpdate.newCameraPosition(cameraPosition));
+                await _checkLocationPermission();
               },
               child: SvgPicture.asset('assets/icons/floating_button_icon.svg'),
             ),
@@ -220,6 +220,7 @@ class _MapScreenState extends ConsumerState<MapScreen>
     setState(() {
       _markers.clear();
       _markers.addAll(markers);
+      print(currentLocation?.latitude);
       if (currentLocation != null) {
         _markers.add(
           Marker(
