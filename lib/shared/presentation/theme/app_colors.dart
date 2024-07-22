@@ -20,7 +20,10 @@ class AppColors {
   static const Color dividerColor = Color(0xffcbcbcb);
 
   /// Light grey color
-  static const Color lightGrey = Color(0xffe9e9e9);
+  static const Color lightGrey = Color(0xffece6f0);
+
+  /// Light grey color
+  static const Color moreGrey = Color(0xFFE9E9E9);
 
   /// Extra Light grey color
   static const Color extraLightGrey = Color(0x99e8e8e8);

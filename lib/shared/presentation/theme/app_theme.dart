@@ -18,7 +18,6 @@ class AppTheme {
       ).copyWith(
         surfaceTint: AppColors.transparentGrey, // Adding custom color
       ),
-      // backgroundColor: AppColors.black,
       scaffoldBackgroundColor: AppColors.black,
       textTheme: TextThemes.darkTextTheme,
       primaryTextTheme: TextThemes.primaryTextTheme,
@@ -44,7 +43,8 @@ class AppTheme {
         error: AppColors.error,
 
       ).copyWith(
-        surfaceTint: AppColors.transparentGrey, // Adding custom color
+        surfaceTint: AppColors.transparentGrey,
+
       ),
       appBarTheme: const AppBarTheme(
         elevation: 0,
@@ -52,4 +52,9 @@ class AppTheme {
       ),
     );
   }
+
+}
+extension CustomTheme on ThemeData {
+  Color get lightGrey => AppColors.lightGrey;
+  Color get powerOutputGrey  => AppColors.moreGrey;
 }

@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import '../features/location/presentation/screens/location_screen.dart';
 import '../features/mapview/presentation/screens/map_screen.dart';
 import '../features/search/presentation/screens/filter_screen.dart';
+import '../features/splash/screens/search_screen.dart';
 
 part 'app_route.gr.dart';
 
@@ -23,6 +24,9 @@ class AppRouter extends _$AppRouter {
             page: MapRoute.page,
             transitionsBuilder: TransitionsBuilders.fadeIn,
             durationInMilliseconds: 400,
+            initial: false),
+        CustomRoute(
+            page: SplashRoute.page,
             initial: true),
         CustomRoute(
           page: FilterRoute.page,

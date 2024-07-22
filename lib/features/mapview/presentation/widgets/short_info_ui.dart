@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../location/presentation/widgets/amount_chargers.dart';
-import '../../../location/presentation/widgets/route_direction_buttons.dart';
 
 class ShortInfoUI extends ConsumerWidget {
   const ShortInfoUI({
