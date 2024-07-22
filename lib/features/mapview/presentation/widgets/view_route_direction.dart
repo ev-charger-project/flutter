@@ -2,8 +2,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../routes/app_route.dart';
+import '../../../../shared/domain/providers/charger/charger_provider.dart';
+import '../../../../shared/domain/providers/location/user_location_provider.dart';
 import '../../../../shared/domain/providers/permission/permission_provider.dart';
 import '../../../notification/screens/permission_screen.dart';
 
@@ -16,8 +19,12 @@ class ViewRouteDirectionButtons extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
+    final destinationLocation = ref.read(locationProvider);
+    final destination = destinationLocation.value;
+    final latitude =destination?.latitude;
+    final longitude = destination?.longitude;
 
-    void handleButtonPress() {
+    void handleButtonPress() async {
       final permissionState = ref.read(permissionProvider);
 
       if (!permissionState.hasPermission) {
@@ -26,8 +33,17 @@ class ViewRouteDirectionButtons extends ConsumerWidget {
           builder: (context) => const PermissionScreen(),
         );
       } else {
-        // Permission granted, handle the intended functionality here
-        Navigator.of(context).pop(); // Example to pop the current screen
+        final userLocation = ref.read(userLocationProvider);
+        if (userLocation != null) {
+          final url = Uri.parse(
+              'https://www.google.com/maps/dir/?api=1&origin=${userLocation.latitude},${userLocation.longitude}&destination=$latitude,$longitude&travelmode=driving');
+
+          if (await canLaunchUrl(url)) {
+            await launchUrl(url);
+          } else {
+            throw 'Could not launch $url';
+          }
+        }
       }
     }
 
