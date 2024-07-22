@@ -21,25 +21,21 @@ class _PowerOutputState extends ConsumerState<PowerOutput> {
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: Color(0xFFE9E9E9),
+          color: Theme.of(context).colorScheme.secondary,
           borderRadius: BorderRadius.circular(8),
         ),
         child: Column(
           children: [
-            const Row(
+            Row(
               children: [
                 Text(
                   "Power Output",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                  ),
+                  style: Theme.of(context).primaryTextTheme.displaySmall
                 ),
               ],
             ),
-            const Divider(
-              color: Color(0xFFCBCBCB),
+            Divider(
+              color: Theme.of(context).dividerColor,
             ),
             SfRangeSliderTheme(
               data: SfRangeSliderThemeData(

@@ -47,7 +47,7 @@ class SearchBarAndFilter extends ConsumerWidget {
           Expanded(
             child: Container(
               decoration: BoxDecoration(
-                color: Color(0xFFECE6F0),
+                color: Theme.of(context).colorScheme.secondary,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: IgnorePointer(

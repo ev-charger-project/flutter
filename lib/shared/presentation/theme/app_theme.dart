@@ -18,7 +18,6 @@ class AppTheme {
       ).copyWith(
         surfaceTint: AppColors.transparentGrey, // Adding custom color
       ),
-      // backgroundColor: AppColors.black,
       scaffoldBackgroundColor: AppColors.black,
       textTheme: TextThemes.darkTextTheme,
       primaryTextTheme: TextThemes.primaryTextTheme,

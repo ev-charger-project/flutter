@@ -22,7 +22,7 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).colorScheme.secondary,
         elevation: 0,
         automaticallyImplyLeading: false,
         flexibleSpace: Padding(
