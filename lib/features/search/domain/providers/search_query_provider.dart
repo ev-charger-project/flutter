@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final SearchQueryProvider = StateProvider<String>((ref) {
+final StateProvider<String> SearchQueryProvider = StateProvider<String>((ref) {
   return '';
 });

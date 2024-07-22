@@ -18,47 +18,46 @@ class SuggestionList extends ConsumerWidget {
     final suggestions = ref.watch(suggestionProvider);
 
     final screenSize = MediaQuery.of(context).size;
-    final isPortrait =
-        MediaQuery.of(context).orientation == Orientation.portrait;
 
     return suggestions.when(
       data: (suggestions) {
         return suggestions.isEmpty
-            ? Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    'assets/images/not_found.png',
-                    width: isPortrait
-                        ? screenSize.width * 0.6
-                        : screenSize.width * 0.4,
-                  ),
-                  SizedBox(
-                    height: screenSize.height * 0.01,
-                  ),
-                  Text(
-                    "Not found",
-                    style: Theme.of(context)
-                        .textTheme
-                        .displayLarge
-                        ?.copyWith(fontSize: isPortrait ? 24 : 28),
-                    textAlign: TextAlign.center,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: screenSize.width * 0.1, vertical: 20),
-                    child: Text(
-                      "We're sorry, the key word you were looking for could not be found. Please try again with another key words.",
+            ? SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      'assets/images/not_found.png',
+                      width: screenSize.width * 0.4,
+                    ),
+                    SizedBox(
+                      height: screenSize.height * 0.01,
+                    ),
+                    Text(
+                      "Not found",
                       style: Theme.of(context)
                           .textTheme
-                          .bodyLarge
-                          ?.copyWith(fontSize: isPortrait ? 16 : 20),
+                          .displayLarge
+                          ?.copyWith(fontSize: 28),
                       textAlign: TextAlign.center,
                     ),
-                  ),
-                ],
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: screenSize.width * 0.1, vertical: 20),
+                      child: Text(
+                        "We're sorry, the key word you were looking for could not be found. Please try again with another key words.",
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyLarge
+                            ?.copyWith(fontSize: 20),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ],
+                ),
               )
             : ListView.builder(
+                shrinkWrap: true,
                 itemCount: suggestions.length,
                 itemBuilder: (context, index) {
                   final suggestion = suggestions[index];
@@ -67,8 +66,8 @@ class SuggestionList extends ConsumerWidget {
                       ListTile(
                         leading: SvgPicture.asset(
                           'assets/icons/station_marker.svg',
-                          width: isPortrait ? 50 : 60,
-                          height: isPortrait ? 50 : 60,
+                          width: 60,
+                          height: 60,
                         ),
                         title: Text(
                           suggestion.locationName,
@@ -83,7 +82,9 @@ class SuggestionList extends ConsumerWidget {
                           ref.read(selectedLocationIdProvider.notifier).state =
                               suggestion.locationId;
                           ref.read(isInfoVisibleProvider.notifier).state = true;
-                          context.router.push(MapRoute(longitude: suggestion.longitude,latitude: suggestion.latitude));
+                          context.router.push(MapRoute(
+                              longitude: suggestion.longitude,
+                              latitude: suggestion.latitude));
                         },
                       ),
                       Divider(

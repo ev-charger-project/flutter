@@ -45,46 +45,45 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
     final searchQuery = ref.watch(SearchQueryProvider);
 
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: OrientationBuilder(
-        builder: (context, orientation) {
-          return Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.only(
-                  top: screenSize.height * 0.05,
-                  left: screenSize.width * 0.05,
-                  right: screenSize.width * 0.05,
-                ),
-                child: SearchBarAndFilter(
-                  controller: _searchController,
-                  focusNode: _searchFocusNode,
-                  onChanged: (text) {
-                    ref.read(SearchQueryProvider.notifier).state = text;
-                  },
-                  isTyping: true,
-                  onFilterPressed: () => context.router.push(FilterRoute()),
-                ),
+      // to ensure the keyboard doesn't cover the suggestions list
+      resizeToAvoidBottomInset: true,
+
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Padding(
+            padding: EdgeInsets.only(
+              top: screenSize.height * 0.05,
+              left: screenSize.width * 0.05,
+              right: screenSize.width * 0.05,
+            ),
+            child: SearchBarAndFilter(
+              controller: _searchController,
+              focusNode: _searchFocusNode,
+              onChanged: (text) {
+                ref.read(SearchQueryProvider.notifier).state = text;
+              },
+              isTyping: true,
+              onFilterPressed: () => context.router.push(const FilterRoute()),
+            ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.only(
+                left: screenSize.width * 0.075,
+                right: screenSize.width * 0.075,
               ),
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsets.only(
-                    left: screenSize.width * 0.075,
-                    right: screenSize.width * 0.075,
-                  ),
-                  child: searchQuery.isEmpty
-                      ? Center(
-                    child: Text(
-                      'Enter search text to see results.',
-                      style: Theme.of(context).textTheme.bodySmall,
-                    ),
-                  )
-                      : const SuggestionList(),
-                ),
-              ),
-            ],
-          );
-        },
+              child: searchQuery.isEmpty
+                  ? Center(
+                      child: Text(
+                        'Enter search text to see results.',
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                    )
+                  : const SuggestionList(),
+            ),
+          ),
+        ],
       ),
       bottomNavigationBar: const SimpleBottomAppBar(),
     );
