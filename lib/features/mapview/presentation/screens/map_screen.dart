@@ -169,9 +169,9 @@ class _MapScreenState extends ConsumerState<MapScreen>
                 onChanged: (text) {
                   ref.read(SearchQueryProvider.notifier).state = text;
                 },
-                isTyping: true,
-                onFilterPressed: () => context.router.push(FilterRoute()),
-                textFieldInteractable: false, focusNode: null,
+                onFilterPressed: () => context.router.push(const FilterRoute()),
+                textFieldInteractable: false,
+                focusNode: null,
               ),
             ),
           ),
