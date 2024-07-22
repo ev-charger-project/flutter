@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:ev_charger/shared/presentation/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -47,7 +48,7 @@ class SearchBarAndFilter extends ConsumerWidget {
           Expanded(
             child: Container(
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.secondary,
+                color: Theme.of(context).lightGrey,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: IgnorePointer(
