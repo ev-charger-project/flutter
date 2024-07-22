@@ -18,18 +18,24 @@ class SearchScreen extends ConsumerStatefulWidget {
 
 class _SearchScreenState extends ConsumerState<SearchScreen> {
   late TextEditingController _searchController;
+  late FocusNode _searchFocusNode;
 
   @override
   void initState() {
     super.initState();
-    // Initialize the TextEditingController with the current search query
     final currentSearchQuery = ref.read(SearchQueryProvider);
     _searchController = TextEditingController(text: currentSearchQuery);
+    _searchFocusNode = FocusNode();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _searchFocusNode.requestFocus();
+    });
   }
 
   @override
   void dispose() {
     _searchController.dispose();
+    _searchFocusNode.dispose();
     super.dispose();
   }
 
@@ -52,6 +58,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                 ),
                 child: SearchBarAndFilter(
                   controller: _searchController,
+                  focusNode: _searchFocusNode,
                   onChanged: (text) {
                     ref.read(SearchQueryProvider.notifier).state = text;
                   },
@@ -67,11 +74,11 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                   ),
                   child: searchQuery.isEmpty
                       ? Center(
-                          child: Text(
-                            'Enter search text to see results.',
-                            style: Theme.of(context).textTheme.bodySmall,
-                          ),
-                        )
+                    child: Text(
+                      'Enter search text to see results.',
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                  )
                       : const SuggestionList(),
                 ),
               ),

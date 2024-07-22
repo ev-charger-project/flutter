@@ -10,6 +10,7 @@ class SearchBarAndFilter extends ConsumerWidget {
 
   final Function(String) onChanged;
   final bool isTyping;
+  final FocusNode? focusNode;
   final VoidCallback onFilterPressed;
   final bool textFieldInteractable;
 
@@ -17,6 +18,7 @@ class SearchBarAndFilter extends ConsumerWidget {
     Key? key,
     required this.controller,
     required this.onChanged,
+    required this.focusNode,
     required this.isTyping,
     required this.onFilterPressed,
     this.textFieldInteractable = true,
@@ -51,10 +53,12 @@ class SearchBarAndFilter extends ConsumerWidget {
               child: IgnorePointer(
                 ignoring: !textFieldInteractable,
                 child: TextField(
+                  focusNode: focusNode,
                   controller: controller,
                   decoration: InputDecoration(
                     hintText: 'Search stations',
                     hintStyle: TextStyle(
+
                       color: isTyping
                           ? Colors.black
                           : Colors.black.withOpacity(0.65),
