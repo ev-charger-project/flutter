@@ -28,17 +28,14 @@ class SuggestionList extends ConsumerWidget {
                   children: [
                     Image.asset(
                       'assets/images/not_found.png',
-                      width: screenSize.width * 0.4,
+                      width: screenSize.width * 0.85,
                     ),
                     SizedBox(
                       height: screenSize.height * 0.01,
                     ),
                     Text(
                       "Not found",
-                      style: Theme.of(context)
-                          .textTheme
-                          .displayLarge
-                          ?.copyWith(fontSize: 28),
+                      style: Theme.of(context).textTheme.displayLarge,
                       textAlign: TextAlign.center,
                     ),
                     Padding(
@@ -46,10 +43,7 @@ class SuggestionList extends ConsumerWidget {
                           horizontal: screenSize.width * 0.1, vertical: 20),
                       child: Text(
                         "We're sorry, the key word you were looking for could not be found. Please try again with another key words.",
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyLarge
-                            ?.copyWith(fontSize: 20),
+                        style: Theme.of(context).textTheme.bodyMedium,
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -66,8 +60,7 @@ class SuggestionList extends ConsumerWidget {
                       ListTile(
                         leading: SvgPicture.asset(
                           'assets/icons/station_marker.svg',
-                          width: 60,
-                          height: 60,
+                          height: screenSize.height * 0.1,
                         ),
                         title: Text(
                           suggestion.locationName,

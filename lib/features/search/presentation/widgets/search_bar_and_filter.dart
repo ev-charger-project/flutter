@@ -1,3 +1,4 @@
+import 'package:ev_charger/features/search/domain/providers/search_icon_color_provider.dart';
 import 'package:ev_charger/shared/presentation/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -7,7 +8,7 @@ import 'dart:async';
 class SearchBarAndFilter extends ConsumerWidget {
   final TextEditingController controller;
   final Function(String) onChanged;
-  final bool isTyping;
+
   final FocusNode? focusNode;
   final VoidCallback onFilterPressed;
   final bool textFieldInteractable;
@@ -17,13 +18,13 @@ class SearchBarAndFilter extends ConsumerWidget {
     required this.controller,
     required this.onChanged,
     required this.focusNode,
-    required this.isTyping,
     required this.onFilterPressed,
     this.textFieldInteractable = true,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final iconColor = ref.watch(SearchIconColorProvider);
     final screenSize = MediaQuery.of(context).size;
     final isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
@@ -47,7 +48,7 @@ class SearchBarAndFilter extends ConsumerWidget {
     return Container(
       padding: padding,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.secondary,
         borderRadius: BorderRadius.circular(10),
       ),
       child: Row(
@@ -66,17 +67,12 @@ class SearchBarAndFilter extends ConsumerWidget {
                   decoration: InputDecoration(
                     hintText: 'Search stations',
                     hintStyle: TextStyle(
-                      color: isTyping
-                          ? Colors.black
-                          : Colors.black.withOpacity(0.65),
+                      color: Colors.black.withOpacity(0.65),
                       fontSize: fontSize,
                     ),
                     prefixIcon: Icon(
                       Icons.search,
-                      color: isTyping
-                          ? Colors.black
-                          : Colors.black.withOpacity(0.65),
-                      size: iconSize,
+                      color: iconColor,
                     ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
@@ -92,9 +88,7 @@ class SearchBarAndFilter extends ConsumerWidget {
                     contentPadding: EdgeInsets.all(8.0),
                   ),
                   style: TextStyle(
-                    color: isTyping
-                        ? Colors.black
-                        : Colors.black.withOpacity(0.65),
+                    color: Colors.black,
                     fontFamily: 'Exo',
                     fontSize: fontSize,
                   ),

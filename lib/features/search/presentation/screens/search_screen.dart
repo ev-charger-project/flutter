@@ -63,7 +63,6 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
               onChanged: (text) {
                 ref.read(SearchQueryProvider.notifier).state = text;
               },
-              isTyping: true,
               onFilterPressed: () => context.router.push(const FilterRoute()),
             ),
           ),
