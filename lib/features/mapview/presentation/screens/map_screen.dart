@@ -78,7 +78,7 @@ class _MapScreenState extends ConsumerState<MapScreen>
   }
 
   Future<void> _checkLocationPermission() async {
-    // await ref.read(permissionProvider.notifier).reCheckPermission();
+    await ref.read(permissionProvider.notifier).reCheckPermission();
     final permissionState = ref.read(permissionProvider);
 
     if (!permissionState.hasPermission) {

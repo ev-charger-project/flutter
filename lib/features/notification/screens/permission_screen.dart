@@ -5,6 +5,8 @@ import '../../../shared/domain/providers/permission/permission_provider.dart';
 import '../widgets/permission_button.dart';
 import '../widgets/permission_content.dart';
 
+
+
 class PermissionScreen extends ConsumerStatefulWidget {
   const PermissionScreen({super.key});
 
@@ -13,7 +15,7 @@ class PermissionScreen extends ConsumerStatefulWidget {
 }
 
 class _PermissionScreenState extends ConsumerState<PermissionScreen> with WidgetsBindingObserver {
-  bool _wasInBackground = false;
+  bool openSetting = false;
 
   @override
   void initState() {
@@ -27,10 +29,18 @@ class _PermissionScreenState extends ConsumerState<PermissionScreen> with Widget
     super.dispose();
   }
 
+  late AppLifecycleState _notification;
+
+
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.inactive || state == AppLifecycleState.paused) {
-      _wasInBackground = true;
+    setState(() {
+      _notification = state;
+      print(_notification);
+    });
+    if (_notification == AppLifecycleState.resumed && openSetting == true) {
+      print("after open app setting");
+      ref.read(permissionProvider.notifier).checkAndRequestPermission();
     }
   }
 
@@ -38,17 +48,8 @@ class _PermissionScreenState extends ConsumerState<PermissionScreen> with Widget
   Widget build(BuildContext context) {
     final ref = this.ref;
     final permissionState = ref.watch(permissionProvider);
-    final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (_wasInBackground) {
-        _wasInBackground = false;
-        ref.read(permissionProvider.notifier).checkAndRequestPermission();
-        print('after open app setting');
-      }
-    });
-
+    final height = MediaQuery.sizeOf(context).height;
+    final width = MediaQuery.sizeOf(context).width;
     return AlertDialog(
       content: SizedBox(
         height: height * 0.4,
@@ -62,6 +63,7 @@ class _PermissionScreenState extends ConsumerState<PermissionScreen> with Widget
               buttonType: permissionState.deniedForever ? ButtonType.openSettings : ButtonType.enableLocation,
               onTap: () async {
                 if (permissionState.deniedForever) {
+                  openSetting = true;
                   await ref.read(permissionProvider.notifier).openSettings();
                   Navigator.of(context).pop();
                 } else {
