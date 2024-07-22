@@ -7,9 +7,13 @@ class PermissionProvider extends StateNotifier<PermissionState> {
   Future<void> checkAndRequestPermission() async {
     LocationPermission permission = await Geolocator.checkPermission();
 
-
-    if (permission == LocationPermission.denied || permission == LocationPermission.deniedForever) {
+    if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
+
+      if (permission == LocationPermission.deniedForever) {
+        await Geolocator.openAppSettings();
+      }
+
     }
 
     _updatePermissionState(permission);
