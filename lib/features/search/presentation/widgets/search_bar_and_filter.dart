@@ -1,14 +1,11 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:ev_charger/shared/presentation/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
-import '../../../../routes/app_route.dart';
+import 'dart:async';
 
 class SearchBarAndFilter extends ConsumerWidget {
   final TextEditingController controller;
-
   final Function(String) onChanged;
   final bool isTyping;
   final FocusNode? focusNode;
@@ -16,14 +13,14 @@ class SearchBarAndFilter extends ConsumerWidget {
   final bool textFieldInteractable;
 
   const SearchBarAndFilter({
-    Key? key,
+    super.key,
     required this.controller,
     required this.onChanged,
     required this.focusNode,
     required this.isTyping,
     required this.onFilterPressed,
     this.textFieldInteractable = true,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -36,6 +33,16 @@ class SearchBarAndFilter extends ConsumerWidget {
     final EdgeInsets padding =
         EdgeInsets.symmetric(horizontal: 10, vertical: isPortrait ? 20 : 15);
     final double iconSize = isPortrait ? 20 : 24;
+
+    // Implementing Debouncing for Search Bar (input delay)
+    Timer? _debounce;
+
+    void _onSearchChanged(String query) {
+      if (_debounce?.isActive ?? false) _debounce?.cancel();
+      _debounce = Timer(const Duration(milliseconds: 300), () {
+        onChanged(query);
+      });
+    }
 
     return Container(
       padding: padding,
@@ -59,7 +66,6 @@ class SearchBarAndFilter extends ConsumerWidget {
                   decoration: InputDecoration(
                     hintText: 'Search stations',
                     hintStyle: TextStyle(
-
                       color: isTyping
                           ? Colors.black
                           : Colors.black.withOpacity(0.65),
@@ -78,7 +84,7 @@ class SearchBarAndFilter extends ConsumerWidget {
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
+                      borderSide: const BorderSide(
                         color: Color(0xFFA8CAB1),
                         width: 2,
                       ),
@@ -92,7 +98,7 @@ class SearchBarAndFilter extends ConsumerWidget {
                     fontFamily: 'Exo',
                     fontSize: fontSize,
                   ),
-                  onChanged: onChanged,
+                  onChanged: _onSearchChanged,
                 ),
               ),
             ),
@@ -100,7 +106,7 @@ class SearchBarAndFilter extends ConsumerWidget {
           SizedBox(width: screenSize.width * 0.015),
           Container(
             decoration: BoxDecoration(
-              color: Color(0xFFECE6F0),
+              color: const Color(0xFFECE6F0),
               borderRadius: BorderRadius.circular(10),
             ),
             child: IconButton(

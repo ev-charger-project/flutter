@@ -45,10 +45,13 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
     final searchQuery = ref.watch(SearchQueryProvider);
 
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      // to ensure the keyboard doesn't cover the suggestions list
+      resizeToAvoidBottomInset: true,
+
       body: OrientationBuilder(
         builder: (context, orientation) {
           return Column(
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Padding(
                 padding: EdgeInsets.only(
@@ -63,7 +66,8 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                     ref.read(SearchQueryProvider.notifier).state = text;
                   },
                   isTyping: true,
-                  onFilterPressed: () => context.router.push(FilterRoute()),
+                  onFilterPressed: () =>
+                      context.router.push(const FilterRoute()),
                 ),
               ),
               Expanded(
@@ -74,11 +78,11 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                   ),
                   child: searchQuery.isEmpty
                       ? Center(
-                    child: Text(
-                      'Enter search text to see results.',
-                      style: Theme.of(context).textTheme.bodySmall,
-                    ),
-                  )
+                          child: Text(
+                            'Enter search text to see results.',
+                            style: Theme.of(context).textTheme.bodySmall,
+                          ),
+                        )
                       : const SuggestionList(),
                 ),
               ),
