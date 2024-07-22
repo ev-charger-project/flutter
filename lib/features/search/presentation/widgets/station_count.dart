@@ -1,3 +1,5 @@
+import 'package:ev_charger/shared/presentation/theme/app_colors.dart';
+import 'package:ev_charger/shared/presentation/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -14,29 +16,27 @@ class _StationCountState extends ConsumerState<StationCount> {
 
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
+
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 12),
+      padding: EdgeInsets.symmetric(vertical: screenSize.height * 0.012),
       child: Container(
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.all(screenSize.height * 0.016),
         decoration: BoxDecoration(
-            color: Color(0xFFE9E9E9), borderRadius: BorderRadius.circular(8)),
+            color: AppColors.lightGrey, borderRadius: BorderRadius.circular(8)),
         child: Column(
           children: [
-            const Row(
+            Row(
               children: [
                 Text(
                   textAlign: TextAlign.left,
                   "Station Count",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: Theme.of(context).textTheme.displaySmall,
                 ),
               ],
             ),
             const Divider(
-              color: Color(0xFFCBCBCB),
+              color: AppColors.dividerColor,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -48,7 +48,7 @@ class _StationCountState extends ConsumerState<StationCount> {
 
                       // this code is for when users have to choose 1 and only 1 container, no detoggle
                       containerColors =
-                          List<Color>.filled(4, Color(0xFFBCDEC5));
+                          List<Color>.filled(4, Theme.of(context).lightGreen);
                       containerColors[index] = Color(0xFF34A853);
 
                       /*// this code is for when users want to detoggle the selected container

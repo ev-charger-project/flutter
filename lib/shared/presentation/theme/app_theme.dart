@@ -41,10 +41,8 @@ class AppTheme {
         primary: AppColors.primary,
         secondary: AppColors.white,
         error: AppColors.error,
-
       ).copyWith(
         surfaceTint: AppColors.transparentGrey,
-
       ),
       appBarTheme: const AppBarTheme(
         elevation: 0,
@@ -52,9 +50,12 @@ class AppTheme {
       ),
     );
   }
-
 }
+
 extension CustomTheme on ThemeData {
   Color get lightGrey => AppColors.lightGrey;
-  Color get powerOutputGrey  => AppColors.moreGrey;
+
+  Color get lightGreen => AppColors.lightGreen;
+
+  Color get powerOutputGrey => AppColors.moreGrey;
 }
