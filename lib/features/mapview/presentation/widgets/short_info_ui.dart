@@ -26,7 +26,8 @@ class ShortInfoUI extends ConsumerWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.015),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: MediaQuery.of(context).size.width * 0.015),
                   child: const LocationNameAddress(),
                 ),
                 Divider(

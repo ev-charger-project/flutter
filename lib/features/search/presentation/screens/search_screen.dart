@@ -78,7 +78,6 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
               : const SuggestionList(),
         ))
       ]),
-
       bottomNavigationBar: const SimpleBottomAppBar(),
     );
   }

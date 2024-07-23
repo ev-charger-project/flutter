@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../data/data_source/local/storage_service.dart';
 import 'local_storage_service_provider.dart';
 
-
 final appThemeProvider = StateNotifierProvider<AppThemeModeNotifier, ThemeMode>(
   (ref) {
     final storage = ref.watch(localStorageServiceProvider);

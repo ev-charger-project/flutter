@@ -12,4 +12,3 @@ class PowerOutputEntity with _$PowerOutputEntity {
     required double voltage,
   }) = _PowerOutputEntity;
 }
-

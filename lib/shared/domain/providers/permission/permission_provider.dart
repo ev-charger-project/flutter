@@ -13,7 +13,6 @@ class PermissionProvider extends StateNotifier<PermissionState> {
       if (permission == LocationPermission.deniedForever) {
         await Geolocator.openAppSettings();
       }
-
     }
 
     _updatePermissionState(permission);
@@ -26,7 +25,7 @@ class PermissionProvider extends StateNotifier<PermissionState> {
   }
 
   Future<bool> openSettings() async {
-    return  await Geolocator.openAppSettings();
+    return await Geolocator.openAppSettings();
   }
 
   void _updatePermissionState(LocationPermission permission) {
@@ -46,8 +45,6 @@ class PermissionProvider extends StateNotifier<PermissionState> {
         break;
     }
   }
-
-
 }
 
 class PermissionState {
@@ -56,7 +53,8 @@ class PermissionState {
 
   PermissionState({required this.hasPermission, required this.deniedForever});
 
-  factory PermissionState.initial() => PermissionState(hasPermission: false, deniedForever: false);
+  factory PermissionState.initial() =>
+      PermissionState(hasPermission: false, deniedForever: false);
 
   PermissionState copyWith({bool? hasPermission, bool? deniedForever}) {
     return PermissionState(
@@ -66,6 +64,7 @@ class PermissionState {
   }
 }
 
-final permissionProvider = StateNotifierProvider<PermissionProvider, PermissionState>((ref) {
+final permissionProvider =
+    StateNotifierProvider<PermissionProvider, PermissionState>((ref) {
   return PermissionProvider();
 });

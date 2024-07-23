@@ -10,7 +10,6 @@ import 'package:flutter_svg/svg.dart';
 import '../../../../shared/domain/providers/location/user_location_provider.dart';
 import '../../../../shared/domain/providers/permission/permission_provider.dart';
 import '../../../notification/screens/permission_screen.dart';
-import 'package:ev_charger/shared/data/data_source/remote/postgresql/agest_storage_service.dart';
 
 import '../providers/distance_duration_provider.dart';
 
@@ -26,9 +25,15 @@ class LocationNameAddress extends ConsumerWidget {
         data: (location) => Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-                location.name,
-                style: Theme.of(context).textTheme.displayLarge
+            Padding(
+              padding: EdgeInsets.only(
+                  right: (MediaQuery.of(context).size.width * 0.15)),
+              child: Text(
+                _breakTextEarly(location.name, context,
+                    Theme.of(context).textTheme.displayLarge!),
+                style: Theme.of(context).textTheme.displayLarge,
+                textAlign: TextAlign.start,
+              ),
             ),
             const SizedBox(height: 10),
             Text(
@@ -48,6 +53,31 @@ class LocationNameAddress extends ConsumerWidget {
         error: (error, stack) => Center(child: Text('Error: $error')),
       ),
     );
+  }
+
+  String _breakTextEarly(String text, BuildContext context, TextStyle style) {
+    final maxWidth =
+        MediaQuery.of(context).size.width - 32; // Considering padding
+    final textPainter = TextPainter(
+      text: TextSpan(text: text, style: style),
+      maxLines: 1,
+      textDirection: TextDirection.ltr,
+    )..layout(maxWidth: maxWidth);
+
+    if (textPainter.didExceedMaxLines) {
+      for (int i = 0; i < text.length; i++) {
+        textPainter.text = TextSpan(
+            text: text.substring(0, i) + "\n" + text.substring(i),
+            style: style);
+        textPainter.layout(maxWidth: maxWidth);
+
+        if (!textPainter.didExceedMaxLines) {
+          return text.substring(0, i) + "\n" + text.substring(i);
+        }
+      }
+    }
+
+    return text;
   }
 }
 
@@ -69,23 +99,29 @@ class DistanceFromUser extends ConsumerWidget {
     final userLocation = ref.watch(userLocationProvider);
 
     if (permissionState.hasPermission && userLocation != null) {
-      final distanceAndDurationAsyncValue = ref.watch(distanceAndDurationProvider);
+      final distanceAndDurationAsyncValue =
+          ref.watch(distanceAndDurationProvider);
 
       return distanceAndDurationAsyncValue.when(
         data: (data) {
           distance = data[0];
           time = data[1];
-          return _buildContent(distance, time, permissionState.hasPermission, context);
+          return _buildContent(
+              distance, time, permissionState.hasPermission, context);
         },
-        loading: () => _buildContent('Loading...', 'Loading...', permissionState.hasPermission, context),
-        error: (error, stack) => _buildContent('Error', 'Error', permissionState.hasPermission, context),
+        loading: () => _buildContent(
+            'Loading...', 'Loading...', permissionState.hasPermission, context),
+        error: (error, stack) => _buildContent(
+            'Error', 'Error', permissionState.hasPermission, context),
       );
     } else {
-      return _buildContent(distance, time, permissionState.hasPermission, context);
+      return _buildContent(
+          distance, time, permissionState.hasPermission, context);
     }
   }
 
-  Widget _buildContent(String distance, String time, bool userAllowAccess, BuildContext context) {
+  Widget _buildContent(String distance, String time, bool userAllowAccess,
+      BuildContext context) {
     return Row(
       children: [
         SvgPicture.asset('assets/icons/location_icon.svg'),
@@ -93,9 +129,9 @@ class DistanceFromUser extends ConsumerWidget {
         Text(
           distance,
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-            color: Colors.black,
-            fontSize: 20,
-          ),
+                color: Colors.black,
+                fontSize: 20,
+              ),
         ),
         const SizedBox(width: 20),
         SvgPicture.asset('assets/icons/car_icon.svg'),

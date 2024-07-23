@@ -4,7 +4,8 @@ import 'package:ev_charger/shared/data/data_source/remote/postgresql/agest_stora
 import '../../../../shared/domain/providers/charger/charger_provider.dart';
 import '../../../../shared/domain/providers/location/user_location_provider.dart';
 
-final distanceAndDurationProvider = FutureProvider.autoDispose<List<String>>((ref) async {
+final distanceAndDurationProvider =
+    FutureProvider.autoDispose<List<String>>((ref) async {
   final userLocation = ref.watch(userLocationProvider);
   final locationAsyncValue = ref.watch(locationProvider);
 

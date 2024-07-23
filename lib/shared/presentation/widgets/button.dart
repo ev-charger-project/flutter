@@ -68,7 +68,6 @@ class _ButtonState extends State<Button> {
 
   @override
   Widget build(BuildContext context) {
-
     return Expanded(
       child: GestureDetector(
         onTapDown: _handleTapDown,

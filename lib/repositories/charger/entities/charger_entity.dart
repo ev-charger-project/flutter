@@ -18,5 +18,4 @@ class Port with _$Port {
     required PowerPlugTypeEntity power_plug_type,
     required PowerOutputEntity power_model,
   }) = _PortDataModel;
-
 }

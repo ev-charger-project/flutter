@@ -19,20 +19,22 @@ class ChargerNum extends ConsumerWidget {
         final Set<String> uniquePorts = {};
         for (var charger in locationEntity.ev_chargers) {
           for (var port in charger.ports) {
-            uniquePorts.add('${port.power_plug_type.plugType}-${port.power_plug_type.powerModel}');
+            uniquePorts.add(
+                '${port.power_plug_type.plugType}-${port.power_plug_type.powerModel}');
           }
         }
         final int uniquePortCount = uniquePorts.length;
 
         return Container(
-          padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.015),
+          padding: EdgeInsets.symmetric(
+              horizontal: MediaQuery.of(context).size.width * 0.015),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
                 children: List.generate(
                   uniquePortCount,
-                      (index) => Padding(
+                  (index) => Padding(
                     padding: const EdgeInsets.all(2.5),
                     child: SvgPicture.asset('assets/icons/charger_icon.svg'),
                   ),

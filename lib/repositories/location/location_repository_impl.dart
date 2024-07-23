@@ -14,7 +14,4 @@ class LocationRepositoryImpl extends LocationRepository {
     final result = LocationMapper().toEntity(locationDataModelResult);
     return result;
   }
-
-
-
 }

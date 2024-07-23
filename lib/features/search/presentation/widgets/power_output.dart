@@ -29,10 +29,8 @@ class _PowerOutputState extends ConsumerState<PowerOutput> {
           children: [
             Row(
               children: [
-                Text(
-                  "Power Output",
-                  style: Theme.of(context).primaryTextTheme.displaySmall
-                ),
+                Text("Power Output",
+                    style: Theme.of(context).primaryTextTheme.displaySmall),
               ],
             ),
             Divider(

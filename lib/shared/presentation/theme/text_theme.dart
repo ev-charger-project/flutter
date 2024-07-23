@@ -16,7 +16,6 @@ class TextThemes {
       displayMedium: AppTextStyles.b2,
       displaySmall: AppTextStyles.b3,
       headlineMedium: AppTextStyles.b4,
-
     );
   }
 

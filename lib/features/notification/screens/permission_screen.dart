@@ -27,7 +27,9 @@ class PermissionScreen extends ConsumerWidget {
               buttonType: ButtonType.enableLocation,
 
               onTap: () async {
-                await ref.read(permissionProvider.notifier).checkAndRequestPermission();
+                await ref
+                    .read(permissionProvider.notifier)
+                    .checkAndRequestPermission();
                 Navigator.of(context).pop();
                 // if (permissionState.deniedForever) {
                 //   await ref.read(permissionProvider.notifier).openSettings();
@@ -38,7 +40,9 @@ class PermissionScreen extends ConsumerWidget {
                 // }
               },
             ),
-            SizedBox(height: height * 0.02,),
+            SizedBox(
+              height: height * 0.02,
+            ),
             PermissionButton(
               buttonType: ButtonType.cancel,
               onTap: () {
