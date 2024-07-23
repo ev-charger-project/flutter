@@ -21,19 +21,23 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await ref.read(permissionProvider.notifier).reCheckPermission();
-      final permissionState = ref.read(permissionProvider);
+    Timer(const Duration(seconds: 2), () {
+      WidgetsBinding.instance.addPostFrameCallback((_) async {
+        await ref.read(permissionProvider.notifier).reCheckPermission();
+        final permissionState = ref.read(permissionProvider);
 
-      if (!permissionState.hasPermission) {
-        showDialog(
-          context: context,
-          builder: (context) => const PermissionScreen(),
-        );
-        context.router.replace(MapRoute());
-      } else {
-        context.router.replace(MapRoute());
-      }
+        if (permissionState.hasPermission) {
+          context.router.replace(MapRoute());
+        } else {
+          // Show permission dialog and then navigate to the map route after the user interaction
+          showDialog(
+            context: context,
+            builder: (context) => const PermissionScreen(),
+          ).then((_) {
+            context.router.replace(MapRoute());
+          });
+        }
+      });
     });
   }
 
