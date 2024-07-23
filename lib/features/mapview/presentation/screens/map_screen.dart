@@ -155,6 +155,7 @@ class _MapScreenState extends ConsumerState<MapScreen>
               }
             },
             onCameraIdle: () async {
+              print('reload marker');
               final GoogleMapController controller = await _controller.future;
               LatLngBounds visibleRegion = await controller.getVisibleRegion();
               LatLng center = LatLng(

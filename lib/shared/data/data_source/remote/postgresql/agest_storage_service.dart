@@ -95,13 +95,11 @@ class AgestStorageService extends RemoteStorageService {
         'origins': '$userLat,$userLong',
         'destinations': '$desLat,$desLong',
       });
-      print("response: $response");
       if (response.statusCode == 200) {
         List<String> result = [
           response.data['rows'][0]['elements'][0]['distance']['text'],
           '${response.data['rows'][0]['elements'][0]['duration_in_traffic']['value'] ~/ 60} mins',
         ];
-        print(result);
         return result;
       } else {
         throw Exception('Error code: ${response.statusCode}');
