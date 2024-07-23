@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:ev_charger/shared/domain/providers/location/location_provider.dart';
 import 'package:ev_charger/shared/domain/providers/remote_storage_service_provider.dart';
 import 'package:flutter/cupertino.dart';
@@ -71,20 +73,19 @@ class DistanceFromUser extends ConsumerWidget {
 
       return distanceAndDurationAsyncValue.when(
         data: (data) {
-          print('check data: $data');
           distance = data[0];
           time = data[1];
-          return _buildContent(distance, time, context);
+          return _buildContent(distance, time, permissionState.hasPermission, context);
         },
-        loading: () => _buildContent('Loading...', 'Loading...', context),
-        error: (error, stack) => _buildContent('Error', 'Error', context),
+        loading: () => _buildContent('Loading...', 'Loading...', permissionState.hasPermission, context),
+        error: (error, stack) => _buildContent('Error', 'Error', permissionState.hasPermission, context),
       );
     } else {
-      return _buildContent('X', 'X', context);
+      return _buildContent(distance, time, permissionState.hasPermission, context);
     }
   }
 
-  Widget _buildContent(String distance, String time, BuildContext context) {
+  Widget _buildContent(String distance, String time, bool userAllowAccess, BuildContext context) {
     return Row(
       children: [
         SvgPicture.asset('assets/icons/location_icon.svg'),
@@ -103,6 +104,22 @@ class DistanceFromUser extends ConsumerWidget {
           time,
           style: Theme.of(context).textTheme.bodyMedium,
         ),
+        if (!userAllowAccess) ...[
+          const SizedBox(width: 20),
+          GestureDetector(
+            onTap: () {
+              showDialog(
+                context: context,
+                builder: (context) => const PermissionScreen(),
+              );
+            },
+            child: const Icon(
+              Icons.info_outline,
+              color: Colors.red,
+              size: 30.0,
+            ),
+          ),
+        ],
       ],
     );
   }
