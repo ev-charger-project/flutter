@@ -23,7 +23,7 @@ class AppTextStyles {
   );
 
   static const TextStyle bodyXs = TextStyle(
-    fontSize: 10,
+    fontSize: 12,
     fontWeight: FontWeight.w300,
     fontFamily: fontFamily,
   );
