@@ -49,12 +49,14 @@ class _MapScreenState extends ConsumerState<MapScreen>
         zoom: 16,
       );
     }
-    return CameraPosition(
-      target: currentLocation != null
-          ? LatLng(currentLocation.latitude, currentLocation.longitude)
-          : _fixedLocation,
-      zoom: 16,
-    );
+    else {
+      return CameraPosition(
+        target: currentLocation != null
+            ? LatLng(currentLocation.latitude, currentLocation.longitude)
+            : _fixedLocation,
+        zoom: 16,
+      );
+    }
   }
 
   @override
@@ -64,16 +66,26 @@ class _MapScreenState extends ConsumerState<MapScreen>
 
     WidgetsBinding.instance.addObserver(this);
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _checkLocationPermission();
+    print('init state');
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await ref.read(permissionProvider.notifier).reCheckPermission();
+      final permissionState = ref.read(permissionProvider);
+
+      if (!permissionState.hasPermission) {
+        showDialog(
+          context: context,
+          builder: (context) => const PermissionScreen(),
+        );
+      }
     });
   }
 
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
-    _mapController?.dispose();
-    _searchController.dispose();
+    // _mapController?.dispose();
+    // _searchController.dispose();
     super.dispose();
   }
 

@@ -1,4 +1,5 @@
 import 'package:ev_charger/shared/domain/providers/location/location_provider.dart';
+import 'package:ev_charger/shared/domain/providers/remote_storage_service_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -6,6 +7,7 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../../../shared/domain/providers/permission/permission_provider.dart';
 import '../../../notification/screens/permission_screen.dart';
+import 'package:ev_charger/shared/data/data_source/remote/postgresql/agest_storage_service.dart';
 
 class LocationNameAddress extends ConsumerWidget {
   const LocationNameAddress({super.key});
@@ -45,18 +47,16 @@ class DistanceFromUser extends ConsumerWidget {
   const DistanceFromUser({
     super.key,
   });
-
+  
+  
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     String distance = '~ km';
     String time = '~ mins';
     final permissionState = ref.watch(permissionProvider);
 
-
     if (permissionState.hasPermission) {
-      final map = {'distance': '6.21 km', 'time': '89 mins'};
-      distance = map['distance']!;
-      time = map['time']!;
+      
     }
 
     void handleButtonTap() {

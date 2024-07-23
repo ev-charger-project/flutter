@@ -5,7 +5,7 @@ import 'package:ev_charger/repositories/suggestion/data_models/suggestion_data_m
 import 'package:ev_charger/shared/data/data_source/remote/remote_storage_service.dart';
 import 'package:dio/dio.dart';
 
-class PostgresqlStorageService extends RemoteStorageService {
+class AgestStorageService extends RemoteStorageService {
   final Dio _dio = Dio();
 
   @override
@@ -73,6 +73,34 @@ class PostgresqlStorageService extends RemoteStorageService {
             .map((item) =>
             SuggestionDataModel.fromJson(item as Map<String, dynamic>))
             .toList();
+      } else {
+        throw Exception('Error code: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error: $e');
+      if (e is DioException && e.response != null) {
+        throw Exception('Error code: ${e.response?.statusCode}');
+      } else {
+        throw Exception('An unknown error occurred');
+      }
+    }
+  }
+
+  @override
+  Future<List<String>> fetchDistanceAndDuration(double userLat, double userLong, double desLat, double desLong) async {
+    const apiKey = 'AIzaSyAGYJacplt2I8syt0aY4GXfSNXhKdsXUgM';
+    const url = 'https://maps.googleapis.com/maps/api/distancematrix/json?departure_time=now &key=$apiKey';
+    try {
+      final response = await _dio.get(url, queryParameters: {
+        'origins': '$userLat,$userLong',
+        'destinations': '$desLat,$desLong',
+      });
+      if (response.statusCode == 200) {
+        List<String> result = [
+          response.data['rows'][0]['elements'][0]['distance']['text'],
+          '${response.data['rows'][0]['elements'][0]['duration_in_traffic']['value'] ~/ 60}'
+        ];
+        return result;
       } else {
         throw Exception('Error code: ${response.statusCode}');
       }
