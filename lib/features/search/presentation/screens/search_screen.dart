@@ -72,17 +72,25 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                 left: screenSize.width * 0.075,
                 right: screenSize.width * 0.075,
               ),
-              child: searchQuery.isEmpty
-                  ? Center(
-                      child: Text(
-                        'Enter search text to see results.',
-                        style: Theme.of(context).textTheme.bodySmall,
-                      ),
-                    )
-                  : const SuggestionList(),
-            ),
-          ),
-        ],
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.only(
+                    left: screenSize.width * 0.04,
+                    right: screenSize.width * 0.04,
+                  ),
+                  child: searchQuery.isEmpty
+                      ? Center(
+                          child: Text(
+                            'Enter search text to see results.',
+                            style: Theme.of(context).textTheme.bodySmall,
+                          ),
+                        )
+                      : const SuggestionList(),
+                ),
+              ),
+            ],
+          );
+        },
       ),
       bottomNavigationBar: const SimpleBottomAppBar(),
     );
