@@ -43,7 +43,7 @@ class SuggestionList extends ConsumerWidget {
                           horizontal: screenSize.width * 0.1, vertical: 20),
                       child: Text(
                         "We're sorry, the key word you were looking for could not be found. Please try again with another key words.",
-                        style: Theme.of(context).textTheme.bodyMedium,
+                        style: Theme.of(context).textTheme.titleSmall,
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -58,17 +58,19 @@ class SuggestionList extends ConsumerWidget {
                   return Column(
                     children: [
                       ListTile(
-                        leading: SvgPicture.asset(
-                          'assets/icons/station_marker.svg',
-                          height: screenSize.height * 0.1,
+                        leading: Container(
+                          child: SvgPicture.asset(
+                            'assets/icons/station_marker.svg',
+                            height: screenSize.height * 0.08,
+                          ),
                         ),
                         title: Text(
                           suggestion.locationName,
-                          style: Theme.of(context).textTheme.displayMedium,
+                          style: Theme.of(context).textTheme.headlineMedium,maxLines: 2,
                         ),
                         subtitle: Text(
                           '${suggestion.street}, ${suggestion.district}, ${suggestion.city}',
-                          style: Theme.of(context).textTheme.bodySmall,
+                          style: Theme.of(context).textTheme.bodySmall, maxLines: 2,
                         ),
                         trailing: const Icon(Icons.arrow_forward_ios),
                         onTap: () {
