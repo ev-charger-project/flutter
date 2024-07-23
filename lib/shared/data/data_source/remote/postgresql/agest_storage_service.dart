@@ -89,17 +89,19 @@ class AgestStorageService extends RemoteStorageService {
   @override
   Future<List<String>> fetchDistanceAndDuration(double userLat, double userLong, double desLat, double desLong) async {
     const apiKey = 'AIzaSyAGYJacplt2I8syt0aY4GXfSNXhKdsXUgM';
-    const url = 'https://maps.googleapis.com/maps/api/distancematrix/json?departure_time=now &key=$apiKey';
+    const url = 'https://maps.googleapis.com/maps/api/distancematrix/json?departure_time=now&key=$apiKey';
     try {
       final response = await _dio.get(url, queryParameters: {
         'origins': '$userLat,$userLong',
         'destinations': '$desLat,$desLong',
       });
+      print("response: $response");
       if (response.statusCode == 200) {
         List<String> result = [
           response.data['rows'][0]['elements'][0]['distance']['text'],
-          '${response.data['rows'][0]['elements'][0]['duration_in_traffic']['value'] ~/ 60}'
+          '${response.data['rows'][0]['elements'][0]['duration_in_traffic']['value'] ~/ 60} mins',
         ];
+        print(result);
         return result;
       } else {
         throw Exception('Error code: ${response.statusCode}');

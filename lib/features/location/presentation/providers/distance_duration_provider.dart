@@ -1,23 +1,33 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ev_charger/shared/data/data_source/remote/postgresql/agest_storage_service.dart';
 
-enum PageState {
-  info,
-  charger,
-}
+import '../../../../shared/domain/providers/charger/charger_provider.dart';
+import '../../../../shared/domain/providers/location/user_location_provider.dart';
 
-class PageStateNotifier extends StateNotifier<PageState> {
-  PageStateNotifier() : super(PageState.info);
+final distanceAndDurationProvider = FutureProvider.autoDispose<List<String>>((ref) async {
+  final userLocation = ref.watch(userLocationProvider);
+  final locationAsyncValue = ref.watch(locationProvider);
 
-  void setInfo() {
-    state = PageState.info;
+  final location = locationAsyncValue.when(
+    data: (data) => data,
+    loading: () => null,
+    error: (error, stack) => null,
+  );
+
+  if (userLocation == null || location == null) {
+    return ['N/A', 'N/A'];
   }
 
-  void setCharger() {
-    state = PageState.charger;
+  try {
+    final storageService = AgestStorageService();
+    final results = await storageService.fetchDistanceAndDuration(
+      userLocation.latitude,
+      userLocation.longitude,
+      location.latitude,
+      location.longitude,
+    );
+    return results;
+  } catch (e) {
+    return ['error', 'error'];
   }
-}
-
-final pageStateProvider =
-StateNotifierProvider<PageStateNotifier, PageState>((ref) {
-  return PageStateNotifier();
 });

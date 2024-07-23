@@ -66,27 +66,18 @@ class _MapScreenState extends ConsumerState<MapScreen>
 
     WidgetsBinding.instance.addObserver(this);
 
-    print('init state');
 
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await ref.read(permissionProvider.notifier).reCheckPermission();
-      final permissionState = ref.read(permissionProvider);
-
-      if (!permissionState.hasPermission) {
-        showDialog(
-          context: context,
-          builder: (context) => const PermissionScreen(),
-        );
-      }
-    });
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    // _mapController?.dispose();
-    // _searchController.dispose();
-    super.dispose();
+    // WidgetsBinding.instance.addPostFrameCallback((_) async {
+    //   await ref.read(permissionProvider.notifier).reCheckPermission();
+    //   final permissionState = ref.read(permissionProvider);
+    //
+    //   if (!permissionState.hasPermission) {
+    //     showDialog(
+    //       context: context,
+    //       builder: (context) => const PermissionScreen(),
+    //     );
+    //   }
+    // });
   }
 
   Future<void> _checkLocationPermission() async {
