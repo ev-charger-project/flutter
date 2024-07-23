@@ -18,8 +18,6 @@ class SuggestionList extends ConsumerWidget {
     final suggestions = ref.watch(suggestionProvider);
 
     final screenSize = MediaQuery.of(context).size;
-    final isPortrait =
-        MediaQuery.of(context).orientation == Orientation.portrait;
 
     return suggestions.when(
       data: (suggestions) {
@@ -29,19 +27,17 @@ class SuggestionList extends ConsumerWidget {
                 children: [
                   Image.asset(
                     'assets/images/not_found.png',
-                    width: isPortrait
-                        ? screenSize.width * 0.6
-                        : screenSize.width * 0.4,
+                    width:  screenSize.width * 0.6,
                   ),
                   SizedBox(
-                    height: screenSize.height * 0.01,
+                    height: screenSize.height * 0.05,
                   ),
                   Text(
                     "Not found",
                     style: Theme.of(context)
                         .textTheme
                         .displayLarge
-                        ?.copyWith(fontSize: isPortrait ? 24 : 28),
+                        ?.copyWith(fontSize: 24),
                     textAlign: TextAlign.center,
                   ),
                   Padding(
@@ -52,7 +48,7 @@ class SuggestionList extends ConsumerWidget {
                       style: Theme.of(context)
                           .textTheme
                           .bodyLarge
-                          ?.copyWith(fontSize: isPortrait ? 16 : 20),
+                          ?.copyWith(fontSize: 16),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -67,16 +63,16 @@ class SuggestionList extends ConsumerWidget {
                       ListTile(
                         leading: SvgPicture.asset(
                           'assets/icons/station_marker.svg',
-                          width: isPortrait ? 50 : 60,
-                          height: isPortrait ? 50 : 60,
+                          width:50 ,
+                          height: 50 ,
                         ),
                         title: Text(
-                          suggestion.locationName,
-                          style: Theme.of(context).textTheme.displayMedium,
+                          suggestion.locationName, maxLines: 2,
+                          style: Theme.of(context).textTheme.headlineMedium,
                         ),
                         subtitle: Text(
                           '${suggestion.street}, ${suggestion.district}, ${suggestion.city}',
-                          style: Theme.of(context).textTheme.bodySmall,
+                          style: Theme.of(context).textTheme.bodySmall, maxLines: 2,
                         ),
                         trailing: const Icon(Icons.arrow_forward_ios),
                         onTap: () {

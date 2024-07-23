@@ -73,8 +73,8 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
               Expanded(
                 child: Padding(
                   padding: EdgeInsets.only(
-                    left: screenSize.width * 0.075,
-                    right: screenSize.width * 0.075,
+                    left: screenSize.width * 0.04,
+                    right: screenSize.width * 0.04,
                   ),
                   child: searchQuery.isEmpty
                       ? Center(
