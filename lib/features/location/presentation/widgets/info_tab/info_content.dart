@@ -16,7 +16,7 @@ class _InfoContentState extends ConsumerState<InfoContent> {
   final GlobalKey _textKey = GlobalKey();
 
   void _checkTextOverflow() {
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       final RenderBox renderBox = _textKey.currentContext?.findRenderObject() as RenderBox;
       final size = renderBox.size;
       final double maxHeight = 4 * Theme.of(context).textTheme.bodyMedium!.fontSize! * 1.2;
