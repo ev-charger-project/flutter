@@ -46,7 +46,6 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
-
       body: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
         Padding(
           padding: EdgeInsets.only(
