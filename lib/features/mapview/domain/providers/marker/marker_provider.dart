@@ -29,7 +29,7 @@ final markerProvider = FutureProvider.autoDispose<List<Marker>>((ref) async {
   final userLong = userLatLng.longitude;
   final markerRepository = ref.read(markerRepositoryProvider);
   final markersData = await markerRepository.fetchMarkers(userLat, userLong, 20);
-  final BitmapDescriptor stationIcon = await getCustomMarkerIcon(40);
+  final BitmapDescriptor stationIcon = await getCustomMarkerIcon(45);
 
   List<Marker> markers = [];
 
