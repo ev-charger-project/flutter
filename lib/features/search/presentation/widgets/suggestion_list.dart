@@ -64,11 +64,11 @@ class SuggestionList extends ConsumerWidget {
                         ),
                         title: Text(
                           suggestion.locationName,
-                          style: Theme.of(context).textTheme.displayMedium,
+                          style: Theme.of(context).textTheme.headlineMedium,maxLines: 2,
                         ),
                         subtitle: Text(
                           '${suggestion.street}, ${suggestion.district}, ${suggestion.city}',
-                          style: Theme.of(context).textTheme.bodySmall,
+                          style: Theme.of(context).textTheme.bodySmall, maxLines: 2,
                         ),
                         trailing: const Icon(Icons.arrow_forward_ios),
                         onTap: () {
