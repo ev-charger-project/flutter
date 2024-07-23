@@ -22,6 +22,7 @@ class SuggestionList extends ConsumerWidget {
     return suggestions.when(
       data: (suggestions) {
         return suggestions.isEmpty
+
             ? SingleChildScrollView(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -36,6 +37,7 @@ class SuggestionList extends ConsumerWidget {
                     Text(
                       "Not found",
                       style: Theme.of(context).textTheme.displayLarge,
+
                       textAlign: TextAlign.center,
                     ),
                     Padding(

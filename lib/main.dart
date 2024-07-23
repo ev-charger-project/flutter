@@ -13,12 +13,17 @@ void main() {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]).then((_) {
-  runApp(ProviderScope(
-    observers: [
-      Observers(),
-    ],
-    child: MyApp(),
-  ));
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: Color(0x8B606060),
+      statusBarIconBrightness: Brightness.light,
+    ));
+
+    runApp(ProviderScope(
+      observers: [
+        Observers(),
+      ],
+      child: MyApp(),
+    ));
   });
 }
 

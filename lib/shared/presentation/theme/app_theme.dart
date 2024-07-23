@@ -54,6 +54,7 @@ class AppTheme {
 
 extension CustomTheme on ThemeData {
   Color get lightGrey => AppColors.lightGrey;
+  Color get extraLightGrey => AppColors.extraLightGrey;
 
   Color get lightGreen => AppColors.lightGreen;
 
