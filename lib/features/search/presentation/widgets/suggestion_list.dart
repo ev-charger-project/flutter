@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:ev_charger/features/location/presentation/providers/selected_location_id_provider.dart';
 import 'package:ev_charger/features/mapview/domain/providers/is_info_visible_provider.dart';
+import 'package:ev_charger/features/splash/widgets/dots_circular_progress_painter_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -68,11 +69,13 @@ class SuggestionList extends ConsumerWidget {
                         ),
                         title: Text(
                           suggestion.locationName,
-                          style: Theme.of(context).textTheme.headlineMedium,maxLines: 2,
+                          style: Theme.of(context).textTheme.headlineMedium,
+                          maxLines: 2,
                         ),
                         subtitle: Text(
                           '${suggestion.street}, ${suggestion.district}, ${suggestion.city}',
-                          style: Theme.of(context).textTheme.bodySmall, maxLines: 2,
+                          style: Theme.of(context).textTheme.bodySmall,
+                          maxLines: 2,
                         ),
                         trailing: const Icon(Icons.arrow_forward_ios),
                         onTap: () {
@@ -93,7 +96,7 @@ class SuggestionList extends ConsumerWidget {
                 },
               );
       },
-      loading: () => const Center(child: CircularProgressIndicator()),
+      loading: () => const Center(child: DotsCircularProgressIndicator()),
       error: (error, stack) => Center(child: Text('Error: $error')),
     );
   }
