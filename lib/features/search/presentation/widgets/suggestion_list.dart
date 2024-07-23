@@ -22,7 +22,6 @@ class SuggestionList extends ConsumerWidget {
     return suggestions.when(
       data: (suggestions) {
         return suggestions.isEmpty
-
             ? SingleChildScrollView(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -37,7 +36,6 @@ class SuggestionList extends ConsumerWidget {
                     Text(
                       "Not found",
                       style: Theme.of(context).textTheme.displayLarge,
-
                       textAlign: TextAlign.center,
                     ),
                     Padding(
@@ -68,11 +66,13 @@ class SuggestionList extends ConsumerWidget {
                         ),
                         title: Text(
                           suggestion.locationName,
-                          style: Theme.of(context).textTheme.headlineMedium,maxLines: 2,
+                          style: Theme.of(context).textTheme.headlineMedium,
+                          maxLines: 2,
                         ),
                         subtitle: Text(
                           '${suggestion.street}, ${suggestion.district}, ${suggestion.city}',
-                          style: Theme.of(context).textTheme.bodySmall, maxLines: 2,
+                          style: Theme.of(context).textTheme.bodySmall,
+                          maxLines: 2,
                         ),
                         trailing: const Icon(Icons.arrow_forward_ios),
                         onTap: () {

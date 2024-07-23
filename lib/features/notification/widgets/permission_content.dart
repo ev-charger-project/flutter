@@ -14,18 +14,24 @@ class PermissionContent extends StatelessWidget {
 
     return Column(
       children: [
-        SizedBox(height: height * 0.01,),
+        SizedBox(
+          height: height * 0.01,
+        ),
         SvgPicture.asset(
           'assets/icons/notification_location_icon.svg',
           height: height * 0.12,
           width: height * 0.12,
         ),
-        SizedBox(height: height * 0.01,),
-        Text(
-            'Enable Location',
-            style: AppTextStyles.b3.copyWith(fontSize: height * 0.02),
+        SizedBox(
+          height: height * 0.01,
         ),
-        SizedBox(height: height * 0.01,),
+        Text(
+          'Enable Location',
+          style: AppTextStyles.b3.copyWith(fontSize: height * 0.02),
+        ),
+        SizedBox(
+          height: height * 0.01,
+        ),
         Text(
           textAlign: TextAlign.center,
           'We need access to your location to find EV Charging stations around you.',

@@ -45,7 +45,7 @@ class AgestStorageService extends RemoteStorageService {
       if (response.statusCode == 200) {
         return (response.data as List)
             .map((item) =>
-            ChargerMarkerDataModel.fromJson(item as Map<String, dynamic>))
+                ChargerMarkerDataModel.fromJson(item as Map<String, dynamic>))
             .toList();
       } else {
         throw Exception('Error code: ${response.statusCode}');
@@ -71,7 +71,7 @@ class AgestStorageService extends RemoteStorageService {
       if (response.statusCode == 200) {
         return (response.data as List)
             .map((item) =>
-            SuggestionDataModel.fromJson(item as Map<String, dynamic>))
+                SuggestionDataModel.fromJson(item as Map<String, dynamic>))
             .toList();
       } else {
         throw Exception('Error code: ${response.statusCode}');
@@ -87,9 +87,11 @@ class AgestStorageService extends RemoteStorageService {
   }
 
   @override
-  Future<List<String>> fetchDistanceAndDuration(double userLat, double userLong, double desLat, double desLong) async {
+  Future<List<String>> fetchDistanceAndDuration(
+      double userLat, double userLong, double desLat, double desLong) async {
     const apiKey = 'AIzaSyAGYJacplt2I8syt0aY4GXfSNXhKdsXUgM';
-    const url = 'https://maps.googleapis.com/maps/api/distancematrix/json?departure_time=now&key=$apiKey';
+    const url =
+        'https://maps.googleapis.com/maps/api/distancematrix/json?departure_time=now&key=$apiKey';
     try {
       final response = await _dio.get(url, queryParameters: {
         'origins': '$userLat,$userLong',

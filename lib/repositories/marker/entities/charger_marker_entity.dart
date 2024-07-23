@@ -13,14 +13,15 @@ class ChargerMarkerEntity with _$ChargerMarkerEntity {
     required double longitude,
   }) = _ChargerMarkerEntity;
 }
-class MarkerMapper with EntityConvertible<ChargerMarkerEntity, ChargerMarkerDataModel> {
+
+class MarkerMapper
+    with EntityConvertible<ChargerMarkerEntity, ChargerMarkerDataModel> {
   @override
   ChargerMarkerDataModel fromEntity(ChargerMarkerEntity entityObject) {
     return ChargerMarkerDataModel(
       id: entityObject.id,
       latitude: entityObject.latitude,
       longitude: entityObject.longitude,
-
     );
   }
 
@@ -30,11 +31,11 @@ class MarkerMapper with EntityConvertible<ChargerMarkerEntity, ChargerMarkerData
       id: dataModelObject.id,
       latitude: dataModelObject.latitude,
       longitude: dataModelObject.longitude,
-
     );
   }
-  List<ChargerMarkerEntity> toEntityList(List<ChargerMarkerDataModel> dataModels) {
+
+  List<ChargerMarkerEntity> toEntityList(
+      List<ChargerMarkerDataModel> dataModels) {
     return dataModels.map((dataModel) => toEntity(dataModel)).toList();
   }
-
 }

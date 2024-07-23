@@ -17,9 +17,11 @@ class _InfoContentState extends ConsumerState<InfoContent> {
 
   void _checkTextOverflow() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final RenderBox renderBox = _textKey.currentContext?.findRenderObject() as RenderBox;
+      final RenderBox renderBox =
+          _textKey.currentContext?.findRenderObject() as RenderBox;
       final size = renderBox.size;
-      final double maxHeight = 4 * Theme.of(context).textTheme.bodyMedium!.fontSize! * 1.2;
+      final double maxHeight =
+          4 * Theme.of(context).textTheme.bodyMedium!.fontSize! * 1.2;
 
       if (size.height > maxHeight) {
         setState(() {
@@ -71,11 +73,12 @@ class _InfoContentState extends ConsumerState<InfoContent> {
     return Column(
       children: List.generate(
         data.length,
-            (index) => Padding(
+        (index) => Padding(
           padding: const EdgeInsets.all(1),
           child: Container(
             color: const Color(0x99e8e8e8),
-            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+            padding:
+                const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -108,14 +111,17 @@ class _InfoContentState extends ConsumerState<InfoContent> {
           if (location.pricing != null && location.pricing!.isNotEmpty) {
             data.add({'Fee': location.pricing!});
           }
-          if (location.phoneNumber != null && location.phoneNumber!.isNotEmpty) {
+          if (location.phoneNumber != null &&
+              location.phoneNumber!.isNotEmpty) {
             data.add({'Phone': location.phoneNumber!});
           }
-          if (location.parkingLevel != null && location.parkingLevel!.isNotEmpty) {
+          if (location.parkingLevel != null &&
+              location.parkingLevel!.isNotEmpty) {
             data.add({'Parking Level': location.parkingLevel!});
           }
 
-          WidgetsBinding.instance?.addPostFrameCallback((_) => _checkTextOverflow());
+          WidgetsBinding.instance
+              ?.addPostFrameCallback((_) => _checkTextOverflow());
 
           return Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,

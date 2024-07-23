@@ -3,7 +3,8 @@ import 'package:geolocator/geolocator.dart';
 
 import '../permission/permission_provider.dart';
 
-final userLocationProvider = StateNotifierProvider<UserLocationNotifier, Position?>((ref) {
+final userLocationProvider =
+    StateNotifierProvider<UserLocationNotifier, Position?>((ref) {
   return UserLocationNotifier(ref);
 });
 
@@ -40,7 +41,8 @@ class UserLocationNotifier extends StateNotifier<Position?> {
 
   Future<void> getUserLocation() async {
     try {
-      final position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+      final position = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
       state = position;
     } catch (e) {
       state = null;

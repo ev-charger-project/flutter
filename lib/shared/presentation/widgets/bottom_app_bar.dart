@@ -79,8 +79,9 @@ class SimpleBottomAppBar extends StatelessWidget {
           Text(
             label,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              color: isSelected ? Theme.of(context).colorScheme.primary : null,
-            ),
+                  color:
+                      isSelected ? Theme.of(context).colorScheme.primary : null,
+                ),
           ),
         ],
       ),

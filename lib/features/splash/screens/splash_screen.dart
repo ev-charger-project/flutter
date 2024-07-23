@@ -31,13 +31,10 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
           builder: (context) => const PermissionScreen(),
         );
         context.router.replace(MapRoute());
-      }
-      else {
+      } else {
         context.router.replace(MapRoute());
       }
     });
-
-
   }
 
   @override

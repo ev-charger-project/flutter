@@ -23,8 +23,7 @@ class LocationDataModel with _$LocationDataModel {
   }) = _LocationDataModel;
 
   factory LocationDataModel.fromJson(Map<String, dynamic> json) =>
-    _$LocationDataModelFromJson(json);
-
+      _$LocationDataModelFromJson(json);
 }
 
 @freezed

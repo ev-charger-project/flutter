@@ -48,8 +48,7 @@ class _MapScreenState extends ConsumerState<MapScreen>
         target: LatLng(latitude, longitude),
         zoom: 16,
       );
-    }
-    else {
+    } else {
       return CameraPosition(
         target: currentLocation != null
             ? LatLng(currentLocation.latitude, currentLocation.longitude)
@@ -65,7 +64,6 @@ class _MapScreenState extends ConsumerState<MapScreen>
     _searchController = TextEditingController();
 
     WidgetsBinding.instance.addObserver(this);
-
 
     // WidgetsBinding.instance.addPostFrameCallback((_) async {
     //   await ref.read(permissionProvider.notifier).reCheckPermission();
@@ -93,16 +91,16 @@ class _MapScreenState extends ConsumerState<MapScreen>
       await ref.read(userLocationProvider.notifier).getUserLocation();
       final currentLocation = ref.read(userLocationProvider);
 
-      if(currentLocation != null) {
-        LatLng targetLocation = LatLng(currentLocation.latitude, currentLocation.longitude);
+      if (currentLocation != null) {
+        LatLng targetLocation =
+            LatLng(currentLocation.latitude, currentLocation.longitude);
         CameraPosition cameraPosition = CameraPosition(
           target: targetLocation,
           zoom: 16,
         );
         final GoogleMapController controller = await _controller.future;
-        controller.animateCamera(
-            CameraUpdate.newCameraPosition(cameraPosition)
-        );
+        controller
+            .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
       }
     }
   }

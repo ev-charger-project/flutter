@@ -13,9 +13,12 @@ import 'dart:ui' as ui;
 
 Future<Uint8List> getBytesFromAsset(int width) async {
   ByteData data = await rootBundle.load('assets/images/station_marker.png');
-  ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(), targetWidth: width);
+  ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(),
+      targetWidth: width);
   ui.FrameInfo fi = await codec.getNextFrame();
-  return (await fi.image.toByteData(format: ui.ImageByteFormat.png))!.buffer.asUint8List();
+  return (await fi.image.toByteData(format: ui.ImageByteFormat.png))!
+      .buffer
+      .asUint8List();
 }
 
 Future<BitmapDescriptor> getCustomMarkerIcon(int width) async {
@@ -24,11 +27,12 @@ Future<BitmapDescriptor> getCustomMarkerIcon(int width) async {
 }
 
 final markerProvider = FutureProvider.autoDispose<List<Marker>>((ref) async {
-  final userLatLng =ref.watch(screenCenterProvider);
+  final userLatLng = ref.watch(screenCenterProvider);
   final userLat = userLatLng.latitude;
   final userLong = userLatLng.longitude;
   final markerRepository = ref.read(markerRepositoryProvider);
-  final markersData = await markerRepository.fetchMarkers(userLat, userLong, 20);
+  final markersData =
+      await markerRepository.fetchMarkers(userLat, userLong, 20);
   final BitmapDescriptor stationIcon = await getCustomMarkerIcon(45);
 
   List<Marker> markers = [];

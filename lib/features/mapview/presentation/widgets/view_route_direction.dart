@@ -21,7 +21,7 @@ class ViewRouteDirectionButtons extends ConsumerWidget {
     final height = MediaQuery.of(context).size.height;
     final destinationLocation = ref.read(locationProvider);
     final destination = destinationLocation.value;
-    final latitude =destination?.latitude;
+    final latitude = destination?.latitude;
     final longitude = destination?.longitude;
 
     void handleButtonPress() async {
@@ -54,15 +54,19 @@ class ViewRouteDirectionButtons extends ConsumerWidget {
           child: SizedBox(
             child: OutlinedButton(
               onPressed: () => context.router.push(const LocationRoute()),
-              style: OutlinedButton.styleFrom(padding: EdgeInsets.all(0),
+              style: OutlinedButton.styleFrom(
+                padding: EdgeInsets.all(0),
                 side: BorderSide(color: Theme.of(context).colorScheme.primary),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30),
                 ),
               ),
               child: Text(
-                  'View',
-                  style: Theme.of(context).primaryTextTheme.bodyMedium?.copyWith(fontSize: height * 0.02),
+                'View',
+                style: Theme.of(context)
+                    .primaryTextTheme
+                    .bodyMedium
+                    ?.copyWith(fontSize: height * 0.02),
               ),
             ),
           ),
@@ -70,19 +74,21 @@ class ViewRouteDirectionButtons extends ConsumerWidget {
         SizedBox(width: width * 0.01),
         Expanded(
           child: SizedBox(
-            
             child: OutlinedButton(
-              
               onPressed: handleButtonPress,
-              style: OutlinedButton.styleFrom(padding: EdgeInsets.all(0),
+              style: OutlinedButton.styleFrom(
+                padding: EdgeInsets.all(0),
                 side: BorderSide(color: Theme.of(context).colorScheme.primary),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30),
                 ),
               ),
               child: Text(
-                  'Route Plan',
-                style: Theme.of(context).primaryTextTheme.bodyMedium?.copyWith(fontSize: height * 0.02),
+                'Route Plan',
+                style: Theme.of(context)
+                    .primaryTextTheme
+                    .bodyMedium
+                    ?.copyWith(fontSize: height * 0.02),
               ),
             ),
           ),
@@ -92,7 +98,8 @@ class ViewRouteDirectionButtons extends ConsumerWidget {
           child: SizedBox(
             child: ElevatedButton(
               onPressed: handleButtonPress,
-              style: ElevatedButton.styleFrom(padding: EdgeInsets.all(0),
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.all(0),
                 backgroundColor: Theme.of(context).colorScheme.primary,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30),
@@ -101,14 +108,13 @@ class ViewRouteDirectionButtons extends ConsumerWidget {
               child: Text(
                 'Direction',
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: Theme.of(context).colorScheme.onPrimary,
-                  fontSize: height * 0.02,
-                ),
+                      color: Theme.of(context).colorScheme.onPrimary,
+                      fontSize: height * 0.02,
+                    ),
               ),
             ),
           ),
         ),
-
       ],
     );
   }

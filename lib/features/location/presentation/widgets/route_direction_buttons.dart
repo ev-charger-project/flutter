@@ -78,9 +78,9 @@ class RouteDirectionButtons extends ConsumerWidget {
               child: Text(
                 'Direction',
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: Theme.of(context).colorScheme.onPrimary,
-                  fontSize: height * 0.02,
-                ),
+                      color: Theme.of(context).colorScheme.onPrimary,
+                      fontSize: height * 0.02,
+                    ),
               ),
             ),
           ),
