@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:ev_charger/repositories/marker/data_models/charger_marker_data_model.dart';
 import 'package:ev_charger/repositories/location/data_models/location_data_model.dart';
 import 'package:ev_charger/repositories/suggestion/data_models/suggestion_data_model.dart';
@@ -17,15 +16,18 @@ class PostgresqlStorageService extends RemoteStorageService {
       final response = await _dio.get('$url/$locationId');
       if (response.statusCode == 200) {
         final dynamic responseData = response.data;
-          final result = LocationDataModel.fromJson(responseData);
-          return result;
-
+        final result = LocationDataModel.fromJson(responseData);
+        return result;
       } else {
-        throw Exception('Failed to load location data');
+        throw Exception('Error code: ${response.statusCode}');
       }
     } catch (e) {
       print('Error: $e');
-      throw Exception('Failed to load location data: $e');
+      if (e is DioException && e.response != null) {
+        throw Exception('Error code: ${e.response?.statusCode}');
+      } else {
+        throw Exception('An unknown error occurred');
+      }
     }
   }
 
@@ -43,13 +45,18 @@ class PostgresqlStorageService extends RemoteStorageService {
       if (response.statusCode == 200) {
         return (response.data as List)
             .map((item) =>
-                ChargerMarkerDataModel.fromJson(item as Map<String, dynamic>))
+            ChargerMarkerDataModel.fromJson(item as Map<String, dynamic>))
             .toList();
       } else {
-        throw Exception('Failed to load markers using DataModel');
+        throw Exception('Error code: ${response.statusCode}');
       }
     } catch (e) {
-      throw Exception('Failed to load markers: $e');
+      print('Error: $e');
+      if (e is DioException && e.response != null) {
+        throw Exception('Error code: ${e.response?.statusCode}');
+      } else {
+        throw Exception('An unknown error occurred');
+      }
     }
   }
 
@@ -64,13 +71,18 @@ class PostgresqlStorageService extends RemoteStorageService {
       if (response.statusCode == 200) {
         return (response.data as List)
             .map((item) =>
-                SuggestionDataModel.fromJson(item as Map<String, dynamic>))
+            SuggestionDataModel.fromJson(item as Map<String, dynamic>))
             .toList();
       } else {
-        throw Exception('Failed to load suggestions using DataModel');
+        throw Exception('Error code: ${response.statusCode}');
       }
     } catch (e) {
-      throw Exception('Failed to load suggestions: $e');
+      print('Error: $e');
+      if (e is DioException && e.response != null) {
+        throw Exception('Error code: ${e.response?.statusCode}');
+      } else {
+        throw Exception('An unknown error occurred');
+      }
     }
   }
 }
