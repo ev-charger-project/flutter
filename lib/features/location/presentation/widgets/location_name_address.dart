@@ -1,11 +1,16 @@
 import 'package:ev_charger/shared/domain/providers/location/location_provider.dart';
+import 'package:ev_charger/shared/domain/providers/remote_storage_service_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../../shared/domain/providers/location/user_location_provider.dart';
 import '../../../../shared/domain/providers/permission/permission_provider.dart';
 import '../../../notification/screens/permission_screen.dart';
+import 'package:ev_charger/shared/data/data_source/remote/postgresql/agest_storage_service.dart';
+
+import '../providers/distance_duration_provider.dart';
 
 class LocationNameAddress extends ConsumerWidget {
   const LocationNameAddress({super.key});
@@ -20,8 +25,8 @@ class LocationNameAddress extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              location.name,
-              style: Theme.of(context).textTheme.displayLarge
+                location.name,
+                style: Theme.of(context).textTheme.displayLarge
             ),
             const SizedBox(height: 10),
             Text(
@@ -31,7 +36,10 @@ class LocationNameAddress extends ConsumerWidget {
               overflow: TextOverflow.ellipsis,
             ),
             const SizedBox(height: 10),
-            const DistanceFromUser(),
+            DistanceFromUser(
+              destinationLat: location.latitude,
+              destinationLong: location.longitude,
+            ),
           ],
         ),
         loading: () => const Center(child: CircularProgressIndicator()),
@@ -42,7 +50,12 @@ class LocationNameAddress extends ConsumerWidget {
 }
 
 class DistanceFromUser extends ConsumerWidget {
+  final double destinationLat;
+  final double destinationLong;
+
   const DistanceFromUser({
+    required this.destinationLat,
+    required this.destinationLong,
     super.key,
   });
 
@@ -51,30 +64,27 @@ class DistanceFromUser extends ConsumerWidget {
     String distance = '~ km';
     String time = '~ mins';
     final permissionState = ref.watch(permissionProvider);
+    final userLocation = ref.watch(userLocationProvider);
 
+    if (permissionState.hasPermission && userLocation != null) {
+      final distanceAndDurationAsyncValue = ref.watch(distanceAndDurationProvider);
 
-    if (permissionState.hasPermission) {
-      final map = {'distance': '6.21 km', 'time': '89 mins'};
-      distance = map['distance']!;
-      time = map['time']!;
+      return distanceAndDurationAsyncValue.when(
+        data: (data) {
+          print('check data: $data');
+          distance = data[0];
+          time = data[1];
+          return _buildContent(distance, time, context);
+        },
+        loading: () => _buildContent('Loading...', 'Loading...', context),
+        error: (error, stack) => _buildContent('Error', 'Error', context),
+      );
+    } else {
+      return _buildContent('X', 'X', context);
     }
+  }
 
-    void handleButtonTap() {
-      // final permissionState = ref.read(permissionProvider);
-
-      if (!permissionState.hasPermission) {
-        showDialog(
-          context: context,
-          builder: (context) => const PermissionScreen(),
-        );
-      } else {
-        // user_allow_access = true;
-        // print('access: $user_allow_access');
-      }
-    }
-    // print('permission: $user_allow_access');
-
-
+  Widget _buildContent(String distance, String time, BuildContext context) {
     return Row(
       children: [
         SvgPicture.asset('assets/icons/location_icon.svg'),
@@ -91,19 +101,8 @@ class DistanceFromUser extends ConsumerWidget {
         const SizedBox(width: 5),
         Text(
           time,
-          style: Theme.of(context).textTheme.bodyMedium
+          style: Theme.of(context).textTheme.bodyMedium,
         ),
-        if (!permissionState.hasPermission) ...[
-          const SizedBox(width: 20),
-          GestureDetector(
-            onTap: handleButtonTap,
-            child: const Icon(
-              Icons.info_outline,
-              color: Colors.red,
-              size: 30.0,
-            ),
-          ),
-        ],
       ],
     );
   }
