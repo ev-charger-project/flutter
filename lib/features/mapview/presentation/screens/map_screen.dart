@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:ev_charger/features/mapview/domain/providers/screen_center_provider.dart';
+import 'package:ev_charger/shared/domain/providers/openApp/openApp_provider.dart';
 import 'package:ev_charger/shared/presentation/widgets/bottom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -18,7 +19,6 @@ import '../../../search/domain/providers/search_query_provider.dart';
 import '../../../search/presentation/widgets/search_bar_and_filter.dart';
 import '../../domain/providers/is_info_visible_provider.dart';
 import '../../domain/providers/marker/marker_provider.dart';
-import '../../domain/providers/marker/user_icon_provider.dart';
 import '../widgets/short_info_ui.dart';
 
 @RoutePage()
@@ -59,6 +59,99 @@ class _MapScreenState extends ConsumerState<MapScreen>
         "visibility": "off"
       }
     ]
+  },
+  {
+    "featureType": "landscape.man_made",
+    "elementType": "geometry.fill",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "landscape.man_made",
+    "elementType": "geometry.stroke",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "poi.attraction",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "poi.business",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "poi.government",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "poi.medical",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "poi.school",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "poi.sports_complex",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "road",
+    "elementType": "geometry.stroke",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "road.local",
+    "elementType": "geometry.fill",
+    "stylers": [
+      {
+        "color": "#ffffff"
+      }
+    ]
+  },
+  {
+    "featureType": "water",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#a6dff2"
+      }
+    ]
   }
 ]
 ''';
@@ -95,17 +188,18 @@ class _MapScreenState extends ConsumerState<MapScreen>
 
     WidgetsBinding.instance.addObserver(this);
 
-    // WidgetsBinding.instance.addPostFrameCallback((_) async {
-    //   await ref.read(permissionProvider.notifier).reCheckPermission();
-    //   final permissionState = ref.read(permissionProvider);
-    //
-    //   if (!permissionState.hasPermission) {
-    //     showDialog(
-    //       context: context,
-    //       builder: (context) => const PermissionScreen(),
-    //     );
-    //   }
-    // });
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await ref.read(permissionProvider.notifier).reCheckPermission();
+      final permissionState = ref.read(permissionProvider);
+      final openAppState = ref.read(openAppProvider.notifier).state;
+
+      if (!permissionState.hasPermission && openAppState) {
+        showDialog(
+          context: context,
+          builder: (context) => const PermissionScreen(),
+        );
+      }
+    });
   }
 
   Future<void> _checkLocationPermission() async {

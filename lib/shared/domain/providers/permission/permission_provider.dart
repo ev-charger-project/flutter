@@ -32,16 +32,12 @@ class PermissionProvider extends StateNotifier<PermissionState> {
     switch (permission) {
       case LocationPermission.denied:
       case LocationPermission.unableToDetermine:
-        state = state.copyWith(hasPermission: false, deniedForever: false);
-        break;
       case LocationPermission.deniedForever:
-        state = state.copyWith(hasPermission: false, deniedForever: true);
+        state = state.copyWith(hasPermission: false);
         break;
       case LocationPermission.whileInUse:
-        state = state.copyWith(hasPermission: true, deniedForever: false);
-        break;
       case LocationPermission.always:
-        state = state.copyWith(hasPermission: true, deniedForever: false);
+        state = state.copyWith(hasPermission: true);
         break;
     }
   }
@@ -49,17 +45,15 @@ class PermissionProvider extends StateNotifier<PermissionState> {
 
 class PermissionState {
   final bool hasPermission;
-  final bool deniedForever;
 
-  PermissionState({required this.hasPermission, required this.deniedForever});
+  PermissionState({required this.hasPermission});
 
   factory PermissionState.initial() =>
-      PermissionState(hasPermission: false, deniedForever: false);
+      PermissionState(hasPermission: false);
 
-  PermissionState copyWith({bool? hasPermission, bool? deniedForever}) {
+  PermissionState copyWith({bool? hasPermission}) {
     return PermissionState(
       hasPermission: hasPermission ?? this.hasPermission,
-      deniedForever: deniedForever ?? this.deniedForever,
     );
   }
 }

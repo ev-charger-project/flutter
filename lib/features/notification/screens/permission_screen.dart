@@ -10,7 +10,6 @@ class PermissionScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final permissionState = ref.watch(permissionProvider);
     final height = MediaQuery.sizeOf(context).height;
     final width = MediaQuery.sizeOf(context).width;
     return AlertDialog(
@@ -23,7 +22,6 @@ class PermissionScreen extends ConsumerWidget {
             const PermissionContent(),
             const Spacer(),
             PermissionButton(
-              // buttonType: permissionState.deniedForever ? ButtonType.openSettings : ButtonType.enableLocation,
               buttonType: ButtonType.enableLocation,
 
               onTap: () async {
@@ -31,13 +29,6 @@ class PermissionScreen extends ConsumerWidget {
                     .read(permissionProvider.notifier)
                     .checkAndRequestPermission();
                 Navigator.of(context).pop();
-                // if (permissionState.deniedForever) {
-                //   await ref.read(permissionProvider.notifier).openSettings();
-                //   Navigator.of(context).pop();
-                // } else {
-                //   await ref.read(permissionProvider.notifier).checkAndRequestPermission();
-                //   Navigator.of(context).pop();
-                // }
               },
             ),
             SizedBox(

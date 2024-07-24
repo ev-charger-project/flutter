@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:ev_charger/features/splash/widgets/dots_circular_progress_painter_widget.dart';
+import 'package:ev_charger/shared/domain/providers/openApp/openApp_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:auto_route/auto_route.dart';
@@ -17,27 +18,17 @@ class SplashScreen extends ConsumerStatefulWidget {
 }
 
 class _SplashScreenState extends ConsumerState<SplashScreen> {
+
   @override
   void initState() {
     super.initState();
 
-    Timer(const Duration(seconds: 2), () {
-      WidgetsBinding.instance.addPostFrameCallback((_) async {
-        await ref.read(permissionProvider.notifier).reCheckPermission();
-        final permissionState = ref.read(permissionProvider);
 
-        if (permissionState.hasPermission) {
-          context.router.replace(MapRoute());
-        } else {
-          // Show permission dialog and then navigate to the map route after the user interaction
-          showDialog(
-            context: context,
-            builder: (context) => const PermissionScreen(),
-          ).then((_) {
-            context.router.replace(MapRoute());
-          });
-        }
-      });
+    Timer(const Duration(seconds: 2), () {
+      ref.watch(openAppProvider.notifier).state = true;
+
+      context.router.replace(MapRoute());
+
     });
   }
 
