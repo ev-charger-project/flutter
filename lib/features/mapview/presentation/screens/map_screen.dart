@@ -169,7 +169,7 @@ class _MapScreenState extends ConsumerState<MapScreen>
     if (latitude != null && longitude != null) {
       return CameraPosition(
         target: LatLng(latitude, longitude),
-        zoom: 16,
+        zoom: 18,
       );
     } else {
       return CameraPosition(
@@ -194,6 +194,7 @@ class _MapScreenState extends ConsumerState<MapScreen>
       final openAppState = ref.read(openAppProvider.notifier).state;
 
       if (!permissionState.hasPermission && openAppState) {
+        ref.read(openAppProvider.notifier).state = false;
         showDialog(
           context: context,
           builder: (context) => const PermissionScreen(),
@@ -203,30 +204,40 @@ class _MapScreenState extends ConsumerState<MapScreen>
   }
 
   Future<void> _checkLocationPermission() async {
-    await ref.read(permissionProvider.notifier).reCheckPermission();
     final permissionState = ref.read(permissionProvider);
 
     if (!permissionState.hasPermission) {
-      showDialog(
+      await showDialog(
         context: context,
         builder: (context) => const PermissionScreen(),
       );
-    } else {
-      await ref.read(userLocationProvider.notifier).getUserLocation();
-      final currentLocation = ref.read(userLocationProvider);
-
-      if (currentLocation != null) {
-        LatLng targetLocation =
-            LatLng(currentLocation.latitude, currentLocation.longitude);
-        CameraPosition cameraPosition = CameraPosition(
-          target: targetLocation,
-          zoom: 16,
-        );
-        final GoogleMapController controller = await _controller.future;
-        controller
-            .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
-      }
+      ref.read(permissionProvider.notifier).reCheckPermission();
     }
+    await _moveToCurrentLocation();
+  }
+
+  Future<void> _moveToCurrentLocation() async {
+    await ref.read(userLocationProvider.notifier).getUserLocation();
+    final currentLocation = ref.read(userLocationProvider);
+    if (currentLocation != null) {
+      LatLng targetLocation =
+      LatLng(currentLocation.latitude, currentLocation.longitude);
+      CameraPosition cameraPosition = CameraPosition(
+        target: targetLocation,
+        zoom: 16,
+      );
+      final GoogleMapController controller = await _controller.future;
+      controller
+          .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+    }
+  }
+
+  Future<void> _animateCameraToPosition(LatLng position, {double zoom = 16.0}) async {
+    final GoogleMapController controller = await _controller.future;
+    controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
+      target: position,
+      zoom: zoom,
+    )));
   }
 
   @override
@@ -243,7 +254,16 @@ class _MapScreenState extends ConsumerState<MapScreen>
       data: (markers) {
         setState(() {
           _markers.clear();
-          _markers.addAll(markers);
+          _markers.addAll(markers.map((marker) {
+            return marker.copyWith(
+              onTapParam: () async {
+                setState(() {
+                  ref.read(isInfoVisibleProvider.notifier).state = true;
+                });
+                await _animateCameraToPosition(marker.position, zoom: 18.0);
+              },
+            );
+          }).toList());
         });
       },
       loading: () {},
@@ -286,8 +306,9 @@ class _MapScreenState extends ConsumerState<MapScreen>
               );
               ref.read(screenCenterProvider.notifier).state = center;
             },
-            onTap: (LatLng position) {
+            onTap: (LatLng position) async {
               ref.read(isInfoVisibleProvider.notifier).state = false;
+              await _animateCameraToPosition(position, zoom: 16.0);
             },
           ),
           Positioned(
