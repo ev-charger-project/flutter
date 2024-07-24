@@ -67,6 +67,7 @@ class AgestStorageService extends RemoteStorageService {
     try {
       final response = await _dio.get(url, queryParameters: {
         'query': searchString,
+        'fuzzy': true,
       });
       if (response.statusCode == 200) {
         return (response.data as List)
