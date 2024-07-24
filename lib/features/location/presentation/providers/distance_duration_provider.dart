@@ -29,6 +29,6 @@ final distanceAndDurationProvider =
     );
     return results;
   } catch (e) {
-    return ['error', 'error'];
+    return ['X km', 'X mins'];
   }
 });

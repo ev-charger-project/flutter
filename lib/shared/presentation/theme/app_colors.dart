@@ -28,6 +28,9 @@ class AppColors {
   /// Extra Light grey color
   static const Color extraLightGrey = Color(0x99e8e8e8);
 
+  /// Extra Light grey color
+  static const Color stationGrey = Color(0xffd4d4d4);
+
   /// Transparent grey color
   static const Color transparentGrey = Color(0x99e8e8e8);
 }

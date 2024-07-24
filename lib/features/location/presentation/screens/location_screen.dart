@@ -34,6 +34,7 @@ class _LocationScreenState extends ConsumerState<LocationScreen> {
               padding: EdgeInsets.symmetric(
                   horizontal: MediaQuery.of(context).size.width * 0.065),
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Padding(
                     padding: EdgeInsets.only(
@@ -67,7 +68,8 @@ class _LocationScreenState extends ConsumerState<LocationScreen> {
                       final pageState = ref.watch(pageStateProvider);
                       return pageState == PageState.info
                           ? const InfoContent()
-                          : const ChargersContent();
+                          : const Flexible(
+                              fit: FlexFit.loose, child: ChargersContent());
                     },
                   ),
                 ],

@@ -1,7 +1,5 @@
-import 'dart:ffi';
 
 import 'package:ev_charger/shared/domain/providers/location/location_provider.dart';
-import 'package:ev_charger/shared/domain/providers/remote_storage_service_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
