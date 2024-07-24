@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:ev_charger/features/mapview/domain/providers/screen_center_provider.dart';
+import 'package:ev_charger/features/mapview/presentation/screens/map_style.dart';
 import 'package:ev_charger/shared/domain/providers/openApp/openApp_provider.dart';
 import 'package:ev_charger/shared/presentation/widgets/bottom_app_bar.dart';
 import 'package:flutter/material.dart';
@@ -34,127 +35,15 @@ class MapScreen extends ConsumerStatefulWidget {
 
 class _MapScreenState extends ConsumerState<MapScreen>
     with WidgetsBindingObserver {
-  final String _mapStyleString = '''
-[
-  {
-    "elementType": "labels",
-    "stylers": [
-      {
-        "visibility": "off"
-      }
-    ]
-  },
-  {
-    "featureType": "administrative.land_parcel",
-    "stylers": [
-      {
-        "visibility": "off"
-      }
-    ]
-  },
-  {
-    "featureType": "administrative.neighborhood",
-    "stylers": [
-      {
-        "visibility": "off"
-      }
-    ]
-  },
-  {
-    "featureType": "landscape.man_made",
-    "elementType": "geometry.fill",
-    "stylers": [
-      {
-        "visibility": "off"
-      }
-    ]
-  },
-  {
-    "featureType": "landscape.man_made",
-    "elementType": "geometry.stroke",
-    "stylers": [
-      {
-        "visibility": "off"
-      }
-    ]
-  },
-  {
-    "featureType": "poi.attraction",
-    "stylers": [
-      {
-        "visibility": "off"
-      }
-    ]
-  },
-  {
-    "featureType": "poi.business",
-    "stylers": [
-      {
-        "visibility": "off"
-      }
-    ]
-  },
-  {
-    "featureType": "poi.government",
-    "stylers": [
-      {
-        "visibility": "off"
-      }
-    ]
-  },
-  {
-    "featureType": "poi.medical",
-    "stylers": [
-      {
-        "visibility": "off"
-      }
-    ]
-  },
-  {
-    "featureType": "poi.school",
-    "stylers": [
-      {
-        "visibility": "off"
-      }
-    ]
-  },
-  {
-    "featureType": "poi.sports_complex",
-    "stylers": [
-      {
-        "visibility": "off"
-      }
-    ]
-  },
-  {
-    "featureType": "road",
-    "elementType": "geometry.stroke",
-    "stylers": [
-      {
-        "visibility": "off"
-      }
-    ]
-  },
-  {
-    "featureType": "road.local",
-    "elementType": "geometry.fill",
-    "stylers": [
-      {
-        "color": "#ffffff"
-      }
-    ]
-  },
-  {
-    "featureType": "water",
-    "elementType": "geometry",
-    "stylers": [
-      {
-        "color": "#a6dff2"
-      }
-    ]
+  final GlobalKey _shortInfoKey = GlobalKey();
+
+  double getShortInfoHeight() {
+    final renderBox =
+        _shortInfoKey.currentContext?.findRenderObject() as RenderBox?;
+    return renderBox?.size.height ?? 0;
   }
-]
-''';
+
+  final String _mapStyleString = simpleMapStyle;
 
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
@@ -331,17 +220,16 @@ class _MapScreenState extends ConsumerState<MapScreen>
             ),
           ),
           AnimatedPositioned(
+            key: _shortInfoKey,
             duration: const Duration(milliseconds: 300),
-            bottom: isInfoVisible ? 0 : -10000.0,
+            bottom: isInfoVisible ? 0 : -getShortInfoHeight(),
             left: 0,
             right: 0,
             child: const ShortInfoUI(),
           ),
           AnimatedPositioned(
             duration: const Duration(milliseconds: 300),
-            bottom: isInfoVisible
-                ? MediaQuery.of(context).size.height * 0.065 + 230
-                : 16.0,
+            bottom: isInfoVisible ? getShortInfoHeight() : 16.0,
             right: 16.0,
             child: FloatingActionButton(
               shape: const CircleBorder(),
