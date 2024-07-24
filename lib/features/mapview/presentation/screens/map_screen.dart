@@ -35,6 +35,7 @@ class MapScreen extends ConsumerStatefulWidget {
 class _MapScreenState extends ConsumerState<MapScreen>
     with WidgetsBindingObserver {
   final GlobalKey _shortInfoKey = GlobalKey();
+  LatLng center = _fixedLocation;
   double _dragOffset = 0;
 
   double getShortInfoHeight() {
@@ -183,7 +184,7 @@ class _MapScreenState extends ConsumerState<MapScreen>
             onCameraIdle: () async {
               final GoogleMapController controller = await _controller.future;
               LatLngBounds visibleRegion = await controller.getVisibleRegion();
-              LatLng center = LatLng(
+              center = LatLng(
                 (visibleRegion.northeast.latitude +
                         visibleRegion.southwest.latitude) /
                     2,
@@ -220,7 +221,7 @@ class _MapScreenState extends ConsumerState<MapScreen>
           AnimatedPositioned(
             key: _shortInfoKey,
             duration: const Duration(milliseconds: 300),
-            bottom: isInfoVisible ? _dragOffset : -300,
+            bottom: isInfoVisible ? _dragOffset : -800,
             left: 0,
             right: 0,
             child: ShortInfoUI(
@@ -232,9 +233,10 @@ class _MapScreenState extends ConsumerState<MapScreen>
                   }
                 });
               },
-              onDragEnd: () {
+              onDragEnd: () async {
                 if (_dragOffset < -100) {
                   ref.read(isInfoVisibleProvider.notifier).state = false;
+                  await _animateCameraToPosition(center, zoom: 16);
                   _dragOffset = 0;
                 } else {
                   setState(() {
