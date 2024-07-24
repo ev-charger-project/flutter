@@ -14,7 +14,7 @@ void main() {
     DeviceOrientation.portraitDown,
   ]).then((_) {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: Color(0x8B606060),
+      statusBarColor: Color(0x9B606060),
       statusBarIconBrightness: Brightness.light,
     ));
 

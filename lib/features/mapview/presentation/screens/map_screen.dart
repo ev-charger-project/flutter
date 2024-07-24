@@ -5,6 +5,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:ev_charger/features/mapview/domain/providers/screen_center_provider.dart';
 import 'package:ev_charger/shared/presentation/widgets/bottom_app_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geolocator/geolocator.dart';
@@ -33,6 +34,35 @@ class MapScreen extends ConsumerStatefulWidget {
 
 class _MapScreenState extends ConsumerState<MapScreen>
     with WidgetsBindingObserver {
+  final String _mapStyleString = '''
+[
+  {
+    "elementType": "labels",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "administrative.land_parcel",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "administrative.neighborhood",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  }
+]
+''';
+
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
   GoogleMapController? _mapController;
@@ -110,23 +140,17 @@ class _MapScreenState extends ConsumerState<MapScreen>
     final isInfoVisible = ref.watch(isInfoVisibleProvider);
     final markerAsyncValue = ref.watch(markerProvider);
     final currentLocation = ref.watch(userLocationProvider);
-    final userIconAsyncValue = ref.watch(userIconProvider);
-
     final screenSize = MediaQuery.of(context).size;
     final searchQuery = ref.watch(SearchQueryProvider);
 
-    // Ensure the TextEditingController is updated with the current search query
     _searchController.text = searchQuery;
 
     markerAsyncValue.when(
       data: (markers) {
-        userIconAsyncValue.when(
-          data: (userIcon) {
-            _updateMarkers(markers, currentLocation, userIcon);
-          },
-          loading: () {},
-          error: (error, stack) => print('Error: $error'),
-        );
+        setState(() {
+          _markers.clear();
+          _markers.addAll(markers);
+        });
       },
       loading: () {},
       error: (error, stack) => print('Error: $error'),
@@ -137,9 +161,12 @@ class _MapScreenState extends ConsumerState<MapScreen>
         children: [
           GoogleMap(
             mapType: MapType.normal,
+            style: _mapStyleString,
             initialCameraPosition: _initialCameraPosition(currentLocation,
                 latitude: widget.latitude, longitude: widget.longitude),
             markers: Set<Marker>.of(_markers),
+            fortyFiveDegreeImageryEnabled: false,
+            indoorViewEnabled: false,
             compassEnabled: false,
             tiltGesturesEnabled: false,
             buildingsEnabled: false,
@@ -153,7 +180,6 @@ class _MapScreenState extends ConsumerState<MapScreen>
               }
             },
             onCameraIdle: () async {
-              print('reload marker');
               final GoogleMapController controller = await _controller.future;
               LatLngBounds visibleRegion = await controller.getVisibleRegion();
               LatLng center = LatLng(
@@ -176,7 +202,6 @@ class _MapScreenState extends ConsumerState<MapScreen>
             right: screenSize.width * 0.05,
             child: GestureDetector(
               onTap: () {
-                // Ensure navigation to SearchScreen is triggered here
                 context.router.push(SearchRoute());
               },
               child: SearchBarAndFilter(
@@ -215,25 +240,5 @@ class _MapScreenState extends ConsumerState<MapScreen>
       ),
       bottomNavigationBar: const SimpleBottomAppBar(),
     );
-  }
-
-  void _updateMarkers(List<Marker> markers, Position? currentLocation,
-      BitmapDescriptor userIcon) {
-    setState(() {
-      _markers.clear();
-      _markers.addAll(markers);
-      print(currentLocation?.latitude);
-      if (currentLocation != null) {
-        _markers.add(
-          Marker(
-            markerId: const MarkerId('currentLocation'),
-            position:
-                LatLng(currentLocation.latitude, currentLocation.longitude),
-            icon: userIcon,
-            anchor: const Offset(0.5, 0.5),
-          ),
-        );
-      }
-    });
   }
 }
