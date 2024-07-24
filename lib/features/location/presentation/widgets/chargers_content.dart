@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ev_charger/repositories/charger/entities/charger_entity.dart'; // Adjust the path accordingly
 import 'package:ev_charger/shared/domain/providers/location/location_provider.dart';
+import 'package:flutter_svg/svg.dart';
 
 class ChargersContent extends ConsumerWidget {
   const ChargersContent({
@@ -65,17 +66,15 @@ class ChargerBox extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: const EdgeInsets.only(left: 20.0,top:10),
             child: Text(
               'Plugs',
               style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontSize: 14),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 15),
             child: Wrap(
-              spacing: 8.0,
-              runSpacing: 8.0,
               children: charger.ports.map((port) {
                 return PortBox(port: port);
               }).toList(),
@@ -97,28 +96,28 @@ class PortBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 80,
-      height: 80,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(color: Colors.grey),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Icon(Icons.electric_car, size: 24),
-          const SizedBox(height: 8),
-          Text(
-            port.power_plug_type.plugType,
-            style: const TextStyle(
-              color: Colors.black,
-              fontSize: 12,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: Container(
+        width: 85,
+        height: 89,
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.secondary,
+          border: Border.all(color: Theme.of(context).stationGrey,),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const SizedBox(height: 5),
+            SvgPicture.asset('assets/icons/plug_icon.svg'),
+            const SizedBox(height: 5),
+            Text(
+              port.power_plug_type.plugType,
+              style: Theme.of(context).textTheme.titleSmall,
+              textAlign: TextAlign.center,
             ),
-            textAlign: TextAlign.center,
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
