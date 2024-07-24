@@ -34,13 +34,13 @@ class MapScreen extends ConsumerStatefulWidget {
 class _MapScreenState extends ConsumerState<MapScreen>
     with WidgetsBindingObserver {
   final GlobalKey _shortInfoKey = GlobalKey();
+  double _dragOffset = 0;
 
   double getShortInfoHeight() {
     final renderBox =
         _shortInfoKey.currentContext?.findRenderObject() as RenderBox?;
     return renderBox?.size.height ?? 0;
   }
-
 
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
@@ -218,11 +218,31 @@ class _MapScreenState extends ConsumerState<MapScreen>
           AnimatedPositioned(
             key: _shortInfoKey,
             duration: const Duration(milliseconds: 300),
-            bottom: isInfoVisible ? 0 : -getShortInfoHeight(),
+            bottom: isInfoVisible ? _dragOffset : -300,
             left: 0,
             right: 0,
-            child: const ShortInfoUI(),
+            child: ShortInfoUI(
+              onDragUpdate: (dragOffset) {
+                setState(() {
+                  _dragOffset -= dragOffset;
+                  if (_dragOffset > 0) {
+                    _dragOffset = 0;
+                  }
+                });
+              },
+              onDragEnd: () {
+                if (_dragOffset < -100) {
+                  ref.read(isInfoVisibleProvider.notifier).state = false;
+                  _dragOffset = 0;
+                } else {
+                  setState(() {
+                    _dragOffset = 0;
+                  });
+                }
+              },
+            ),
           ),
+
           AnimatedPositioned(
             duration: const Duration(milliseconds: 300),
             bottom: isInfoVisible ? getShortInfoHeight() : 16.0,
