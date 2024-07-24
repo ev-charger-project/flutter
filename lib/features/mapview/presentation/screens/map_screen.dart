@@ -13,6 +13,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../../../routes/app_route.dart';
 import '../../../../shared/domain/providers/location/user_location_provider.dart';
 import '../../../../shared/domain/providers/permission/permission_provider.dart';
+import '../../../location/presentation/providers/selected_location_id_provider.dart';
 import '../../../notification/screens/permission_screen.dart';
 import '../../../search/domain/providers/search_query_provider.dart';
 import '../../../search/presentation/widgets/search_bar_and_filter.dart';
@@ -144,6 +145,7 @@ class _MapScreenState extends ConsumerState<MapScreen>
             return marker.copyWith(
               onTapParam: () async {
                 setState(() {
+                  ref.read(selectedLocationIdProvider.notifier).state = marker.markerId.value;
                   ref.read(isInfoVisibleProvider.notifier).state = true;
                 });
                 await _animateCameraToPosition(marker.position, zoom: 18.0);
