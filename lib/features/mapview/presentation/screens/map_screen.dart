@@ -1,9 +1,7 @@
 import 'dart:async';
-import 'dart:ui';
 import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:ev_charger/features/mapview/domain/providers/screen_center_provider.dart';
-import 'package:ev_charger/features/mapview/presentation/screens/map_style.dart';
 import 'package:ev_charger/shared/domain/providers/openApp/openApp_provider.dart';
 import 'package:ev_charger/shared/presentation/widgets/bottom_app_bar.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +41,6 @@ class _MapScreenState extends ConsumerState<MapScreen>
     return renderBox?.size.height ?? 0;
   }
 
-  final String _mapStyleString = simpleMapStyle;
 
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
@@ -164,7 +161,6 @@ class _MapScreenState extends ConsumerState<MapScreen>
         children: [
           GoogleMap(
             mapType: MapType.normal,
-            style: _mapStyleString,
             initialCameraPosition: _initialCameraPosition(currentLocation,
                 latitude: widget.latitude, longitude: widget.longitude),
             markers: Set<Marker>.of(_markers),
