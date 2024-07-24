@@ -11,10 +11,17 @@ import 'marker_repository_provider.dart';
 import 'dart:ui' as ui;
 
 class BitmapDescriptorHelper {
+  static final Map<String, BitmapDescriptor> _cache = {};
+
   static Future<BitmapDescriptor> getBitmapDescriptorFromSvgAsset(
-    String assetName,
-    double iconSize,
-  ) async {
+      String assetName,
+      double iconSize,
+      ) async {
+    final cacheKey = '${assetName}_$iconSize';
+    if (_cache.containsKey(cacheKey)) {
+      return _cache[cacheKey]!;
+    }
+
     final pictureInfo = await vg.loadPicture(SvgAssetLoader(assetName), null);
     final Size size = Size(iconSize, iconSize);
     double devicePixelRatio = ui.window.devicePixelRatio;
@@ -37,7 +44,9 @@ class BitmapDescriptorHelper {
     final image = rasterPicture.toImageSync(width, height);
     final bytes = (await image.toByteData(format: ui.ImageByteFormat.png))!;
 
-    return BitmapDescriptor.bytes(bytes.buffer.asUint8List());
+    final bitmapDescriptor = BitmapDescriptor.bytes(bytes.buffer.asUint8List());
+    _cache[cacheKey] = bitmapDescriptor;
+    return bitmapDescriptor;
   }
 }
 
@@ -47,15 +56,15 @@ final markerProvider = FutureProvider.autoDispose<List<Marker>>((ref) async {
   final userLong = userLatLng.longitude;
   final markerRepository = ref.read(markerRepositoryProvider);
   final markersData =
-      await markerRepository.fetchMarkers(userLat, userLong, 15);
+  await markerRepository.fetchMarkers(userLat, userLong, 15);
 
   final BitmapDescriptor stationIcon =
-      await BitmapDescriptorHelper.getBitmapDescriptorFromSvgAsset(
-          'assets/icons/station_marker.svg', 18);
+  await BitmapDescriptorHelper.getBitmapDescriptorFromSvgAsset(
+      'assets/icons/station_marker.svg', 16);
   final BitmapDescriptor userIcon =
-      await BitmapDescriptorHelper.getBitmapDescriptorFromSvgAsset(
-          'assets/icons/user_icon.svg', 40);
-  final BitmapDescriptor defaultIcon =BitmapDescriptor.defaultMarker;
+  await BitmapDescriptorHelper.getBitmapDescriptorFromSvgAsset(
+      'assets/icons/user_icon.svg', 60);
+  final BitmapDescriptor defaultIcon = BitmapDescriptor.defaultMarker;
 
   List<Marker> markers = [];
 
@@ -64,7 +73,7 @@ final markerProvider = FutureProvider.autoDispose<List<Marker>>((ref) async {
       Marker(
         markerId: MarkerId(markerData.id),
         position: LatLng(markerData.latitude, markerData.longitude),
-        icon: defaultIcon,
+        icon: stationIcon,
         onTap: () {
           ref.read(selectedLocationIdProvider.notifier).state = markerData.id;
           ref.read(isInfoVisibleProvider.notifier).state = true;
