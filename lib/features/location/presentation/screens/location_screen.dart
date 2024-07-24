@@ -31,11 +31,16 @@ class _LocationScreenState extends ConsumerState<LocationScreen> {
           children: [
             const LocationBanner(),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.065),
+              padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width * 0.065),
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(top: 20.0, left: MediaQuery.of(context).size.width * 0.015, right: 70),
+                    padding: EdgeInsets.only(
+                        top: 20.0,
+                        left: MediaQuery.of(context).size.width * 0.015,
+                        right: 70),
                     child: const LocationNameAddress(),
                   ),
                   Divider(
@@ -48,7 +53,9 @@ class _LocationScreenState extends ConsumerState<LocationScreen> {
                     thickness: 1,
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.015, vertical: 10.0),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.of(context).size.width * 0.015,
+                        vertical: 10.0),
                     child: const RouteDirectionButtons(),
                   ),
                   Divider(
@@ -61,7 +68,8 @@ class _LocationScreenState extends ConsumerState<LocationScreen> {
                       final pageState = ref.watch(pageStateProvider);
                       return pageState == PageState.info
                           ? const InfoContent()
-                          : const ChargersContent();
+                          : const Flexible(
+                              fit: FlexFit.loose, child: ChargersContent());
                     },
                   ),
                 ],

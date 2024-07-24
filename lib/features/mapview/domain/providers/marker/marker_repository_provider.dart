@@ -6,6 +6,7 @@ import 'marker_data_source_provider.dart';
 
 final markerRepositoryProvider = Provider<MarkerRepositoryImpl>((ref) {
   final storageService = ref.read(remoteStorageServiceProvider);
-  final remoteDataSource = ref.read(markerRemoteDataSourceProvider(storageService));
+  final remoteDataSource =
+      ref.read(markerRemoteDataSourceProvider(storageService));
   return MarkerRepositoryImpl(remoteDataSource);
 });

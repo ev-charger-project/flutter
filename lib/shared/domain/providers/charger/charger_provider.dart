@@ -8,5 +8,5 @@ final locationProvider =
     FutureProvider.autoDispose<LocationEntity>((ref) async {
   final locationRepository = ref.read(locationRepositoryProvider);
   final currentLocationId = ref.read(selectedLocationIdProvider);
-  return await locationRepository.fetchLocationData(currentLocationId ?? '1');
+  return await locationRepository.fetchLocationData(currentLocationId);
 });

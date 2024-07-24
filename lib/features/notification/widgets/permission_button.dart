@@ -49,7 +49,8 @@ class PermissionButton extends StatelessWidget {
   final ButtonType buttonType;
   final VoidCallback onTap;
 
-  const PermissionButton({super.key, required this.buttonType, required this.onTap});
+  const PermissionButton(
+      {super.key, required this.buttonType, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -57,17 +58,15 @@ class PermissionButton extends StatelessWidget {
 
     return Button(
       onTap: onTap,
-      fillColor:buttonType.fillColor,
+      fillColor: buttonType.fillColor,
       border: false,
       shadow: true,
       shadowOpacity: 0.35,
       padding: EdgeInsets.all(height * 0.01),
       child: Text(
         buttonType.text,
-        style: AppTextStyles.body.copyWith(
-          fontSize: height * 0.02,
-          color: buttonType.textColor
-        ),
+        style: AppTextStyles.body
+            .copyWith(fontSize: height * 0.02, color: buttonType.textColor),
       ),
     );
   }

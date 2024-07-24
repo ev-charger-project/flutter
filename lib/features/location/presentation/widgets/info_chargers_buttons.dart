@@ -33,10 +33,8 @@ class InfoChargersButtons extends ConsumerWidget {
                 ),
               ),
               child: Center(
-                child: Text(
-                  'Info',
-                  style: Theme.of(context).textTheme.bodyMedium
-                ),
+                child:
+                    Text('Info', style: Theme.of(context).textTheme.bodyMedium),
               ),
             ),
           ),
@@ -59,10 +57,8 @@ class InfoChargersButtons extends ConsumerWidget {
                 ),
               ),
               child: Center(
-                child: Text(
-                  'Chargers',
-                  style: Theme.of(context).textTheme.bodyMedium
-                ),
+                child: Text('Chargers',
+                    style: Theme.of(context).textTheme.bodyMedium),
               ),
             ),
           ),

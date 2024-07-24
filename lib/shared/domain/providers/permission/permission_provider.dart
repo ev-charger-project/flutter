@@ -7,9 +7,12 @@ class PermissionProvider extends StateNotifier<PermissionState> {
   Future<void> checkAndRequestPermission() async {
     LocationPermission permission = await Geolocator.checkPermission();
 
-
-    if (permission == LocationPermission.denied || permission == LocationPermission.deniedForever) {
+    if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
+
+      if (permission == LocationPermission.deniedForever) {
+        await Geolocator.openAppSettings();
+      }
     }
 
     _updatePermissionState(permission);
@@ -21,48 +24,41 @@ class PermissionProvider extends StateNotifier<PermissionState> {
     _updatePermissionState(permission);
   }
 
-  Future<void> openSettings() async {
-    await Geolocator.openAppSettings();
-    await checkAndRequestPermission();
+  Future<bool> openSettings() async {
+    return await Geolocator.openAppSettings();
   }
 
   void _updatePermissionState(LocationPermission permission) {
     switch (permission) {
       case LocationPermission.denied:
       case LocationPermission.unableToDetermine:
-        state = state.copyWith(hasPermission: false, deniedForever: false);
-        break;
       case LocationPermission.deniedForever:
-        state = state.copyWith(hasPermission: false, deniedForever: true);
+        state = state.copyWith(hasPermission: false);
         break;
       case LocationPermission.whileInUse:
-        state = state.copyWith(hasPermission: true, deniedForever: false);
-        break;
       case LocationPermission.always:
-        state = state.copyWith(hasPermission: true, deniedForever: false);
+        state = state.copyWith(hasPermission: true);
         break;
     }
   }
-
-
 }
 
 class PermissionState {
   final bool hasPermission;
-  final bool deniedForever;
 
-  PermissionState({required this.hasPermission, required this.deniedForever});
+  PermissionState({required this.hasPermission});
 
-  factory PermissionState.initial() => PermissionState(hasPermission: false, deniedForever: false);
+  factory PermissionState.initial() =>
+      PermissionState(hasPermission: false);
 
-  PermissionState copyWith({bool? hasPermission, bool? deniedForever}) {
+  PermissionState copyWith({bool? hasPermission}) {
     return PermissionState(
       hasPermission: hasPermission ?? this.hasPermission,
-      deniedForever: deniedForever ?? this.deniedForever,
     );
   }
 }
 
-final permissionProvider = StateNotifierProvider<PermissionProvider, PermissionState>((ref) {
+final permissionProvider =
+    StateNotifierProvider<PermissionProvider, PermissionState>((ref) {
   return PermissionProvider();
 });

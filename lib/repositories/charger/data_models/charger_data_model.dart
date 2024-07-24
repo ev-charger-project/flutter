@@ -17,11 +17,11 @@ class ChargerDataModel with _$ChargerDataModel {
       _$ChargerDataModelFromJson(json);
 }
 
-
 @freezed
 class PortDataModel with _$PortDataModel {
   const factory PortDataModel({
-    @JsonKey(name: 'power_plug_type') required PowerPlugTypeDataModel power_plug_type,
+    @JsonKey(name: 'power_plug_type')
+    required PowerPlugTypeDataModel power_plug_type,
     @JsonKey(name: 'power_output') required PowerOutputDataModel power_model,
   }) = _PortDataModel;
 

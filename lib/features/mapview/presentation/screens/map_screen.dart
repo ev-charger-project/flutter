@@ -1,10 +1,11 @@
 import 'dart:async';
-import 'dart:ui';
 import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:ev_charger/features/mapview/domain/providers/screen_center_provider.dart';
+import 'package:ev_charger/shared/domain/providers/openApp/openApp_provider.dart';
 import 'package:ev_charger/shared/presentation/widgets/bottom_app_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geolocator/geolocator.dart';
@@ -12,12 +13,12 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../../../routes/app_route.dart';
 import '../../../../shared/domain/providers/location/user_location_provider.dart';
 import '../../../../shared/domain/providers/permission/permission_provider.dart';
+import '../../../location/presentation/providers/selected_location_id_provider.dart';
 import '../../../notification/screens/permission_screen.dart';
 import '../../../search/domain/providers/search_query_provider.dart';
 import '../../../search/presentation/widgets/search_bar_and_filter.dart';
 import '../../domain/providers/is_info_visible_provider.dart';
 import '../../domain/providers/marker/marker_provider.dart';
-import '../../domain/providers/marker/user_icon_provider.dart';
 import '../widgets/short_info_ui.dart';
 
 @RoutePage()
@@ -33,6 +34,15 @@ class MapScreen extends ConsumerStatefulWidget {
 
 class _MapScreenState extends ConsumerState<MapScreen>
     with WidgetsBindingObserver {
+  final GlobalKey _shortInfoKey = GlobalKey();
+  double _dragOffset = 0;
+
+  double getShortInfoHeight() {
+    final renderBox =
+        _shortInfoKey.currentContext?.findRenderObject() as RenderBox?;
+    return renderBox?.size.height ?? 0;
+  }
+
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
   GoogleMapController? _mapController;
@@ -46,15 +56,16 @@ class _MapScreenState extends ConsumerState<MapScreen>
     if (latitude != null && longitude != null) {
       return CameraPosition(
         target: LatLng(latitude, longitude),
+        zoom: 18,
+      );
+    } else {
+      return CameraPosition(
+        target: currentLocation != null
+            ? LatLng(currentLocation.latitude, currentLocation.longitude)
+            : _fixedLocation,
         zoom: 16,
       );
     }
-    return CameraPosition(
-      target: currentLocation != null
-          ? LatLng(currentLocation.latitude, currentLocation.longitude)
-          : _fixedLocation,
-      zoom: 16,
-    );
   }
 
   @override
@@ -64,31 +75,56 @@ class _MapScreenState extends ConsumerState<MapScreen>
 
     WidgetsBinding.instance.addObserver(this);
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _checkLocationPermission();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await ref.read(permissionProvider.notifier).reCheckPermission();
+      final permissionState = ref.read(permissionProvider);
+      final openAppState = ref.read(openAppProvider.notifier).state;
+
+      if (!permissionState.hasPermission && openAppState) {
+        ref.read(openAppProvider.notifier).state = false;
+        showDialog(
+          context: context,
+          builder: (context) => const PermissionScreen(),
+        );
+      }
     });
   }
 
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    _mapController?.dispose();
-    _searchController.dispose();
-    super.dispose();
-  }
-
   Future<void> _checkLocationPermission() async {
-    await ref.read(permissionProvider.notifier).reCheckPermission();
     final permissionState = ref.read(permissionProvider);
 
     if (!permissionState.hasPermission) {
-      showDialog(
+      await showDialog(
         context: context,
         builder: (context) => const PermissionScreen(),
       );
-    } else {
-      await ref.read(userLocationProvider.notifier).getUserLocation();
+      ref.read(permissionProvider.notifier).reCheckPermission();
     }
+    await _moveToCurrentLocation();
+  }
+
+  Future<void> _moveToCurrentLocation() async {
+    await ref.read(userLocationProvider.notifier).getUserLocation();
+    final currentLocation = ref.read(userLocationProvider);
+    if (currentLocation != null) {
+      LatLng targetLocation =
+      LatLng(currentLocation.latitude, currentLocation.longitude);
+      CameraPosition cameraPosition = CameraPosition(
+        target: targetLocation,
+        zoom: 16,
+      );
+      final GoogleMapController controller = await _controller.future;
+      controller
+          .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+    }
+  }
+
+  Future<void> _animateCameraToPosition(LatLng position, {double zoom = 16.0}) async {
+    final GoogleMapController controller = await _controller.future;
+    controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
+      target: position,
+      zoom: zoom,
+    )));
   }
 
   @override
@@ -96,23 +132,27 @@ class _MapScreenState extends ConsumerState<MapScreen>
     final isInfoVisible = ref.watch(isInfoVisibleProvider);
     final markerAsyncValue = ref.watch(markerProvider);
     final currentLocation = ref.watch(userLocationProvider);
-    final userIconAsyncValue = ref.watch(userIconProvider);
-
     final screenSize = MediaQuery.of(context).size;
     final searchQuery = ref.watch(SearchQueryProvider);
 
-    // Ensure the TextEditingController is updated with the current search query
     _searchController.text = searchQuery;
 
     markerAsyncValue.when(
       data: (markers) {
-        userIconAsyncValue.when(
-          data: (userIcon) {
-            _updateMarkers(markers, currentLocation, userIcon);
-          },
-          loading: () {},
-          error: (error, stack) => print('Error: $error'),
-        );
+        setState(() {
+          _markers.clear();
+          _markers.addAll(markers.map((marker) {
+            return marker.copyWith(
+              onTapParam: () async {
+                setState(() {
+                  ref.read(selectedLocationIdProvider.notifier).state = marker.markerId.value;
+                  ref.read(isInfoVisibleProvider.notifier).state = true;
+                });
+                await _animateCameraToPosition(marker.position, zoom: 18.0);
+              },
+            );
+          }).toList());
+        });
       },
       loading: () {},
       error: (error, stack) => print('Error: $error'),
@@ -126,6 +166,11 @@ class _MapScreenState extends ConsumerState<MapScreen>
             initialCameraPosition: _initialCameraPosition(currentLocation,
                 latitude: widget.latitude, longitude: widget.longitude),
             markers: Set<Marker>.of(_markers),
+            fortyFiveDegreeImageryEnabled: false,
+            indoorViewEnabled: false,
+            compassEnabled: false,
+            tiltGesturesEnabled: false,
+            buildingsEnabled: false,
             mapToolbarEnabled: false,
             zoomControlsEnabled: false,
             minMaxZoomPreference: const MinMaxZoomPreference(12, 17),
@@ -148,8 +193,9 @@ class _MapScreenState extends ConsumerState<MapScreen>
               );
               ref.read(screenCenterProvider.notifier).state = center;
             },
-            onTap: (LatLng position) {
+            onTap: (LatLng position) async {
               ref.read(isInfoVisibleProvider.notifier).state = false;
+              await _animateCameraToPosition(position, zoom: 16.0);
             },
           ),
           Positioned(
@@ -158,7 +204,6 @@ class _MapScreenState extends ConsumerState<MapScreen>
             right: screenSize.width * 0.05,
             child: GestureDetector(
               onTap: () {
-                // Ensure navigation to SearchScreen is triggered here
                 context.router.push(SearchRoute());
               },
               child: SearchBarAndFilter(
@@ -166,42 +211,48 @@ class _MapScreenState extends ConsumerState<MapScreen>
                 onChanged: (text) {
                   ref.read(SearchQueryProvider.notifier).state = text;
                 },
-                isTyping: true,
-                onFilterPressed: () => context.router.push(FilterRoute()),
+                onFilterPressed: () => context.router.push(const FilterRoute()),
                 textFieldInteractable: false,
+                focusNode: null,
               ),
             ),
           ),
           AnimatedPositioned(
+            key: _shortInfoKey,
             duration: const Duration(milliseconds: 300),
-            bottom: isInfoVisible ? 0 : -10000.0,
+            bottom: isInfoVisible ? _dragOffset : -300,
             left: 0,
             right: 0,
-            child: const ShortInfoUI(),
+            child: ShortInfoUI(
+              onDragUpdate: (dragOffset) {
+                setState(() {
+                  _dragOffset -= dragOffset;
+                  if (_dragOffset > 0) {
+                    _dragOffset = 0;
+                  }
+                });
+              },
+              onDragEnd: () {
+                if (_dragOffset < -100) {
+                  ref.read(isInfoVisibleProvider.notifier).state = false;
+                  _dragOffset = 0;
+                } else {
+                  setState(() {
+                    _dragOffset = 0;
+                  });
+                }
+              },
+            ),
           ),
+
           AnimatedPositioned(
             duration: const Duration(milliseconds: 300),
-            bottom: isInfoVisible
-                ? MediaQuery.of(context).size.height * 0.065 + 230
-                : 16.0,
+            bottom: isInfoVisible ? getShortInfoHeight() : 16.0,
             right: 16.0,
             child: FloatingActionButton(
               shape: const CircleBorder(),
               onPressed: () async {
-                // await ref.read(userLocationProvider.notifier).getUserLocation();
-                // final currentLocation = ref.read(userLocationProvider);
-
-                LatLng targetLocation = currentLocation != null
-                    ? LatLng(
-                        currentLocation.latitude, currentLocation.longitude)
-                    : _fixedLocation;
-                CameraPosition cameraPosition = CameraPosition(
-                  target: targetLocation,
-                  zoom: 16,
-                );
-                final GoogleMapController controller = await _controller.future;
-                controller.animateCamera(
-                    CameraUpdate.newCameraPosition(cameraPosition));
+                await _checkLocationPermission();
               },
               child: SvgPicture.asset('assets/icons/floating_button_icon.svg'),
             ),
@@ -210,24 +261,5 @@ class _MapScreenState extends ConsumerState<MapScreen>
       ),
       bottomNavigationBar: const SimpleBottomAppBar(),
     );
-  }
-
-  void _updateMarkers(List<Marker> markers, Position? currentLocation,
-      BitmapDescriptor userIcon) {
-    setState(() {
-      _markers.clear();
-      _markers.addAll(markers);
-      if (currentLocation != null) {
-        _markers.add(
-          Marker(
-            markerId: const MarkerId('currentLocation'),
-            position:
-                LatLng(currentLocation.latitude, currentLocation.longitude),
-            icon: userIcon,
-            anchor: const Offset(0.5, 0.5),
-          ),
-        );
-      }
-    });
   }
 }

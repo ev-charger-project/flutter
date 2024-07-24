@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../routes/app_route.dart';
 
 class MyApp extends ConsumerWidget {
-  MyApp({super.key}); 
+  MyApp({super.key});
   final appRouter = AppRouter();
   @override
   Widget build(BuildContext context, WidgetRef ref) {

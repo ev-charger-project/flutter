@@ -4,43 +4,56 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../location/presentation/widgets/amount_chargers.dart';
-import '../../../location/presentation/widgets/route_direction_buttons.dart';
 
 class ShortInfoUI extends ConsumerWidget {
+  final void Function(double) onDragUpdate;
+  final void Function() onDragEnd;
+
   const ShortInfoUI({
     super.key,
+    required this.onDragUpdate,
+    required this.onDragEnd,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Padding(
-      padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.035),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Center(
-          child: Padding(
-            padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.035),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.015),
-                  child: const LocationNameAddress(),
-                ),
-                Divider(
-                  color: Theme.of(context).dividerColor,
-                  thickness: 1,
-                ),
-                const ChargerNum(),
-                Divider(
-                  color: Theme.of(context).dividerColor,
-                  thickness: 1,
-                ),
-                const ViewRouteDirectionButtons(),
-              ],
+    return GestureDetector(
+      onVerticalDragUpdate: (details) {
+        onDragUpdate(details.primaryDelta!);
+      },
+      onVerticalDragEnd: (details) {
+        onDragEnd();
+      },
+      child: Padding(
+        padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.035),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Center(
+            child: Padding(
+              padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.035),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.of(context).size.width * 0.015),
+                    child: const LocationNameAddress(),
+                  ),
+                  Divider(
+                    color: Theme.of(context).dividerColor,
+                    thickness: 1,
+                  ),
+                  const ChargerNum(),
+                  Divider(
+                    color: Theme.of(context).dividerColor,
+                    thickness: 1,
+                  ),
+                  const ViewRouteDirectionButtons(),
+                ],
+              ),
             ),
           ),
         ),

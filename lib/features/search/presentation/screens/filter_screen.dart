@@ -20,15 +20,18 @@ class FilterScreen extends ConsumerStatefulWidget {
 class _FilterScreenState extends ConsumerState<FilterScreen> {
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
+
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).colorScheme.secondary,
         elevation: 0,
         automaticallyImplyLeading: false,
         flexibleSpace: Padding(
-          padding: const EdgeInsets.only(
-            left: 20.0,
-            top: 30,
+          padding: EdgeInsets.only(
+            top: screenSize.height * 0.05,
+            left: screenSize.width * 0.05,
+            right: screenSize.width * 0.05,
           ),
           child: Row(
             children: [
@@ -38,8 +41,8 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                   Navigator.pop(context);
                 },
               ),
-              const SizedBox(
-                width: 10,
+              SizedBox(
+                width: screenSize.width * 0.02,
               ),
               Text(
                 'Filter',
@@ -51,11 +54,11 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(
-            left: 30,
-            right: 30,
-            top: 0,
-            bottom: 30,
+          padding: EdgeInsets.only(
+            left: screenSize.width * 0.075,
+            right: screenSize.width * 0.075,
+            top: screenSize.height * 0.01,
+            bottom: screenSize.height * 0.03,
           ),
           child: Column(
             children: [
@@ -63,10 +66,10 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
               StationCount(),
 
               // charge type
-              ChargeType(),
+              const ChargeType(),
 
               // Power Output
-              PowerOutput(),
+              const PowerOutput(),
 
               // buttons "reset" and "apply filter"
               Padding(
