@@ -63,7 +63,7 @@ final markerProvider = FutureProvider.autoDispose<List<Marker>>((ref) async {
       'assets/icons/station_marker.svg', 16);
   final BitmapDescriptor userIcon =
   await BitmapDescriptorHelper.getBitmapDescriptorFromSvgAsset(
-      'assets/icons/user_icon.svg', 60);
+      'assets/icons/user_icon.svg', 30);
   final BitmapDescriptor defaultIcon = BitmapDescriptor.defaultMarker;
 
   List<Marker> markers = [];
