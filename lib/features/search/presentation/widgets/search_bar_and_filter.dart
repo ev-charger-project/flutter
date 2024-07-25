@@ -31,8 +31,8 @@ class SearchBarAndFilter extends ConsumerWidget {
 
     // Define responsive values
     final double fontSize = isPortrait ? 14 : 16;
-    final EdgeInsets padding =
-        EdgeInsets.symmetric(horizontal: 10, vertical: isPortrait ? 20 : 15);
+    const EdgeInsets padding =
+        EdgeInsets.symmetric(horizontal: 15, vertical: 15);
     final double iconSize = isPortrait ? 20 : 24;
 
     // Implementing Debouncing for Search Bar (input delay)
