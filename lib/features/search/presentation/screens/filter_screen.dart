@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:hive/hive.dart';
 
 import '../../../../shared/presentation/widgets/button.dart';
 import 'package:ev_charger/features/search/presentation/widgets/widgets.dart';

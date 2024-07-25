@@ -121,7 +121,7 @@ class _InfoContentState extends ConsumerState<InfoContent> {
           }
 
           WidgetsBinding.instance
-              ?.addPostFrameCallback((_) => _checkTextOverflow());
+              .addPostFrameCallback((_) => _checkTextOverflow());
 
           return Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,

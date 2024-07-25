@@ -13,12 +13,13 @@ class ChargersContent extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final screenSize = MediaQuery.of(context).size;
     final currentLocation = ref.watch(locationProvider);
 
     return currentLocation.when(
       data: (location) {
         return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 30.0),
+          padding: EdgeInsets.symmetric(vertical: screenSize.height*0.04),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children:
@@ -45,6 +46,7 @@ class ChargerBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
     return Container(
       decoration: BoxDecoration(
         border: Border.all(color: Theme.of(context).stationGrey),
@@ -55,7 +57,7 @@ class ChargerBox extends StatelessWidget {
         children: [
           Container(
             width: double.infinity,
-            padding: const EdgeInsets.all(8.0),
+            padding:EdgeInsets.all(screenSize.width*0.025),
             decoration: BoxDecoration(
               color: Theme.of(context).stationGrey,
 
@@ -73,12 +75,15 @@ class ChargerBox extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 15),
-            child: Wrap(
+            padding: EdgeInsets.symmetric(horizontal: screenSize.width*0.025,vertical: screenSize.height*0.015),
+            child:  SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
               children: charger.ports.map((port) {
                 return PortBox(port: port);
               }).toList(),
             ),
+          ),
           ),
         ],
       ),
@@ -96,11 +101,12 @@ class PortBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      padding: EdgeInsets.symmetric(horizontal: screenSize.width*0.015),
       child: Container(
-        width: 85,
-        height: 89,
+        width: screenSize.width*0.2,
+        height: screenSize.height*0.09,
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.secondary,
           border: Border.all(color: Theme.of(context).stationGrey,),
@@ -108,9 +114,9 @@ class PortBox extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const SizedBox(height: 5),
+            SizedBox(height: screenSize.height*0.005),
             SvgPicture.asset('assets/icons/plug_icon.svg'),
-            const SizedBox(height: 5),
+            SizedBox(height: screenSize.height*0.005),
             Text(
               port.power_plug_type.plugType,
               style: Theme.of(context).textTheme.titleSmall,
