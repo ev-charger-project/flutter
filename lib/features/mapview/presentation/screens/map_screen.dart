@@ -5,6 +5,7 @@ import 'package:ev_charger/features/mapview/domain/providers/screen_center_provi
 import 'package:ev_charger/shared/domain/providers/openApp/openApp_provider.dart';
 import 'package:ev_charger/shared/presentation/widgets/bottom_app_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geolocator/geolocator.dart';
@@ -72,6 +73,10 @@ class _MapScreenState extends ConsumerState<MapScreen>
   @override
   void initState() {
     super.initState();
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: Color(0x9B606060),
+      statusBarIconBrightness: Brightness.light,
+    ));
     _searchController = TextEditingController();
 
     WidgetsBinding.instance.addObserver(this);
