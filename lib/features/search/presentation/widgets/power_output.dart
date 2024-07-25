@@ -4,6 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 
+import '../providers/power_output/power_output_values_provider.dart';
+
 class PowerOutput extends ConsumerStatefulWidget {
   const PowerOutput({super.key});
 
@@ -12,12 +14,12 @@ class PowerOutput extends ConsumerStatefulWidget {
 }
 
 class _PowerOutputState extends ConsumerState<PowerOutput> {
-  // Define Sf Range Slider values
-  SfRangeValues _currentRangeValues = const SfRangeValues(0, 120);
-
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
+    // Watch for changes in the range values
+    var _currentRangeValues = ref.watch(rangeValuesProvider);
+
     return Padding(
       padding: EdgeInsets.symmetric(vertical: screenSize.height * 0.016),
       child: Container(
@@ -63,6 +65,7 @@ class _PowerOutputState extends ConsumerState<PowerOutput> {
                   setState(() {
                     _currentRangeValues = values;
                   });
+                  ref.read(rangeValuesProvider.notifier).state = values;
                 },
               ),
             ),

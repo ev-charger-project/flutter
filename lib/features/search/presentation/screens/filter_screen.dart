@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:ev_charger/features/search/presentation/providers/charge_type/hidden_plugs_provider.dart';
+import 'package:ev_charger/features/search/presentation/providers/charge_type/show_incompatible_plugs_provider.dart';
 import 'package:ev_charger/features/search/presentation/providers/charge_type/visible_plugs_provider.dart';
 import 'package:ev_charger/shared/presentation/theme/app_theme.dart';
 
@@ -11,6 +12,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../shared/presentation/widgets/button.dart';
 import 'package:ev_charger/features/search/presentation/widgets/widgets.dart';
 
+import '../providers/station_count/selected_station_count_provider.dart';
 import '../widgets/charge_type_object.dart';
 
 @RoutePage()
@@ -107,6 +109,11 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                     // Apply Filter button
                     Button(
                       onTap: () {
+                        final selectedStationCount =
+                            ref.read(selectedStationCountProvider);
+                        print(
+                            "Selected Station Count Index: $selectedStationCount");
+
                         final currentStateVisiblePlugs =
                             ref.read(visiblePlugsProvider);
                         final currentStateHiddenPlugs =
@@ -152,8 +159,11 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                             updatedVisiblePlugs.toSet().toList();
                         ref.read(hiddenPlugsProvider.notifier).state =
                             updatedHiddenPlugs.toSet().toList();
+                        ref.read(showIncompatiblePlugsProvider.notifier).state =
+                            false;
 
                         print("Apply pressed");
+                        Navigator.pop(context);
                       },
                       fillColor: Theme.of(context).primaryColor,
                       border: false,
