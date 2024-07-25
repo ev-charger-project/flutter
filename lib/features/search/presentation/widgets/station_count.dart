@@ -2,6 +2,8 @@ import 'package:ev_charger/shared/presentation/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../providers/station_count/selected_station_count_provider.dart';
+
 class StationCount extends ConsumerStatefulWidget {
   const StationCount({super.key});
 
@@ -12,6 +14,23 @@ class StationCount extends ConsumerStatefulWidget {
 class _StationCountState extends ConsumerState<StationCount> {
   // List of Colors
   List<Color> containerColors = List<Color>.filled(4, Color(0xFFBCDEC5));
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) => updateContainerColors());
+  }
+
+  void updateContainerColors() {
+    final selectedIndex = ref.read(selectedStationCountProvider);
+    if (selectedIndex != null) {
+      setState(() {
+        containerColors = List<Color>.filled(4, Theme.of(context).lightGreen);
+        containerColors[selectedIndex] = Theme.of(context).primaryColor;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +79,8 @@ class _StationCountState extends ConsumerState<StationCount> {
                                           ? Color(0xFF34A853)
                                           : Color(0xFFBCDEC5);*/
                       });
+                      ref.read(selectedStationCountProvider.notifier).state =
+                          index;
                     },
                     child: Container(
                       decoration: BoxDecoration(
