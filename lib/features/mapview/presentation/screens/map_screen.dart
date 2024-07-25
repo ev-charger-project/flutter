@@ -49,6 +49,8 @@ class _MapScreenState extends ConsumerState<MapScreen>
   static const LatLng _fixedLocation = LatLng(10.8023163, 106.6645121);
 
   late TextEditingController _searchController;
+  double currentZoom = 16.0;
+
 
   static CameraPosition _initialCameraPosition(Position? currentLocation,
       {double? latitude, double? longitude}) {
@@ -106,8 +108,7 @@ class _MapScreenState extends ConsumerState<MapScreen>
     await ref.read(userLocationProvider.notifier).getUserLocation();
     final currentLocation = ref.read(userLocationProvider);
     if (currentLocation != null) {
-      LatLng targetLocation =
-      LatLng(currentLocation.latitude, currentLocation.longitude);
+      LatLng targetLocation = LatLng(currentLocation.latitude, currentLocation.longitude);
       CameraPosition cameraPosition = CameraPosition(
         target: targetLocation,
         zoom: 16,
@@ -143,6 +144,10 @@ class _MapScreenState extends ConsumerState<MapScreen>
           _markers.addAll(markers.map((marker) {
             return marker.copyWith(
               onTapParam: () async {
+                final controller = await _controller.future;
+
+                currentZoom = await controller.getZoomLevel();
+
                 setState(() {
                   ref.read(selectedLocationIdProvider.notifier).state = marker.markerId.value;
                   ref.read(isInfoVisibleProvider.notifier).state = true;
@@ -193,7 +198,7 @@ class _MapScreenState extends ConsumerState<MapScreen>
             },
             onTap: (LatLng position) async {
               ref.read(isInfoVisibleProvider.notifier).state = false;
-              await _animateCameraToPosition(position, zoom: 16.0);
+              await _animateCameraToPosition(position, zoom: currentZoom);
             },
           ),
           Positioned(
@@ -233,7 +238,7 @@ class _MapScreenState extends ConsumerState<MapScreen>
               onDragEnd: () async {
                 if (_dragOffset < -100) {
                   ref.read(isInfoVisibleProvider.notifier).state = false;
-                  await _animateCameraToPosition(center, zoom: 16);
+                  await _animateCameraToPosition(center, zoom: currentZoom);
                   _dragOffset = 0;
                 } else {
                   setState(() {
@@ -251,9 +256,13 @@ class _MapScreenState extends ConsumerState<MapScreen>
             child: FloatingActionButton(
               shape: const CircleBorder(),
               onPressed: () async {
+                ref.read(isInfoVisibleProvider.notifier).state = false;
                 await _checkLocationPermission();
               },
-              child: SvgPicture.asset('assets/icons/floating_button_icon.svg'),
+              child: SizedBox(
+                height: 30,
+                child: SvgPicture.asset('assets/icons/floating_button_icon.svg'),
+              ),
             ),
           ),
         ],
