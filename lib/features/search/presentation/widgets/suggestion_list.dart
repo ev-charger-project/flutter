@@ -59,11 +59,9 @@ class SuggestionList extends ConsumerWidget {
                   return Column(
                     children: [
                       ListTile(
-                        leading: Container(
-                          child: SvgPicture.asset(
-                            'assets/icons/station_marker.svg',
-                            height: screenSize.height * 0.08,
-                          ),
+                        leading: SvgPicture.asset(
+                          'assets/icons/station_marker.svg',
+                          height: screenSize.height * 0.08,
                         ),
                         title: Text(
                           suggestion.locationName,
@@ -94,7 +92,15 @@ class SuggestionList extends ConsumerWidget {
                 },
               );
       },
-      loading: () => const Center(child: DotsCircularProgressIndicator()),
+      loading: () => Center(
+        child: SizedBox(
+          height: 60,
+          child: DotsCircularProgressIndicator(
+            color: Theme.of(context).colorScheme.primary,
+            numberOfDots: 8,
+          ),
+        ),
+      ),
       error: (error, stack) => Center(child: Text('Error: $error')),
     );
   }
