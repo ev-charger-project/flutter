@@ -5,7 +5,6 @@ import 'package:ev_charger/features/mapview/domain/providers/screen_center_provi
 import 'package:ev_charger/shared/domain/providers/openApp/openApp_provider.dart';
 import 'package:ev_charger/shared/presentation/widgets/bottom_app_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geolocator/geolocator.dart';
@@ -46,7 +45,6 @@ class _MapScreenState extends ConsumerState<MapScreen>
 
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
-  GoogleMapController? _mapController;
   final List<Marker> _markers = <Marker>[];
   static const LatLng _fixedLocation = LatLng(10.8023163, 106.6645121);
 
@@ -178,7 +176,6 @@ class _MapScreenState extends ConsumerState<MapScreen>
             onMapCreated: (GoogleMapController controller) {
               if (!_controller.isCompleted) {
                 _controller.complete(controller);
-                _mapController = controller;
               }
             },
             onCameraIdle: () async {

@@ -1,7 +1,5 @@
-import 'dart:math' as math;
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../../../../shared/domain/providers/location/user_location_provider.dart';
 import '../../../../location/presentation/providers/selected_location_id_provider.dart';

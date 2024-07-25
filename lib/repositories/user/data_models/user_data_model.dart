@@ -1,7 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../../shared/core/mixins/entity_convertible.mixin.dart';
-import '../entities/user_entity.dart';
 
 part 'user_data_model.freezed.dart';
 part 'user_data_model.g.dart';

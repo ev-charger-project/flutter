@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:ev_charger/repositories/marker/data_models/charger_marker_data_model.dart';
 import 'package:ev_charger/repositories/location/data_models/location_data_model.dart';
 import 'package:ev_charger/repositories/suggestion/data_models/suggestion_data_model.dart';
