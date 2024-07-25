@@ -19,3 +19,5 @@ class Port with _$Port {
     required PowerOutputEntity power_model,
   }) = _PortDataModel;
 }
+
+

@@ -1,3 +1,4 @@
+import 'package:ev_charger/repositories/charge_type/data_models/charge_type_data_model.dart';
 import 'package:ev_charger/repositories/marker/data_models/charger_marker_data_model.dart';
 import 'package:ev_charger/repositories/location/data_models/location_data_model.dart';
 import 'package:ev_charger/repositories/suggestion/data_models/suggestion_data_model.dart';
@@ -103,6 +104,30 @@ class AgestStorageService extends RemoteStorageService {
           '${response.data['rows'][0]['elements'][0]['duration_in_traffic']['value'] ~/ 60} mins',
         ];
         return result;
+      } else {
+        throw Exception('Error code: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error: $e');
+      if (e is DioException && e.response != null) {
+        throw Exception('Error code: ${e.response?.statusCode}');
+      } else {
+        throw Exception('An unknown error occurred');
+      }
+    }
+  }
+
+  @override
+  Future<List<ChargeTypeDataModel>> fetchChargeTypeData() async {
+    const url = 'http://172.16.11.139:14000/api/v1/power-plug-types/unique-types';
+
+    try {
+      final response = await _dio.get(url);
+      if (response.statusCode == 200) {
+        return (response.data as List)
+            .map((item) =>
+            ChargeTypeDataModel.fromJson(item as Map<String, dynamic>))
+            .toList();
       } else {
         throw Exception('Error code: ${response.statusCode}');
       }
