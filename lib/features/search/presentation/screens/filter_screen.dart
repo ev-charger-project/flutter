@@ -155,7 +155,7 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
 
                         print("Apply pressed");
                       },
-                      fillColor: Color(0xFF34A853),
+                      fillColor: Theme.of(context).primaryColor,
                       border: false,
                       shadow: true,
                       shadowOpacity: 0.34,

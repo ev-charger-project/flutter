@@ -1,37 +1,16 @@
+import 'package:ev_charger/features/search/domain/providers/charge_type_provider.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../widgets/charge_type_object.dart';
 
-final availablePlugsProvider = Provider<List<ChargeTypeObject>>((ref) {
-  return [
-    ChargeTypeObject(
-      chargeType: "CCS1",
-      chargePowerType: "AC",
-      isChecked: false,
-    ),
-    ChargeTypeObject(
-      chargeType: "CCS1",
-      chargePowerType: "DC",
-      isChecked: false,
-    ),
-    ChargeTypeObject(
-      chargeType: "CCS2",
-      chargePowerType: "AC",
-      isChecked: false,
-    ),
-    ChargeTypeObject(
-      chargeType: "CCS2",
-      chargePowerType: "DC",
-      isChecked: false,
-    ),
-    ChargeTypeObject(
-      chargeType: "CCS3",
-      chargePowerType: "AC",
-      isChecked: false,
-    ),
-    ChargeTypeObject(
-      chargeType: "CCS3",
-      chargePowerType: "DC",
-      isChecked: false,
-    ),
-  ];
+final availablePlugsProvider =
+    FutureProvider<List<ChargeTypeObject>>((ref) async {
+  final chargeTypeList = await ref.watch(chargeTypeProvider.future);
+  return chargeTypeList
+      .map((i) => ChargeTypeObject(
+            chargeType: i.plug_type,
+            chargePowerType: i.power_model,
+            isChecked: false,
+          ))
+      .toList();
 });
