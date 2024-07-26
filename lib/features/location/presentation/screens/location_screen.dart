@@ -54,7 +54,7 @@ class _LocationScreenState extends ConsumerState<LocationScreen> {
                     padding: EdgeInsets.only(
                         top: 20.0,
                         left: MediaQuery.of(context).size.width * 0.015,
-                        right: 70),
+                        right: MediaQuery.of(context).size.width * 0.015),
                     child: const LocationNameAddress(),
                   ),
                   Divider(
