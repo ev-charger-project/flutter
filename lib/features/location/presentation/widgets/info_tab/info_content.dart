@@ -1,3 +1,4 @@
+import 'package:ev_charger/shared/presentation/theme/app_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -76,7 +77,7 @@ class _InfoContentState extends ConsumerState<InfoContent> {
         (index) => Padding(
           padding: const EdgeInsets.all(1),
           child: Container(
-            color: const Color(0x99e8e8e8),
+            color: Theme.of(context).extraLightGrey,
             padding:
                 const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
             child: Row(
@@ -107,7 +108,6 @@ class _InfoContentState extends ConsumerState<InfoContent> {
         data: (location) {
           final String? longText = location.description;
           final List<Map<String, String>> data = [];
-
           if (location.pricing != null && location.pricing!.isNotEmpty) {
             data.add({'Fee': location.pricing!});
           }
@@ -119,6 +119,14 @@ class _InfoContentState extends ConsumerState<InfoContent> {
               location.parkingLevel!.isNotEmpty) {
             data.add({'Parking Level': location.parkingLevel!});
           }
+          data.add({'Monday': location.workingDay.mon});
+          data.add({'Tuesday': location.workingDay.tue});
+          data.add({'Wednesday': location.workingDay.wed});
+          data.add({'Thursday': location.workingDay.thu});
+          data.add({'Friday': location.workingDay.fri});
+          data.add({'Saturday': location.workingDay.sat});
+          data.add({'Sunday': location.workingDay.sun});
+
 
           WidgetsBinding.instance
               .addPostFrameCallback((_) => _checkTextOverflow());
