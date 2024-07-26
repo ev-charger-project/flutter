@@ -147,19 +147,22 @@ class _MapScreenState extends ConsumerState<MapScreen>
         setState(() {
           _markers.clear();
           _markers.addAll(markers.map((marker) {
-            return marker.copyWith(
-              onTapParam: () async {
-                final controller = await _controller.future;
+            if (marker.markerId.value != 'currentLocation'){
+              return marker.copyWith(
+                onTapParam: () async {
+                  final controller = await _controller.future;
 
-                currentZoom = await controller.getZoomLevel();
+                  currentZoom = await controller.getZoomLevel();
 
-                setState(() {
-                  ref.read(selectedLocationIdProvider.notifier).state = marker.markerId.value;
-                  ref.read(isInfoVisibleProvider.notifier).state = true;
-                });
-                await _animateCameraToPosition(marker.position, zoom: 18.0);
-              },
-            );
+                  setState(() {
+                    ref.read(selectedLocationIdProvider.notifier).state = marker.markerId.value;
+                    ref.read(isInfoVisibleProvider.notifier).state = true;
+                  });
+                  await _animateCameraToPosition(marker.position, zoom: 18.0);
+                },
+              );
+            }
+            return marker;
           }).toList());
         });
       },
