@@ -118,7 +118,7 @@ class PortBox extends StatelessWidget {
             SvgPicture.asset('assets/icons/plug_icon.svg'),
             SizedBox(height: screenSize.height*0.005),
             Text(
-              port.power_plug_type.plugType,
+              "${port.power_plug_type.plugType}/${port.power_plug_type.powerModel}",
               style: Theme.of(context).textTheme.titleSmall,
               textAlign: TextAlign.center,
             ),
