@@ -53,6 +53,7 @@ dependencies:
   auto_route: 8.2.0
   flutter_svg: ^2.0.10+1
   flutter_localization:
+  flutter_polyline_points:
 
   flutter_image_converter: 0.3.3
   http: 1.2.1

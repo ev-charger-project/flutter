@@ -47,7 +47,7 @@ class SimpleBottomAppBar extends StatelessWidget {
         label = 'Route';
         onPressed = () {
           if (!_isCurrentRoute(context, LocationRoute.name)) {
-            context.router.push(const RouteSearchRoute());
+            context.router.push(const RouteRoute());
           }
         };
         isSelected = _isCurrentRoute(context, RouteSearchRoute.name);

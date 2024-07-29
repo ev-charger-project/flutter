@@ -4,6 +4,8 @@ import 'package:ev_charger/repositories/location/data_models/location_data_model
 import 'package:ev_charger/repositories/suggestion/data_models/suggestion_data_model.dart';
 import 'package:ev_charger/shared/data/data_source/remote/remote_storage_service.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
+import 'package:google_maps_flutter_platform_interface/src/types/location.dart';
 
 class AgestStorageService extends RemoteStorageService {
   final Dio _dio = Dio();
@@ -140,4 +142,19 @@ class AgestStorageService extends RemoteStorageService {
       }
     }
   }
+
+  @override
+  Future<PolylineResult> fetchRoute(double userLat, double userLong,double destinationLat, double destinationLong) async {
+    final PolylinePoints polylinePoints = PolylinePoints();
+    final PolylineResult result =
+        await polylinePoints.getRouteBetweenCoordinates(
+      googleApiKey: 'AIzaSyAGYJacplt2I8syt0aY4GXfSNXhKdsXUgM',
+      request: PolylineRequest(
+          origin: PointLatLng(userLat, userLong),
+          destination: PointLatLng(destinationLat, destinationLong),
+          mode: TravelMode.driving),
+    );
+    return result;
+  }
+
 }

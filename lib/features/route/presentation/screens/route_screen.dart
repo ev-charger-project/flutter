@@ -1,10 +1,12 @@
 import 'dart:async';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import '../../domain/providers/route_provider.dart';
+import '../widgets/location_box.dart';
+import '../widgets/start_button.dart';
 
 @RoutePage()
 class RouteScreen extends ConsumerStatefulWidget {
@@ -15,95 +17,89 @@ class RouteScreen extends ConsumerStatefulWidget {
 }
 
 class _RouteScreenState extends ConsumerState<RouteScreen> {
+  final List<Marker> _markers = <Marker>[];
   final Completer<GoogleMapController> _controller = Completer();
-  static const LatLng _initialPosition = LatLng(10.762622, 106.660172);
+  final Set<Polyline> _polylines = {};
+  final googleApiKey = 'AIzaSyAGYJacplt2I8syt0aY4GXfSNXhKdsXUgM';
 
   @override
   Widget build(BuildContext context) {
+    final markerAsyncValue = ref.watch(routeProvider);
+    // final currentLocation = ref.watch(locationProvider);
+    final currentLocation = LatLng(10.862622, 106.760172);
+    // final userLocation = ref.watch(userLocationProvider);
+    final userLocation = LatLng(10.762622, 106.660172);
+
+    markerAsyncValue.when(
+      data: (markers) {
+        setState(() {
+          _markers.clear();
+          _markers.addAll(markers);
+        });
+      },
+      loading: () {},
+      error: (error, stack) => print('Error: $error'),
+    );
+
+
+    final screenSize = MediaQuery.of(context).size;
     return Scaffold(
       body: Stack(
         children: [
           GoogleMap(
             mapType: MapType.normal,
-            initialCameraPosition: const CameraPosition(
-              target: _initialPosition,
+            initialCameraPosition: CameraPosition(
+              target: LatLng(userLocation!.latitude, userLocation.longitude),
               zoom: 14,
             ),
+            fortyFiveDegreeImageryEnabled: false,
+            indoorViewEnabled: false,
+            compassEnabled: false,
+            tiltGesturesEnabled: false,
+            buildingsEnabled: false,
+            mapToolbarEnabled: false,
+            zoomControlsEnabled: false,
+            minMaxZoomPreference: const MinMaxZoomPreference(12, 17),
             onMapCreated: (GoogleMapController controller) {
               _controller.complete(controller);
+              _drawPolyline(
+                  LatLng(userLocation!.latitude, userLocation.longitude),
+                  currentLocation);
             },
+            polylines: _polylines,
           ),
-          Positioned(
-            top: 40,
-            left: 10,
-            right: 10,
-            child: Column(
-              children: [
-                _buildSearchBox(context, 'Sonatus Building, 15 D. L Tôn, Bến Nghé, Quận 1'),
-                const SizedBox(height: 10),
-                _buildSearchBox(context, 'Hoa Hao Clinic, 254 Hòa Hảo, Phường 15, Quận 10'),
-              ],
-            ),
-          ),
-          Positioned(
-            bottom: 20,
-            left: 10,
-            right: 10,
-            child: ElevatedButton(
-              onPressed: () {
-                // Handle start button press
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.green,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                padding: const EdgeInsets.symmetric(vertical: 15),
-              ),
-              child: const Text(
-                'Start',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ),
+          LocationAppBar(screenSize: screenSize),
+          StartButton(),
         ],
       ),
     );
   }
 
-  Widget _buildSearchBox(BuildContext context, String hintText) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-      decoration: BoxDecoration(
-        color: Colors.green,
-        borderRadius: BorderRadius.circular(5),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Flexible(
-            child: Text(
-              hintText,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 14,
-              ),
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-          const SizedBox(width: 10),
-          SvgPicture.asset(
-            'assets/icons/location_icon.svg',
-            width: 24,
-            height: 24,
-            color: Colors.white,
-          ),
-        ],
-      ),
+  Future<void> _drawPolyline(LatLng start, LatLng end) async {
+    final PolylinePoints polylinePoints = PolylinePoints();
+    final PolylineResult result =
+        await polylinePoints.getRouteBetweenCoordinates(
+      googleApiKey: googleApiKey,
+      request: PolylineRequest(
+          origin: PointLatLng(start.latitude, start.longitude),
+          destination: PointLatLng(end.latitude, end.longitude),
+          mode: TravelMode.driving),
     );
+
+    if (result.points.isNotEmpty) {
+      final List<LatLng> polylineCoordinates = result.points
+          .map((PointLatLng point) => LatLng(point.latitude, point.longitude))
+          .toList();
+
+      setState(() {
+        _polylines.add(Polyline(
+          polylineId: const PolylineId('route'),
+          color: Theme.of(context).colorScheme.primary,
+          points: polylineCoordinates,
+          width: 5,
+        ));
+      });
+    }
   }
 }
+
