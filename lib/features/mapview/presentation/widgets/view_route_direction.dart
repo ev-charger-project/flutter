@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../routes/app_route.dart';
+import '../../../../shared/core/localization/localization.dart';
 import '../../../../shared/domain/providers/charger/charger_provider.dart';
 import '../../../../shared/domain/providers/location/user_location_provider.dart';
 import '../../../../shared/domain/providers/permission/permission_provider.dart';
@@ -62,7 +63,7 @@ class ViewRouteDirectionButtons extends ConsumerWidget {
                 ),
               ),
               child: Text(
-                'View',
+                AppLocalizations.of(context).translate('View'),
                 style: Theme.of(context)
                     .primaryTextTheme
                     .bodyMedium
@@ -84,7 +85,7 @@ class ViewRouteDirectionButtons extends ConsumerWidget {
                 ),
               ),
               child: Text(
-                'Route Plan',
+                AppLocalizations.of(context).translate('Route Plan'),
                 style: Theme.of(context)
                     .primaryTextTheme
                     .bodyMedium
@@ -106,7 +107,7 @@ class ViewRouteDirectionButtons extends ConsumerWidget {
                 ),
               ),
               child: Text(
-                'Direction',
+                AppLocalizations.of(context).translate('Direction'),
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: Theme.of(context).colorScheme.onPrimary,
                       fontSize: height * 0.02,

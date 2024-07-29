@@ -1,4 +1,5 @@
 import 'package:ev_charger/routes/app_route.dart';
+import 'package:ev_charger/shared/core/localization/localization.dart';
 import 'package:ev_charger/shared/domain/providers/theme_notifier.dart';
 import 'package:ev_charger/shared/presentation/theme/app_theme.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'main/observers.dart';
-
+import 'package:flutter_localizations/flutter_localizations.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([
@@ -43,6 +44,15 @@ class MyApp extends ConsumerWidget {
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: themeMode,
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('en', ''), 
+      ],
     );
   }
 }
