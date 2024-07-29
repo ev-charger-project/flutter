@@ -12,8 +12,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../shared/presentation/widgets/button.dart';
 import 'package:ev_charger/features/search/presentation/widgets/widgets.dart';
 
+import '../providers/power_output/power_output_values_provider.dart';
 import '../providers/station_count/selected_station_count_provider.dart';
+import '../providers/station_count/station_count_value_provider.dart';
 import '../widgets/charge_type_object.dart';
+
+import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 @RoutePage()
 class FilterScreen extends ConsumerStatefulWidget {
@@ -85,7 +89,57 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                   children: [
                     // Reset button
                     Button(
-                      onTap: () {
+                      onTap: () async {
+                        // Reset Station Count
+
+                        ref.read(selectedStationCountProvider.notifier).state =
+                            0;
+                        ref.read(stationCountValueProvider.notifier).state = 0;
+                        ref
+                            .read(containerColorsProvider.notifier)
+                            .updateColors(null, context);
+
+                        // Reset Charge Type
+                        final visiblePlugsAsyncValue =
+                            ref.read(visiblePlugsInitializerProvider);
+
+                        visiblePlugsAsyncValue.when(
+                          data: (initialVisiblePlugs) {
+                            final resetVisiblePlugs =
+                                initialVisiblePlugs.map((plug) {
+                              return ChargeTypeObject(
+                                chargeType: plug.chargeType,
+                                chargePowerType: plug.chargePowerType,
+                                isChecked: false,
+                              );
+                            }).toList();
+                            ref.read(visiblePlugsProvider.notifier).state =
+                                resetVisiblePlugs;
+                          },
+                          loading: () => print("Loading visible plugs..."),
+                          error: (err, stack) =>
+                              print("Error loading visible plugs: $err"),
+                        );
+
+                        final hiddenPlugsAsyncValue =
+                            ref.read(hiddenPlugsInitializerProvider);
+                        hiddenPlugsAsyncValue.when(
+                          data: (initialHiddenPlugs) {
+                            ref.read(hiddenPlugsProvider.notifier).state =
+                                initialHiddenPlugs;
+                          },
+                          loading: () => print("Loading hidden plugs..."),
+                          error: (err, stack) =>
+                              print("Error loading hidden plugs: $err"),
+                        );
+
+                        ref.read(showIncompatiblePlugsProvider.notifier).state =
+                            false;
+
+                        // Reset Power Output
+                        ref.read(rangeValuesProvider.notifier).state =
+                            SfRangeValues(0, 360);
+
                         print("Reset pressed");
                       },
                       fillColor: Theme.of(context).lightGreen,
