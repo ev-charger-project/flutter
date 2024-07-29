@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:ev_charger/features/location/presentation/providers/selected_location_id_provider.dart';
 import 'package:ev_charger/features/mapview/domain/providers/is_info_visible_provider.dart';
+import 'package:ev_charger/features/splash/widgets/dots_circular_progress_painter_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -58,11 +59,9 @@ class SuggestionList extends ConsumerWidget {
                   return Column(
                     children: [
                       ListTile(
-                        leading: Container(
-                          child: SvgPicture.asset(
-                            'assets/icons/station_marker.svg',
-                            height: screenSize.height * 0.08,
-                          ),
+                        leading: SvgPicture.asset(
+                          'assets/icons/station_marker.svg',
+                          height: screenSize.height * 0.08,
                         ),
                         title: Text(
                           suggestion.locationName,
@@ -93,7 +92,15 @@ class SuggestionList extends ConsumerWidget {
                 },
               );
       },
-      loading: () => const Center(child: CircularProgressIndicator()),
+      loading: () => Center(
+        child: SizedBox(
+          height: 60,
+          child: DotsCircularProgressIndicator(
+            color: Theme.of(context).colorScheme.primary,
+            numberOfDots: 8,
+          ),
+        ),
+      ),
       error: (error, stack) => Center(child: Text('Error: $error')),
     );
   }

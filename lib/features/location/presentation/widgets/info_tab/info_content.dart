@@ -77,7 +77,7 @@ class _InfoContentState extends ConsumerState<InfoContent> {
         (index) => Padding(
           padding: const EdgeInsets.all(1),
           child: Container(
-            color: Theme.of(context).extraLightGrey,
+            color: Theme.of(context).stationGrey,
             padding:
                 const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
             child: Row(
@@ -126,7 +126,6 @@ class _InfoContentState extends ConsumerState<InfoContent> {
           data.add({'Friday': location.workingDay.fri});
           data.add({'Saturday': location.workingDay.sat});
           data.add({'Sunday': location.workingDay.sun});
-
 
           WidgetsBinding.instance
               .addPostFrameCallback((_) => _checkTextOverflow());

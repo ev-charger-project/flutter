@@ -28,8 +28,8 @@ class AppRouter extends _$AppRouter {
         CustomRoute(page: SplashRoute.page, initial: true),
         CustomRoute(
           page: FilterRoute.page,
-          transitionsBuilder: TransitionsBuilders.slideLeft,
-          durationInMilliseconds: 800,
+          transitionsBuilder: TransitionsBuilders.slideLeftWithFade,
+          durationInMilliseconds: 400,
           initial: false,
         ),
         CustomRoute(
