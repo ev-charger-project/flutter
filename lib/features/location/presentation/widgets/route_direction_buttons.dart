@@ -1,7 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../../../../routes/app_route.dart';
 import '../../../../shared/core/localization/localization.dart';
 import '../../../../shared/domain/providers/location/user_location_provider.dart';
 import '../../../../shared/domain/providers/permission/permission_provider.dart';
@@ -17,6 +19,26 @@ class RouteDirectionButtons extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
+
+
+    void handleButtonPress2() async {
+      final permissionState = ref.read(permissionProvider);
+
+      if (!permissionState.hasPermission) {
+        showDialog(
+          context: context,
+          builder: (context) => const PermissionScreen(),
+        );
+      } else {
+        final userLocation = ref.read(userLocationProvider);
+        final destinationLocation = ref.read(locationProvider);
+
+        if (userLocation != null && destinationLocation is AsyncData) {
+          context.router.push(RouteRoute());
+        }
+      }
+    }
+
 
     void handleButtonPress() async {
       final permissionState = ref.read(permissionProvider);
@@ -44,13 +66,14 @@ class RouteDirectionButtons extends ConsumerWidget {
       }
     }
 
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(
           child: SizedBox(
             child: OutlinedButton(
-              onPressed: handleButtonPress,
+              onPressed: handleButtonPress2,
               style: OutlinedButton.styleFrom(
                 padding: EdgeInsets.all(0),
                 side: BorderSide(color: Theme.of(context).colorScheme.primary),
