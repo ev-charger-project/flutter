@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../../../../shared/core/localization/localization.dart';
 import '../../../../shared/domain/providers/location/user_location_provider.dart';
 import '../../../../shared/domain/providers/permission/permission_provider.dart';
 import '../../../../shared/domain/providers/location/location_provider.dart';
@@ -58,7 +59,7 @@ class RouteDirectionButtons extends ConsumerWidget {
                 ),
               ),
               child: Text(
-                'Route Plan',
+                AppLocalizations.of(context).translate('Route Plan'),
                 style: Theme.of(context).primaryTextTheme.bodyMedium,
               ),
             ),
@@ -76,7 +77,7 @@ class RouteDirectionButtons extends ConsumerWidget {
                 ),
               ),
               child: Text(
-                'Direction',
+                AppLocalizations.of(context).translate('Direction'),
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: Theme.of(context).colorScheme.onPrimary,
                       fontSize: height * 0.02,

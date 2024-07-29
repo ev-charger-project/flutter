@@ -5,6 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'dart:async';
 
+import '../../../../shared/core/localization/localization.dart';
+
 class SearchBarAndFilter extends ConsumerWidget {
   final TextEditingController controller;
   final Function(String) onChanged;
@@ -63,7 +65,7 @@ class SearchBarAndFilter extends ConsumerWidget {
                   focusNode: focusNode,
                   controller: controller,
                   decoration: InputDecoration(
-                    hintText: 'Search stations',
+                    hintText: AppLocalizations.of(context).translate('Search stations'),
                     hintStyle: TextStyle(
                       color: Colors.black.withOpacity(0.65),
                       fontSize: fontSize,

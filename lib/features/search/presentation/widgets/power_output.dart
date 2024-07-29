@@ -5,6 +5,7 @@ import 'package:syncfusion_flutter_sliders/sliders.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 
 import '../providers/power_output/power_output_values_provider.dart';
+import '../../../../shared/core/localization/localization.dart';
 
 class PowerOutput extends ConsumerStatefulWidget {
   const PowerOutput({super.key});
@@ -32,8 +33,8 @@ class _PowerOutputState extends ConsumerState<PowerOutput> {
           children: [
             Row(
               children: [
-                Text("Power Output",
-                    style: Theme.of(context).textTheme.displaySmall),
+                Text(AppLocalizations.of(context).translate("Power Output"),
+                    style: Theme.of(context).primaryTextTheme.displaySmall),
               ],
             ),
             Divider(

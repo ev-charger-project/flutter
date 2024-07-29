@@ -8,6 +8,8 @@ import '../providers/charge_type/hidden_plugs_provider.dart';
 import '../providers/charge_type/show_incompatible_plugs_provider.dart';
 import '../providers/charge_type/visible_plugs_provider.dart';
 
+import '../../../../shared/core/localization/localization.dart';
+
 class ChargeType extends ConsumerStatefulWidget {
   const ChargeType({super.key});
 
@@ -36,8 +38,9 @@ class _ChargeTypeState extends ConsumerState<ChargeType> {
             Row(
               children: [
                 Text(
-                  "Charge Type",
+                  AppLocalizations.of(context).translate("Charge Type"),
                   style: Theme.of(context).textTheme.displaySmall,
+
                 ),
               ],
             ),

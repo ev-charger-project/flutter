@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../routes/app_route.dart';
+import '../../../../shared/core/localization/localization.dart';
 import '../../../../shared/domain/providers/suggestion/suggestion_provider.dart';
 
 class SuggestionList extends ConsumerWidget {
@@ -35,7 +36,7 @@ class SuggestionList extends ConsumerWidget {
                       height: screenSize.height * 0.01,
                     ),
                     Text(
-                      "Not found",
+                      AppLocalizations.of(context).translate("Not found"),
                       style: Theme.of(context).textTheme.displayLarge,
                       textAlign: TextAlign.center,
                     ),
@@ -43,7 +44,7 @@ class SuggestionList extends ConsumerWidget {
                       padding: EdgeInsets.symmetric(
                           horizontal: screenSize.width * 0.1, vertical: 20),
                       child: Text(
-                        "We're sorry, the key word you were looking for could not be found. Please try again with another key words.",
+                        AppLocalizations.of(context).translate("We're sorry, the key word you were looking for could not be found. Please try again with another key words."),
                         style: Theme.of(context).textTheme.titleSmall,
                         textAlign: TextAlign.center,
                       ),

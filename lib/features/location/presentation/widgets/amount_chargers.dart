@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
+import '../../../../shared/core/localization/localization.dart';
 import '../../../../shared/domain/providers/location/location_provider.dart';
 
 class ChargerNum extends ConsumerWidget {
@@ -41,7 +42,7 @@ class ChargerNum extends ConsumerWidget {
                 ),
               ),
               Text(
-                '$chargers chargers',
+                '$chargers ${AppLocalizations.of(context).translate('Chargers')}',
                 style: Theme.of(context).primaryTextTheme.bodyLarge?.copyWith(),
                 textAlign: TextAlign.left,
               ),

@@ -6,6 +6,8 @@ import 'package:ev_charger/repositories/charger/entities/charger_entity.dart'; /
 import 'package:ev_charger/shared/domain/providers/location/location_provider.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../../../shared/core/localization/localization.dart';
+
 class ChargersContent extends ConsumerWidget {
   const ChargersContent({
     super.key,
@@ -70,7 +72,7 @@ class ChargerBox extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: 20.0,top:10),
             child: Text(
-              'Plugs',
+              AppLocalizations.of(context).translate('Plugs'),
               style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontSize: 14),
             ),
           ),
