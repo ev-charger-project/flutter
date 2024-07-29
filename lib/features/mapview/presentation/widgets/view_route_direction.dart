@@ -20,10 +20,6 @@ class ViewRouteDirectionButtons extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
-    final destinationLocation = ref.read(locationProvider);
-    final destination = destinationLocation.value;
-    final latitude = destination?.latitude;
-    final longitude = destination?.longitude;
 
     void handleButtonPress() async {
       final permissionState = ref.read(permissionProvider);
@@ -35,9 +31,12 @@ class ViewRouteDirectionButtons extends ConsumerWidget {
         );
       } else {
         final userLocation = ref.read(userLocationProvider);
-        if (userLocation != null) {
+        final destinationLocation = ref.read(locationProvider);
+
+        if (userLocation != null && destinationLocation is AsyncData) {
+          final destination = destinationLocation.value;
           final url = Uri.parse(
-              'https://www.google.com/maps/dir/?api=1&origin=${userLocation.latitude},${userLocation.longitude}&destination=$latitude,$longitude&travelmode=driving');
+              'https://www.google.com/maps/dir/?api=1&origin=${userLocation.latitude},${userLocation.longitude}&destination=${destination?.latitude},${destination?.longitude}&travelmode=driving');
 
           if (await canLaunchUrl(url)) {
             await launchUrl(url);
@@ -109,9 +108,9 @@ class ViewRouteDirectionButtons extends ConsumerWidget {
               child: Text(
                 AppLocalizations.of(context).translate('Direction'),
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.onPrimary,
-                      fontSize: height * 0.02,
-                    ),
+                  color: Theme.of(context).colorScheme.onPrimary,
+                  fontSize: height * 0.02,
+                ),
               ),
             ),
           ),
