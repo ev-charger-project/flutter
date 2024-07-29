@@ -23,10 +23,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
 
 
     Timer(const Duration(seconds: 2), () {
-      ref.watch(openAppProvider.notifier).state = true;
-
       context.router.replace(MapRoute());
-
     });
   }
 

@@ -83,16 +83,6 @@ class _MapScreenState extends ConsumerState<MapScreen>
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await ref.read(permissionProvider.notifier).reCheckPermission();
-      final permissionState = ref.read(permissionProvider);
-      final openAppState = ref.read(openAppProvider.notifier).state;
-
-      if (!permissionState.hasPermission && openAppState) {
-        ref.read(openAppProvider.notifier).state = false;
-        showDialog(
-          context: context,
-          builder: (context) => const PermissionScreen(),
-        );
-      }
     });
   }
 
