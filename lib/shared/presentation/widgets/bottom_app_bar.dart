@@ -46,8 +46,8 @@ class SimpleBottomAppBar extends StatelessWidget {
         assetName = 'assets/icons/route_icon.svg';
         label = 'Route';
         onPressed = () {
-          if (!_isCurrentRoute(context, LocationRoute.name)) {
-            context.router.push(const RouteRoute());
+          if (!_isCurrentRoute(context, RouteSearchRoute.name)) {
+            context.router.push(const RouteSearchRoute());
           }
         };
         isSelected = _isCurrentRoute(context, RouteSearchRoute.name);
@@ -60,7 +60,7 @@ class SimpleBottomAppBar extends StatelessWidget {
         //     context.router.push(SearchRoute());
         //   }
         // };
-        isSelected = _isCurrentRoute(context, SearchRoute.name);
+        isSelected = _isCurrentRoute(context, LocationRoute.name);
         break;
     }
 

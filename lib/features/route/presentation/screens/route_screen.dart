@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:auto_route/auto_route.dart';
 import 'package:ev_charger/features/route/domain/providers/polypoints_provider.dart';
+import 'package:ev_charger/features/route/domain/providers/time_distance_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
@@ -8,6 +9,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../../../shared/domain/providers/location/user_location_provider.dart';
 import '../../../mapview/domain/providers/is_info_visible_provider.dart';
 import '../../domain/providers/route_provider.dart';
+import '../widgets/info_window.dart';
 import '../widgets/location_box.dart';
 import '../widgets/start_button.dart';
 
@@ -26,7 +28,6 @@ class _RouteScreenState extends ConsumerState<RouteScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final isInfoVisible = ref.watch(isInfoVisibleProvider);
     final markerAsyncValue = ref.watch(routeProvider);
     final polypointsAsyncValue = ref.watch(polypointsProvider);
     final userLocation = ref.watch(userLocationProvider);
@@ -45,7 +46,7 @@ class _RouteScreenState extends ConsumerState<RouteScreen> {
     polypointsAsyncValue.when(
       data: (polypoints) {
         setState(() {
-          _polylines.clear();  // Clear previous polylines
+          _polylines.clear();
           _polylines.add(
             Polyline(
               polylineId: const PolylineId('route'),
@@ -59,9 +60,6 @@ class _RouteScreenState extends ConsumerState<RouteScreen> {
       loading: () {},
       error: (error, stack) => print('Error: $error'),
     );
-
-
-    final screenSize = MediaQuery.of(context).size;
     return Scaffold(
       body: Stack(
         children: [
@@ -82,15 +80,15 @@ class _RouteScreenState extends ConsumerState<RouteScreen> {
             markers: Set<Marker>.of(_markers),
             onMapCreated: (GoogleMapController controller) {
               _controller.complete(controller);
-
             },
             polylines: _polylines,
           ),
-          LocationAppBar(screenSize: screenSize),
-          StartButton(),
+          const LocationAppBar(),
+          const StartButton(),
+          const DistanceTime(),
           AnimatedPositioned(
             duration: const Duration(milliseconds: 300),
-            bottom:  96.0,
+            bottom: 96.0,
             right: 16.0,
             child: FloatingActionButton(
               shape: const CircleBorder(),
@@ -99,7 +97,8 @@ class _RouteScreenState extends ConsumerState<RouteScreen> {
               },
               child: SizedBox(
                 height: 30,
-                child: SvgPicture.asset('assets/icons/floating_button_icon.svg'),
+                child:
+                    SvgPicture.asset('assets/icons/floating_button_icon.svg'),
               ),
             ),
           ),
