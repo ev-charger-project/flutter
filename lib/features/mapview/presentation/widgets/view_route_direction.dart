@@ -4,15 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../../repositories/marker/entities/charger_marker_entity.dart';
 import '../../../../routes/app_route.dart';
-import '../../../../shared/core/localization/localization.dart';
 import '../../../../shared/domain/providers/charger/charger_provider.dart';
 import '../../../../shared/domain/providers/location/user_location_provider.dart';
 import '../../../../shared/domain/providers/permission/permission_provider.dart';
 import '../../../notification/screens/permission_screen.dart';
-import '../../../route/domain/providers/end_provider.dart';
-import '../../../route/domain/providers/start_provider.dart';
 
 class ViewRouteDirectionButtons extends ConsumerWidget {
   const ViewRouteDirectionButtons({
@@ -23,35 +19,10 @@ class ViewRouteDirectionButtons extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
-
-    void handleButtonPress2() async {
-      final permissionState = ref.read(permissionProvider);
-
-      if (!permissionState.hasPermission) {
-        showDialog(
-          context: context,
-          builder: (context) => const PermissionScreen(),
-        );
-      } else {
-        final userLocation = ref.read(userLocationProvider);
-        final destinationLocation = ref.read(locationProvider);
-
-        if (userLocation != null && destinationLocation is AsyncData) {
-          ref.read(startProvider.notifier).updateStartLocation(ChargerMarkerEntity(
-            id: 'userLocation',
-            latitude: userLocation.latitude,
-            longitude: userLocation.longitude,
-          ));
-
-          ref.read(endProvider.notifier).updateEndLocation(ChargerMarkerEntity(
-            id: 'destinationLocation',
-            latitude: destinationLocation.value!.latitude,
-            longitude: destinationLocation.value!.longitude,
-          ));
-          context.router.push(RouteRoute());
-        }
-      }
-    }
+    final destinationLocation = ref.read(locationProvider);
+    final destination = destinationLocation.value;
+    final latitude = destination?.latitude;
+    final longitude = destination?.longitude;
 
     void handleButtonPress() async {
       final permissionState = ref.read(permissionProvider);
@@ -63,12 +34,9 @@ class ViewRouteDirectionButtons extends ConsumerWidget {
         );
       } else {
         final userLocation = ref.read(userLocationProvider);
-        final destinationLocation = ref.read(locationProvider);
-
-        if (userLocation != null && destinationLocation is AsyncData) {
-          final destination = destinationLocation.value;
+        if (userLocation != null) {
           final url = Uri.parse(
-              'https://www.google.com/maps/dir/?api=1&origin=${userLocation.latitude},${userLocation.longitude}&destination=${destination?.latitude},${destination?.longitude}&travelmode=driving');
+              'https://www.google.com/maps/dir/?api=1&origin=${userLocation.latitude},${userLocation.longitude}&destination=$latitude,$longitude&travelmode=driving');
 
           if (await canLaunchUrl(url)) {
             await launchUrl(url);
@@ -94,7 +62,7 @@ class ViewRouteDirectionButtons extends ConsumerWidget {
                 ),
               ),
               child: Text(
-                AppLocalizations.of(context).translate('View'),
+                'View',
                 style: Theme.of(context)
                     .primaryTextTheme
                     .bodyMedium
@@ -107,7 +75,7 @@ class ViewRouteDirectionButtons extends ConsumerWidget {
         Expanded(
           child: SizedBox(
             child: OutlinedButton(
-              onPressed: handleButtonPress2,
+              onPressed: handleButtonPress,
               style: OutlinedButton.styleFrom(
                 padding: EdgeInsets.all(0),
                 side: BorderSide(color: Theme.of(context).colorScheme.primary),
@@ -116,7 +84,7 @@ class ViewRouteDirectionButtons extends ConsumerWidget {
                 ),
               ),
               child: Text(
-                AppLocalizations.of(context).translate('Route Plan'),
+                'Route Plan',
                 style: Theme.of(context)
                     .primaryTextTheme
                     .bodyMedium
@@ -138,11 +106,11 @@ class ViewRouteDirectionButtons extends ConsumerWidget {
                 ),
               ),
               child: Text(
-                AppLocalizations.of(context).translate('Direction'),
+                'Direction',
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: Theme.of(context).colorScheme.onPrimary,
-                  fontSize: height * 0.02,
-                ),
+                      color: Theme.of(context).colorScheme.onPrimary,
+                      fontSize: height * 0.02,
+                    ),
               ),
             ),
           ),

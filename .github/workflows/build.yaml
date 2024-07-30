@@ -36,11 +36,11 @@ jobs:
             echo "::set-output name=release_type::release"
           fi
 
-#      - name: Create Release Notes
-#        id: create-release-notes
-#        uses: johnyherangi/create-release-notes@v1
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create Release Notes
+        id: create-release-notes
+        uses: johnyherangi/create-release-notes@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create Release
         id: create_release

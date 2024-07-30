@@ -6,8 +6,6 @@ import 'package:ev_charger/repositories/charger/entities/charger_entity.dart'; /
 import 'package:ev_charger/shared/domain/providers/location/location_provider.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../../../shared/core/localization/localization.dart';
-
 class ChargersContent extends ConsumerWidget {
   const ChargersContent({
     super.key,
@@ -15,13 +13,12 @@ class ChargersContent extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final screenSize = MediaQuery.of(context).size;
     final currentLocation = ref.watch(locationProvider);
 
     return currentLocation.when(
       data: (location) {
         return Padding(
-          padding: EdgeInsets.symmetric(vertical: screenSize.height*0.04),
+          padding: const EdgeInsets.symmetric(vertical: 30.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children:
@@ -48,7 +45,6 @@ class ChargerBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenSize = MediaQuery.of(context).size;
     return Container(
       decoration: BoxDecoration(
         border: Border.all(color: Theme.of(context).stationGrey),
@@ -59,7 +55,7 @@ class ChargerBox extends StatelessWidget {
         children: [
           Container(
             width: double.infinity,
-            padding:EdgeInsets.all(screenSize.width*0.025),
+            padding: const EdgeInsets.all(8.0),
             decoration: BoxDecoration(
               color: Theme.of(context).stationGrey,
 
@@ -72,20 +68,17 @@ class ChargerBox extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: 20.0,top:10),
             child: Text(
-              AppLocalizations.of(context).translate('Plugs'),
+              'Plugs',
               style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontSize: 14),
             ),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: screenSize.width*0.025,vertical: screenSize.height*0.015),
-            child:  SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 15),
+            child: Wrap(
               children: charger.ports.map((port) {
                 return PortBox(port: port);
               }).toList(),
             ),
-          ),
           ),
         ],
       ),
@@ -103,25 +96,21 @@ class PortBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenSize = MediaQuery.of(context).size;
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: screenSize.width*0.015),
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Container(
-        width: screenSize.width*0.2,
-        height: screenSize.height*0.1,
+        width: 85,
+        height: 89,
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.secondary,
           border: Border.all(color: Theme.of(context).stationGrey,),
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              "${port.power_model.outputValue.floor()}kw ${port.power_plug_type.powerModel}",
-              style: Theme.of(context).textTheme.titleSmall,
-              textAlign: TextAlign.center,
-            ),
-            Expanded(child: SvgPicture.asset('assets/icons/plug_icon.svg')),
+            const SizedBox(height: 5),
+            SvgPicture.asset('assets/icons/plug_icon.svg'),
+            const SizedBox(height: 5),
             Text(
               port.power_plug_type.plugType,
               style: Theme.of(context).textTheme.titleSmall,

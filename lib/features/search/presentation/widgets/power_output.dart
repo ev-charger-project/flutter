@@ -4,9 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 
-import '../providers/power_output/power_output_values_provider.dart';
-import '../../../../shared/core/localization/localization.dart';
-
 class PowerOutput extends ConsumerStatefulWidget {
   const PowerOutput({super.key});
 
@@ -15,27 +12,25 @@ class PowerOutput extends ConsumerStatefulWidget {
 }
 
 class _PowerOutputState extends ConsumerState<PowerOutput> {
+  // Define Sf Range Slider values
+  SfRangeValues _currentRangeValues = const SfRangeValues(0, 120);
+
   @override
   Widget build(BuildContext context) {
-    final screenSize = MediaQuery.of(context).size;
-    // Watch for changes in the range values
-    var _currentRangeValues = ref.watch(rangeValuesProvider);
-
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: screenSize.height * 0.016),
+      padding: const EdgeInsets.symmetric(vertical: 12),
       child: Container(
-        padding: EdgeInsets.all(screenSize.height * 0.016),
+        padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: Theme.of(context).moreGrey,
+          color: Theme.of(context).powerOutputGrey,
           borderRadius: BorderRadius.circular(8),
         ),
         child: Column(
           children: [
             Row(
               children: [
-                Text(
-                    AppLocalizations.of(context).translate("Power Output (kW)"),
-                    style: Theme.of(context).textTheme.displaySmall),
+                Text("Power Output",
+                    style: Theme.of(context).primaryTextTheme.displaySmall),
               ],
             ),
             Divider(
@@ -43,15 +38,20 @@ class _PowerOutputState extends ConsumerState<PowerOutput> {
             ),
             SfRangeSliderTheme(
               data: SfRangeSliderThemeData(
-                  activeTrackColor: Theme.of(context).primaryColor,
-                  inactiveTrackColor: Theme.of(context).lightLimeGreen,
-                  thumbColor: Theme.of(context).colorScheme.secondary,
-                  thumbStrokeColor: Theme.of(context).primaryColor,
-                  thumbStrokeWidth: 2,
-                  tooltipBackgroundColor: Theme.of(context).primaryColor,
-                  tooltipTextStyle:
-                      TextStyle(color: Theme.of(context).colorScheme.secondary),
-                  activeLabelStyle: Theme.of(context).textTheme.bodySmall),
+                activeTrackColor: Color(0xFF34A853),
+                inactiveTrackColor: Color(0xFFE1F7C5),
+                thumbColor: Colors.white,
+                thumbStrokeColor: Color(0xFF34A853),
+                thumbStrokeWidth: 2,
+                tooltipBackgroundColor: Color(0xFF34A853),
+                tooltipTextStyle: TextStyle(
+                  color: Colors.white,
+                ),
+                activeLabelStyle: TextStyle(
+                  color: Colors.black,
+                  fontSize: 14,
+                ),
+              ),
               child: SfRangeSlider(
                 min: 0,
                 max: 360,
@@ -65,12 +65,8 @@ class _PowerOutputState extends ConsumerState<PowerOutput> {
                 },
                 onChanged: (dynamic values) {
                   setState(() {
-                    _currentRangeValues = SfRangeValues(
-                        values.start.roundToDouble(),
-                        values.end.roundToDouble());
+                    _currentRangeValues = values;
                   });
-                  ref.read(rangeValuesProvider.notifier).state = SfRangeValues(
-                      values.start.roundToDouble(), values.end.roundToDouble());
                 },
               ),
             ),

@@ -1,3 +1,4 @@
+import 'dart:math' as math;
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -8,7 +9,6 @@ import '../is_info_visible_provider.dart';
 import '../screen_center_provider.dart';
 import 'marker_repository_provider.dart';
 import 'dart:ui' as ui;
-import 'dart:math' as math;
 
 class BitmapDescriptorHelper {
   static final Map<String, BitmapDescriptor> _cache = {};
@@ -42,38 +42,13 @@ class BitmapDescriptorHelper {
     final rasterPicture = recorder.endRecording();
 
     final image = rasterPicture.toImageSync(width, height);
-    final bytes = (await image.toByteData(format: ui.ImageByteFormat.png))!
-        .buffer
-        .asUint8List();
+    final bytes = (await image.toByteData(format: ui.ImageByteFormat.png))!;
 
-    final bitmapDescriptor = BitmapDescriptor.bytes(bytes);
-    _cache[cacheKey] = bitmapDescriptor;
-    return bitmapDescriptor;
-  }
-
-  static Future<BitmapDescriptor> getBitmapDescriptorFromPngAsset(
-      String assetName,
-      int width,
-      ) async {
-    final cacheKey = '${assetName}_$width';
-    if (_cache.containsKey(cacheKey)) {
-      return _cache[cacheKey]!;
-    }
-
-    ByteData data = await rootBundle.load(assetName);
-    ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(),
-        targetWidth: width);
-    ui.FrameInfo fi = await codec.getNextFrame();
-    final bytes = (await fi.image.toByteData(format: ui.ImageByteFormat.png))!
-        .buffer
-        .asUint8List();
-
-    final bitmapDescriptor = BitmapDescriptor.bytes(bytes);
+    final bitmapDescriptor = BitmapDescriptor.bytes(bytes.buffer.asUint8List());
     _cache[cacheKey] = bitmapDescriptor;
     return bitmapDescriptor;
   }
 }
-
 
 final markerProvider = FutureProvider.autoDispose<List<Marker>>((ref) async {
   final userLatLng = ref.watch(screenCenterProvider);
@@ -81,15 +56,14 @@ final markerProvider = FutureProvider.autoDispose<List<Marker>>((ref) async {
   final userLong = userLatLng.longitude;
   final markerRepository = ref.read(markerRepositoryProvider);
   final markersData =
-      await markerRepository.fetchMarkers(userLat, userLong, 15);
-  
+  await markerRepository.fetchMarkers(userLat, userLong, 15);
+
   final BitmapDescriptor stationIcon =
   await BitmapDescriptorHelper.getBitmapDescriptorFromSvgAsset(
-      'assets/icons/station_marker.svg', 15);
+      'assets/icons/station_marker.svg', 17);
   final BitmapDescriptor userIcon =
   await BitmapDescriptorHelper.getBitmapDescriptorFromSvgAsset(
       'assets/icons/user_icon.svg', 35);
-
 
   List<Marker> markers = [];
 
