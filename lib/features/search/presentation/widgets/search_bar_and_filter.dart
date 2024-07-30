@@ -1,4 +1,5 @@
 import 'package:ev_charger/features/search/domain/providers/search_icon_color_provider.dart';
+import 'package:ev_charger/features/search/presentation/providers/search_bar_and_filter/filter_border_color_provider.dart';
 import 'package:ev_charger/shared/presentation/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -27,13 +28,16 @@ class SearchBarAndFilter extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final iconColor = ref.watch(SearchIconColorProvider);
+    final borderColor = ref.watch(FilterBorderColorProvider);
     final screenSize = MediaQuery.of(context).size;
 
     // Define responsive values
     final double fontSize = 14;
-    final EdgeInsets padding =
-        EdgeInsets.symmetric(horizontal: 10, vertical: 20);
-    final double iconSize = 20;
+    final EdgeInsets padding = EdgeInsets.symmetric(
+      horizontal: screenSize.width * 0.02,
+      vertical: screenSize.height * 0.02,
+    );
+    final double iconSize = screenSize.width * 0.048;
 
     // Implementing Debouncing for Search Bar (input delay)
     Timer? _debounce;
@@ -65,7 +69,8 @@ class SearchBarAndFilter extends ConsumerWidget {
                   focusNode: focusNode,
                   controller: controller,
                   decoration: InputDecoration(
-                    hintText: AppLocalizations.of(context).translate('Search stations'),
+                    hintText: AppLocalizations.of(context)
+                        .translate('Search stations'),
                     hintStyle: TextStyle(
                       color: Colors.black.withOpacity(0.65),
                       fontSize: fontSize,
@@ -102,15 +107,30 @@ class SearchBarAndFilter extends ConsumerWidget {
             decoration: BoxDecoration(
               color: Theme.of(context).lightGrey,
               borderRadius: BorderRadius.circular(10),
+              border: borderColor != null
+                  ? Border.all(
+                      color: borderColor,
+                      width: 1,
+                    )
+                  : null,
             ),
-            child: IconButton(
-              icon: SvgPicture.asset(
-                'assets/icons/filter_icon.svg',
-                width: iconSize,
-                height: iconSize,
-              ),
-              onPressed: onFilterPressed,
-            ),
+            child: borderColor != null
+                ? IconButton(
+                    icon: SvgPicture.asset(
+                      'assets/icons/filter_applied_icon.svg',
+                      width: iconSize,
+                      height: iconSize,
+                    ),
+                    onPressed: onFilterPressed,
+                  )
+                : IconButton(
+                    icon: SvgPicture.asset(
+                      'assets/icons/filter_icon.svg',
+                      width: iconSize,
+                      height: iconSize,
+                    ),
+                    onPressed: onFilterPressed,
+                  ),
           ),
         ],
       ),
