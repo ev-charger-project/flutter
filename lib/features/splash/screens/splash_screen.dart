@@ -6,6 +6,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../routes/app_route.dart';
+import '../../../shared/domain/providers/permission/permission_provider.dart';
+import '../../notification/screens/permission_screen.dart';
 
 @RoutePage()
 class SplashScreen extends ConsumerStatefulWidget {
@@ -23,7 +25,10 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
 
 
     Timer(const Duration(seconds: 2), () {
+      ref.watch(openAppProvider.notifier).state = true;
+
       context.router.replace(MapRoute());
+
     });
   }
 

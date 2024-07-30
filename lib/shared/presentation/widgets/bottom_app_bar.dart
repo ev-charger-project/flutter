@@ -46,21 +46,21 @@ class SimpleBottomAppBar extends StatelessWidget {
         assetName = 'assets/icons/route_icon.svg';
         label = 'Route';
         onPressed = () {
-          if (!_isCurrentRoute(context, RouteSearchRoute.name)) {
-            context.router.push(const RouteSearchRoute());
+          if (!_isCurrentRoute(context, LocationRoute.name)) {
+            context.router.push(const LocationRoute());
           }
         };
-        isSelected = _isCurrentRoute(context, RouteSearchRoute.name);
+        isSelected = _isCurrentRoute(context, LocationRoute.name);
         break;
       case BottomAppBarButton.account:
         assetName = 'assets/icons/account_icon.svg';
         label = 'Account';
-        // onPressed = () {
-        //   if (!_isCurrentRoute(context, SearchRoute.name)) {
-        //     context.router.push(SearchRoute());
-        //   }
-        // };
-        isSelected = _isCurrentRoute(context, LocationRoute.name);
+        onPressed = () {
+          if (!_isCurrentRoute(context, SearchRoute.name)) {
+            context.router.push(SearchRoute());
+          }
+        };
+        isSelected = _isCurrentRoute(context, SearchRoute.name);
         break;
     }
 

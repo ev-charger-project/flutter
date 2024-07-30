@@ -1,10 +1,7 @@
-import 'package:ev_charger/shared/presentation/theme/app_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ev_charger/shared/domain/providers/location/location_provider.dart';
-
-import '../../../../../shared/core/localization/localization.dart';
 
 class InfoContent extends ConsumerStatefulWidget {
   const InfoContent({super.key});
@@ -63,7 +60,7 @@ class _InfoContentState extends ConsumerState<InfoContent> {
               });
             },
             child: Text(
-              isExpanded ? AppLocalizations.of(context).translate('Read less') : AppLocalizations.of(context).translate('Read more'),
+              isExpanded ? 'Read less' : 'Read more',
               style: Theme.of(context).primaryTextTheme.bodyMedium,
             ),
           ),
@@ -79,7 +76,7 @@ class _InfoContentState extends ConsumerState<InfoContent> {
         (index) => Padding(
           padding: const EdgeInsets.all(1),
           child: Container(
-            color: Theme.of(context).stationGrey,
+            color: const Color(0x99e8e8e8),
             padding:
                 const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
             child: Row(
@@ -110,27 +107,21 @@ class _InfoContentState extends ConsumerState<InfoContent> {
         data: (location) {
           final String? longText = location.description;
           final List<Map<String, String>> data = [];
+
           if (location.pricing != null && location.pricing!.isNotEmpty) {
-            data.add({AppLocalizations.of(context).translate('Fee'): location.pricing!});
+            data.add({'Fee': location.pricing!});
           }
           if (location.phoneNumber != null &&
               location.phoneNumber!.isNotEmpty) {
-            data.add({AppLocalizations.of(context).translate('Phone'): location.phoneNumber!});
+            data.add({'Phone': location.phoneNumber!});
           }
           if (location.parkingLevel != null &&
               location.parkingLevel!.isNotEmpty) {
-            data.add({AppLocalizations.of(context).translate('Parking Level'): location.parkingLevel!});
+            data.add({'Parking Level': location.parkingLevel!});
           }
-          data.add({AppLocalizations.of(context).translate('Monday'): location.workingDay.mon});
-          data.add({AppLocalizations.of(context).translate('Tuesday'): location.workingDay.tue});
-          data.add({AppLocalizations.of(context).translate('Wednesday'): location.workingDay.wed});
-          data.add({AppLocalizations.of(context).translate('Thursday'): location.workingDay.thu});
-          data.add({AppLocalizations.of(context).translate('Friday'): location.workingDay.fri});
-          data.add({AppLocalizations.of(context).translate('Saturday'): location.workingDay.sat});
-          data.add({AppLocalizations.of(context).translate('Sunday'): location.workingDay.sun});
 
           WidgetsBinding.instance
-              .addPostFrameCallback((_) => _checkTextOverflow());
+              ?.addPostFrameCallback((_) => _checkTextOverflow());
 
           return Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -145,7 +136,7 @@ class _InfoContentState extends ConsumerState<InfoContent> {
                 ),
               ),
               Text(
-              AppLocalizations.of(context).translate('Nearby'),
+                'Nearby',
                 style: Theme.of(context).textTheme.displayLarge,
               ),
               const SizedBox(

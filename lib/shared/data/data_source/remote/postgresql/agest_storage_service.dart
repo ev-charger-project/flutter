@@ -1,11 +1,9 @@
-import 'package:ev_charger/repositories/charge_type/data_models/charge_type_data_model.dart';
+import 'dart:math';
 import 'package:ev_charger/repositories/marker/data_models/charger_marker_data_model.dart';
 import 'package:ev_charger/repositories/location/data_models/location_data_model.dart';
 import 'package:ev_charger/repositories/suggestion/data_models/suggestion_data_model.dart';
 import 'package:ev_charger/shared/data/data_source/remote/remote_storage_service.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter_polyline_points/flutter_polyline_points.dart';
-import 'package:google_maps_flutter_platform_interface/src/types/location.dart';
 
 class AgestStorageService extends RemoteStorageService {
   final Dio _dio = Dio();
@@ -69,7 +67,7 @@ class AgestStorageService extends RemoteStorageService {
     try {
       final response = await _dio.get(url, queryParameters: {
         'query': searchString,
-        'is_fuzzi': true,
+        'fuzzy': true,
       });
       if (response.statusCode == 200) {
         return (response.data as List)
@@ -118,43 +116,4 @@ class AgestStorageService extends RemoteStorageService {
       }
     }
   }
-
-  @override
-  Future<List<ChargeTypeDataModel>> fetchChargeTypeData() async {
-    const url = 'http://172.16.11.139:14000/api/v1/power-plug-types/unique-types';
-
-    try {
-      final response = await _dio.get(url);
-      if (response.statusCode == 200) {
-        return (response.data as List)
-            .map((item) =>
-            ChargeTypeDataModel.fromJson(item as Map<String, dynamic>))
-            .toList();
-      } else {
-        throw Exception('Error code: ${response.statusCode}');
-      }
-    } catch (e) {
-      print('Error: $e');
-      if (e is DioException && e.response != null) {
-        throw Exception('Error code: ${e.response?.statusCode}');
-      } else {
-        throw Exception('An unknown error occurred');
-      }
-    }
-  }
-
-  @override
-  Future<PolylineResult> fetchRoute(double userLat, double userLong,double destinationLat, double destinationLong) async {
-    final PolylinePoints polylinePoints = PolylinePoints();
-    final PolylineResult result =
-        await polylinePoints.getRouteBetweenCoordinates(
-      googleApiKey: 'AIzaSyAGYJacplt2I8syt0aY4GXfSNXhKdsXUgM',
-      request: PolylineRequest(
-          origin: PointLatLng(userLat, userLong),
-          destination: PointLatLng(destinationLat, destinationLong),
-          mode: TravelMode.driving),
-    );
-    return result;
-  }
-
 }
