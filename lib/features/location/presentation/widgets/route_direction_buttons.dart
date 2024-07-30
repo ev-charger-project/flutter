@@ -1,11 +1,17 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../../../../repositories/marker/entities/charger_marker_entity.dart';
+import '../../../../routes/app_route.dart';
+import '../../../../shared/core/localization/localization.dart';
 import '../../../../shared/domain/providers/location/user_location_provider.dart';
 import '../../../../shared/domain/providers/permission/permission_provider.dart';
 import '../../../../shared/domain/providers/location/location_provider.dart';
 import '../../../notification/screens/permission_screen.dart';
+import '../../../route/domain/providers/end_provider.dart';
+import '../../../route/domain/providers/start_provider.dart';
 
 class RouteDirectionButtons extends ConsumerWidget {
   const RouteDirectionButtons({
@@ -16,6 +22,37 @@ class RouteDirectionButtons extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
+
+
+    void handleButtonPress2() async {
+      final permissionState = ref.read(permissionProvider);
+
+      if (!permissionState.hasPermission) {
+        showDialog(
+          context: context,
+          builder: (context) => const PermissionScreen(),
+        );
+      } else {
+        final userLocation = ref.read(userLocationProvider);
+        final destinationLocation = ref.read(locationProvider);
+
+        if (userLocation != null && destinationLocation is AsyncData) {
+          ref.read(startProvider.notifier).updateStartLocation(ChargerMarkerEntity(
+            id: 'userLocation',
+            latitude: userLocation.latitude,
+            longitude: userLocation.longitude,
+          ));
+
+          ref.read(endProvider.notifier).updateEndLocation(ChargerMarkerEntity(
+            id: 'destinationLocation',
+            latitude: destinationLocation.value!.latitude,
+            longitude: destinationLocation.value!.longitude,
+          ));
+          context.router.push(RouteRoute());
+        }
+      }
+    }
+
 
     void handleButtonPress() async {
       final permissionState = ref.read(permissionProvider);
@@ -43,13 +80,14 @@ class RouteDirectionButtons extends ConsumerWidget {
       }
     }
 
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(
           child: SizedBox(
             child: OutlinedButton(
-              onPressed: handleButtonPress,
+              onPressed: handleButtonPress2,
               style: OutlinedButton.styleFrom(
                 padding: EdgeInsets.all(0),
                 side: BorderSide(color: Theme.of(context).colorScheme.primary),
@@ -58,7 +96,7 @@ class RouteDirectionButtons extends ConsumerWidget {
                 ),
               ),
               child: Text(
-                'Route Plan',
+                AppLocalizations.of(context).translate('Route Plan'),
                 style: Theme.of(context).primaryTextTheme.bodyMedium,
               ),
             ),
@@ -76,7 +114,7 @@ class RouteDirectionButtons extends ConsumerWidget {
                 ),
               ),
               child: Text(
-                'Direction',
+                AppLocalizations.of(context).translate('Direction'),
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: Theme.of(context).colorScheme.onPrimary,
                       fontSize: height * 0.02,

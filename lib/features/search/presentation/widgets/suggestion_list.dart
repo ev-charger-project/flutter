@@ -1,11 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:ev_charger/features/location/presentation/providers/selected_location_id_provider.dart';
 import 'package:ev_charger/features/mapview/domain/providers/is_info_visible_provider.dart';
+import 'package:ev_charger/features/splash/widgets/dots_circular_progress_painter_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../routes/app_route.dart';
+import '../../../../shared/core/localization/localization.dart';
 import '../../../../shared/domain/providers/suggestion/suggestion_provider.dart';
 
 class SuggestionList extends ConsumerWidget {
@@ -34,7 +36,7 @@ class SuggestionList extends ConsumerWidget {
                       height: screenSize.height * 0.01,
                     ),
                     Text(
-                      "Not found",
+                      AppLocalizations.of(context).translate("Not found"),
                       style: Theme.of(context).textTheme.displayLarge,
                       textAlign: TextAlign.center,
                     ),
@@ -42,7 +44,7 @@ class SuggestionList extends ConsumerWidget {
                       padding: EdgeInsets.symmetric(
                           horizontal: screenSize.width * 0.1, vertical: 20),
                       child: Text(
-                        "We're sorry, the key word you were looking for could not be found. Please try again with another key words.",
+                        AppLocalizations.of(context).translate("We're sorry, the key word you were looking for could not be found. Please try again with another key words."),
                         style: Theme.of(context).textTheme.titleSmall,
                         textAlign: TextAlign.center,
                       ),
@@ -58,11 +60,9 @@ class SuggestionList extends ConsumerWidget {
                   return Column(
                     children: [
                       ListTile(
-                        leading: Container(
-                          child: SvgPicture.asset(
-                            'assets/icons/station_marker.svg',
-                            height: screenSize.height * 0.08,
-                          ),
+                        leading: SvgPicture.asset(
+                          'assets/icons/station_marker.svg',
+                          height: screenSize.height * 0.08,
                         ),
                         title: Text(
                           suggestion.locationName,
@@ -93,7 +93,15 @@ class SuggestionList extends ConsumerWidget {
                 },
               );
       },
-      loading: () => const Center(child: CircularProgressIndicator()),
+      loading: () => Center(
+        child: SizedBox(
+          height: 60,
+          child: DotsCircularProgressIndicator(
+            color: Theme.of(context).colorScheme.primary,
+            numberOfDots: 8,
+          ),
+        ),
+      ),
       error: (error, stack) => Center(child: Text('Error: $error')),
     );
   }

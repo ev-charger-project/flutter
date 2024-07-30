@@ -1,6 +1,6 @@
 export 'amount_chargers.dart';
 export 'back_button.dart';
-export 'chargers_content.dart';
+export 'charger_tab/chargers_content.dart';
 export 'info_tab/info_content.dart';
 export 'location_banner.dart';
 export 'location_name_address.dart';
