@@ -108,19 +108,22 @@ class PortBox extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: screenSize.width*0.015),
       child: Container(
         width: screenSize.width*0.2,
-        height: screenSize.height*0.09,
+        height: screenSize.height*0.1,
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.secondary,
           border: Border.all(color: Theme.of(context).stationGrey,),
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            SizedBox(height: screenSize.height*0.005),
-            SvgPicture.asset('assets/icons/plug_icon.svg'),
-            SizedBox(height: screenSize.height*0.005),
             Text(
-              "${port.power_plug_type.plugType}/${port.power_plug_type.powerModel}",
+              "${port.power_model.outputValue.floor()}kw ${port.power_plug_type.powerModel}",
+              style: Theme.of(context).textTheme.titleSmall,
+              textAlign: TextAlign.center,
+            ),
+            Expanded(child: SvgPicture.asset('assets/icons/plug_icon.svg')),
+            Text(
+              port.power_plug_type.plugType,
               style: Theme.of(context).textTheme.titleSmall,
               textAlign: TextAlign.center,
             ),
