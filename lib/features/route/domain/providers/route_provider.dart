@@ -28,7 +28,7 @@ final routeProvider = FutureProvider.autoDispose<List<Marker>>((ref) async {
     );
   }
 
-  final currentLocation = LatLng(10.562622, 106.460172);;
+  final currentLocation = LatLng(10.762622, 106.560172);
   if (currentLocation != null) {
     markers.add(
       Marker(
