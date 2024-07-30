@@ -28,13 +28,9 @@ class StartButton extends StatelessWidget {
               ),
               padding: const EdgeInsets.symmetric(vertical: 15),
             ),
-            child: const Text(
+            child: Text(
               'Start',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
+              style: Theme.of(context).textTheme.headlineMedium?.copyWith(color: Theme.of(context).colorScheme.secondary,fontSize: 14),
             ),
           ),
         ),

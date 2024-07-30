@@ -3,12 +3,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../../../../repositories/marker/entities/charger_marker_entity.dart';
 import '../../../../routes/app_route.dart';
 import '../../../../shared/core/localization/localization.dart';
 import '../../../../shared/domain/providers/location/user_location_provider.dart';
 import '../../../../shared/domain/providers/permission/permission_provider.dart';
 import '../../../../shared/domain/providers/location/location_provider.dart';
 import '../../../notification/screens/permission_screen.dart';
+import '../../../route/domain/providers/end_provider.dart';
+import '../../../route/domain/providers/start_provider.dart';
 
 class RouteDirectionButtons extends ConsumerWidget {
   const RouteDirectionButtons({
@@ -34,6 +37,17 @@ class RouteDirectionButtons extends ConsumerWidget {
         final destinationLocation = ref.read(locationProvider);
 
         if (userLocation != null && destinationLocation is AsyncData) {
+          ref.read(startProvider.notifier).updateStartLocation(ChargerMarkerEntity(
+            id: 'userLocation',
+            latitude: userLocation.latitude,
+            longitude: userLocation.longitude,
+          ));
+
+          ref.read(endProvider.notifier).updateEndLocation(ChargerMarkerEntity(
+            id: 'destinationLocation',
+            latitude: destinationLocation.value!.latitude,
+            longitude: destinationLocation.value!.longitude,
+          ));
           context.router.push(RouteRoute());
         }
       }
