@@ -33,8 +33,9 @@ class _PowerOutputState extends ConsumerState<PowerOutput> {
           children: [
             Row(
               children: [
-                Text(AppLocalizations.of(context).translate("Power Output"),
-                    style: Theme.of(context).primaryTextTheme.displaySmall),
+                Text(
+                    AppLocalizations.of(context).translate("Power Output (kW)"),
+                    style: Theme.of(context).textTheme.displaySmall),
               ],
             ),
             Divider(
@@ -64,9 +65,12 @@ class _PowerOutputState extends ConsumerState<PowerOutput> {
                 },
                 onChanged: (dynamic values) {
                   setState(() {
-                    _currentRangeValues = values;
+                    _currentRangeValues = SfRangeValues(
+                        values.start.roundToDouble(),
+                        values.end.roundToDouble());
                   });
-                  ref.read(rangeValuesProvider.notifier).state = values;
+                  ref.read(rangeValuesProvider.notifier).state = SfRangeValues(
+                      values.start.roundToDouble(), values.end.roundToDouble());
                 },
               ),
             ),

@@ -1,5 +1,3 @@
-import 'package:ev_charger/features/search/presentation/providers/charge_type/available_plugs_provider.dart';
-import 'package:ev_charger/features/search/presentation/widgets/charge_type_object.dart';
 import 'package:ev_charger/shared/presentation/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -40,7 +38,6 @@ class _ChargeTypeState extends ConsumerState<ChargeType> {
                 Text(
                   AppLocalizations.of(context).translate("Charge Type"),
                   style: Theme.of(context).textTheme.displaySmall,
-
                 ),
               ],
             ),
