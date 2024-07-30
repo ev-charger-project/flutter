@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:ev_charger/features/search/presentation/providers/charge_type/hidden_plugs_provider.dart';
 import 'package:ev_charger/features/search/presentation/providers/charge_type/show_incompatible_plugs_provider.dart';
 import 'package:ev_charger/features/search/presentation/providers/charge_type/visible_plugs_provider.dart';
+import 'package:ev_charger/features/search/presentation/providers/search_bar_and_filter/filter_border_color_provider.dart';
 import 'package:ev_charger/shared/presentation/theme/app_theme.dart';
 
 import 'package:flutter/material.dart';
@@ -97,7 +98,7 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                         ref.read(stationCountValueProvider.notifier).state = 0;
                         ref
                             .read(containerColorsProvider.notifier)
-                            .updateColors(null, context);
+                            .updateColors(0, context);
 
                         // Reset Charge Type
                         final visiblePlugsAsyncValue =
@@ -140,7 +141,12 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                         ref.read(rangeValuesProvider.notifier).state =
                             SfRangeValues(0, 360);
 
+                        // Reset border color state to null
+                        ref.read(FilterBorderColorProvider.notifier).state =
+                            null;
+
                         print("Reset pressed");
+                        Navigator.pop(context);
                       },
                       fillColor: Theme.of(context).lightGreen,
                       border: false,
@@ -215,6 +221,10 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                             updatedHiddenPlugs.toSet().toList();
                         ref.read(showIncompatiblePlugsProvider.notifier).state =
                             false;
+
+                        // Update border color state to primary color
+                        ref.read(FilterBorderColorProvider.notifier).state =
+                            Theme.of(context).primaryColor;
 
                         print("Apply pressed");
                         Navigator.pop(context);
