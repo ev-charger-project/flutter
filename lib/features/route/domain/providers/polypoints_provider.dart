@@ -11,22 +11,25 @@ final polypointsProvider =
   final currentLocation = LatLng(10.762622, 106.560172);
   final userLocation = ref.watch(userLocationProvider);
   // final userLocation = LatLng(10.762622, 106.660172);
-  final PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
-    googleApiKey: 'AIzaSyAGYJacplt2I8syt0aY4GXfSNXhKdsXUgM',
-    request: PolylineRequest(
-        origin: PointLatLng(userLocation!.latitude, userLocation.longitude),
-        destination:
-            PointLatLng(currentLocation.latitude, currentLocation.longitude),
-        mode: TravelMode.driving),
-  );
 
-  if (result.points.isNotEmpty) {
-    polylineCoordinates = result.points
-        .map((PointLatLng point) => LatLng(point.latitude, point.longitude))
-        .toList();
-  } else {
-    polylineCoordinates = [];
-  }
+
+  // final PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
+  //   googleApiKey: 'AIzaSyAGYJacplt2I8syt0aY4GXfSNXhKdsXUgM',
+  //   request: PolylineRequest(
+  //       origin: PointLatLng(userLocation!.latitude, userLocation.longitude),
+  //       destination:
+  //           PointLatLng(currentLocation.latitude, currentLocation.longitude),
+  //       mode: TravelMode.driving),
+  // );
+  //
+  // if (result.points.isNotEmpty) {
+  //   polylineCoordinates = result.points
+  //       .map((PointLatLng point) => LatLng(point.latitude, point.longitude))
+  //       .toList();
+  // } else {
+  //   polylineCoordinates = [];
+  // }
+  polylineCoordinates= [LatLng(userLocation!.latitude, userLocation.longitude),LatLng(currentLocation.latitude, currentLocation.longitude)];
 
   return polylineCoordinates;
 });
