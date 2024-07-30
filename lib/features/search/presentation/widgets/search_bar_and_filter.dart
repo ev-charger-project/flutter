@@ -35,7 +35,7 @@ class SearchBarAndFilter extends ConsumerWidget {
     final double fontSize = 14;
     final EdgeInsets padding = EdgeInsets.symmetric(
       horizontal: screenSize.width * 0.02,
-      vertical: screenSize.height * 0.016,
+      vertical: screenSize.height * 0.02,
     );
     final double iconSize = screenSize.width * 0.048;
 
