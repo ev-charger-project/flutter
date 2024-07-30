@@ -7,13 +7,12 @@ import '../../../location/presentation/widgets/back_button.dart';
 class LocationAppBar extends StatelessWidget {
   const LocationAppBar({
     super.key,
-    required this.screenSize,
   });
 
-  final Size screenSize;
 
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
     return Positioned(
       top: 0,
       left: 0,
@@ -77,10 +76,7 @@ class LocationBox extends StatelessWidget {
           Flexible(
             child: Text(
               hintText,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 14,
-              ),
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Theme.of(context).colorScheme.secondary),
               overflow: TextOverflow.ellipsis,
             ),
           ),
