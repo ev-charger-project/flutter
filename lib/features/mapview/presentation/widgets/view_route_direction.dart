@@ -11,8 +11,8 @@ import '../../../../shared/domain/providers/charger/charger_provider.dart';
 import '../../../../shared/domain/providers/location/user_location_provider.dart';
 import '../../../../shared/domain/providers/permission/permission_provider.dart';
 import '../../../notification/screens/permission_screen.dart';
-import '../../../route/domain/providers/end_provider.dart';
-import '../../../route/domain/providers/start_provider.dart';
+import '../../../route/presentation/providers/end_provider.dart';
+import '../../../route/presentation/providers/start_provider.dart';
 
 class ViewRouteDirectionButtons extends ConsumerWidget {
   const ViewRouteDirectionButtons({
