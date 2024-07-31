@@ -1,14 +1,14 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:ev_charger/features/route/presentation/providers/from_search_provider.dart';
+import 'package:ev_charger/shared/presentation/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../shared/core/localization/localization.dart';
-import '../../../search/domain/providers/search_query_provider.dart';
-import '../../../search/presentation/widgets/suggestion_list.dart';
 import '../providers/to_search_provider.dart';
 import '../widgets/route_suggestion_list.dart';
 import '../widgets/search_button.dart';
+import 'dart:async';
 
 @RoutePage()
 class RouteSearchScreen extends ConsumerStatefulWidget {
@@ -21,6 +21,12 @@ class RouteSearchScreen extends ConsumerStatefulWidget {
 class _RouteSearchScreenState extends ConsumerState<RouteSearchScreen> {
   late TextEditingController _fromSearchController;
   late TextEditingController _toSearchController;
+  late FocusNode _fromSearchFocusNode;
+  late FocusNode _toSearchFocusNode;
+  bool _showClearIconFrom = false;
+  bool _showClearIconTo = false;
+  Timer? _debounceFrom;
+  Timer? _debounceTo;
 
   @override
   void initState() {
@@ -30,19 +36,93 @@ class _RouteSearchScreenState extends ConsumerState<RouteSearchScreen> {
 
     _fromSearchController = TextEditingController(text: fromSearchQuery);
     _toSearchController = TextEditingController(text: toSearchQuery);
+
+    _fromSearchFocusNode = FocusNode();
+    _toSearchFocusNode = FocusNode();
+
+    _fromSearchFocusNode.addListener(() {
+      setState(() {
+        _showClearIconFrom = _fromSearchFocusNode.hasFocus;
+      });
+    });
+    _toSearchFocusNode.addListener(() {
+      setState(() {
+        _showClearIconTo = _toSearchFocusNode.hasFocus;
+      });
+    });
   }
 
   @override
   void dispose() {
     _fromSearchController.dispose();
     _toSearchController.dispose();
+    _fromSearchFocusNode.dispose();
+    _toSearchFocusNode.dispose();
+    ref.read(FromSearchProvider.notifier).state = '';
+    ref.read(ToSearchProvider.notifier).state = '';
+    _debounceFrom?.cancel();
+    _debounceTo?.cancel();
     super.dispose();
+  }
+
+  void _onSuggestionSelectedFrom(
+      String locationName, String street, String district, String city) {
+    ref.read(FromSearchProvider.notifier).state =
+        '$locationName, $street, $district, $city';
+    setState(() {
+      _fromSearchController.text = '$locationName, $street, $district, $city';
+    });
+    _fromSearchFocusNode.unfocus();
+    _showClearIconFrom = false;
+  }
+
+  void _onSuggestionSelectedTo(
+      String locationName, String street, String district, String city) {
+    ref.read(ToSearchProvider.notifier).state =
+        '$locationName, $street, $district, $city';
+    setState(() {
+      _toSearchController.text = '$locationName, $street, $district, $city';
+    });
+    _toSearchFocusNode.unfocus();
+    _showClearIconTo = false;
+  }
+
+  void _clearFromSearchField() {
+    setState(() {
+      ref.read(FromSearchProvider.notifier).state = '';
+      _fromSearchController.clear();
+      _fromSearchFocusNode.requestFocus();
+    });
+  }
+
+  void _clearToSearchField() {
+    setState(() {
+      ref.read(ToSearchProvider.notifier).state = '';
+      _toSearchController.clear();
+      _toSearchFocusNode.requestFocus();
+    });
+  }
+
+  void _onFromSearchChanged(String text) {
+    if (_debounceFrom?.isActive ?? false) _debounceFrom?.cancel();
+    _debounceFrom = Timer(const Duration(milliseconds: 350), () {
+      ref.read(FromSearchProvider.notifier).state = text;
+    });
+  }
+
+  void _onToSearchChanged(String text) {
+    if (_debounceTo?.isActive ?? false) _debounceTo?.cancel();
+    _debounceTo = Timer(const Duration(milliseconds: 350), () {
+      ref.read(ToSearchProvider.notifier).state = text;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
+    final fromSearchQuery = ref.watch(FromSearchProvider);
     final toSearchQuery = ref.watch(ToSearchProvider);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -71,35 +151,48 @@ class _RouteSearchScreenState extends ConsumerState<RouteSearchScreen> {
           const SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: GestureDetector(
-              onTap: () {},
-              child: Container(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                decoration: BoxDecoration(
-                  border: Border(
-                      bottom: BorderSide(
-                          color: Theme.of(context).colorScheme.primary,
-                          width: 2)),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      AppLocalizations.of(context).translate('Your Location'),
-                      style: Theme.of(context)
-                          .textTheme
-                          .headlineMedium
-                          ?.copyWith(),
+            child: Container(
+              padding: EdgeInsets.symmetric(
+                vertical: screenSize.height * 0.004,
+                horizontal: screenSize.width * 0.02,
+              ),
+              decoration: BoxDecoration(
+                border: Border(
+                    bottom: BorderSide(
+                        color: Theme.of(context).colorScheme.primary,
+                        width: 2)),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: _fromSearchController,
+                      focusNode: _fromSearchFocusNode,
+                      decoration: InputDecoration(
+                        hintText: AppLocalizations.of(context)
+                            .translate('Choose your current location'),
+                        border: InputBorder.none,
+                      ),
+                      style:
+                          Theme.of(context).textTheme.headlineMedium?.copyWith(
+                                color: Colors.black,
+                              ),
+                      onChanged: _onFromSearchChanged,
                     ),
-                    SvgPicture.asset(
-                      'assets/icons/location_icon.svg',
-                      width: 20,
-                      height: 20,
-                      color: Theme.of(context).colorScheme.primary,
+                  ),
+                  if (_showClearIconFrom)
+                    IconButton(
+                      icon: const Icon(Icons.clear),
+                      onPressed: _clearFromSearchField,
                     ),
-                  ],
-                ),
+                  SvgPicture.asset(
+                    'assets/icons/location_icon.svg',
+                    width: 20,
+                    height: 20,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                ],
               ),
             ),
           ),
@@ -113,49 +206,51 @@ class _RouteSearchScreenState extends ConsumerState<RouteSearchScreen> {
               style: Theme.of(context).textTheme.headlineMedium,
             ),
           ),
+          const SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: GestureDetector(
-              onTap: () {},
-              child: Container(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-                decoration: BoxDecoration(
-                  border: Border(
-                      bottom: BorderSide(
-                          color: Theme.of(context).colorScheme.primary,
-                          width: 2)),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: TextField(
-                        controller: _toSearchController,
-                        decoration: InputDecoration(
-                          hintText: AppLocalizations.of(context)
-                              .translate('Choose Destination'),
-                          border: InputBorder.none,
-                        ),
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineMedium
-                            ?.copyWith(
-                              color: Colors.grey,
-                            ),
-                        onChanged: (text) {
-                          ref.read(ToSearchProvider.notifier).state = text;
-                        },
+            child: Container(
+              padding: EdgeInsets.symmetric(
+                vertical: screenSize.height * 0.004,
+                horizontal: screenSize.width * 0.02,
+              ),
+              decoration: BoxDecoration(
+                border: Border(
+                    bottom: BorderSide(
+                        color: Theme.of(context).colorScheme.primary,
+                        width: 2)),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: _toSearchController,
+                      focusNode: _toSearchFocusNode,
+                      decoration: InputDecoration(
+                        hintText: AppLocalizations.of(context)
+                            .translate('Choose your Destination'),
+                        border: InputBorder.none,
                       ),
+                      style:
+                          Theme.of(context).textTheme.headlineMedium?.copyWith(
+                                color: Colors.black,
+                              ),
+                      onChanged: _onToSearchChanged,
                     ),
-                    SvgPicture.asset(
-                      'assets/icons/location_icon.svg',
-                      width: 20,
-                      height: 20,
-                      color: Theme.of(context).colorScheme.primary,
+                  ),
+                  if (_showClearIconTo)
+                    IconButton(
+                      icon: const Icon(Icons.clear),
+                      onPressed: _clearToSearchField,
                     ),
-                  ],
-                ),
+                  SvgPicture.asset(
+                    'assets/icons/location_icon.svg',
+                    width: 20,
+                    height: 20,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                ],
               ),
             ),
           ),
@@ -168,15 +263,82 @@ class _RouteSearchScreenState extends ConsumerState<RouteSearchScreen> {
                 left: screenSize.width * 0.03,
                 right: screenSize.width * 0.03,
               ),
-              child: toSearchQuery.isEmpty
-                  ? Center(
-                      child: Text(
-                        AppLocalizations.of(context)
-                            .translate('Enter search text to see results.'),
-                        style: Theme.of(context).textTheme.bodySmall,
-                      ),
-                    )
-                  : const RouteSuggestionList(),
+              child: _fromSearchFocusNode.hasFocus
+                  ? fromSearchQuery.isEmpty
+                      ? Container(
+                          decoration: BoxDecoration(
+                              border: Border.all(color: Colors.blue)),
+                          child: Center(
+                            child: Text(
+                              AppLocalizations.of(context)
+                                  .translate('Enter your Start Location.'),
+                              style: Theme.of(context).textTheme.bodySmall,
+                            ),
+                          ),
+                        )
+                      : Container(
+                          decoration: BoxDecoration(
+                              border: Border.all(color: Colors.blue)),
+                          child: RouteSuggestionList(
+                            onSuggestionSelected: _onSuggestionSelectedFrom,
+                            isStartProvider: true,
+                          ),
+                        )
+                  : _toSearchFocusNode.hasFocus
+                      ? toSearchQuery.isEmpty
+                          ? Container(
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.red)),
+                              child: Center(
+                                child: Text(
+                                  AppLocalizations.of(context)
+                                      .translate('Enter your Destination.'),
+                                  style: Theme.of(context).textTheme.bodySmall,
+                                ),
+                              ),
+                            )
+                          : Container(
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.red)),
+                              child: RouteSuggestionList(
+                                onSuggestionSelected: _onSuggestionSelectedTo,
+                                isStartProvider: false,
+                              ),
+                            )
+                      : Center(
+                          child: fromSearchQuery.isEmpty &&
+                                  toSearchQuery.isEmpty
+                              ? Text(
+                                  AppLocalizations.of(context).translate(
+                                      'Enter your Location and Destination.'),
+                                  style: Theme.of(context).textTheme.bodySmall,
+                                )
+                              : fromSearchQuery.isEmpty &&
+                                      toSearchQuery.isNotEmpty
+                                  ? Text(
+                                      AppLocalizations.of(context)
+                                          .translate('Enter your Location.'),
+                                      style:
+                                          Theme.of(context).textTheme.bodySmall,
+                                    )
+                                  : toSearchQuery.isEmpty &&
+                                          fromSearchQuery.isNotEmpty
+                                      ? Text(
+                                          AppLocalizations.of(context)
+                                              .translate(
+                                                  'Enter your Destination.'),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall,
+                                        )
+                                      : Text(
+                                          AppLocalizations.of(context)
+                                              .translate('Search for routes.'),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall,
+                                        ),
+                        ),
             ),
           ),
           const SearchRouteButton(),
