@@ -5,23 +5,25 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../repositories/marker/entities/charger_marker_entity.dart';
 import '../../../../shared/core/localization/localization.dart';
+import '../../domain/providers/route_from_provider.dart';
 import '../../domain/providers/route_to_provider.dart';
 import '../providers/end_provider.dart';
 import '../providers/start_provider.dart';
 
 class RouteSuggestionList extends ConsumerWidget {
   final Function(String, String, String, String) onSuggestionSelected;
-  final bool isStartProvider;
+  final bool isStart;
 
   const RouteSuggestionList({
     super.key,
     required this.onSuggestionSelected,
-    required this.isStartProvider,
+    required this.isStart,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final suggestions = ref.watch(RouteToProvider);
+    final suggestions =
+        ref.watch(isStart ? RouteFromProvider : RouteToProvider);
 
     final screenSize = MediaQuery.of(context).size;
 
@@ -81,7 +83,7 @@ class RouteSuggestionList extends ConsumerWidget {
                         ),
                         trailing: const Icon(Icons.arrow_forward_ios),
                         onTap: () {
-                          if (isStartProvider) {
+                          if (isStart) {
                             ref
                                 .read(startProvider.notifier)
                                 .updateStartLocation(

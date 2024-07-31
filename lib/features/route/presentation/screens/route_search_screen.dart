@@ -281,7 +281,7 @@ class _RouteSearchScreenState extends ConsumerState<RouteSearchScreen> {
                               border: Border.all(color: Colors.blue)),
                           child: RouteSuggestionList(
                             onSuggestionSelected: _onSuggestionSelectedFrom,
-                            isStartProvider: true,
+                            isStart: true,
                           ),
                         )
                   : _toSearchFocusNode.hasFocus
@@ -302,7 +302,7 @@ class _RouteSearchScreenState extends ConsumerState<RouteSearchScreen> {
                                   border: Border.all(color: Colors.red)),
                               child: RouteSuggestionList(
                                 onSuggestionSelected: _onSuggestionSelectedTo,
-                                isStartProvider: false,
+                                isStart: false,
                               ),
                             )
                       : Center(
