@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:auto_route/auto_route.dart';
+import 'package:ev_charger/features/route/domain/providers/route_marker_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -28,23 +29,23 @@ class _RouteScreenState extends ConsumerState<RouteScreen> {
   Widget build(BuildContext context) {
     final routeAsyncValue = ref.watch(routeProvider);
     final userLocation = ref.watch(userLocationProvider);
+    final markerAsyncValue = ref.watch(routeMarkerProvider);
+
+    markerAsyncValue.when(
+      data: (markers) {
+        setState(() {
+          _markers.clear();
+          _markers.addAll(markers);
+        });
+      },
+      loading: () {},
+      error: (error, stack) => print('Error: $error'),
+    );
 
     routeAsyncValue.when(
       data: (route) {
         setState(() {
-          _markers.clear();
           _polylines.clear();
-
-          for (var marker in route.chargers) {
-            _markers.add(
-              Marker(
-                markerId: MarkerId(marker.id),
-                position: LatLng(marker.lat, marker.long),
-                icon: BitmapDescriptor.defaultMarker, // Replace with custom icon if needed
-              ),
-            );
-          }
-
           final polylinePoints = route.route.map((point) => LatLng(point.lat, point.long)).toList();
           _polylines.add(
             Polyline(
