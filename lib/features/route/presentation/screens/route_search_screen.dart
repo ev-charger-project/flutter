@@ -171,7 +171,7 @@ class _RouteSearchScreenState extends ConsumerState<RouteSearchScreen> {
                       focusNode: _fromSearchFocusNode,
                       decoration: InputDecoration(
                         hintText: AppLocalizations.of(context)
-                            .translate('Choose your current location'),
+                            .translate('Choose your Start Location'),
                         border: InputBorder.none,
                       ),
                       style:
@@ -265,59 +265,43 @@ class _RouteSearchScreenState extends ConsumerState<RouteSearchScreen> {
               ),
               child: _fromSearchFocusNode.hasFocus
                   ? fromSearchQuery.isEmpty
-                      ? Container(
-                          decoration: BoxDecoration(
-                              border: Border.all(color: Colors.blue)),
-                          child: Center(
-                            child: Text(
-                              AppLocalizations.of(context)
-                                  .translate('Enter your Start Location.'),
-                              style: Theme.of(context).textTheme.bodySmall,
-                            ),
+                      ? Center(
+                          child: Text(
+                            AppLocalizations.of(context)
+                                .translate('Enter your Start Location.'),
+                            style: Theme.of(context).textTheme.bodySmall,
                           ),
                         )
-                      : Container(
-                          decoration: BoxDecoration(
-                              border: Border.all(color: Colors.blue)),
-                          child: RouteSuggestionList(
-                            onSuggestionSelected: _onSuggestionSelectedFrom,
-                            isStart: true,
-                          ),
+                      : RouteSuggestionList(
+                          onSuggestionSelected: _onSuggestionSelectedFrom,
+                          isStart: true,
                         )
                   : _toSearchFocusNode.hasFocus
                       ? toSearchQuery.isEmpty
-                          ? Container(
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.red)),
-                              child: Center(
-                                child: Text(
-                                  AppLocalizations.of(context)
-                                      .translate('Enter your Destination.'),
-                                  style: Theme.of(context).textTheme.bodySmall,
-                                ),
+                          ? Center(
+                              child: Text(
+                                AppLocalizations.of(context)
+                                    .translate('Enter your Destination.'),
+                                style: Theme.of(context).textTheme.bodySmall,
                               ),
                             )
-                          : Container(
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.red)),
-                              child: RouteSuggestionList(
-                                onSuggestionSelected: _onSuggestionSelectedTo,
-                                isStart: false,
-                              ),
+                          : RouteSuggestionList(
+                              onSuggestionSelected: _onSuggestionSelectedTo,
+                              isStart: false,
                             )
                       : Center(
                           child: fromSearchQuery.isEmpty &&
                                   toSearchQuery.isEmpty
                               ? Text(
                                   AppLocalizations.of(context).translate(
-                                      'Enter your Location and Destination.'),
+                                      'Enter your Start Location and Destination.'),
                                   style: Theme.of(context).textTheme.bodySmall,
                                 )
                               : fromSearchQuery.isEmpty &&
                                       toSearchQuery.isNotEmpty
                                   ? Text(
-                                      AppLocalizations.of(context)
-                                          .translate('Enter your Location.'),
+                                      AppLocalizations.of(context).translate(
+                                          'Enter your Start Location.'),
                                       style:
                                           Theme.of(context).textTheme.bodySmall,
                                     )
@@ -342,6 +326,7 @@ class _RouteSearchScreenState extends ConsumerState<RouteSearchScreen> {
             ),
           ),
           const SearchRouteButton(),
+          SizedBox(height: screenSize.height * 0.02),
         ],
       ),
     );
