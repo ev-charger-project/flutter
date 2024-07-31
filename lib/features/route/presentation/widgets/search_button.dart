@@ -1,4 +1,5 @@
-
+import 'package:auto_route/auto_route.dart';
+import 'package:ev_charger/routes/app_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -15,12 +16,12 @@ class SearchRouteButton extends StatelessWidget {
       child: Container(
         color: Theme.of(context).colorScheme.secondary,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
           child: SizedBox(
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () {
-                // Handle search action
+                context.router.push(const RouteRoute());
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Theme.of(context).colorScheme.primary,
@@ -32,8 +33,8 @@ class SearchRouteButton extends StatelessWidget {
               child: Text(
                 AppLocalizations.of(context).translate('Search'),
                 style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                  color: Theme.of(context).colorScheme.secondary,
-                ),
+                      color: Theme.of(context).colorScheme.secondary,
+                    ),
               ),
             ),
           ),

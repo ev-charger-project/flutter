@@ -28,7 +28,7 @@ class _RouteScreenState extends ConsumerState<RouteScreen> {
   @override
   Widget build(BuildContext context) {
     final routeAsyncValue = ref.watch(routeProvider);
-    final userLocation = ref.watch(userLocationProvider);
+    var userLocation;
     final markerAsyncValue = ref.watch(routeMarkerProvider);
 
     markerAsyncValue.when(
@@ -36,6 +36,7 @@ class _RouteScreenState extends ConsumerState<RouteScreen> {
         setState(() {
           _markers.clear();
           _markers.addAll(markers);
+          userLocation = markers.first.position;
         });
       },
       loading: () {},
@@ -46,7 +47,9 @@ class _RouteScreenState extends ConsumerState<RouteScreen> {
       data: (route) {
         setState(() {
           _polylines.clear();
-          final polylinePoints = route.route.map((point) => LatLng(point.lat, point.long)).toList();
+          final polylinePoints = route.route
+              .map((point) => LatLng(point.lat, point.long))
+              .toList();
           _polylines.add(
             Polyline(
               polylineId: const PolylineId('route'),
@@ -98,7 +101,8 @@ class _RouteScreenState extends ConsumerState<RouteScreen> {
               },
               child: SizedBox(
                 height: 30,
-                child: SvgPicture.asset('assets/icons/floating_button_icon.svg'),
+                child:
+                    SvgPicture.asset('assets/icons/floating_button_icon.svg'),
               ),
             ),
           ),

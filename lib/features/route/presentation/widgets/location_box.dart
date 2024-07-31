@@ -1,17 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../location/presentation/widgets/back_button.dart';
+import '../providers/end_provider.dart';
+import '../providers/start_provider.dart';
 
-
-class LocationAppBar extends StatelessWidget {
+class LocationAppBar extends ConsumerWidget {
   const LocationAppBar({
     super.key,
   });
 
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final nameStart = ref.watch(startProvider).id;
+    final nameEnd = ref.watch(endProvider).id;
     final screenSize = MediaQuery.of(context).size;
     return Positioned(
       top: 0,
@@ -36,9 +39,9 @@ class LocationAppBar extends StatelessWidget {
               Expanded(
                 child: Column(
                   children: [
-                    LocationBox(context: context, hintText: 'Sonatus Building, 15 D. L Tôn, Bến Nghé, Quận 1'),
+                    LocationBox(context: context, hintText: nameStart),
                     const SizedBox(height: 10),
-                    LocationBox(context: context, hintText: 'Hoa Hao Clinic, 254 Hòa Hảo, Phường 15, Quận 10'),
+                    LocationBox(context: context, hintText: nameEnd),
                   ],
                 ),
               ),
@@ -49,7 +52,6 @@ class LocationAppBar extends StatelessWidget {
     );
   }
 }
-
 
 class LocationBox extends StatelessWidget {
   const LocationBox({
@@ -76,7 +78,10 @@ class LocationBox extends StatelessWidget {
           Flexible(
             child: Text(
               hintText,
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Theme.of(context).colorScheme.secondary),
+              style: Theme.of(context)
+                  .textTheme
+                  .bodySmall
+                  ?.copyWith(color: Theme.of(context).colorScheme.secondary),
               overflow: TextOverflow.ellipsis,
             ),
           ),
