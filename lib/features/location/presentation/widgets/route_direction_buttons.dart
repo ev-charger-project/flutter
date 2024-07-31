@@ -10,8 +10,8 @@ import '../../../../shared/domain/providers/location/user_location_provider.dart
 import '../../../../shared/domain/providers/permission/permission_provider.dart';
 import '../../../../shared/domain/providers/location/location_provider.dart';
 import '../../../notification/screens/permission_screen.dart';
-import '../../../route/domain/providers/end_provider.dart';
-import '../../../route/domain/providers/start_provider.dart';
+import '../../../route/presentation/providers/end_provider.dart';
+import '../../../route/presentation/providers/start_provider.dart';
 
 class RouteDirectionButtons extends ConsumerWidget {
   const RouteDirectionButtons({

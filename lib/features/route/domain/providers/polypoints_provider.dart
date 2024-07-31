@@ -1,5 +1,5 @@
-import 'package:ev_charger/features/route/domain/providers/end_provider.dart';
-import 'package:ev_charger/features/route/domain/providers/start_provider.dart';
+import 'package:ev_charger/features/route/presentation/providers/end_provider.dart';
+import 'package:ev_charger/features/route/presentation/providers/start_provider.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
