@@ -18,13 +18,14 @@ _$LocationDataModelImpl _$$LocationDataModelImplFromJson(
       latitude: (json['latitude'] as num).toDouble(),
       longitude: (json['longitude'] as num).toDouble(),
       description: json['description'] as String?,
-      workingDay: WorkingDay.fromJson(
-          Map<String, String>.from(json['working_day'] as Map)),
+      workingDays: (json['working_days'] as List<dynamic>)
+          .map((e) => WorkingDay.fromJson(e as Map<String, dynamic>))
+          .toList(),
       pricing: json['pricing'] as String?,
       phoneNumber: json['phone_number'] as String?,
       parkingLevel: json['parking_level'] as String?,
-      ev_chargers: (json['ev_chargers'] as List<dynamic>?)
-          ?.map((e) => ChargerDataModel.fromJson(e as Map<String, dynamic>))
+      ev_chargers: (json['ev_chargers'] as List<dynamic>)
+          .map((e) => ChargerDataModel.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
@@ -40,7 +41,7 @@ Map<String, dynamic> _$$LocationDataModelImplToJson(
       'latitude': instance.latitude,
       'longitude': instance.longitude,
       'description': instance.description,
-      'working_day': instance.workingDay,
+      'working_days': instance.workingDays,
       'pricing': instance.pricing,
       'phone_number': instance.phoneNumber,
       'parking_level': instance.parkingLevel,
@@ -49,22 +50,14 @@ Map<String, dynamic> _$$LocationDataModelImplToJson(
 
 _$WorkingDayImpl _$$WorkingDayImplFromJson(Map<String, dynamic> json) =>
     _$WorkingDayImpl(
-      mon: json['mon'] as String,
-      tue: json['tue'] as String,
-      wed: json['wed'] as String,
-      thu: json['thu'] as String,
-      fri: json['fri'] as String,
-      sat: json['sat'] as String,
-      sun: json['sun'] as String,
+      day: (json['day'] as num).toInt(),
+      openTime: json['open_time'] as String,
+      closeTime: json['close_time'] as String,
     );
 
 Map<String, dynamic> _$$WorkingDayImplToJson(_$WorkingDayImpl instance) =>
     <String, dynamic>{
-      'mon': instance.mon,
-      'tue': instance.tue,
-      'wed': instance.wed,
-      'thu': instance.thu,
-      'fri': instance.fri,
-      'sat': instance.sat,
-      'sun': instance.sun,
+      'day': instance.day,
+      'open_time': instance.openTime,
+      'close_time': instance.closeTime,
     };

@@ -38,8 +38,8 @@ mixin _$LocationDataModel {
   double get longitude => throw _privateConstructorUsedError;
   @JsonKey(name: 'description')
   String? get description => throw _privateConstructorUsedError;
-  @JsonKey(name: 'working_day')
-  WorkingDay get workingDay => throw _privateConstructorUsedError;
+  @JsonKey(name: 'working_days')
+  List<WorkingDay> get workingDays => throw _privateConstructorUsedError;
   @JsonKey(name: 'pricing')
   String? get pricing => throw _privateConstructorUsedError;
   @JsonKey(name: 'phone_number')
@@ -47,7 +47,7 @@ mixin _$LocationDataModel {
   @JsonKey(name: 'parking_level')
   String? get parkingLevel => throw _privateConstructorUsedError;
   @JsonKey(name: 'ev_chargers')
-  List<ChargerDataModel>? get ev_chargers => throw _privateConstructorUsedError;
+  List<ChargerDataModel> get ev_chargers => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -71,13 +71,11 @@ abstract class $LocationDataModelCopyWith<$Res> {
       @JsonKey(name: 'latitude') double latitude,
       @JsonKey(name: 'longitude') double longitude,
       @JsonKey(name: 'description') String? description,
-      @JsonKey(name: 'working_day') WorkingDay workingDay,
+      @JsonKey(name: 'working_days') List<WorkingDay> workingDays,
       @JsonKey(name: 'pricing') String? pricing,
       @JsonKey(name: 'phone_number') String? phoneNumber,
       @JsonKey(name: 'parking_level') String? parkingLevel,
-      @JsonKey(name: 'ev_chargers') List<ChargerDataModel>? ev_chargers});
-
-  $WorkingDayCopyWith<$Res> get workingDay;
+      @JsonKey(name: 'ev_chargers') List<ChargerDataModel> ev_chargers});
 }
 
 /// @nodoc
@@ -102,11 +100,11 @@ class _$LocationDataModelCopyWithImpl<$Res, $Val extends LocationDataModel>
     Object? latitude = null,
     Object? longitude = null,
     Object? description = freezed,
-    Object? workingDay = null,
+    Object? workingDays = null,
     Object? pricing = freezed,
     Object? phoneNumber = freezed,
     Object? parkingLevel = freezed,
-    Object? ev_chargers = freezed,
+    Object? ev_chargers = null,
   }) {
     return _then(_value.copyWith(
       name: null == name
@@ -145,10 +143,10 @@ class _$LocationDataModelCopyWithImpl<$Res, $Val extends LocationDataModel>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
-      workingDay: null == workingDay
-          ? _value.workingDay
-          : workingDay // ignore: cast_nullable_to_non_nullable
-              as WorkingDay,
+      workingDays: null == workingDays
+          ? _value.workingDays
+          : workingDays // ignore: cast_nullable_to_non_nullable
+              as List<WorkingDay>,
       pricing: freezed == pricing
           ? _value.pricing
           : pricing // ignore: cast_nullable_to_non_nullable
@@ -161,19 +159,11 @@ class _$LocationDataModelCopyWithImpl<$Res, $Val extends LocationDataModel>
           ? _value.parkingLevel
           : parkingLevel // ignore: cast_nullable_to_non_nullable
               as String?,
-      ev_chargers: freezed == ev_chargers
+      ev_chargers: null == ev_chargers
           ? _value.ev_chargers
           : ev_chargers // ignore: cast_nullable_to_non_nullable
-              as List<ChargerDataModel>?,
+              as List<ChargerDataModel>,
     ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $WorkingDayCopyWith<$Res> get workingDay {
-    return $WorkingDayCopyWith<$Res>(_value.workingDay, (value) {
-      return _then(_value.copyWith(workingDay: value) as $Val);
-    });
   }
 }
 
@@ -195,14 +185,11 @@ abstract class _$$LocationDataModelImplCopyWith<$Res>
       @JsonKey(name: 'latitude') double latitude,
       @JsonKey(name: 'longitude') double longitude,
       @JsonKey(name: 'description') String? description,
-      @JsonKey(name: 'working_day') WorkingDay workingDay,
+      @JsonKey(name: 'working_days') List<WorkingDay> workingDays,
       @JsonKey(name: 'pricing') String? pricing,
       @JsonKey(name: 'phone_number') String? phoneNumber,
       @JsonKey(name: 'parking_level') String? parkingLevel,
-      @JsonKey(name: 'ev_chargers') List<ChargerDataModel>? ev_chargers});
-
-  @override
-  $WorkingDayCopyWith<$Res> get workingDay;
+      @JsonKey(name: 'ev_chargers') List<ChargerDataModel> ev_chargers});
 }
 
 /// @nodoc
@@ -225,11 +212,11 @@ class __$$LocationDataModelImplCopyWithImpl<$Res>
     Object? latitude = null,
     Object? longitude = null,
     Object? description = freezed,
-    Object? workingDay = null,
+    Object? workingDays = null,
     Object? pricing = freezed,
     Object? phoneNumber = freezed,
     Object? parkingLevel = freezed,
-    Object? ev_chargers = freezed,
+    Object? ev_chargers = null,
   }) {
     return _then(_$LocationDataModelImpl(
       name: null == name
@@ -268,10 +255,10 @@ class __$$LocationDataModelImplCopyWithImpl<$Res>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
-      workingDay: null == workingDay
-          ? _value.workingDay
-          : workingDay // ignore: cast_nullable_to_non_nullable
-              as WorkingDay,
+      workingDays: null == workingDays
+          ? _value._workingDays
+          : workingDays // ignore: cast_nullable_to_non_nullable
+              as List<WorkingDay>,
       pricing: freezed == pricing
           ? _value.pricing
           : pricing // ignore: cast_nullable_to_non_nullable
@@ -284,10 +271,10 @@ class __$$LocationDataModelImplCopyWithImpl<$Res>
           ? _value.parkingLevel
           : parkingLevel // ignore: cast_nullable_to_non_nullable
               as String?,
-      ev_chargers: freezed == ev_chargers
+      ev_chargers: null == ev_chargers
           ? _value._ev_chargers
           : ev_chargers // ignore: cast_nullable_to_non_nullable
-              as List<ChargerDataModel>?,
+              as List<ChargerDataModel>,
     ));
   }
 }
@@ -305,12 +292,15 @@ class _$LocationDataModelImpl implements _LocationDataModel {
       @JsonKey(name: 'latitude') required this.latitude,
       @JsonKey(name: 'longitude') required this.longitude,
       @JsonKey(name: 'description') this.description,
-      @JsonKey(name: 'working_day') required this.workingDay,
+      @JsonKey(name: 'working_days')
+      required final List<WorkingDay> workingDays,
       @JsonKey(name: 'pricing') this.pricing,
       @JsonKey(name: 'phone_number') this.phoneNumber,
       @JsonKey(name: 'parking_level') this.parkingLevel,
-      @JsonKey(name: 'ev_chargers') final List<ChargerDataModel>? ev_chargers})
-      : _ev_chargers = ev_chargers;
+      @JsonKey(name: 'ev_chargers')
+      required final List<ChargerDataModel> ev_chargers})
+      : _workingDays = workingDays,
+        _ev_chargers = ev_chargers;
 
   factory _$LocationDataModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$LocationDataModelImplFromJson(json);
@@ -342,9 +332,15 @@ class _$LocationDataModelImpl implements _LocationDataModel {
   @override
   @JsonKey(name: 'description')
   final String? description;
+  final List<WorkingDay> _workingDays;
   @override
-  @JsonKey(name: 'working_day')
-  final WorkingDay workingDay;
+  @JsonKey(name: 'working_days')
+  List<WorkingDay> get workingDays {
+    if (_workingDays is EqualUnmodifiableListView) return _workingDays;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_workingDays);
+  }
+
   @override
   @JsonKey(name: 'pricing')
   final String? pricing;
@@ -354,20 +350,18 @@ class _$LocationDataModelImpl implements _LocationDataModel {
   @override
   @JsonKey(name: 'parking_level')
   final String? parkingLevel;
-  final List<ChargerDataModel>? _ev_chargers;
+  final List<ChargerDataModel> _ev_chargers;
   @override
   @JsonKey(name: 'ev_chargers')
-  List<ChargerDataModel>? get ev_chargers {
-    final value = _ev_chargers;
-    if (value == null) return null;
+  List<ChargerDataModel> get ev_chargers {
     if (_ev_chargers is EqualUnmodifiableListView) return _ev_chargers;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
+    return EqualUnmodifiableListView(_ev_chargers);
   }
 
   @override
   String toString() {
-    return 'LocationDataModel(name: $name, street: $street, district: $district, city: $city, postal: $postal, country: $country, latitude: $latitude, longitude: $longitude, description: $description, workingDay: $workingDay, pricing: $pricing, phoneNumber: $phoneNumber, parkingLevel: $parkingLevel, ev_chargers: $ev_chargers)';
+    return 'LocationDataModel(name: $name, street: $street, district: $district, city: $city, postal: $postal, country: $country, latitude: $latitude, longitude: $longitude, description: $description, workingDays: $workingDays, pricing: $pricing, phoneNumber: $phoneNumber, parkingLevel: $parkingLevel, ev_chargers: $ev_chargers)';
   }
 
   @override
@@ -388,8 +382,8 @@ class _$LocationDataModelImpl implements _LocationDataModel {
                 other.longitude == longitude) &&
             (identical(other.description, description) ||
                 other.description == description) &&
-            (identical(other.workingDay, workingDay) ||
-                other.workingDay == workingDay) &&
+            const DeepCollectionEquality()
+                .equals(other._workingDays, _workingDays) &&
             (identical(other.pricing, pricing) || other.pricing == pricing) &&
             (identical(other.phoneNumber, phoneNumber) ||
                 other.phoneNumber == phoneNumber) &&
@@ -412,7 +406,7 @@ class _$LocationDataModelImpl implements _LocationDataModel {
       latitude,
       longitude,
       description,
-      workingDay,
+      const DeepCollectionEquality().hash(_workingDays),
       pricing,
       phoneNumber,
       parkingLevel,
@@ -435,21 +429,23 @@ class _$LocationDataModelImpl implements _LocationDataModel {
 
 abstract class _LocationDataModel implements LocationDataModel {
   const factory _LocationDataModel(
-      {@JsonKey(name: 'location_name') required final String name,
-      @JsonKey(name: 'street') required final String street,
-      @JsonKey(name: 'district') final String? district,
-      @JsonKey(name: 'city') required final String city,
-      @JsonKey(name: 'postal_code') final String? postal,
-      @JsonKey(name: 'country') required final String country,
-      @JsonKey(name: 'latitude') required final double latitude,
-      @JsonKey(name: 'longitude') required final double longitude,
-      @JsonKey(name: 'description') final String? description,
-      @JsonKey(name: 'working_day') required final WorkingDay workingDay,
-      @JsonKey(name: 'pricing') final String? pricing,
-      @JsonKey(name: 'phone_number') final String? phoneNumber,
-      @JsonKey(name: 'parking_level') final String? parkingLevel,
-      @JsonKey(name: 'ev_chargers')
-      final List<ChargerDataModel>? ev_chargers}) = _$LocationDataModelImpl;
+          {@JsonKey(name: 'location_name') required final String name,
+          @JsonKey(name: 'street') required final String street,
+          @JsonKey(name: 'district') final String? district,
+          @JsonKey(name: 'city') required final String city,
+          @JsonKey(name: 'postal_code') final String? postal,
+          @JsonKey(name: 'country') required final String country,
+          @JsonKey(name: 'latitude') required final double latitude,
+          @JsonKey(name: 'longitude') required final double longitude,
+          @JsonKey(name: 'description') final String? description,
+          @JsonKey(name: 'working_days')
+          required final List<WorkingDay> workingDays,
+          @JsonKey(name: 'pricing') final String? pricing,
+          @JsonKey(name: 'phone_number') final String? phoneNumber,
+          @JsonKey(name: 'parking_level') final String? parkingLevel,
+          @JsonKey(name: 'ev_chargers')
+          required final List<ChargerDataModel> ev_chargers}) =
+      _$LocationDataModelImpl;
 
   factory _LocationDataModel.fromJson(Map<String, dynamic> json) =
       _$LocationDataModelImpl.fromJson;
@@ -482,8 +478,8 @@ abstract class _LocationDataModel implements LocationDataModel {
   @JsonKey(name: 'description')
   String? get description;
   @override
-  @JsonKey(name: 'working_day')
-  WorkingDay get workingDay;
+  @JsonKey(name: 'working_days')
+  List<WorkingDay> get workingDays;
   @override
   @JsonKey(name: 'pricing')
   String? get pricing;
@@ -495,7 +491,7 @@ abstract class _LocationDataModel implements LocationDataModel {
   String? get parkingLevel;
   @override
   @JsonKey(name: 'ev_chargers')
-  List<ChargerDataModel>? get ev_chargers;
+  List<ChargerDataModel> get ev_chargers;
   @override
   @JsonKey(ignore: true)
   _$$LocationDataModelImplCopyWith<_$LocationDataModelImpl> get copyWith =>
@@ -508,20 +504,12 @@ WorkingDay _$WorkingDayFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$WorkingDay {
-  @JsonKey(name: 'mon')
-  String get mon => throw _privateConstructorUsedError;
-  @JsonKey(name: 'tue')
-  String get tue => throw _privateConstructorUsedError;
-  @JsonKey(name: 'wed')
-  String get wed => throw _privateConstructorUsedError;
-  @JsonKey(name: 'thu')
-  String get thu => throw _privateConstructorUsedError;
-  @JsonKey(name: 'fri')
-  String get fri => throw _privateConstructorUsedError;
-  @JsonKey(name: 'sat')
-  String get sat => throw _privateConstructorUsedError;
-  @JsonKey(name: 'sun')
-  String get sun => throw _privateConstructorUsedError;
+  @JsonKey(name: 'day')
+  int get day => throw _privateConstructorUsedError;
+  @JsonKey(name: 'open_time')
+  String get openTime => throw _privateConstructorUsedError;
+  @JsonKey(name: 'close_time')
+  String get closeTime => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -536,13 +524,9 @@ abstract class $WorkingDayCopyWith<$Res> {
       _$WorkingDayCopyWithImpl<$Res, WorkingDay>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'mon') String mon,
-      @JsonKey(name: 'tue') String tue,
-      @JsonKey(name: 'wed') String wed,
-      @JsonKey(name: 'thu') String thu,
-      @JsonKey(name: 'fri') String fri,
-      @JsonKey(name: 'sat') String sat,
-      @JsonKey(name: 'sun') String sun});
+      {@JsonKey(name: 'day') int day,
+      @JsonKey(name: 'open_time') String openTime,
+      @JsonKey(name: 'close_time') String closeTime});
 }
 
 /// @nodoc
@@ -558,42 +542,22 @@ class _$WorkingDayCopyWithImpl<$Res, $Val extends WorkingDay>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? mon = null,
-    Object? tue = null,
-    Object? wed = null,
-    Object? thu = null,
-    Object? fri = null,
-    Object? sat = null,
-    Object? sun = null,
+    Object? day = null,
+    Object? openTime = null,
+    Object? closeTime = null,
   }) {
     return _then(_value.copyWith(
-      mon: null == mon
-          ? _value.mon
-          : mon // ignore: cast_nullable_to_non_nullable
+      day: null == day
+          ? _value.day
+          : day // ignore: cast_nullable_to_non_nullable
+              as int,
+      openTime: null == openTime
+          ? _value.openTime
+          : openTime // ignore: cast_nullable_to_non_nullable
               as String,
-      tue: null == tue
-          ? _value.tue
-          : tue // ignore: cast_nullable_to_non_nullable
-              as String,
-      wed: null == wed
-          ? _value.wed
-          : wed // ignore: cast_nullable_to_non_nullable
-              as String,
-      thu: null == thu
-          ? _value.thu
-          : thu // ignore: cast_nullable_to_non_nullable
-              as String,
-      fri: null == fri
-          ? _value.fri
-          : fri // ignore: cast_nullable_to_non_nullable
-              as String,
-      sat: null == sat
-          ? _value.sat
-          : sat // ignore: cast_nullable_to_non_nullable
-              as String,
-      sun: null == sun
-          ? _value.sun
-          : sun // ignore: cast_nullable_to_non_nullable
+      closeTime: null == closeTime
+          ? _value.closeTime
+          : closeTime // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -608,13 +572,9 @@ abstract class _$$WorkingDayImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'mon') String mon,
-      @JsonKey(name: 'tue') String tue,
-      @JsonKey(name: 'wed') String wed,
-      @JsonKey(name: 'thu') String thu,
-      @JsonKey(name: 'fri') String fri,
-      @JsonKey(name: 'sat') String sat,
-      @JsonKey(name: 'sun') String sun});
+      {@JsonKey(name: 'day') int day,
+      @JsonKey(name: 'open_time') String openTime,
+      @JsonKey(name: 'close_time') String closeTime});
 }
 
 /// @nodoc
@@ -628,42 +588,22 @@ class __$$WorkingDayImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? mon = null,
-    Object? tue = null,
-    Object? wed = null,
-    Object? thu = null,
-    Object? fri = null,
-    Object? sat = null,
-    Object? sun = null,
+    Object? day = null,
+    Object? openTime = null,
+    Object? closeTime = null,
   }) {
     return _then(_$WorkingDayImpl(
-      mon: null == mon
-          ? _value.mon
-          : mon // ignore: cast_nullable_to_non_nullable
+      day: null == day
+          ? _value.day
+          : day // ignore: cast_nullable_to_non_nullable
+              as int,
+      openTime: null == openTime
+          ? _value.openTime
+          : openTime // ignore: cast_nullable_to_non_nullable
               as String,
-      tue: null == tue
-          ? _value.tue
-          : tue // ignore: cast_nullable_to_non_nullable
-              as String,
-      wed: null == wed
-          ? _value.wed
-          : wed // ignore: cast_nullable_to_non_nullable
-              as String,
-      thu: null == thu
-          ? _value.thu
-          : thu // ignore: cast_nullable_to_non_nullable
-              as String,
-      fri: null == fri
-          ? _value.fri
-          : fri // ignore: cast_nullable_to_non_nullable
-              as String,
-      sat: null == sat
-          ? _value.sat
-          : sat // ignore: cast_nullable_to_non_nullable
-              as String,
-      sun: null == sun
-          ? _value.sun
-          : sun // ignore: cast_nullable_to_non_nullable
+      closeTime: null == closeTime
+          ? _value.closeTime
+          : closeTime // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -673,42 +613,26 @@ class __$$WorkingDayImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$WorkingDayImpl implements _WorkingDay {
   const _$WorkingDayImpl(
-      {@JsonKey(name: 'mon') required this.mon,
-      @JsonKey(name: 'tue') required this.tue,
-      @JsonKey(name: 'wed') required this.wed,
-      @JsonKey(name: 'thu') required this.thu,
-      @JsonKey(name: 'fri') required this.fri,
-      @JsonKey(name: 'sat') required this.sat,
-      @JsonKey(name: 'sun') required this.sun});
+      {@JsonKey(name: 'day') required this.day,
+      @JsonKey(name: 'open_time') required this.openTime,
+      @JsonKey(name: 'close_time') required this.closeTime});
 
   factory _$WorkingDayImpl.fromJson(Map<String, dynamic> json) =>
       _$$WorkingDayImplFromJson(json);
 
   @override
-  @JsonKey(name: 'mon')
-  final String mon;
+  @JsonKey(name: 'day')
+  final int day;
   @override
-  @JsonKey(name: 'tue')
-  final String tue;
+  @JsonKey(name: 'open_time')
+  final String openTime;
   @override
-  @JsonKey(name: 'wed')
-  final String wed;
-  @override
-  @JsonKey(name: 'thu')
-  final String thu;
-  @override
-  @JsonKey(name: 'fri')
-  final String fri;
-  @override
-  @JsonKey(name: 'sat')
-  final String sat;
-  @override
-  @JsonKey(name: 'sun')
-  final String sun;
+  @JsonKey(name: 'close_time')
+  final String closeTime;
 
   @override
   String toString() {
-    return 'WorkingDay(mon: $mon, tue: $tue, wed: $wed, thu: $thu, fri: $fri, sat: $sat, sun: $sun)';
+    return 'WorkingDay(day: $day, openTime: $openTime, closeTime: $closeTime)';
   }
 
   @override
@@ -716,19 +640,16 @@ class _$WorkingDayImpl implements _WorkingDay {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$WorkingDayImpl &&
-            (identical(other.mon, mon) || other.mon == mon) &&
-            (identical(other.tue, tue) || other.tue == tue) &&
-            (identical(other.wed, wed) || other.wed == wed) &&
-            (identical(other.thu, thu) || other.thu == thu) &&
-            (identical(other.fri, fri) || other.fri == fri) &&
-            (identical(other.sat, sat) || other.sat == sat) &&
-            (identical(other.sun, sun) || other.sun == sun));
+            (identical(other.day, day) || other.day == day) &&
+            (identical(other.openTime, openTime) ||
+                other.openTime == openTime) &&
+            (identical(other.closeTime, closeTime) ||
+                other.closeTime == closeTime));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, mon, tue, wed, thu, fri, sat, sun);
+  int get hashCode => Object.hash(runtimeType, day, openTime, closeTime);
 
   @JsonKey(ignore: true)
   @override
@@ -746,38 +667,23 @@ class _$WorkingDayImpl implements _WorkingDay {
 
 abstract class _WorkingDay implements WorkingDay {
   const factory _WorkingDay(
-      {@JsonKey(name: 'mon') required final String mon,
-      @JsonKey(name: 'tue') required final String tue,
-      @JsonKey(name: 'wed') required final String wed,
-      @JsonKey(name: 'thu') required final String thu,
-      @JsonKey(name: 'fri') required final String fri,
-      @JsonKey(name: 'sat') required final String sat,
-      @JsonKey(name: 'sun') required final String sun}) = _$WorkingDayImpl;
+          {@JsonKey(name: 'day') required final int day,
+          @JsonKey(name: 'open_time') required final String openTime,
+          @JsonKey(name: 'close_time') required final String closeTime}) =
+      _$WorkingDayImpl;
 
   factory _WorkingDay.fromJson(Map<String, dynamic> json) =
       _$WorkingDayImpl.fromJson;
 
   @override
-  @JsonKey(name: 'mon')
-  String get mon;
+  @JsonKey(name: 'day')
+  int get day;
   @override
-  @JsonKey(name: 'tue')
-  String get tue;
+  @JsonKey(name: 'open_time')
+  String get openTime;
   @override
-  @JsonKey(name: 'wed')
-  String get wed;
-  @override
-  @JsonKey(name: 'thu')
-  String get thu;
-  @override
-  @JsonKey(name: 'fri')
-  String get fri;
-  @override
-  @JsonKey(name: 'sat')
-  String get sat;
-  @override
-  @JsonKey(name: 'sun')
-  String get sun;
+  @JsonKey(name: 'close_time')
+  String get closeTime;
   @override
   @JsonKey(ignore: true)
   _$$WorkingDayImplCopyWith<_$WorkingDayImpl> get copyWith =>

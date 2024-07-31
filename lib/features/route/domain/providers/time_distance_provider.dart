@@ -1,22 +1,22 @@
-
-
-import 'package:ev_charger/features/route/domain/providers/polypoints_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'dart:math' as math;
 
+import 'data/route_provider.dart';
+
 final routeTimeDistanceProvider =
 FutureProvider.autoDispose<Map<String, double>>((ref) async {
-  final polylinePoints = await ref.watch(polypointsProvider.future);
+  final routeEntity = await ref.watch(routeProvider.future);
+  final polylinePoints = routeEntity.route;
   double totalDistance = 0.0;
   double totalTime = 0.0;
 
   if (polylinePoints.isNotEmpty) {
     for (int i = 0; i < polylinePoints.length - 1; i++) {
       totalDistance += _calculateDistance(
-        polylinePoints[i].latitude,
-        polylinePoints[i].longitude,
-        polylinePoints[i + 1].latitude,
-        polylinePoints[i + 1].longitude,
+        polylinePoints[i].lat,
+        polylinePoints[i].long,
+        polylinePoints[i + 1].lat,
+        polylinePoints[i + 1].long,
       );
     }
 

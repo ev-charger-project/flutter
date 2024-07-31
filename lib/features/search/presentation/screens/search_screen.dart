@@ -37,6 +37,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
   void dispose() {
     _searchController.dispose();
     _searchFocusNode.dispose();
+    ref.read(SearchQueryProvider.notifier).state = '';
     super.dispose();
   }
 

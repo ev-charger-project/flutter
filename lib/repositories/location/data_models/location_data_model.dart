@@ -15,11 +15,11 @@ class LocationDataModel with _$LocationDataModel {
     @JsonKey(name: 'latitude') required double latitude,
     @JsonKey(name: 'longitude') required double longitude,
     @JsonKey(name: 'description') String? description,
-    @JsonKey(name: 'working_day') required WorkingDay workingDay,
+    @JsonKey(name: 'working_days') required List<WorkingDay> workingDays,
     @JsonKey(name: 'pricing') String? pricing,
     @JsonKey(name: 'phone_number') String? phoneNumber,
     @JsonKey(name: 'parking_level') String? parkingLevel,
-    @JsonKey(name: 'ev_chargers') List<ChargerDataModel>? ev_chargers,
+    @JsonKey(name: 'ev_chargers') required List<ChargerDataModel> ev_chargers,
   }) = _LocationDataModel;
 
   factory LocationDataModel.fromJson(Map<String, dynamic> json) =>
@@ -29,15 +29,11 @@ class LocationDataModel with _$LocationDataModel {
 @freezed
 class WorkingDay with _$WorkingDay {
   const factory WorkingDay({
-    @JsonKey(name: 'mon') required String mon,
-    @JsonKey(name: 'tue') required String tue,
-    @JsonKey(name: 'wed') required String wed,
-    @JsonKey(name: 'thu') required String thu,
-    @JsonKey(name: 'fri') required String fri,
-    @JsonKey(name: 'sat') required String sat,
-    @JsonKey(name: 'sun') required String sun,
+    @JsonKey(name: 'day') required int day,
+    @JsonKey(name: 'open_time') required String openTime,
+    @JsonKey(name: 'close_time') required String closeTime,
   }) = _WorkingDay;
 
-  factory WorkingDay.fromJson(Map<String, String> json) =>
+  factory WorkingDay.fromJson(Map<String, dynamic> json) =>
       _$WorkingDayFromJson(json);
 }

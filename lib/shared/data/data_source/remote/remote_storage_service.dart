@@ -5,10 +5,11 @@ import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../../../repositories/charge_type/data_models/charge_type_data_model.dart';
+import '../../../../repositories/route/data_models/route_data_model.dart';
 
 abstract class RemoteStorageService {
   Future<LocationDataModel> fetchLocationData(String locationId);
-  Future<PolylineResult> fetchRoute(double userLat, double userLong,double destinationLat, double destinationLong);
+  Future<RouteDataModel> fetchRoute(double userLat, double userLong,double destinationLat, double destinationLong);
 
   Future<List<ChargerMarkerDataModel>> fetchMarker(
       double userLat, double userLong, double radius);

@@ -21,7 +21,7 @@ class _InfoContentState extends ConsumerState<InfoContent> {
   void _checkTextOverflow() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final RenderBox renderBox =
-          _textKey.currentContext?.findRenderObject() as RenderBox;
+      _textKey.currentContext?.findRenderObject() as RenderBox;
       final size = renderBox.size;
       final double maxHeight =
           4 * Theme.of(context).textTheme.bodyMedium!.fontSize! * 1.2;
@@ -32,6 +32,27 @@ class _InfoContentState extends ConsumerState<InfoContent> {
         });
       }
     });
+  }
+
+  String dayToString(int day) {
+    switch (day) {
+      case 1:
+        return AppLocalizations.of(context).translate('Sunday');
+      case 2:
+        return AppLocalizations.of(context).translate('Monday');
+      case 3:
+        return AppLocalizations.of(context).translate('Tuesday');
+      case 4:
+        return AppLocalizations.of(context).translate('Wednesday');
+      case 5:
+        return AppLocalizations.of(context).translate('Thursday');
+      case 6:
+        return AppLocalizations.of(context).translate('Friday');
+      case 7:
+        return AppLocalizations.of(context).translate('Saturday');
+      default:
+        return '';
+    }
   }
 
   Widget _buildAboutSection(String? longText) {
@@ -76,12 +97,12 @@ class _InfoContentState extends ConsumerState<InfoContent> {
     return Column(
       children: List.generate(
         data.length,
-        (index) => Padding(
+            (index) => Padding(
           padding: const EdgeInsets.all(1),
           child: Container(
             color: Theme.of(context).stationGrey,
             padding:
-                const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+            const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -121,13 +142,12 @@ class _InfoContentState extends ConsumerState<InfoContent> {
               location.parkingLevel!.isNotEmpty) {
             data.add({AppLocalizations.of(context).translate('Parking Level'): location.parkingLevel!});
           }
-          data.add({AppLocalizations.of(context).translate('Monday'): location.workingDay.mon});
-          data.add({AppLocalizations.of(context).translate('Tuesday'): location.workingDay.tue});
-          data.add({AppLocalizations.of(context).translate('Wednesday'): location.workingDay.wed});
-          data.add({AppLocalizations.of(context).translate('Thursday'): location.workingDay.thu});
-          data.add({AppLocalizations.of(context).translate('Friday'): location.workingDay.fri});
-          data.add({AppLocalizations.of(context).translate('Saturday'): location.workingDay.sat});
-          data.add({AppLocalizations.of(context).translate('Sunday'): location.workingDay.sun});
+
+          for (var workingDay in location.workingDays) {
+            data.add({
+              dayToString(workingDay.day): '${workingDay.openTime} - ${workingDay.closeTime}'
+            });
+          }
 
           WidgetsBinding.instance
               .addPostFrameCallback((_) => _checkTextOverflow());
@@ -145,7 +165,7 @@ class _InfoContentState extends ConsumerState<InfoContent> {
                 ),
               ),
               Text(
-              AppLocalizations.of(context).translate('Nearby'),
+                AppLocalizations.of(context).translate('Nearby'),
                 style: Theme.of(context).textTheme.displayLarge,
               ),
               const SizedBox(

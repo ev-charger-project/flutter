@@ -22,7 +22,7 @@ class LocationEntity with _$LocationEntity {
     required double latitude,
     required double longitude,
     String? description,
-    required WorkingDay workingDay,
+    required List<WorkingDay> workingDays,
     String? pricing,
     String? phoneNumber,
     String? parkingLevel,
@@ -43,40 +43,36 @@ class LocationMapper with EntityConvertible<LocationEntity, LocationDataModel> {
       latitude: entityObject.latitude,
       longitude: entityObject.longitude,
       description: entityObject.description,
-      workingDay: WorkingDay(
-        mon: entityObject.workingDay.mon,
-        tue: entityObject.workingDay.tue,
-        wed: entityObject.workingDay.wed,
-        thu: entityObject.workingDay.thu,
-        fri: entityObject.workingDay.fri,
-        sat: entityObject.workingDay.sat,
-        sun: entityObject.workingDay.sun,
-      ),
+      workingDays: entityObject.workingDays.map((workingDay) => WorkingDay(
+        day: workingDay.day,
+        openTime: workingDay.openTime,
+        closeTime: workingDay.closeTime,
+      )).toList(),
       pricing: entityObject.pricing,
       phoneNumber: entityObject.phoneNumber,
       parkingLevel: entityObject.parkingLevel,
       ev_chargers: entityObject.ev_chargers
-          ?.map((charger) => ChargerDataModel(
-                station_name: charger.station_name,
-                availability: charger.availability,
-                ports: charger.ports
-                    .map((port) => PortDataModel(
-                          power_plug_type: PowerPlugTypeDataModel(
-                            powerModel: port.power_plug_type.powerModel,
-                            plugType: port.power_plug_type.plugType,
-                            plugImage: port.power_plug_type.plugImage,
-                            usedInRegions: port.power_plug_type.usedInRegions,
-                            additionalNotes:
-                                port.power_plug_type.additionalNotes,
-                          ),
-                          power_model: PowerOutputDataModel(
-                            outputValue: port.power_model.outputValue,
-                            chargingSpeed: port.power_model.chargingSpeed,
-                            voltage: port.power_model.voltage,
-                          ),
-                        ))
-                    .toList(),
-              ))
+          .map((charger) => ChargerDataModel(
+        station_name: charger.station_name,
+        availability: charger.availability,
+        ports: charger.ports
+            .map((port) => PortDataModel(
+          power_plug_type: PowerPlugTypeDataModel(
+            powerModel: port.power_plug_type.powerModel,
+            plugType: port.power_plug_type.plugType,
+            plugImage: port.power_plug_type.plugImage,
+            usedInRegions: port.power_plug_type.usedInRegions,
+            additionalNotes:
+            port.power_plug_type.additionalNotes,
+          ),
+          power_model: PowerOutputDataModel(
+            outputValue: port.power_model.outputValue,
+            chargingSpeed: port.power_model.chargingSpeed,
+            voltage: port.power_model.voltage,
+          ),
+        ))
+            .toList(),
+      ))
           .toList(),
     );
   }
@@ -93,43 +89,60 @@ class LocationMapper with EntityConvertible<LocationEntity, LocationDataModel> {
       latitude: dataModelObject.latitude,
       longitude: dataModelObject.longitude,
       description: dataModelObject.description,
-      workingDay: WorkingDay(
-        mon: dataModelObject.workingDay.mon,
-        tue: dataModelObject.workingDay.tue,
-        wed: dataModelObject.workingDay.wed,
-        thu: dataModelObject.workingDay.thu,
-        fri: dataModelObject.workingDay.fri,
-        sat: dataModelObject.workingDay.sat,
-        sun: dataModelObject.workingDay.sun,
-      ),
+      workingDays: dataModelObject.workingDays.map((workingDay) => WorkingDay(
+        day: workingDay.day,
+        openTime: workingDay.openTime,
+        closeTime: workingDay.closeTime,
+      )).toList(),
       pricing: dataModelObject.pricing,
       phoneNumber: dataModelObject.phoneNumber,
       parkingLevel: dataModelObject.parkingLevel,
       ev_chargers: dataModelObject.ev_chargers
-              ?.map((charger) => ChargerEntity(
-                    station_name: charger.station_name,
-                    availability: charger.availability,
-                    ports: charger.ports
-                        .map((port) => Port(
-                              power_plug_type: PowerPlugTypeEntity(
-                                powerModel: port.power_plug_type.powerModel,
-                                plugType: port.power_plug_type.plugType,
-                                plugImage: port.power_plug_type.plugImage,
-                                usedInRegions:
-                                    port.power_plug_type.usedInRegions,
-                                additionalNotes:
-                                    port.power_plug_type.additionalNotes,
-                              ),
-                              power_model: PowerOutputEntity(
-                                outputValue: port.power_model.outputValue,
-                                chargingSpeed: port.power_model.chargingSpeed,
-                                voltage: port.power_model.voltage,
-                              ),
-                            ))
-                        .toList(),
-                  ))
-              .toList() ??
-          [],
+          .map((charger) => ChargerEntity(
+        station_name: charger.station_name,
+        availability: charger.availability,
+        ports: charger.ports
+            .map((port) => Port(
+          power_plug_type: PowerPlugTypeEntity(
+            powerModel: port.power_plug_type.powerModel,
+            plugType: port.power_plug_type.plugType,
+            plugImage: port.power_plug_type.plugImage,
+            usedInRegions:
+            port.power_plug_type.usedInRegions,
+            additionalNotes:
+            port.power_plug_type.additionalNotes,
+          ),
+          power_model: PowerOutputEntity(
+            outputValue: port.power_model.outputValue,
+            chargingSpeed: port.power_model.chargingSpeed,
+            voltage: port.power_model.voltage,
+          ),
+        ))
+            .toList(),
+      ))
+          .toList(),
     );
+  }
+}
+
+
+String dayToString(int day) {
+  switch (day) {
+    case 1:
+      return "Sunday";
+    case 2:
+      return "Monday";
+    case 3:
+      return "Tuesday";
+    case 4:
+      return "Wednesday";
+    case 5:
+      return "Thursday";
+    case 6:
+      return "Friday";
+    case 7:
+      return "Saturday";
+    default:
+      throw ArgumentError("Invalid day: $day");
   }
 }
