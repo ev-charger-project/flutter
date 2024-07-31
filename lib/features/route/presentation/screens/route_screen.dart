@@ -1,14 +1,12 @@
 import 'dart:async';
 import 'package:auto_route/auto_route.dart';
-import 'package:ev_charger/features/route/domain/providers/polypoints_provider.dart';
-import 'package:ev_charger/features/route/domain/providers/time_distance_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../../../shared/domain/providers/location/user_location_provider.dart';
 import '../../../mapview/domain/providers/is_info_visible_provider.dart';
-import '../../domain/providers/route_provider.dart';
+import '../../domain/providers/data/route_provider.dart';
 import '../widgets/info_window.dart';
 import '../widgets/location_box.dart';
 import '../widgets/start_button.dart';
@@ -28,30 +26,31 @@ class _RouteScreenState extends ConsumerState<RouteScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final markerAsyncValue = ref.watch(routeProvider);
-    final polypointsAsyncValue = ref.watch(polypointsProvider);
+    final routeAsyncValue = ref.watch(routeProvider);
     final userLocation = ref.watch(userLocationProvider);
 
-    markerAsyncValue.when(
-      data: (markers) {
+    routeAsyncValue.when(
+      data: (route) {
         setState(() {
           _markers.clear();
-          _markers.addAll(markers);
-        });
-      },
-      loading: () {},
-      error: (error, stack) => print('Error: $error'),
-    );
-
-    polypointsAsyncValue.when(
-      data: (polypoints) {
-        setState(() {
           _polylines.clear();
+
+          for (var marker in route.chargers) {
+            _markers.add(
+              Marker(
+                markerId: MarkerId(marker.id),
+                position: LatLng(marker.lat, marker.long),
+                icon: BitmapDescriptor.defaultMarker, // Replace with custom icon if needed
+              ),
+            );
+          }
+
+          final polylinePoints = route.route.map((point) => LatLng(point.lat, point.long)).toList();
           _polylines.add(
             Polyline(
               polylineId: const PolylineId('route'),
               color: Colors.green,
-              points: polypoints,
+              points: polylinePoints,
               width: 5,
             ),
           );
@@ -60,6 +59,7 @@ class _RouteScreenState extends ConsumerState<RouteScreen> {
       loading: () {},
       error: (error, stack) => print('Error: $error'),
     );
+
     return Scaffold(
       body: Stack(
         children: [
@@ -97,8 +97,7 @@ class _RouteScreenState extends ConsumerState<RouteScreen> {
               },
               child: SizedBox(
                 height: 30,
-                child:
-                    SvgPicture.asset('assets/icons/floating_button_icon.svg'),
+                child: SvgPicture.asset('assets/icons/floating_button_icon.svg'),
               ),
             ),
           ),
@@ -107,4 +106,3 @@ class _RouteScreenState extends ConsumerState<RouteScreen> {
     );
   }
 }
-

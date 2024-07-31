@@ -5,7 +5,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../../mapview/domain/providers/marker/marker_provider.dart';
 import '../../presentation/providers/end_provider.dart';
 
-final routeProvider = FutureProvider.autoDispose<List<Marker>>((ref) async {
+final routeMarkerProvider = FutureProvider.autoDispose<List<Marker>>((ref) async {
   final BitmapDescriptor userIcon =
       await BitmapDescriptorHelper.getBitmapDescriptorFromSvgAsset(
           'assets/icons/user_icon.svg', 35);

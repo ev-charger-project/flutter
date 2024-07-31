@@ -7,6 +7,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter_platform_interface/src/types/location.dart';
 
+import '../../../../../repositories/route/data_models/route_data_model.dart';
+
 class AgestStorageService extends RemoteStorageService {
   final Dio _dio = Dio();
 
@@ -143,18 +145,25 @@ class AgestStorageService extends RemoteStorageService {
     }
   }
 
+
+
   @override
-  Future<PolylineResult> fetchRoute(double userLat, double userLong,double destinationLat, double destinationLong) async {
+  Future<RouteDataModel> fetchRoute(double userLat, double userLong, double destinationLat, double destinationLong) async {
     final PolylinePoints polylinePoints = PolylinePoints();
-    final PolylineResult result =
-        await polylinePoints.getRouteBetweenCoordinates(
+    final PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
       googleApiKey: 'AIzaSyAGYJacplt2I8syt0aY4GXfSNXhKdsXUgM',
       request: PolylineRequest(
           origin: PointLatLng(userLat, userLong),
           destination: PointLatLng(destinationLat, destinationLong),
           mode: TravelMode.driving),
     );
-    return result;
+
+    if (result.points.isNotEmpty) {
+      final routePoints = result.points.map((point) => RoutePoint(lat: point.latitude, long: point.longitude)).toList();
+      return RouteDataModel(route: routePoints, chargers: []);
+    } else {
+      return RouteDataModel(route: [], chargers: []);
+    }
   }
 
 }
