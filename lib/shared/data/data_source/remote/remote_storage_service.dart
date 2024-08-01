@@ -10,13 +10,13 @@ import '../../../../repositories/route/data_models/route_data_model.dart';
 abstract class RemoteStorageService {
   Future<LocationDataModel> fetchLocationData(String locationId);
   Future<RouteDataModel> fetchRoute(double userLat, double userLong,double destinationLat, double destinationLong);
-
+  Future<List<LocationDataModel>> fetchNearby(double lat, double long, double radius);
   Future<List<ChargerMarkerDataModel>> fetchMarker(
       double userLat, double userLong, double radius);
   Future<List<ChargeTypeDataModel>> fetchChargeTypeData();
 
 
-  Future<List<SuggestionDataModel>> fetchSuggestion(String searchString);
+  Future<List<SuggestionDataModel>> fetchSuggestion(String searchString, [double? lat, double? long]);
   Future<List<String>> fetchDistanceAndDuration(
       double userLat, double userLong, double desLat, double desLong);
 }

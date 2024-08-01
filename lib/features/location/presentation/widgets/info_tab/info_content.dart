@@ -1,3 +1,4 @@
+import 'package:ev_charger/features/search/presentation/widgets/suggestion_list.dart';
 import 'package:ev_charger/shared/presentation/theme/app_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ev_charger/shared/domain/providers/location/location_provider.dart';
 
 import '../../../../../shared/core/localization/localization.dart';
+import 'nearbyList.dart';
 
 class InfoContent extends ConsumerStatefulWidget {
   const InfoContent({super.key});
@@ -36,19 +38,19 @@ class _InfoContentState extends ConsumerState<InfoContent> {
 
   String dayToString(int day) {
     switch (day) {
-      case 1:
-        return AppLocalizations.of(context).translate('Sunday');
-      case 2:
-        return AppLocalizations.of(context).translate('Monday');
-      case 3:
-        return AppLocalizations.of(context).translate('Tuesday');
-      case 4:
-        return AppLocalizations.of(context).translate('Wednesday');
-      case 5:
-        return AppLocalizations.of(context).translate('Thursday');
-      case 6:
-        return AppLocalizations.of(context).translate('Friday');
       case 7:
+        return AppLocalizations.of(context).translate('Sunday');
+      case 1:
+        return AppLocalizations.of(context).translate('Monday');
+      case 2:
+        return AppLocalizations.of(context).translate('Tuesday');
+      case 3:
+        return AppLocalizations.of(context).translate('Wednesday');
+      case 4:
+        return AppLocalizations.of(context).translate('Thursday');
+      case 5:
+        return AppLocalizations.of(context).translate('Friday');
+      case 6:
         return AppLocalizations.of(context).translate('Saturday');
       default:
         return '';
@@ -169,7 +171,11 @@ class _InfoContentState extends ConsumerState<InfoContent> {
                 style: Theme.of(context).textTheme.displayLarge,
               ),
               const SizedBox(
-                height: 200,
+                height: 20,
+              ),
+              NearbyList(),
+              const SizedBox(
+                height: 80,
               ),
             ],
           );

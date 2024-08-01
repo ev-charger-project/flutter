@@ -9,6 +9,7 @@ part of 'location_data_model.dart';
 _$LocationDataModelImpl _$$LocationDataModelImplFromJson(
         Map<String, dynamic> json) =>
     _$LocationDataModelImpl(
+      id: json['id'] as String? ?? 'blank',
       name: json['location_name'] as String,
       street: json['street'] as String,
       district: json['district'] as String?,
@@ -18,20 +19,23 @@ _$LocationDataModelImpl _$$LocationDataModelImplFromJson(
       latitude: (json['latitude'] as num).toDouble(),
       longitude: (json['longitude'] as num).toDouble(),
       description: json['description'] as String?,
-      workingDays: (json['working_days'] as List<dynamic>)
-          .map((e) => WorkingDay.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      workingDays: (json['working_days'] as List<dynamic>?)
+              ?.map((e) => WorkingDay.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
       pricing: json['pricing'] as String?,
       phoneNumber: json['phone_number'] as String?,
       parkingLevel: json['parking_level'] as String?,
-      ev_chargers: (json['ev_chargers'] as List<dynamic>)
-          .map((e) => ChargerDataModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      ev_chargers: (json['ev_chargers'] as List<dynamic>?)
+              ?.map((e) => ChargerDataModel.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$$LocationDataModelImplToJson(
         _$LocationDataModelImpl instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'location_name': instance.name,
       'street': instance.street,
       'district': instance.district,
