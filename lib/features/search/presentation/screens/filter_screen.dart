@@ -2,7 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:ev_charger/features/search/presentation/providers/charge_type/hidden_plugs_provider.dart';
 import 'package:ev_charger/features/search/presentation/providers/charge_type/show_incompatible_plugs_provider.dart';
 import 'package:ev_charger/features/search/presentation/providers/charge_type/visible_plugs_provider.dart';
+import 'package:ev_charger/features/search/presentation/providers/filter_provider.dart';
 import 'package:ev_charger/features/search/presentation/providers/search_bar_and_filter/filter_border_color_provider.dart';
+import 'package:ev_charger/repositories/filter/filter.dart';
 import 'package:ev_charger/shared/presentation/theme/app_theme.dart';
 
 import 'package:flutter/material.dart';
@@ -227,6 +229,25 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                         ref.read(FilterBorderColorProvider.notifier).state =
                             Theme.of(context).primaryColor;
 
+                        ref.read(filterProvider.notifier).updateFilter(
+                            FilterEntity(
+                                station_count:
+                                    ref
+                                        .read(
+                                            stationCountValueProvider.notifier)
+                                        .state!,
+                                charge_type: convertChargeTypeObjectsToStrings(
+                                    ref
+                                        .read(visiblePlugsProvider.notifier)
+                                        .state),
+                                output_min: convertDynamicToInt(ref
+                                    .read(rangeValuesProvider.notifier)
+                                    .state
+                                    .start),
+                                output_max: convertDynamicToInt(ref
+                                    .read(rangeValuesProvider.notifier)
+                                    .state
+                                    .end)));
                         print("Apply pressed");
                         Navigator.pop(context);
                       },
@@ -252,4 +273,23 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
       ),
     );
   }
+}
+
+int convertDynamicToInt(dynamic value) {
+  if (value is int) {
+    return value;
+  } else if (value is String) {
+    return int.tryParse(value) ?? 0;
+  } else if (value is double) {
+    return value.toInt();
+  } else {
+    return 0; // or throw an error
+  }
+}
+
+List<String> convertChargeTypeObjectsToStrings(
+    List<ChargeTypeObject> chargeTypeObjects) {
+  return chargeTypeObjects.map((chargeTypeObject) {
+    return '${chargeTypeObject.chargeType}-${chargeTypeObject.chargePowerType}';
+  }).toList();
 }

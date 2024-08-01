@@ -6,6 +6,6 @@ import 'charge_type_remote_data_source_provider.dart';
 final chargeTypeRepositoryProvider = Provider<ChargeTypeRepositoryImpl>((ref) {
   final storageService = ref.read(remoteStorageServiceProvider);
   final remoteDataSource =
-  ref.read(chargeTypeRemoteDataSourceProvider(storageService));
+      ref.read(chargeTypeRemoteDataSourceProvider(storageService));
   return ChargeTypeRepositoryImpl(remoteDataSource);
 });
