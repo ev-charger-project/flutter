@@ -54,6 +54,10 @@ dependencies:
   flutter_svg: ^2.0.10+1
   flutter_localization:
   flutter_polyline_points:
+  firebase_auth: ^5.1.2
+  googleapis_auth: ^1.6.0
+  cloud_firestore: ^5.1.0
+  firebase_core: ^3.2.0
 
   flutter_image_converter: 0.3.3
   http: 1.2.1
@@ -82,10 +86,9 @@ flutter:
     - assets/map/map_style.json
     - assets/images/
     - assets/icons/
-    - assets/icons/home_icon.svg
-    - assets/icons/account_icon.svg
-    - assets/icons/route_icon.svg
     - assets/lang/
+    - assets/firebase/
+
   fonts:
     - family: Exo
       fonts:

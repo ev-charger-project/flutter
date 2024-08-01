@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../routes/app_route.dart';
+import '../providers/splash_provider.dart';
 
 @RoutePage()
 class SplashScreen extends ConsumerStatefulWidget {
@@ -23,7 +24,15 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
 
 
     Timer(const Duration(seconds: 2), () {
-      context.router.replace(MapRoute());
+      final isUserLoggedIn = ref.read(userLoginCheckProvider);
+      final route = isUserLoggedIn
+          ? MapRoute()
+          : LoginRoute() as PageRouteInfo;
+      // ignore: use_build_context_synchronously
+      AutoRouter.of(context).pushAndPopUntil(
+        route,
+        predicate: (_) => false,
+      );
     });
   }
 

@@ -5,11 +5,12 @@ part 'token.g.dart';
 
 @HiveType(typeId: HiveConstants.tokenAdapterId)
 class TokenAdapterObject extends HiveObject {
-  TokenAdapterObject(this.access_token, this.refresh_token);
+  TokenAdapterObject(this.accessToken, this.refreshToken);
 
   @HiveField(0)
-  String access_token;
+  String accessToken;
 
   @HiveField(1)
-  String refresh_token;
+  String refreshToken;
+
 }
