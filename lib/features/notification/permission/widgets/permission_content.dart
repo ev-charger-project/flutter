@@ -3,7 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../shared/core/localization/localization.dart';
+import '../../../../shared/core/localization/localization.dart';
+
 
 class PermissionContent extends StatelessWidget {
   const PermissionContent({

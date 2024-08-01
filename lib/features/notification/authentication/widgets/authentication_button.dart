@@ -2,21 +2,19 @@ import 'package:ev_charger/shared/presentation/theme/app_colors.dart';
 import 'package:ev_charger/shared/presentation/theme/text_styles.dart';
 import 'package:flutter/material.dart';
 
-import '../../../shared/presentation/widgets/button.dart';
+import '../../../../shared/presentation/widgets/button.dart';
+
 
 enum ButtonType {
-  enableLocation,
-  openSettings,
+  logIn,
   cancel,
 }
 
 extension ButtonTypeExtension on ButtonType {
   String get text {
     switch (this) {
-      case ButtonType.enableLocation:
-        return 'Enable Location';
-      case ButtonType.openSettings:
-        return 'Open App Settings';
+      case ButtonType.logIn:
+        return 'Log in';
       case ButtonType.cancel:
         return 'Cancel';
     }
@@ -24,9 +22,7 @@ extension ButtonTypeExtension on ButtonType {
 
   Color get fillColor {
     switch (this) {
-      case ButtonType.enableLocation:
-        return AppColors.primary;
-      case ButtonType.openSettings:
+      case ButtonType.logIn:
         return AppColors.primary;
       case ButtonType.cancel:
         return AppColors.lightGreen;
@@ -35,9 +31,7 @@ extension ButtonTypeExtension on ButtonType {
 
   Color get textColor {
     switch (this) {
-      case ButtonType.enableLocation:
-        return AppColors.white;
-      case ButtonType.openSettings:
+      case ButtonType.logIn:
         return AppColors.white;
       case ButtonType.cancel:
         return AppColors.primary;
@@ -45,11 +39,11 @@ extension ButtonTypeExtension on ButtonType {
   }
 }
 
-class PermissionButton extends StatelessWidget {
+class AuthenticationButton extends StatelessWidget {
   final ButtonType buttonType;
   final VoidCallback onTap;
 
-  const PermissionButton(
+  const AuthenticationButton(
       {super.key, required this.buttonType, required this.onTap});
 
   @override

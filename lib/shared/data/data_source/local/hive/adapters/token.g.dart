@@ -27,9 +27,9 @@ class TokenAdapterObjectAdapter extends TypeAdapter<TokenAdapterObject> {
     writer
       ..writeByte(2)
       ..writeByte(0)
-      ..write(obj.access_token)
+      ..write(obj.accessToken)
       ..writeByte(1)
-      ..write(obj.refresh_token);
+      ..write(obj.refreshToken);
   }
 
   @override

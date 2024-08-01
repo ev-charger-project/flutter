@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'package:ev_charger/features/splash/widgets/dots_circular_progress_painter_widget.dart';
-import 'package:ev_charger/shared/domain/providers/openApp/openApp_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../routes/app_route.dart';
+import '../../../shared/domain/providers/auth/auth_provider.dart';
 
 @RoutePage()
 class SplashScreen extends ConsumerStatefulWidget {
@@ -23,7 +23,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
 
 
     Timer(const Duration(seconds: 2), () {
-      context.router.replace(MapRoute());
+      context.router.push(MapRoute());
     });
   }
 

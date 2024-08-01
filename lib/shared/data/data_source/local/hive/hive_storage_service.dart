@@ -12,6 +12,7 @@ class HiveStorageService extends StorageService {
 
   static HiveInit() async {
     await Hive.initFlutter();
+
     Hive.registerAdapter(TokenAdapterObjectAdapter());
     Hive.registerAdapter(UserAdapterObjectAdapter());
     await Hive.openBox(HiveConstants.authBox);
@@ -50,6 +51,7 @@ class HiveStorageService extends StorageService {
 
   @override
   Future<bool> setToken(TokenAdapterObject tokenAdapterObject) async {
+    // print("token: ${tokenAdapterObject.accessToken}");
     await _authBox.put(HiveConstants.tokenKey, tokenAdapterObject);
     return true;
   }

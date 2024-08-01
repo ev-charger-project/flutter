@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../shared/domain/providers/permission/permission_provider.dart';
+import '../../../../shared/domain/providers/permission/permission_provider.dart';
 import '../widgets/permission_button.dart';
 import '../widgets/permission_content.dart';
 
@@ -23,7 +23,6 @@ class PermissionScreen extends ConsumerWidget {
             const Spacer(),
             PermissionButton(
               buttonType: ButtonType.enableLocation,
-
               onTap: () async {
                 await ref
                     .read(permissionProvider.notifier)
