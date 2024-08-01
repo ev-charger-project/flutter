@@ -53,6 +53,14 @@ abstract class _$AppRouter extends RootStackRouter {
         ),
       );
     },
+    RegisterRoute.name: (routeData) {
+      final args = routeData.argsAs<RegisterRouteArgs>(
+          orElse: () => const RegisterRouteArgs());
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: RegisterScreen(key: args.key),
+      );
+    },
     RouteRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -191,6 +199,35 @@ class MapRouteArgs {
   @override
   String toString() {
     return 'MapRouteArgs{key: $key, latitude: $latitude, longitude: $longitude}';
+  }
+}
+
+/// generated route for
+/// [RegisterScreen]
+class RegisterRoute extends PageRouteInfo<RegisterRouteArgs> {
+  RegisterRoute({
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+          RegisterRoute.name,
+          args: RegisterRouteArgs(key: key),
+          initialChildren: children,
+        );
+
+  static const String name = 'RegisterRoute';
+
+  static const PageInfo<RegisterRouteArgs> page =
+      PageInfo<RegisterRouteArgs>(name);
+}
+
+class RegisterRouteArgs {
+  const RegisterRouteArgs({this.key});
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'RegisterRouteArgs{key: $key}';
   }
 }
 

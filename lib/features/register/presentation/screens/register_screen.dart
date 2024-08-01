@@ -1,31 +1,27 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import '../../../../routes/app_route.dart';
-import '../providers/login_providers.dart';
-import '../providers/state/login_state.dart';
-import '../widgets/login_button.dart';
-import '../widgets/login_field.dart';
+import '../../../account/presentation/providers/state/logout_state.dart';
+import '../../../login/presentation/widgets/login_field.dart';
+import '../providers/register_provider.dart';
+import '../widgets/register_button.dart';
 
 @RoutePage()
-class LoginScreen extends ConsumerWidget {
-  LoginScreen({super.key});
+class RegisterScreen extends ConsumerWidget {
+  RegisterScreen({super.key});
 
   final TextEditingController emailController =
-  TextEditingController(text: 'testuser@gmail.com');
+  TextEditingController(text: 'huy@gmail.com');
   final TextEditingController passwordController =
   TextEditingController(text: 'password');
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(loginStateNotifierProvider);
+    final state = ref.watch(registerStateNotifierProvider);
 
     ref.listen(
-      loginStateNotifierProvider.select((value) {
-        print('loginStateNotifierProvider: $value');
-        return value;
-      }),
+      registerStateNotifierProvider.select((value) => value),
           (previous, next) {
         if (next is Success) {
           AutoRouter.of(context)
@@ -38,7 +34,7 @@ class LoginScreen extends ConsumerWidget {
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => context.router.push(MapRoute()),
+          onPressed: () => context.router.push(LoginRoute()),
         ),
       ),
       body: SafeArea(
@@ -50,7 +46,7 @@ class LoginScreen extends ConsumerWidget {
             children: [
               const Center(
                 child: Text(
-                  'Sign in',
+                  'Register',
                   style: TextStyle(
                     fontSize: 36,
                     fontWeight: FontWeight.bold,
@@ -70,26 +66,23 @@ class LoginScreen extends ConsumerWidget {
                 controller: passwordController,
                 prefixIcon: Icons.lock,
               ),
-
               const SizedBox(height: 24),
               state.maybeMap(
                 loading: (_) => const Center(child: CircularProgressIndicator()),
-                orElse: () => Center(
-                  child: LoginButton(
-                    usernameController: emailController,
-                    passwordController: passwordController,
-                    ref: ref,
-                  ),
+                orElse: () => RegisterButton(
+                  emailController: emailController,
+                  passwordController: passwordController,
+                  ref: ref,
                 ),
               ),
               const SizedBox(height: 16),
               Center(
                 child: GestureDetector(
                   onTap: () {
-                    AutoRouter.of(context).push(RegisterRoute());
+                    AutoRouter.of(context).push(LoginRoute());
                   },
                   child: const Text(
-                    'Register',
+                    'Already have an account? Sign in',
                     style: TextStyle(
                       color: Colors.blue,
                       decoration: TextDecoration.underline,

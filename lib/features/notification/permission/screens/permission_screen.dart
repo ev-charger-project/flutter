@@ -23,7 +23,6 @@ class PermissionScreen extends ConsumerWidget {
             const Spacer(),
             PermissionButton(
               buttonType: ButtonType.enableLocation,
-
               onTap: () async {
                 await ref
                     .read(permissionProvider.notifier)

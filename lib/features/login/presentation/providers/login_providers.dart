@@ -19,10 +19,7 @@ final loginStateNotifierProvider =
     final loginUseCase = LoginUseCaseImpl(
         userRepository: userRepository,
         authRepository: authenticationRepository);
-    print('loginUserRepository: ${userRepository}');
-    print('loginAuthRepository: ${authenticationRepository}');
 
-    print('loginNotifier: ${LoginNotifier(loginUseCase: loginUseCase)}');
     return LoginNotifier(loginUseCase: loginUseCase);
   },
 );

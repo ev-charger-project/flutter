@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../routes/app_route.dart';
 import '../../../../shared/domain/providers/auth/auth_provider.dart';
 import '../../../location/presentation/widgets/amount_chargers.dart';
+import '../../../notification/authentication/screens/authentication_screen.dart';
 
 class ShortInfoUI extends ConsumerWidget {
   final void Function(double) onDragUpdate;
@@ -20,6 +21,8 @@ class ShortInfoUI extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final isAuthenticated = ref.watch(authCheckProvider);
+
     return GestureDetector(
       onVerticalDragUpdate: (details) {
         onDragUpdate(details.primaryDelta!);
@@ -67,16 +70,15 @@ class ShortInfoUI extends ConsumerWidget {
               right: 8,
               child: IconButton(
                 icon: const Icon(Icons.bookmark_border),
-                onPressed: () {
-                  final isUserLoggedIn = ref.read(authCheckProvider);
-                  final route = isUserLoggedIn
-                      ? MapRoute()
-                      : LoginRoute() as PageRouteInfo;
-                  // ignore: use_build_context_synchronously
-                  AutoRouter.of(context).pushAndPopUntil(
-                    route,
-                    predicate: (_) => false,
-                  );
+                onPressed: () async {
+                  if (!isAuthenticated) {
+                    await showDialog(
+                      context: context,
+                      builder: (context) => const AuthenticationScreen(),
+                    );
+                  } else {
+                    print("Bookmark action confirmed");
+                  }
                 },
               ),
             ),

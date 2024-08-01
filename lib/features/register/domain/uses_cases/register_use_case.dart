@@ -1,28 +1,27 @@
-
 import 'package:dio/dio.dart';
 import 'package:ev_charger/repositories/user/entities/user_entity.dart';
 
 import '../../../../repositories/authentication/authentication_repository_impl.dart';
-import '../../../../repositories/authentication/entities/login_user_request_entity.dart';
-import '../../../../repositories/user/user_repository.dart';
+import '../../../../repositories/authentication/entities/register_user_request_entity.dart';
+import '../../../../repositories/user/user_repository_impl.dart';
 
-abstract class LoginUseCase {
+abstract class RegisterUseCase {
   Future<void> execute(
-      {required LoginUserRequest loginUserRequestEntity});
+      {required RegisterUserRequest registerUserRequestEntity});
 }
 
-class LoginUseCaseImpl extends LoginUseCase {
+class RegisterUseCaseImpl extends RegisterUseCase {
   final AuthenticationRepositoryImpl authRepository;
-  final UserRepository userRepository;
+  final UserRepositoryImpl userRepository;
 
-  LoginUseCaseImpl(
+  RegisterUseCaseImpl(
       {required this.authRepository, required this.userRepository});
 
   @override
   Future<void> execute(
-      {required LoginUserRequest loginUserRequestEntity}) async {
+      {required RegisterUserRequest registerUserRequestEntity}) async {
     try {
-      await authRepository.login(loginUserRequestEntity: loginUserRequestEntity);
+      await authRepository.register(registerUserRequestEntity: registerUserRequestEntity);
     } catch (e) {
       print('Error in LoginUseCaseImpl: $e');
       if (e is DioException && e.response != null) {

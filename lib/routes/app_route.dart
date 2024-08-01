@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import '../features/location/presentation/screens/location_screen.dart';
 import '../features/login/presentation/screens/login_screen.dart';
 import '../features/mapview/presentation/screens/map_screen.dart';
+import '../features/register/presentation/screens/register_screen.dart';
 import '../features/route/presentation/screens/route_screen.dart';
 import '../features/route/presentation/screens/route_search_screen.dart';
 import '../features/search/presentation/screens/filter_screen.dart';
@@ -23,7 +24,12 @@ class AppRouter extends _$AppRouter {
         CustomRoute(
             page: LoginRoute.page,
             transitionsBuilder: TransitionsBuilders.fadeIn,
-            durationInMilliseconds: 800,
+            durationInMilliseconds: 400,
+            initial: false),
+        CustomRoute(
+            page: RegisterRoute.page,
+            transitionsBuilder: TransitionsBuilders.fadeIn,
+            durationInMilliseconds: 400,
             initial: false),
         CustomRoute(
             page: LocationRoute.page,

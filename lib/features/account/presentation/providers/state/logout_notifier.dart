@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../uses_cases/logout_use_case.dart';
+import '../../../domain/uses_cases/logout_use_case.dart';
 import 'logout_state.dart';
 
 class LogoutNotifier extends StateNotifier<LogoutState> {

@@ -6,10 +6,14 @@ class AuthField extends StatelessWidget {
     required this.hintText,
     this.obscureText = false,
     required this.controller,
+    this.prefixIcon, // Thêm prefixIcon
   });
+
   final String hintText;
   final bool obscureText;
   final TextEditingController controller;
+  final IconData? prefixIcon; // Thêm prefixIcon
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -20,6 +24,9 @@ class AuthField extends StatelessWidget {
         obscureText: obscureText,
         decoration: InputDecoration(
           hintText: hintText,
+          prefixIcon: prefixIcon != null
+              ? Icon(prefixIcon, color: Colors.black) // Hiển thị prefixIcon nếu có
+              : null,
           border: const OutlineInputBorder(
             borderSide: BorderSide(
               color: Colors.black,
