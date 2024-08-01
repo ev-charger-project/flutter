@@ -13,7 +13,7 @@ class SuggestionRemoteDataSource implements SuggestionDataSource {
 
   @override
   Future<List<SuggestionDataModel>> fetchSuggestionData(
-      String searchString, double? lat, double? long) async {
+      String searchString, [double? lat, double? long]) async {
     final data = await remoteStorageService.fetchSuggestion(
         searchString, lat,  long); // Adjust fetchData method according to your service
     return data;

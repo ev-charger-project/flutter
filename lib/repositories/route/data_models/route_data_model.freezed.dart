@@ -20,7 +20,9 @@ RouteDataModel _$RouteDataModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$RouteDataModel {
+  @JsonKey(name: 'coordinates')
   List<RoutePoint> get route => throw _privateConstructorUsedError;
+  @JsonKey(name: 'locations')
   List<Charger> get chargers => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -35,7 +37,9 @@ abstract class $RouteDataModelCopyWith<$Res> {
           RouteDataModel value, $Res Function(RouteDataModel) then) =
       _$RouteDataModelCopyWithImpl<$Res, RouteDataModel>;
   @useResult
-  $Res call({List<RoutePoint> route, List<Charger> chargers});
+  $Res call(
+      {@JsonKey(name: 'coordinates') List<RoutePoint> route,
+      @JsonKey(name: 'locations') List<Charger> chargers});
 }
 
 /// @nodoc
@@ -75,7 +79,9 @@ abstract class _$$RouteDataModelImplCopyWith<$Res>
       __$$RouteDataModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<RoutePoint> route, List<Charger> chargers});
+  $Res call(
+      {@JsonKey(name: 'coordinates') List<RoutePoint> route,
+      @JsonKey(name: 'locations') List<Charger> chargers});
 }
 
 /// @nodoc
@@ -109,8 +115,8 @@ class __$$RouteDataModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$RouteDataModelImpl implements _RouteDataModel {
   const _$RouteDataModelImpl(
-      {required final List<RoutePoint> route,
-      required final List<Charger> chargers})
+      {@JsonKey(name: 'coordinates') required final List<RoutePoint> route,
+      @JsonKey(name: 'locations') required final List<Charger> chargers})
       : _route = route,
         _chargers = chargers;
 
@@ -119,6 +125,7 @@ class _$RouteDataModelImpl implements _RouteDataModel {
 
   final List<RoutePoint> _route;
   @override
+  @JsonKey(name: 'coordinates')
   List<RoutePoint> get route {
     if (_route is EqualUnmodifiableListView) return _route;
     // ignore: implicit_dynamic_type
@@ -127,6 +134,7 @@ class _$RouteDataModelImpl implements _RouteDataModel {
 
   final List<Charger> _chargers;
   @override
+  @JsonKey(name: 'locations')
   List<Charger> get chargers {
     if (_chargers is EqualUnmodifiableListView) return _chargers;
     // ignore: implicit_dynamic_type
@@ -171,15 +179,18 @@ class _$RouteDataModelImpl implements _RouteDataModel {
 
 abstract class _RouteDataModel implements RouteDataModel {
   const factory _RouteDataModel(
-      {required final List<RoutePoint> route,
-      required final List<Charger> chargers}) = _$RouteDataModelImpl;
+          {@JsonKey(name: 'coordinates') required final List<RoutePoint> route,
+          @JsonKey(name: 'locations') required final List<Charger> chargers}) =
+      _$RouteDataModelImpl;
 
   factory _RouteDataModel.fromJson(Map<String, dynamic> json) =
       _$RouteDataModelImpl.fromJson;
 
   @override
+  @JsonKey(name: 'coordinates')
   List<RoutePoint> get route;
   @override
+  @JsonKey(name: 'locations')
   List<Charger> get chargers;
   @override
   @JsonKey(ignore: true)
@@ -193,9 +204,9 @@ RoutePoint _$RoutePointFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$RoutePoint {
-  @JsonKey(name: 'latitude')
+  @JsonKey(name: 'lat')
   double get lat => throw _privateConstructorUsedError;
-  @JsonKey(name: 'longitude')
+  @JsonKey(name: 'lng')
   double get long => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -211,8 +222,7 @@ abstract class $RoutePointCopyWith<$Res> {
       _$RoutePointCopyWithImpl<$Res, RoutePoint>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'latitude') double lat,
-      @JsonKey(name: 'longitude') double long});
+      {@JsonKey(name: 'lat') double lat, @JsonKey(name: 'lng') double long});
 }
 
 /// @nodoc
@@ -253,8 +263,7 @@ abstract class _$$RoutePointImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'latitude') double lat,
-      @JsonKey(name: 'longitude') double long});
+      {@JsonKey(name: 'lat') double lat, @JsonKey(name: 'lng') double long});
 }
 
 /// @nodoc
@@ -288,17 +297,17 @@ class __$$RoutePointImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$RoutePointImpl implements _RoutePoint {
   const _$RoutePointImpl(
-      {@JsonKey(name: 'latitude') required this.lat,
-      @JsonKey(name: 'longitude') required this.long});
+      {@JsonKey(name: 'lat') required this.lat,
+      @JsonKey(name: 'lng') required this.long});
 
   factory _$RoutePointImpl.fromJson(Map<String, dynamic> json) =>
       _$$RoutePointImplFromJson(json);
 
   @override
-  @JsonKey(name: 'latitude')
+  @JsonKey(name: 'lat')
   final double lat;
   @override
-  @JsonKey(name: 'longitude')
+  @JsonKey(name: 'lng')
   final double long;
 
   @override
@@ -335,18 +344,17 @@ class _$RoutePointImpl implements _RoutePoint {
 
 abstract class _RoutePoint implements RoutePoint {
   const factory _RoutePoint(
-          {@JsonKey(name: 'latitude') required final double lat,
-          @JsonKey(name: 'longitude') required final double long}) =
-      _$RoutePointImpl;
+      {@JsonKey(name: 'lat') required final double lat,
+      @JsonKey(name: 'lng') required final double long}) = _$RoutePointImpl;
 
   factory _RoutePoint.fromJson(Map<String, dynamic> json) =
       _$RoutePointImpl.fromJson;
 
   @override
-  @JsonKey(name: 'latitude')
+  @JsonKey(name: 'lat')
   double get lat;
   @override
-  @JsonKey(name: 'longitude')
+  @JsonKey(name: 'lng')
   double get long;
   @override
   @JsonKey(ignore: true)
