@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:ev_charger/features/mapview/domain/providers/screen_center_provider.dart';
+import 'package:ev_charger/features/route/presentation/providers/start_provider.dart';
 import 'package:ev_charger/shared/domain/providers/openApp/openApp_provider.dart';
 import 'package:ev_charger/shared/presentation/widgets/bottom_app_bar.dart';
 import 'package:flutter/material.dart';

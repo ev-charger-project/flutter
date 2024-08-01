@@ -16,7 +16,7 @@ abstract class RemoteStorageService {
   Future<List<ChargeTypeDataModel>> fetchChargeTypeData();
 
 
-  Future<List<SuggestionDataModel>> fetchSuggestion(String searchString);
+  Future<List<SuggestionDataModel>> fetchSuggestion(String searchString, double? lat, double? long);
   Future<List<String>> fetchDistanceAndDuration(
       double userLat, double userLong, double desLat, double desLong);
 }

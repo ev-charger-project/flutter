@@ -65,13 +65,15 @@ class AgestStorageService extends RemoteStorageService {
   }
 
   @override
-  Future<List<SuggestionDataModel>> fetchSuggestion(String searchString) async {
+  Future<List<SuggestionDataModel>> fetchSuggestion(String searchString, double? lat, double? long) async {
     const url = 'http://172.16.11.139:14000/api/v1/locations/search';
 
     try {
       final response = await _dio.get(url, queryParameters: {
         'query': searchString,
         'is_fuzzi': true,
+        'lat': lat,
+        'long': long
       });
       if (response.statusCode == 200) {
         return (response.data as List)

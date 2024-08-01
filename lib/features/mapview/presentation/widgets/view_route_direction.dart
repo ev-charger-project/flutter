@@ -2,8 +2,10 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../../repositories/location/entities/location_entity.dart';
 import '../../../../repositories/marker/entities/charger_marker_entity.dart';
 import '../../../../routes/app_route.dart';
 import '../../../../shared/core/localization/localization.dart';
@@ -28,26 +30,13 @@ class ViewRouteDirectionButtons extends ConsumerWidget {
       final permissionState = ref.read(permissionProvider);
 
       if (!permissionState.hasPermission) {
-        showDialog(
-          context: context,
-          builder: (context) => const PermissionScreen(),
-        );
+        _showPermissionDialog(context);
       } else {
         final userLocation = ref.read(userLocationProvider);
         final destinationLocation = ref.read(locationProvider);
 
-        if (userLocation != null && destinationLocation is AsyncData) {
-          ref.read(startProvider.notifier).updateStartLocation(ChargerMarkerEntity(
-            id: 'userLocation',
-            latitude: userLocation.latitude,
-            longitude: userLocation.longitude,
-          ));
-
-          ref.read(endProvider.notifier).updateEndLocation(ChargerMarkerEntity(
-            id: 'destinationLocation',
-            latitude: destinationLocation.value!.latitude,
-            longitude: destinationLocation.value!.longitude,
-          ));
+        if (userLocation != null && destinationLocation is AsyncData<LocationEntity>) {
+          _updateStartAndEndLocations(ref, userLocation, destinationLocation.value!);
           context.router.push(RouteRoute());
         }
       }
@@ -150,4 +139,41 @@ class ViewRouteDirectionButtons extends ConsumerWidget {
       ],
     );
   }
+}
+
+void _showPermissionDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (context) => const PermissionScreen(),
+  );
+}
+
+void _updateStartAndEndLocations(WidgetRef ref, Position userLocation, LocationEntity destinationLocation) {
+  ref.read(startProvider.notifier).updateStartLocation(ChargerMarkerEntity(
+    id: 'Your Location',
+    latitude: userLocation.latitude,
+    longitude: userLocation.longitude,
+  ));
+
+  final locationName = _buildLocationName(destinationLocation);
+
+  ref.read(endProvider.notifier).updateEndLocation(ChargerMarkerEntity(
+    id: locationName,
+    latitude: destinationLocation.latitude,
+    longitude: destinationLocation.longitude,
+  ));
+}
+
+String _buildLocationName(LocationEntity location) {
+  List<String> parts = [];
+  if (location.name.isNotEmpty) {
+    parts.add(location.name);
+  }
+  if (location.street.isNotEmpty) {
+    parts.add(location.street);
+  }
+  if (location.district != null && location.district!.isNotEmpty) {
+    parts.add(location.district!);
+  }
+  return parts.join(', ');
 }

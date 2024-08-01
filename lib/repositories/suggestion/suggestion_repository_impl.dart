@@ -10,9 +10,9 @@ class SuggestionRepositoryImpl extends SuggestionRepository {
 
   @override
   Future<List<SuggestionEntity>> fetchSuggestionsData(
-      String searchString) async {
+      String searchString, [double? lat, double? long]) async {
     final suggestionDataModelResult =
-        await remoteDataSource.fetchSuggestionData(searchString);
+        await remoteDataSource.fetchSuggestionData(searchString, lat, long);
     final result = SuggestionMapper().toEntityList(suggestionDataModelResult);
     return result;
   }
