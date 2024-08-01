@@ -17,8 +17,14 @@ class SuggestionRepositoryImpl extends SuggestionRepository {
       double? lat,
       double? long]) async {
     final suggestionDataModelResult =
-        await remoteDataSource.fetchSuggestionData(searchString, stationCount,
-            chargeType, outputMin, outputMax, lat, long);
+        await remoteDataSource.fetchSuggestionData(
+            searchString,
+            stationCount ?? 0,
+            chargeType ?? [],
+            outputMin ?? 0,
+            outputMax ?? 360,
+            lat,
+            long);
     final result = SuggestionMapper().toEntityList(suggestionDataModelResult);
     return result;
   }
