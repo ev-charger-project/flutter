@@ -67,8 +67,7 @@ class AgestStorageService extends RemoteStorageService {
   }
 
   @override
-  Future<List<SuggestionDataModel>> fetchSuggestion(String searchString,
-      [double? lat, double? long]) async {
+  Future<List<SuggestionDataModel>> fetchSuggestion(String searchString, int? stationCount, double? lat, double? long) async {
     const url = '/api/v1/locations/search';
 
     try {
@@ -77,6 +76,7 @@ class AgestStorageService extends RemoteStorageService {
         response = await _dio.get(uri + url, queryParameters: {
           'query': searchString,
           'is_fuzzi': true,
+          'station_count': stationCount,
           'lat': lat,
           'long': long
         });
@@ -160,18 +160,17 @@ class AgestStorageService extends RemoteStorageService {
   }
 
   @override
-  Future<RouteDataModel> fetchRoute(double userLat, double userLong,
-      double destinationLat, double destinationLong) async {
+  Future<RouteDataModel> fetchRoute(double userLat, double userLong, double destinationLat, double destinationLong) async {
     const url = '/api/v1/gg-map/directions';
 
     try {
 
-        final response = await _dio.get(uri + url, queryParameters: {
-          'start_lat': userLat,
-          'start_long': userLong,
-          'end_lat' : destinationLat,
-          'end_long':destinationLong,
-        });
+      final response = await _dio.get(uri + url, queryParameters: {
+        'start_lat': userLat,
+        'start_long': userLong,
+        'end_lat' : destinationLat,
+        'end_long':destinationLong,
+      });
 
 
       if (response.statusCode == 200) {

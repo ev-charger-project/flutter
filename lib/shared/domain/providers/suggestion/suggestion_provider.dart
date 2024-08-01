@@ -2,11 +2,14 @@ import 'package:ev_charger/repositories/suggestion/entities/suggestion_entity.da
 import 'package:ev_charger/shared/domain/providers/location/user_location_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../features/search/domain/providers/search_query_provider.dart';
+import '../../../../features/search/presentation/providers/station_count/station_count_value_provider.dart';
 import 'suggestion_repository_provider.dart';
 
 final suggestionProvider = FutureProvider<List<SuggestionEntity>>((ref) async {
   final suggestionRepository = ref.read(suggestionRepositoryProvider);
   final suggestionQuery = ref.watch(SearchQueryProvider);
+  final stationCount = ref.watch(stationCountValueProvider);
+
   final userLocation = ref.watch(userLocationProvider);
   final double? lat;
   final double? long;
@@ -18,8 +21,8 @@ final suggestionProvider = FutureProvider<List<SuggestionEntity>>((ref) async {
     long = null;
   }
 
-  final suggestionsData = await suggestionRepository.fetchSuggestionsData(
-      suggestionQuery, lat, long);
+  final suggestionsData =
+      await suggestionRepository.fetchSuggestionsData(suggestionQuery, stationCount, lat, long);
 
   return suggestionsData;
 });
