@@ -168,4 +168,33 @@ class AgestStorageService extends RemoteStorageService {
     }
   }
 
-}
+  @override
+  Future<List<LocationDataModel>> fetchNearby(double lat, double long, double radius) async {
+    const url = 'http://172.16.11.139:14000/api/v1/locations/nearby';
+
+    try {
+      final response = await _dio.get(url, queryParameters: {
+        'user_lat': lat,
+        'user_long': long,
+        'radius': radius,
+      });
+      if (response.statusCode == 200) {
+        return (response.data as List)
+            .map((item) =>
+            LocationDataModel.fromJson(item as Map<String, dynamic>))
+            .toList();
+
+      } else {
+        throw Exception('Error code: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error: $e');
+      if (e is DioException && e.response != null) {
+        throw Exception('Error code: ${e.response?.statusCode}');
+      } else {
+        throw Exception('An unknown error occurred');
+      }
+    }
+  }
+  }
+

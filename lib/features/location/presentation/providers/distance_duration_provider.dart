@@ -1,6 +1,6 @@
 import 'dart:math';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../shared/domain/providers/charger/charger_provider.dart';
+import '../../../../shared/domain/providers/location/location_provider.dart';
 import '../../../../shared/domain/providers/location/user_location_provider.dart';
 
 final distanceAndDurationProvider = FutureProvider.autoDispose<List<String>>((ref) async {

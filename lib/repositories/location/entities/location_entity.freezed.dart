@@ -16,6 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$LocationEntity {
+  String? get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get street => throw _privateConstructorUsedError;
   String? get district => throw _privateConstructorUsedError;
@@ -43,7 +44,8 @@ abstract class $LocationEntityCopyWith<$Res> {
       _$LocationEntityCopyWithImpl<$Res, LocationEntity>;
   @useResult
   $Res call(
-      {String name,
+      {String? id,
+      String name,
       String street,
       String? district,
       String city,
@@ -72,6 +74,7 @@ class _$LocationEntityCopyWithImpl<$Res, $Val extends LocationEntity>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = freezed,
     Object? name = null,
     Object? street = null,
     Object? district = freezed,
@@ -88,6 +91,10 @@ class _$LocationEntityCopyWithImpl<$Res, $Val extends LocationEntity>
     Object? ev_chargers = null,
   }) {
     return _then(_value.copyWith(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -157,7 +164,8 @@ abstract class _$$LocationEntityImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String name,
+      {String? id,
+      String name,
       String street,
       String? district,
       String city,
@@ -184,6 +192,7 @@ class __$$LocationEntityImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = freezed,
     Object? name = null,
     Object? street = null,
     Object? district = freezed,
@@ -200,6 +209,10 @@ class __$$LocationEntityImplCopyWithImpl<$Res>
     Object? ev_chargers = null,
   }) {
     return _then(_$LocationEntityImpl(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -264,7 +277,8 @@ class __$$LocationEntityImplCopyWithImpl<$Res>
 
 class _$LocationEntityImpl implements _LocationEntity {
   const _$LocationEntityImpl(
-      {required this.name,
+      {this.id,
+      required this.name,
       required this.street,
       this.district,
       required this.city,
@@ -281,6 +295,8 @@ class _$LocationEntityImpl implements _LocationEntity {
       : _workingDays = workingDays,
         _ev_chargers = ev_chargers;
 
+  @override
+  final String? id;
   @override
   final String name;
   @override
@@ -323,7 +339,7 @@ class _$LocationEntityImpl implements _LocationEntity {
 
   @override
   String toString() {
-    return 'LocationEntity(name: $name, street: $street, district: $district, city: $city, postalCode: $postalCode, country: $country, latitude: $latitude, longitude: $longitude, description: $description, workingDays: $workingDays, pricing: $pricing, phoneNumber: $phoneNumber, parkingLevel: $parkingLevel, ev_chargers: $ev_chargers)';
+    return 'LocationEntity(id: $id, name: $name, street: $street, district: $district, city: $city, postalCode: $postalCode, country: $country, latitude: $latitude, longitude: $longitude, description: $description, workingDays: $workingDays, pricing: $pricing, phoneNumber: $phoneNumber, parkingLevel: $parkingLevel, ev_chargers: $ev_chargers)';
   }
 
   @override
@@ -331,6 +347,7 @@ class _$LocationEntityImpl implements _LocationEntity {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$LocationEntityImpl &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.street, street) || other.street == street) &&
             (identical(other.district, district) ||
@@ -359,6 +376,7 @@ class _$LocationEntityImpl implements _LocationEntity {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      id,
       name,
       street,
       district,
@@ -384,7 +402,8 @@ class _$LocationEntityImpl implements _LocationEntity {
 
 abstract class _LocationEntity implements LocationEntity {
   const factory _LocationEntity(
-      {required final String name,
+      {final String? id,
+      required final String name,
       required final String street,
       final String? district,
       required final String city,
@@ -399,6 +418,8 @@ abstract class _LocationEntity implements LocationEntity {
       final String? parkingLevel,
       required final List<ChargerEntity> ev_chargers}) = _$LocationEntityImpl;
 
+  @override
+  String? get id;
   @override
   String get name;
   @override

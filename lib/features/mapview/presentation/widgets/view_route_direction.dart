@@ -9,7 +9,7 @@ import '../../../../repositories/location/entities/location_entity.dart';
 import '../../../../repositories/marker/entities/charger_marker_entity.dart';
 import '../../../../routes/app_route.dart';
 import '../../../../shared/core/localization/localization.dart';
-import '../../../../shared/domain/providers/charger/charger_provider.dart';
+import '../../../../shared/domain/providers/location/location_provider.dart';
 import '../../../../shared/domain/providers/location/user_location_provider.dart';
 import '../../../../shared/domain/providers/permission/permission_provider.dart';
 import '../../../notification/screens/permission_screen.dart';

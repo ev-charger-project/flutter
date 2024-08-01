@@ -13,6 +13,7 @@ part 'location_entity.freezed.dart';
 @freezed
 class LocationEntity with _$LocationEntity {
   const factory LocationEntity({
+    String? id,
     required String name,
     required String street,
     String? district,
@@ -34,6 +35,7 @@ class LocationMapper with EntityConvertible<LocationEntity, LocationDataModel> {
   @override
   LocationDataModel fromEntity(LocationEntity entityObject) {
     return LocationDataModel(
+      id: entityObject.id?? 'blank',
       name: entityObject.name,
       street: entityObject.street,
       district: entityObject.district,
@@ -80,6 +82,7 @@ class LocationMapper with EntityConvertible<LocationEntity, LocationDataModel> {
   @override
   LocationEntity toEntity(LocationDataModel dataModelObject) {
     return LocationEntity(
+      id: dataModelObject.id?? 'blank',
       name: dataModelObject.name,
       street: dataModelObject.street,
       district: dataModelObject.district,
@@ -89,16 +92,16 @@ class LocationMapper with EntityConvertible<LocationEntity, LocationDataModel> {
       latitude: dataModelObject.latitude,
       longitude: dataModelObject.longitude,
       description: dataModelObject.description,
-      workingDays: dataModelObject.workingDays.map((workingDay) => WorkingDay(
+      workingDays: dataModelObject.workingDays?.map((workingDay) => WorkingDay(
         day: workingDay.day,
         openTime: workingDay.openTime,
         closeTime: workingDay.closeTime,
-      )).toList(),
+      )).toList()?? [],
       pricing: dataModelObject.pricing,
       phoneNumber: dataModelObject.phoneNumber,
       parkingLevel: dataModelObject.parkingLevel,
       ev_chargers: dataModelObject.ev_chargers
-          .map((charger) => ChargerEntity(
+          ?.map((charger) => ChargerEntity(
         station_name: charger.station_name,
         availability: charger.availability,
         ports: charger.ports
@@ -120,7 +123,7 @@ class LocationMapper with EntityConvertible<LocationEntity, LocationDataModel> {
         ))
             .toList(),
       ))
-          .toList(),
+          .toList()??[],
     );
   }
 }

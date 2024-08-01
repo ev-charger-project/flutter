@@ -14,4 +14,12 @@ class LocationRepositoryImpl extends LocationRepository {
     final result = LocationMapper().toEntity(locationDataModelResult);
     return result;
   }
+
+  @override
+  Future<List<LocationEntity>> fetchNearby(double lat, double long, double radius) async {
+    final locationDataModelResults =
+    await remoteDataSource.fetchNearby(lat, long, radius);
+    final result = locationDataModelResults.map((dataModel) => LocationMapper().toEntity(dataModel)).toList();
+    return result;
+  }
 }
