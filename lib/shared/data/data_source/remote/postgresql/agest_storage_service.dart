@@ -11,7 +11,8 @@ import '../../../../../repositories/route/data_models/route_data_model.dart';
 
 class AgestStorageService extends RemoteStorageService {
   final Dio _dio = Dio();
-  static const uri = 'http://10.0.2.2:4000';
+  // static const uri = 'http://10.0.2.2:4000';
+  static const uri = 'http://127.0.0.1:4000';
 
   @override
   Future<LocationDataModel> fetchLocationData(String locationId) async {
