@@ -8,6 +8,7 @@ import '../features/route/presentation/screens/route_screen.dart';
 import '../features/route/presentation/screens/route_search_screen.dart';
 import '../features/search/presentation/screens/filter_screen.dart';
 import '../features/splash/screens/splash_screen.dart';
+import '../features/account/presentation/screens/account_screen.dart';
 
 part 'app_route.gr.dart';
 
@@ -53,10 +54,17 @@ class AppRouter extends _$AppRouter {
           initial: false,
         ),
         CustomRoute(
+          page: AccountRoute.page,
+          transitionsBuilder: TransitionsBuilders.fadeIn,
+          durationInMilliseconds: 400,
+          initial: false,
+        ),
+        CustomRoute(
           page: SearchRoute.page,
           transitionsBuilder: TransitionsBuilders.noTransition,
           durationInMilliseconds: 800,
           initial: false,
         )
+
       ];
 }

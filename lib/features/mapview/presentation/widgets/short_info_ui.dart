@@ -1,8 +1,11 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:ev_charger/features/location/presentation/widgets/location_name_address.dart';
 import 'package:ev_charger/features/mapview/presentation/widgets/view_route_direction.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../routes/app_route.dart';
+import '../../../../shared/domain/providers/auth/auth_provider.dart';
 import '../../../location/presentation/widgets/amount_chargers.dart';
 
 class ShortInfoUI extends ConsumerWidget {
@@ -26,36 +29,58 @@ class ShortInfoUI extends ConsumerWidget {
       },
       child: Padding(
         padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.035),
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: Center(
-            child: Padding(
-              padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.035),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: MediaQuery.of(context).size.width * 0.015),
-                    child: const LocationNameAddress(),
+        child: Stack(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Center(
+                child: Padding(
+                  padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.035),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: MediaQuery.of(context).size.width * 0.015),
+                        child: const LocationNameAddress(),
+                      ),
+                      Divider(
+                        color: Theme.of(context).dividerColor,
+                        thickness: 1,
+                      ),
+                      const ChargerNum(),
+                      Divider(
+                        color: Theme.of(context).dividerColor,
+                        thickness: 1,
+                      ),
+                      const ViewRouteDirectionButtons(),
+                    ],
                   ),
-                  Divider(
-                    color: Theme.of(context).dividerColor,
-                    thickness: 1,
-                  ),
-                  const ChargerNum(),
-                  Divider(
-                    color: Theme.of(context).dividerColor,
-                    thickness: 1,
-                  ),
-                  const ViewRouteDirectionButtons(),
-                ],
+                ),
               ),
             ),
-          ),
+            Positioned(
+              top: 8,
+              right: 8,
+              child: IconButton(
+                icon: const Icon(Icons.bookmark_border),
+                onPressed: () {
+                  final isUserLoggedIn = ref.read(authCheckProvider);
+                  final route = isUserLoggedIn
+                      ? MapRoute()
+                      : LoginRoute() as PageRouteInfo;
+                  // ignore: use_build_context_synchronously
+                  AutoRouter.of(context).pushAndPopUntil(
+                    route,
+                    predicate: (_) => false,
+                  );
+                },
+              ),
+            ),
+          ],
         ),
       ),
     );

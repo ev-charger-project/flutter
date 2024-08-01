@@ -1,12 +1,14 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:ev_charger/routes/app_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../shared/domain/providers/permission/permission_provider.dart';
-import '../widgets/permission_button.dart';
-import '../widgets/permission_content.dart';
+import '../../../../shared/domain/providers/permission/permission_provider.dart';
+import '../widgets/authentication_button.dart';
+import '../widgets/authentication_content.dart';
 
-class PermissionScreen extends ConsumerWidget {
-  const PermissionScreen({super.key});
+class AuthenticationScreen extends ConsumerWidget {
+  const AuthenticationScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -19,22 +21,19 @@ class PermissionScreen extends ConsumerWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const PermissionContent(),
+            const AuthenticationContent(),
             const Spacer(),
-            PermissionButton(
-              buttonType: ButtonType.enableLocation,
+            AuthenticationButton(
+              buttonType: ButtonType.logIn,
 
               onTap: () async {
-                await ref
-                    .read(permissionProvider.notifier)
-                    .checkAndRequestPermission();
-                Navigator.of(context).pop();
+                context.router.push(LoginRoute());
               },
             ),
             SizedBox(
               height: height * 0.02,
             ),
-            PermissionButton(
+            AuthenticationButton(
               buttonType: ButtonType.cancel,
               onTap: () {
                 Navigator.of(context).pop();

@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-final userLoginCheckProvider = Provider<bool>( (ref){
+final authCheckProvider = Provider<bool>( (ref){
   final auth = FirebaseAuth.instance;
   final user = auth.currentUser;
   if(user != null) {

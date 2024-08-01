@@ -27,7 +27,6 @@ class LoginNotifier extends StateNotifier<LoginState> {
         throw Exception('Error code: ${e.response?.statusCode}');
       } else {
         throw Exception('An unknown error occurred');
-
       }
     }
   }

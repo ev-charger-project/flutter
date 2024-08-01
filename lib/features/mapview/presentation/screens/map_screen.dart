@@ -15,7 +15,7 @@ import '../../../../routes/app_route.dart';
 import '../../../../shared/domain/providers/location/user_location_provider.dart';
 import '../../../../shared/domain/providers/permission/permission_provider.dart';
 import '../../../location/presentation/providers/selected_location_id_provider.dart';
-import '../../../notification/screens/permission_screen.dart';
+import '../../../notification/permission/screens/permission_screen.dart';
 import '../../../search/domain/providers/search_query_provider.dart';
 import '../../../search/presentation/widgets/search_bar_and_filter.dart';
 import '../../domain/providers/is_info_visible_provider.dart';

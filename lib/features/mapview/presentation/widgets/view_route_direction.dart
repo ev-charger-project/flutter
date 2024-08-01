@@ -12,7 +12,7 @@ import '../../../../shared/core/localization/localization.dart';
 import '../../../../shared/domain/providers/location/location_provider.dart';
 import '../../../../shared/domain/providers/location/user_location_provider.dart';
 import '../../../../shared/domain/providers/permission/permission_provider.dart';
-import '../../../notification/screens/permission_screen.dart';
+import '../../../notification/permission/screens/permission_screen.dart';
 import '../../../route/presentation/providers/end_provider.dart';
 import '../../../route/presentation/providers/start_provider.dart';
 

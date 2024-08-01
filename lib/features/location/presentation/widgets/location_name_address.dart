@@ -7,7 +7,7 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../../../shared/domain/providers/location/user_location_provider.dart';
 import '../../../../shared/domain/providers/permission/permission_provider.dart';
-import '../../../notification/screens/permission_screen.dart';
+import '../../../notification/permission/screens/permission_screen.dart';
 
 import '../providers/distance_duration_provider.dart';
 
