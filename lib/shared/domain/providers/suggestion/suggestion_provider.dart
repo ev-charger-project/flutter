@@ -9,6 +9,7 @@ final suggestionProvider = FutureProvider<List<SuggestionEntity>>((ref) async {
   final suggestionRepository = ref.read(suggestionRepositoryProvider);
   final suggestionQuery = ref.watch(SearchQueryProvider);
   final stationCount = ref.watch(stationCountValueProvider);
+<<<<<<< HEAD
 
   final userLocation = ref.watch(userLocationProvider);
   final double? lat;
@@ -23,6 +24,11 @@ final suggestionProvider = FutureProvider<List<SuggestionEntity>>((ref) async {
 
   final suggestionsData =
       await suggestionRepository.fetchSuggestionsData(suggestionQuery, stationCount, lat, long);
+=======
+
+  final suggestionsData = await suggestionRepository.fetchSuggestionsData(
+      suggestionQuery, stationCount);
+>>>>>>> cf568d8 (add stationCount filter into API)
 
   return suggestionsData;
 });

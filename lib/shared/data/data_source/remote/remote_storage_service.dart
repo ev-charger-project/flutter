@@ -7,7 +7,12 @@ import '../../../../repositories/route/data_models/route_data_model.dart';
 abstract class RemoteStorageService {
   Future<LocationDataModel> fetchLocationData(String locationId);
 
+<<<<<<< HEAD
   Future<RouteDataModel> fetchRoute(double userLat, double userLong,double destinationLat, double destinationLong);
+=======
+  Future<RouteDataModel> fetchRoute(double userLat, double userLong,
+      double destinationLat, double destinationLong);
+>>>>>>> cf568d8 (add stationCount filter into API)
 
   Future<List<LocationDataModel>> fetchNearby(double lat, double long, double radius);
 
@@ -16,9 +21,14 @@ abstract class RemoteStorageService {
 
   Future<List<ChargeTypeDataModel>> fetchChargeTypeData();
 
+  Future<List<SuggestionDataModel>> fetchSuggestion(
+      String searchString, int? stationCount);
 
+<<<<<<< HEAD
   Future<List<SuggestionDataModel>> fetchSuggestion(String searchString, int? stationCount, double? lat, double? long);
 
+=======
+>>>>>>> cf568d8 (add stationCount filter into API)
   Future<List<String>> fetchDistanceAndDuration(
       double userLat, double userLong, double desLat, double desLong);
 }

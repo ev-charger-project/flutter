@@ -65,7 +65,12 @@ class AgestStorageService extends RemoteStorageService {
   }
 
   @override
+<<<<<<< HEAD
   Future<List<SuggestionDataModel>> fetchSuggestion(String searchString, int? stationCount, double? lat, double? long) async {
+=======
+  Future<List<SuggestionDataModel>> fetchSuggestion(
+      String searchString, int? stationCount) async {
+>>>>>>> cf568d8 (add stationCount filter into API)
     const url = 'http://172.16.11.139:14000/api/v1/locations/search';
 
     try {
@@ -73,8 +78,11 @@ class AgestStorageService extends RemoteStorageService {
         'query': searchString,
         'is_fuzzi': true,
         'station_count': stationCount,
+<<<<<<< HEAD
         'lat': lat,
         'long': long
+=======
+>>>>>>> cf568d8 (add stationCount filter into API)
       });
       if (response.statusCode == 200) {
         return (response.data as List)
@@ -172,6 +180,7 @@ class AgestStorageService extends RemoteStorageService {
       return RouteDataModel(route: [], chargers: []);
     }
   }
+<<<<<<< HEAD
 
   @override
   Future<List<LocationDataModel>> fetchNearby(double lat, double long, double radius) async {
@@ -201,4 +210,6 @@ class AgestStorageService extends RemoteStorageService {
       }
     }
   }
+=======
+>>>>>>> cf568d8 (add stationCount filter into API)
 }
