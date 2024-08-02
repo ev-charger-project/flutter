@@ -19,9 +19,9 @@ List<String> encodeListToUrlSafeBase64(List<String> inputList) {
 class AgestStorageService extends RemoteStorageService {
   final Dio _dio = Dio();
 
-  static const uri = 'http://10.0.2.2:4000';
+  //static const uri = 'http://10.0.2.2:4000';
 
-  // static const uri = 'http://172.16.11.139:14000';
+  static const uri = 'http://172.16.11.139:14000';
 
   @override
   Future<LocationDataModel> fetchLocationData(String locationId) async {
