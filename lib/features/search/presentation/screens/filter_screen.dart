@@ -148,6 +148,27 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                         ref.read(FilterBorderColorProvider.notifier).state =
                             null;
 
+                        // Update filter provider with the new filter
+                        ref.read(filterProvider.notifier).updateFilter(
+                            FilterEntity(
+                                station_count:
+                                    ref
+                                        .read(
+                                            stationCountValueProvider.notifier)
+                                        .state,
+                                charge_type: convertChargeTypeObjectsToStrings(
+                                    ref
+                                        .read(visiblePlugsProvider.notifier)
+                                        .state),
+                                output_min: convertDynamicToInt(ref
+                                    .read(rangeValuesProvider.notifier)
+                                    .state
+                                    .start),
+                                output_max: convertDynamicToInt(ref
+                                    .read(rangeValuesProvider.notifier)
+                                    .state
+                                    .end)));
+
                         print("Reset pressed");
                         Navigator.pop(context);
                       },
@@ -229,13 +250,14 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                         ref.read(FilterBorderColorProvider.notifier).state =
                             Theme.of(context).primaryColor;
 
+                        // Update filter provider with the new filter
                         ref.read(filterProvider.notifier).updateFilter(
                             FilterEntity(
                                 station_count:
                                     ref
                                         .read(
                                             stationCountValueProvider.notifier)
-                                        .state!,
+                                        .state,
                                 charge_type: convertChargeTypeObjectsToStrings(
                                     ref
                                         .read(visiblePlugsProvider.notifier)
@@ -290,6 +312,6 @@ int convertDynamicToInt(dynamic value) {
 List<String> convertChargeTypeObjectsToStrings(
     List<ChargeTypeObject> chargeTypeObjects) {
   return chargeTypeObjects.map((chargeTypeObject) {
-    return '${chargeTypeObject.chargeType}-${chargeTypeObject.chargePowerType}';
+    return '${chargeTypeObject.chargeType} - ${chargeTypeObject.chargePowerType}';
   }).toList();
 }

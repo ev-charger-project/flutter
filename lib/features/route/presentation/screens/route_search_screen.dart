@@ -124,6 +124,7 @@ class _RouteSearchScreenState extends ConsumerState<RouteSearchScreen> {
     final toSearchQuery = ref.watch(ToSearchProvider);
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -148,12 +149,12 @@ class _RouteSearchScreenState extends ConsumerState<RouteSearchScreen> {
               style: Theme.of(context).textTheme.headlineMedium,
             ),
           ),
-          const SizedBox(height: 10),
+          SizedBox(height: screenSize.height * 0.010),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: Container(
               padding: EdgeInsets.symmetric(
-                vertical: screenSize.height * 0.004,
+                //vertical: screenSize.height * 0.004,
                 horizontal: screenSize.width * 0.02,
               ),
               decoration: BoxDecoration(
@@ -196,9 +197,7 @@ class _RouteSearchScreenState extends ConsumerState<RouteSearchScreen> {
               ),
             ),
           ),
-          const SizedBox(
-            height: 10,
-          ),
+          SizedBox(height: screenSize.height * 0.020),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Text(
@@ -206,12 +205,12 @@ class _RouteSearchScreenState extends ConsumerState<RouteSearchScreen> {
               style: Theme.of(context).textTheme.headlineMedium,
             ),
           ),
-          const SizedBox(height: 10),
+          SizedBox(height: screenSize.height * 0.010),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: Container(
               padding: EdgeInsets.symmetric(
-                vertical: screenSize.height * 0.004,
+                //vertical: screenSize.height * 0.004,
                 horizontal: screenSize.width * 0.02,
               ),
               decoration: BoxDecoration(
@@ -254,9 +253,7 @@ class _RouteSearchScreenState extends ConsumerState<RouteSearchScreen> {
               ),
             ),
           ),
-          SizedBox(
-            height: 20,
-          ),
+          SizedBox(height: screenSize.height * 0.020),
           Expanded(
             child: Padding(
               padding: EdgeInsets.only(
@@ -326,7 +323,6 @@ class _RouteSearchScreenState extends ConsumerState<RouteSearchScreen> {
             ),
           ),
           const SearchRouteButton(),
-          SizedBox(height: screenSize.height * 0.02),
         ],
       ),
     );

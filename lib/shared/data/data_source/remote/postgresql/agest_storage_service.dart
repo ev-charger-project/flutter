@@ -4,13 +4,21 @@ import 'package:ev_charger/repositories/location/data_models/location_data_model
 import 'package:ev_charger/repositories/suggestion/data_models/suggestion_data_model.dart';
 import 'package:ev_charger/shared/data/data_source/remote/remote_storage_service.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter_polyline_points/flutter_polyline_points.dart';
-import 'package:google_maps_flutter_platform_interface/src/types/location.dart';
+import 'dart:convert';
 
 import '../../../../../repositories/route/data_models/route_data_model.dart';
 
+List<String> encodeListToUrlSafeBase64(List<String> inputList) {
+  return inputList.map((item) {
+    final bytes = utf8.encode(item);
+    final base64Str = base64Url.encode(bytes);
+    return base64Str.replaceAll('=', ''); // Remove padding characters
+  }).toList();
+}
+
 class AgestStorageService extends RemoteStorageService {
   final Dio _dio = Dio();
+
   static const uri = 'http://10.0.2.2:4000';
 
   // static const uri = 'http://172.16.11.139:14000';
@@ -79,12 +87,13 @@ class AgestStorageService extends RemoteStorageService {
 
     try {
       final Response response;
+
       if (lat != null) {
         response = await _dio.get(uri + url, queryParameters: {
           'query': searchString,
           'is_fuzzi': true,
           'station_count': stationCount,
-          'charge_type': chargeType,
+          'charge_type': encodeListToUrlSafeBase64(chargeType!),
           'power_output_gte': outputMin,
           'power_output_lte': outputMax,
           'lat': lat,
@@ -95,11 +104,13 @@ class AgestStorageService extends RemoteStorageService {
           'query': searchString,
           'is_fuzzi': true,
           'station_count': stationCount,
-          'charge_type': chargeType,
+          'charge_type': encodeListToUrlSafeBase64(chargeType!),
           'power_output_gte': outputMin,
           'power_output_lte': outputMax,
         });
       }
+      print(
+          'Query parameters after request: ${response.requestOptions.queryParameters}');
 
       if (response.statusCode == 200) {
         return (response.data as List)

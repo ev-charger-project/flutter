@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$FilterEntity {
-  int get station_count => throw _privateConstructorUsedError;
+  int? get station_count => throw _privateConstructorUsedError;
   List<String> get charge_type => throw _privateConstructorUsedError;
   int get output_min => throw _privateConstructorUsedError;
   int get output_max => throw _privateConstructorUsedError;
@@ -33,7 +33,7 @@ abstract class $FilterEntityCopyWith<$Res> {
       _$FilterEntityCopyWithImpl<$Res, FilterEntity>;
   @useResult
   $Res call(
-      {int station_count,
+      {int? station_count,
       List<String> charge_type,
       int output_min,
       int output_max});
@@ -52,16 +52,16 @@ class _$FilterEntityCopyWithImpl<$Res, $Val extends FilterEntity>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? station_count = null,
+    Object? station_count = freezed,
     Object? charge_type = null,
     Object? output_min = null,
     Object? output_max = null,
   }) {
     return _then(_value.copyWith(
-      station_count: null == station_count
+      station_count: freezed == station_count
           ? _value.station_count
           : station_count // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       charge_type: null == charge_type
           ? _value.charge_type
           : charge_type // ignore: cast_nullable_to_non_nullable
@@ -87,7 +87,7 @@ abstract class _$$FilterEntityImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int station_count,
+      {int? station_count,
       List<String> charge_type,
       int output_min,
       int output_max});
@@ -104,16 +104,16 @@ class __$$FilterEntityImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? station_count = null,
+    Object? station_count = freezed,
     Object? charge_type = null,
     Object? output_min = null,
     Object? output_max = null,
   }) {
     return _then(_$FilterEntityImpl(
-      station_count: null == station_count
+      station_count: freezed == station_count
           ? _value.station_count
           : station_count // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       charge_type: null == charge_type
           ? _value._charge_type
           : charge_type // ignore: cast_nullable_to_non_nullable
@@ -141,7 +141,7 @@ class _$FilterEntityImpl implements _FilterEntity {
       : _charge_type = charge_type;
 
   @override
-  final int station_count;
+  final int? station_count;
   final List<String> _charge_type;
   @override
   List<String> get charge_type {
@@ -192,13 +192,13 @@ class _$FilterEntityImpl implements _FilterEntity {
 
 abstract class _FilterEntity implements FilterEntity {
   const factory _FilterEntity(
-      {required final int station_count,
+      {required final int? station_count,
       required final List<String> charge_type,
       required final int output_min,
       required final int output_max}) = _$FilterEntityImpl;
 
   @override
-  int get station_count;
+  int? get station_count;
   @override
   List<String> get charge_type;
   @override
