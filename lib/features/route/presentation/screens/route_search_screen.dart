@@ -1,14 +1,19 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:ev_charger/features/route/presentation/providers/end_provider.dart';
 import 'package:ev_charger/features/route/presentation/providers/from_search_provider.dart';
 import 'package:ev_charger/shared/presentation/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../../../../repositories/marker/entities/charger_marker_entity.dart';
 import '../../../../shared/core/localization/localization.dart';
+import '../providers/start_provider.dart';
 import '../providers/to_search_provider.dart';
 import '../widgets/route_suggestion_list.dart';
 import '../widgets/search_button.dart';
 import 'dart:async';
+import '../../domain/providers/route_from_provider.dart';
+import '../../domain/providers/route_to_provider.dart';
 
 @RoutePage()
 class RouteSearchScreen extends ConsumerStatefulWidget {
@@ -117,6 +122,64 @@ class _RouteSearchScreenState extends ConsumerState<RouteSearchScreen> {
     });
   }
 
+  void _onFromSearchSubmitted(String text) {
+    final suggestions = ref.read(RouteFromProvider);
+    suggestions.when(
+      data: (data) {
+        if (text.isNotEmpty && data.isNotEmpty) {
+          final firstSuggestion = data.first;
+          _onSuggestionSelectedFrom(
+            firstSuggestion.locationName,
+            firstSuggestion.street,
+            firstSuggestion.district,
+            firstSuggestion.city,
+          );
+          ref.read(startProvider.notifier).updateStartLocation(
+                ChargerMarkerEntity(
+                  id: firstSuggestion.locationName +
+                      firstSuggestion.street +
+                      firstSuggestion.district +
+                      firstSuggestion.city,
+                  latitude: firstSuggestion.latitude,
+                  longitude: firstSuggestion.longitude,
+                ),
+              );
+        }
+      },
+      loading: () {},
+      error: (error, stack) {},
+    );
+  }
+
+  void _onToSearchSubmitted(String text) {
+    final suggestions = ref.read(RouteToProvider);
+    suggestions.when(
+      data: (data) {
+        if (text.isNotEmpty && data.isNotEmpty) {
+          final firstSuggestion = data.first;
+          _onSuggestionSelectedTo(
+            firstSuggestion.locationName,
+            firstSuggestion.street,
+            firstSuggestion.district,
+            firstSuggestion.city,
+          );
+          ref.read(endProvider.notifier).updateEndLocation(
+                ChargerMarkerEntity(
+                  id: firstSuggestion.locationName +
+                      firstSuggestion.street +
+                      firstSuggestion.district +
+                      firstSuggestion.city,
+                  latitude: firstSuggestion.latitude,
+                  longitude: firstSuggestion.longitude,
+                ),
+              );
+        }
+      },
+      loading: () {},
+      error: (error, stack) {},
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
@@ -180,6 +243,7 @@ class _RouteSearchScreenState extends ConsumerState<RouteSearchScreen> {
                                 color: Colors.black,
                               ),
                       onChanged: _onFromSearchChanged,
+                      onSubmitted: _onFromSearchSubmitted,
                     ),
                   ),
                   if (_showClearIconFrom)
@@ -236,6 +300,7 @@ class _RouteSearchScreenState extends ConsumerState<RouteSearchScreen> {
                                 color: Colors.black,
                               ),
                       onChanged: _onToSearchChanged,
+                      onSubmitted: _onToSearchSubmitted,
                     ),
                   ),
                   if (_showClearIconTo)
@@ -323,6 +388,7 @@ class _RouteSearchScreenState extends ConsumerState<RouteSearchScreen> {
             ),
           ),
           const SearchRouteButton(),
+          SizedBox(height: screenSize.height * 0.020),
         ],
       ),
     );
