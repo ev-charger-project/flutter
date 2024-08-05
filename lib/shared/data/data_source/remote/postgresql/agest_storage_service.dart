@@ -93,7 +93,7 @@ class AgestStorageService extends RemoteStorageService {
           'query': searchString,
           'is_fuzzi': true,
           'station_count': stationCount,
-          'charge_type': encodeListToUrlSafeBase64(chargeType!),
+          'charger_type': encodeListToUrlSafeBase64(chargeType!),
           'power_output_gte': outputMin,
           'power_output_lte': outputMax,
           'lat': lat,
@@ -104,7 +104,7 @@ class AgestStorageService extends RemoteStorageService {
           'query': searchString,
           'is_fuzzi': true,
           'station_count': stationCount,
-          'charge_type': encodeListToUrlSafeBase64(chargeType!),
+          'charger_type': encodeListToUrlSafeBase64(chargeType!),
           'power_output_gte': outputMin,
           'power_output_lte': outputMax,
         });

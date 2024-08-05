@@ -195,8 +195,12 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                       onTap: () {
                         final selectedStationCount =
                             ref.read(selectedStationCountProvider);
+                        final selectedStationCountValue =
+                            ref.read(stationCountValueProvider);
                         print(
                             "Selected Station Count Index: $selectedStationCount");
+                        print(
+                            "Selected Station Count Value: $selectedStationCountValue");
 
                         final currentStateVisiblePlugs =
                             ref.read(visiblePlugsProvider);
@@ -241,6 +245,8 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                         // Update providers with the new lists, converting to sets and back to lists to remove duplicates
                         ref.read(visiblePlugsProvider.notifier).state =
                             updatedVisiblePlugs.toSet().toList();
+                        print(
+                            "Updated Visible Plugs: ${ref.read(visiblePlugsProvider)}");
                         ref.read(hiddenPlugsProvider.notifier).state =
                             updatedHiddenPlugs.toSet().toList();
                         ref.read(showIncompatiblePlugsProvider.notifier).state =
@@ -252,12 +258,10 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
 
                         // Update filter provider with the new filter
                         ref.read(filterProvider.notifier).updateFilter(
-                            FilterEntity(
-                                station_count:
-                                    ref
-                                        .read(
-                                            stationCountValueProvider.notifier)
-                                        .state,
+                              FilterEntity(
+                                station_count: ref
+                                    .read(stationCountValueProvider.notifier)
+                                    .state,
                                 charge_type: convertChargeTypeObjectsToStrings(
                                     ref
                                         .read(visiblePlugsProvider.notifier)
@@ -269,7 +273,11 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                                 output_max: convertDynamicToInt(ref
                                     .read(rangeValuesProvider.notifier)
                                     .state
-                                    .end)));
+                                    .end),
+                              ),
+                            );
+                        print("Updated Filter: ${ref.read(filterProvider)}");
+
                         print("Apply pressed");
                         Navigator.pop(context);
                       },

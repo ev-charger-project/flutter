@@ -26,6 +26,14 @@ class SuggestionRepositoryImpl extends SuggestionRepository {
             lat,
             long);
     final result = SuggestionMapper().toEntityList(suggestionDataModelResult);
+    print('searchString: $searchString');
+    print('stationCount: $stationCount');
+    print('chargeType: $chargeType');
+    print('outputMin: $outputMin');
+    print('outputMax: $outputMax');
+    print('lat: $lat');
+    print('long: $long');
+
     return result;
   }
 }
