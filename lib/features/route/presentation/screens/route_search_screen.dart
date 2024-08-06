@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:ev_charger/features/route/presentation/providers/end_provider.dart';
 import 'package:ev_charger/features/route/presentation/providers/from_search_provider.dart';
-import 'package:ev_charger/shared/presentation/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -65,13 +64,17 @@ class _RouteSearchScreenState extends ConsumerState<RouteSearchScreen> {
                 longitude: targetLocation.longitude,
               ),
             );
-        ref.read(FromSearchProvider.notifier).state = 'Your location';
+        ref.read(FromSearchProvider.notifier).state =
+            AppLocalizations.of(context).translate('Your location');
+
         setState(() {
-          _fromSearchController.text = 'Your location';
+          _fromSearchController.text =
+              AppLocalizations.of(context).translate('Your location');
         });
+
         _fromSearchFocusNode.unfocus();
         _showClearIconFrom = false;
-        print('start location: ${startProvider.notifier}');
+        print('start location: ${FromSearchProvider.notifier}');
       } else {
         ref.read(endProvider.notifier).updateEndLocation(
               ChargerMarkerEntity(
@@ -80,9 +83,11 @@ class _RouteSearchScreenState extends ConsumerState<RouteSearchScreen> {
                 longitude: targetLocation.longitude,
               ),
             );
-        ref.read(ToSearchProvider.notifier).state = 'Your location';
+        ref.read(ToSearchProvider.notifier).state =
+            AppLocalizations.of(context).translate('Your location');
         setState(() {
-          _toSearchController.text = 'Your location';
+          _toSearchController.text =
+              AppLocalizations.of(context).translate('Your location');
         });
         _toSearchFocusNode.unfocus();
         _showClearIconTo = false;
@@ -266,20 +271,17 @@ class _RouteSearchScreenState extends ConsumerState<RouteSearchScreen> {
         ),
         centerTitle: false,
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: Text(
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
               AppLocalizations.of(context).translate('From'),
               style: Theme.of(context).textTheme.headlineMedium,
             ),
-          ),
-          SizedBox(height: screenSize.height * 0.010),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: Container(
+            SizedBox(height: screenSize.height * 0.010),
+            Container(
               padding: EdgeInsets.symmetric(
                 //vertical: screenSize.height * 0.004,
                 horizontal: screenSize.width * 0.02,
@@ -324,19 +326,13 @@ class _RouteSearchScreenState extends ConsumerState<RouteSearchScreen> {
                 ],
               ),
             ),
-          ),
-          SizedBox(height: screenSize.height * 0.020),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Text(
+            SizedBox(height: screenSize.height * 0.020),
+            Text(
               AppLocalizations.of(context).translate('To'),
               style: Theme.of(context).textTheme.headlineMedium,
             ),
-          ),
-          SizedBox(height: screenSize.height * 0.010),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: Container(
+            SizedBox(height: screenSize.height * 0.010),
+            Container(
               padding: EdgeInsets.symmetric(
                 //vertical: screenSize.height * 0.004,
                 horizontal: screenSize.width * 0.02,
@@ -381,11 +377,8 @@ class _RouteSearchScreenState extends ConsumerState<RouteSearchScreen> {
                 ],
               ),
             ),
-          ),
-          SizedBox(height: screenSize.height * 0.020),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+            SizedBox(height: screenSize.height * 0.020),
+            Expanded(
               child: _fromSearchFocusNode.hasFocus
                   ? fromSearchQuery.isEmpty
                       ? Column(
@@ -393,24 +386,40 @@ class _RouteSearchScreenState extends ConsumerState<RouteSearchScreen> {
                           children: [
                             SizedBox(height: screenSize.height * 0.02),
                             if (endLocation.id != 'Your Current Location')
-                              ElevatedButton.icon(
-                                onPressed: () => _checkLocationPermission(true),
-                                icon: Icon(Icons.navigation_outlined,
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .secondary),
-                                label: Text('Your location',
-                                    style: TextStyle(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .secondary)),
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor:
-                                      Theme.of(context).colorScheme.primary,
+                              InkWell(
+                                onTap: () => _checkLocationPermission(true),
+                                child: Container(
                                   padding: EdgeInsets.symmetric(
-                                      vertical: 12.0, horizontal: 20.0),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8.0),
+                                    vertical: screenSize.height * 0.014,
+                                    horizontal: 24.0,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color:
+                                        Theme.of(context).colorScheme.secondary,
+                                    borderRadius: BorderRadius.circular(12.0),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.1),
+                                        blurRadius: 2,
+                                        offset: Offset(0, 2),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      Icon(Icons.navigation,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .primary),
+                                      const SizedBox(width: 14),
+                                      Text(
+                                        AppLocalizations.of(context)
+                                            .translate('Your location'),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall,
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ),
@@ -435,26 +444,44 @@ class _RouteSearchScreenState extends ConsumerState<RouteSearchScreen> {
                               children: [
                                 SizedBox(height: screenSize.height * 0.02),
                                 if (startLocation.id != 'Your Current Location')
-                                  ElevatedButton.icon(
-                                    onPressed: () =>
+                                  InkWell(
+                                    onTap: () =>
                                         _checkLocationPermission(false),
-                                    icon: Icon(Icons.navigation_outlined,
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(
+                                        vertical: screenSize.height * 0.014,
+                                        horizontal: 24.0,
+                                      ),
+                                      decoration: BoxDecoration(
                                         color: Theme.of(context)
                                             .colorScheme
-                                            .secondary),
-                                    label: Text('Your location',
-                                        style: TextStyle(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .secondary)),
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor:
-                                          Theme.of(context).colorScheme.primary,
-                                      padding: EdgeInsets.symmetric(
-                                          vertical: 12.0, horizontal: 20.0),
-                                      shape: RoundedRectangleBorder(
+                                            .secondary,
                                         borderRadius:
-                                            BorderRadius.circular(8.0),
+                                            BorderRadius.circular(12.0),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color:
+                                                Colors.black.withOpacity(0.1),
+                                            blurRadius: 2,
+                                            offset: Offset(0, 2),
+                                          ),
+                                        ],
+                                      ),
+                                      child: Row(
+                                        children: [
+                                          Icon(Icons.navigation,
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .primary),
+                                          const SizedBox(width: 14),
+                                          Text(
+                                            AppLocalizations.of(context)
+                                                .translate('Your location'),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodySmall,
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ),
@@ -508,10 +535,10 @@ class _RouteSearchScreenState extends ConsumerState<RouteSearchScreen> {
                                         ),
                         ),
             ),
-          ),
-          const SearchRouteButton(),
-          SizedBox(height: screenSize.height * 0.020),
-        ],
+            const SearchRouteButton(),
+            SizedBox(height: screenSize.height * 0.020),
+          ],
+        ),
       ),
     );
   }
