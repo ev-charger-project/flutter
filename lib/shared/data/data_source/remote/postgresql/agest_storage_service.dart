@@ -4,6 +4,7 @@ import 'package:ev_charger/repositories/location/data_models/location_data_model
 import 'package:ev_charger/repositories/suggestion/data_models/suggestion_data_model.dart';
 import 'package:ev_charger/shared/data/data_source/remote/remote_storage_service.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 
 import '../../../../../repositories/route/data_models/route_data_model.dart';
 
@@ -186,7 +187,7 @@ class AgestStorageService extends RemoteStorageService {
       double destinationLat, double destinationLong) async {
     const url = '/api/v1/gg-map/directions';
 
-    try {
+    /*try {
       final response = await _dio.get(uri + url, queryParameters: {
         'start_lat': userLat,
         'start_long': userLong,
@@ -208,28 +209,27 @@ class AgestStorageService extends RemoteStorageService {
       } else {
         throw Exception('An unknown error occurred');
       }
-    }
+    }*/
 
-    //
-    // final PolylinePoints polylinePoints = PolylinePoints();
-    // final PolylineResult result =
-    //     await polylinePoints.getRouteBetweenCoordinates(
-    //   googleApiKey: 'AIzaSyAGYJacplt2I8syt0aY4GXfSNXhKdsXUgM',
-    //   request: PolylineRequest(
-    //       origin: PointLatLng(userLat, userLong),
-    //       destination: PointLatLng(destinationLat, destinationLong),
-    //       mode: TravelMode.driving),
-    // );
-    //
-    // if (result.points.isNotEmpty) {
-    //   final routePoints = result.points
-    //       .map(
-    //           (point) => RoutePoint(lat: point.latitude, long: point.longitude))
-    //       .toList();
-    //   return RouteDataModel(route: routePoints, chargers: []);
-    // } else {
-    //   return RouteDataModel(route: [], chargers: []);
-    // }
+    final PolylinePoints polylinePoints = PolylinePoints();
+    final PolylineResult result =
+        await polylinePoints.getRouteBetweenCoordinates(
+      googleApiKey: 'AIzaSyAGYJacplt2I8syt0aY4GXfSNXhKdsXUgM',
+      request: PolylineRequest(
+          origin: PointLatLng(userLat, userLong),
+          destination: PointLatLng(destinationLat, destinationLong),
+          mode: TravelMode.driving),
+    );
+
+    if (result.points.isNotEmpty) {
+      final routePoints = result.points
+          .map(
+              (point) => RoutePoint(lat: point.latitude, long: point.longitude))
+          .toList();
+      return RouteDataModel(route: routePoints, chargers: []);
+    } else {
+      return RouteDataModel(route: [], chargers: []);
+    }
   }
 
   @override
