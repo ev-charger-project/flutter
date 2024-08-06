@@ -4,24 +4,15 @@ import 'package:ev_charger/repositories/location/data_models/location_data_model
 import 'package:ev_charger/repositories/suggestion/data_models/suggestion_data_model.dart';
 import 'package:ev_charger/shared/data/data_source/remote/remote_storage_service.dart';
 import 'package:dio/dio.dart';
-import 'dart:convert';
 
 import '../../../../../repositories/route/data_models/route_data_model.dart';
-
-List<String> encodeListToUrlSafeBase64(List<String> inputList) {
-  return inputList.map((item) {
-    final bytes = utf8.encode(item);
-    final base64Str = base64Url.encode(bytes);
-    return base64Str.replaceAll('=', ''); // Remove padding characters
-  }).toList();
-}
 
 class AgestStorageService extends RemoteStorageService {
   final Dio _dio = Dio();
 
-  //static const uri = 'http://10.0.2.2:4000';
+  static const uri = 'http://10.0.2.2:4000';
 
-  static const uri = 'http://172.16.11.139:14000';
+  //static const uri = 'http://172.16.11.139:14000';
 
   @override
   Future<LocationDataModel> fetchLocationData(String locationId) async {
@@ -83,34 +74,40 @@ class AgestStorageService extends RemoteStorageService {
       int? outputMax,
       double? lat,
       double? long]) async {
-    const url = '/api/v1/locations/search';
+    const baseUrl = '/api/v1/locations/search';
+    final Map<String, dynamic> queryParams = {
+      'query': searchString,
+      'is_fuzzi': true,
+      'station_count': stationCount,
+      'charger_type': chargeType,
+      'power_output_gte': outputMin,
+      'power_output_lte': outputMax,
+    };
+
+    if (lat != null && long != null) {
+      queryParams['lat'] = lat;
+      queryParams['long'] = long;
+    }
+
+    final StringBuffer urlBuffer = StringBuffer('$uri$baseUrl?');
+    queryParams.forEach((key, value) {
+      if (value != null) {
+        if (value is List) {
+          for (var item in value) {
+            urlBuffer.write('$key=${item}&');
+          }
+        } else {
+          urlBuffer.write('$key=${value.toString()}&');
+        }
+      }
+    });
+
+    final String fullUrl =
+        urlBuffer.toString().substring(0, urlBuffer.length - 1);
 
     try {
-      final Response response;
-
-      if (lat != null) {
-        response = await _dio.get(uri + url, queryParameters: {
-          'query': searchString,
-          'is_fuzzi': true,
-          'station_count': stationCount,
-          'charger_type': encodeListToUrlSafeBase64(chargeType!),
-          'power_output_gte': outputMin,
-          'power_output_lte': outputMax,
-          'lat': lat,
-          'long': long
-        });
-      } else {
-        response = await _dio.get(uri + url, queryParameters: {
-          'query': searchString,
-          'is_fuzzi': true,
-          'station_count': stationCount,
-          'charger_type': encodeListToUrlSafeBase64(chargeType!),
-          'power_output_gte': outputMin,
-          'power_output_lte': outputMax,
-        });
-      }
-      print(
-          'Query parameters after request: ${response.requestOptions.queryParameters}');
+      final response = await _dio.get(fullUrl);
+      print('Full URL: $fullUrl');
 
       if (response.statusCode == 200) {
         return (response.data as List)

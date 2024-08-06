@@ -229,7 +229,7 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                               ..addAll(movingToHidden);
 
                         // Sort the lists based on chargeType and then chargePowerType
-                        updatedVisiblePlugs.sort((a, b) {
+                        /*updatedVisiblePlugs.sort((a, b) {
                           int compareChargeType =
                               a.chargeType.compareTo(b.chargeType);
                           if (compareChargeType != 0) return compareChargeType;
@@ -240,7 +240,7 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                               a.chargeType.compareTo(b.chargeType);
                           if (compareChargeType != 0) return compareChargeType;
                           return a.chargePowerType.compareTo(b.chargePowerType);
-                        });
+                        });*/
 
                         // Update providers with the new lists, converting to sets and back to lists to remove duplicates
                         ref.read(visiblePlugsProvider.notifier).state =
