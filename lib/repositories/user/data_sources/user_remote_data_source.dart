@@ -36,6 +36,7 @@ class UserRemoteDataSource extends UserDataSource {
         userId: userData.userId,
         username: userData.username,
         email: userData.email,
+        favourites: [],
       );
     } catch (e) {
       print('Error: $e');
@@ -54,7 +55,8 @@ class UserRemoteDataSource extends UserDataSource {
       final userData = UserDataModel(
         userId: user.userId,
         username: user.username,
-        email: user.email
+        email: user.email,
+          favourites: []
       );
       return await remoteStorageService.createUser(userData);
     } catch (e) {
