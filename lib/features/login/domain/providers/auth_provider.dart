@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../repositories/authentication/authentication_repository_impl.dart';
+import '../../../../repositories/authentication/auth_repository_impl.dart';
 import '../../../../repositories/authentication/data_sources/auth_local_data_source.dart';
 import '../../../../repositories/authentication/data_sources/auth_remote_data_source.dart';
 import '../../../../shared/data/data_source/local/hive/hive_storage_service.dart';

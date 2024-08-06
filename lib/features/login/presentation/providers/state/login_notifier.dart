@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../../repositories/authentication/entities/login_user_request_entity.dart';
+import '../../../../../repositories/authentication/entities/sign_in_user_request_entity.dart';
 import '../../../domain/uses_cases/login_use_case.dart';
 import 'login_state.dart';
 
@@ -15,7 +15,7 @@ class LoginNotifier extends StateNotifier<LoginState> {
     state = const LoginState.loading();
     print('check pass: $email, $password');
     final loginUserRequestEntity =
-        LoginUserRequest(email: email, password: password);
+        SignInUserRequest(email: email, password: password);
 
     try {
       await loginUseCase.execute(loginUserRequestEntity: loginUserRequestEntity);

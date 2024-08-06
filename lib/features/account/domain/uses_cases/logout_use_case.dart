@@ -1,4 +1,4 @@
-import '../../../../repositories/authentication/authentication_repository_impl.dart';
+import '../../../../repositories/authentication/auth_repository_impl.dart';
 
 abstract class LogoutUseCase {
   Future<void> execute();

@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:ev_charger/features/register/presentation/providers/state/register_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../../repositories/authentication/entities/register_user_request_entity.dart';
+import '../../../../../repositories/authentication/entities/sign_up_user_request_entity.dart';
 import '../../../domain/uses_cases/register_use_case.dart';
 
 class RegisterNotifier extends StateNotifier<RegisterState> {
@@ -13,7 +13,7 @@ class RegisterNotifier extends StateNotifier<RegisterState> {
   Future<void> registerUser(String email, String password) async {
     state = const RegisterState.loading();
     final registerUserRequestEntity =
-        RegisterUserRequest(email: email, password: password);
+        SignUpUserRequest(email: email, password: password);
     try {
       await registerUseCase.execute(registerUserRequestEntity: registerUserRequestEntity);
       state = const RegisterState.success();

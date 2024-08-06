@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-Token _$TokenFromJson(Map<String, dynamic> json) {
+TokenEntity _$TokenFromJson(Map<String, dynamic> json) {
   return _Token.fromJson(json);
 }
 
@@ -25,19 +25,19 @@ mixin _$Token {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $TokenCopyWith<Token> get copyWith => throw _privateConstructorUsedError;
+  $TokenCopyWith<TokenEntity> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $TokenCopyWith<$Res> {
-  factory $TokenCopyWith(Token value, $Res Function(Token) then) =
-      _$TokenCopyWithImpl<$Res, Token>;
+  factory $TokenCopyWith(TokenEntity value, $Res Function(TokenEntity) then) =
+      _$TokenCopyWithImpl<$Res, TokenEntity>;
   @useResult
   $Res call({String accessToken, String refreshToken});
 }
 
 /// @nodoc
-class _$TokenCopyWithImpl<$Res, $Val extends Token>
+class _$TokenCopyWithImpl<$Res, $Val extends TokenEntity>
     implements $TokenCopyWith<$Res> {
   _$TokenCopyWithImpl(this._value, this._then);
 
@@ -149,7 +149,7 @@ class _$TokenImpl implements _Token {
   }
 }
 
-abstract class _Token implements Token {
+abstract class _Token implements TokenEntity {
   factory _Token(
       {required final String accessToken,
       required final String refreshToken}) = _$TokenImpl;

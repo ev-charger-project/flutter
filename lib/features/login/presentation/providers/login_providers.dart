@@ -2,7 +2,7 @@ import 'package:ev_charger/features/login/presentation/providers/state/login_not
 import 'package:ev_charger/features/login/presentation/providers/state/login_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../repositories/authentication/authentication_repository_impl.dart';
+import '../../../../repositories/authentication/auth_repository_impl.dart';
 import '../../../../repositories/user/user_repository.dart';
 import '../../domain/providers/auth_provider.dart';
 import '../../../../shared/domain/providers/user/user_cache_provider.dart';

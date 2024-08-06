@@ -1,12 +1,14 @@
 
 import 'package:dio/dio.dart';
-import '../../../../repositories/authentication/authentication_repository_impl.dart';
-import '../../../../repositories/authentication/entities/login_user_request_entity.dart';
+import 'package:ev_charger/repositories/user/entities/user_entity.dart';
+
+import '../../../../repositories/authentication/auth_repository_impl.dart';
+import '../../../../repositories/authentication/entities/sign_in_user_request_entity.dart';
 import '../../../../repositories/user/user_repository.dart';
 
 abstract class LoginUseCase {
   Future<void> execute(
-      {required LoginUserRequest loginUserRequestEntity});
+      {required SignInUserRequest loginUserRequestEntity});
 }
 
 class LoginUseCaseImpl extends LoginUseCase {
@@ -18,7 +20,7 @@ class LoginUseCaseImpl extends LoginUseCase {
 
   @override
   Future<void> execute(
-      {required LoginUserRequest loginUserRequestEntity}) async {
+      {required SignInUserRequest loginUserRequestEntity}) async {
     try {
       await authRepository.login(loginUserRequestEntity: loginUserRequestEntity);
     } catch (e) {

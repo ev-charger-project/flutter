@@ -1,11 +1,13 @@
 import 'package:dio/dio.dart';
-import '../../../../repositories/authentication/authentication_repository_impl.dart';
-import '../../../../repositories/authentication/entities/register_user_request_entity.dart';
+import 'package:ev_charger/repositories/user/entities/user_entity.dart';
+
+import '../../../../repositories/authentication/auth_repository_impl.dart';
+import '../../../../repositories/authentication/entities/sign_up_user_request_entity.dart';
 import '../../../../repositories/user/user_repository_impl.dart';
 
 abstract class RegisterUseCase {
   Future<void> execute(
-      {required RegisterUserRequest registerUserRequestEntity});
+      {required SignUpUserRequest registerUserRequestEntity});
 }
 
 class RegisterUseCaseImpl extends RegisterUseCase {
@@ -17,7 +19,7 @@ class RegisterUseCaseImpl extends RegisterUseCase {
 
   @override
   Future<void> execute(
-      {required RegisterUserRequest registerUserRequestEntity}) async {
+      {required SignUpUserRequest registerUserRequestEntity}) async {
     try {
       await authRepository.register(registerUserRequestEntity: registerUserRequestEntity);
     } catch (e) {

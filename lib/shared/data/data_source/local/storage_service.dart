@@ -1,5 +1,4 @@
 import 'hive/adapters/token.dart';
-import 'hive/adapters/user.dart';
 
 /// Storage service interface
 abstract class StorageService {
@@ -20,12 +19,4 @@ abstract class StorageService {
   Future<String> getAppTheme();
 
   Future<bool> setAppTheme(String themeMode);
-
-  Future<UserAdapterObject?> fetchUser();
-
-  Future<bool> saveUser({required UserAdapterObject user});
-
-  Future<bool> deleteUser();
-
-  Future<bool> hasUser();
 }
