@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../../../shared/data/data_source/remote/auth_storage_service.dart';
 import '../../../shared/data/data_source/remote/firebase/firebase_storage_service.dart';
+import '../../../shared/data/data_source/remote/remote_storage_service.dart';
 import '../data_models/user_data_model.dart';
 
 abstract class UserDataSource {
@@ -14,7 +16,7 @@ abstract class UserDataSource {
 class UserRemoteDataSource extends UserDataSource {
   UserRemoteDataSource(this.remoteStorageService);
 
-  final FirebaseRemoteStorageService remoteStorageService;
+  final AuthService remoteStorageService;
 
   @override
   Future<UserDataModel> fetchUser() async {

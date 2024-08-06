@@ -2,12 +2,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../repositories/user/data_sources/user_remote_data_source.dart';
 import '../../../../repositories/user/user_repository_impl.dart';
-import '../../../data/data_source/remote/firebase/firebase_storage_service.dart';
+import '../../../data/data_source/remote/auth_storage_service.dart';
 import '../auth_storage_service_provider.dart';
 
 
 final userDataSourceProvider =
-    Provider.family<UserRemoteDataSource, FirebaseRemoteStorageService>(
+    Provider.family<UserRemoteDataSource, AuthService>(
   (_, networkService) => UserRemoteDataSource(networkService),
 );
 
