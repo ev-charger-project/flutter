@@ -7,10 +7,9 @@ import '../../presentation/providers/to_search_provider.dart';
 final RouteToProvider = FutureProvider<List<SuggestionEntity>>((ref) async {
   final suggestionRepository = ref.read(suggestionRepositoryProvider);
   final suggestionQuery = ref.watch(ToSearchProvider);
-  final stationCount = ref.watch(stationCountValueProvider);
 
-  final suggestionsData = await suggestionRepository.fetchSuggestionsData(
-      suggestionQuery, stationCount);
+  final suggestionsData =
+      await suggestionRepository.fetchSuggestionsData(suggestionQuery);
 
   return suggestionsData;
 });
