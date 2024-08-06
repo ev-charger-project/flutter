@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import '../../../../shared/domain/providers/location/user_location_provider.dart';
 import '../../../mapview/domain/providers/is_info_visible_provider.dart';
 import '../../domain/providers/data/route_provider.dart';
 import '../widgets/info_window.dart';
@@ -80,7 +79,7 @@ class _RouteScreenState extends ConsumerState<RouteScreen> {
             buildingsEnabled: false,
             mapToolbarEnabled: false,
             zoomControlsEnabled: false,
-            minMaxZoomPreference: const MinMaxZoomPreference(12, 17),
+            minMaxZoomPreference: const MinMaxZoomPreference(8, 17),
             markers: Set<Marker>.of(_markers),
             onMapCreated: (GoogleMapController controller) {
               _controller.complete(controller);

@@ -5,8 +5,12 @@ import 'package:ev_charger/shared/presentation/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../../../repositories/marker/entities/charger_marker_entity.dart';
 import '../../../../shared/core/localization/localization.dart';
+import '../../../../shared/domain/providers/location/user_location_provider.dart';
+import '../../../../shared/domain/providers/permission/permission_provider.dart';
+import '../../../notification/permission/screens/permission_screen.dart';
 import '../providers/start_provider.dart';
 import '../providers/to_search_provider.dart';
 import '../widgets/route_suggestion_list.dart';
@@ -32,6 +36,60 @@ class _RouteSearchScreenState extends ConsumerState<RouteSearchScreen> {
   bool _showClearIconTo = false;
   Timer? _debounceFrom;
   Timer? _debounceTo;
+
+  Future<void> _checkLocationPermission(bool isStart) async {
+    final permissionState = ref.read(permissionProvider);
+
+    if (!permissionState.hasPermission) {
+      await showDialog(
+        context: context,
+        builder: (context) => const PermissionScreen(),
+      );
+      ref.read(permissionProvider.notifier).reCheckPermission();
+    }
+    await _getCurrentLocation(isStart);
+  }
+
+  Future<void> _getCurrentLocation(bool isStart) async {
+    await ref.read(userLocationProvider.notifier).getUserLocation();
+    final currentLocation = ref.read(userLocationProvider);
+    if (currentLocation != null) {
+      LatLng targetLocation =
+          LatLng(currentLocation.latitude, currentLocation.longitude);
+
+      if (isStart) {
+        ref.read(startProvider.notifier).updateStartLocation(
+              ChargerMarkerEntity(
+                id: 'Your Current Location',
+                latitude: targetLocation.latitude,
+                longitude: targetLocation.longitude,
+              ),
+            );
+        ref.read(FromSearchProvider.notifier).state = 'Your location';
+        setState(() {
+          _fromSearchController.text = 'Your location';
+        });
+        _fromSearchFocusNode.unfocus();
+        _showClearIconFrom = false;
+        print('start location: ${startProvider.notifier}');
+      } else {
+        ref.read(endProvider.notifier).updateEndLocation(
+              ChargerMarkerEntity(
+                id: 'Your Current Location',
+                latitude: targetLocation.latitude,
+                longitude: targetLocation.longitude,
+              ),
+            );
+        ref.read(ToSearchProvider.notifier).state = 'Your location';
+        setState(() {
+          _toSearchController.text = 'Your location';
+        });
+        _toSearchFocusNode.unfocus();
+        _showClearIconTo = false;
+        print('end location: ${endProvider.notifier}');
+      }
+    }
+  }
 
   @override
   void initState() {
@@ -95,6 +153,8 @@ class _RouteSearchScreenState extends ConsumerState<RouteSearchScreen> {
   void _clearFromSearchField() {
     setState(() {
       ref.read(FromSearchProvider.notifier).state = '';
+      ref.read(startProvider.notifier).updateStartLocation(
+          const ChargerMarkerEntity(id: '', latitude: 0, longitude: 0));
       _fromSearchController.clear();
       _fromSearchFocusNode.requestFocus();
     });
@@ -103,6 +163,8 @@ class _RouteSearchScreenState extends ConsumerState<RouteSearchScreen> {
   void _clearToSearchField() {
     setState(() {
       ref.read(ToSearchProvider.notifier).state = '';
+      ref.read(endProvider.notifier).updateEndLocation(
+          const ChargerMarkerEntity(id: '', latitude: 0, longitude: 0));
       _toSearchController.clear();
       _toSearchFocusNode.requestFocus();
     });
@@ -185,6 +247,8 @@ class _RouteSearchScreenState extends ConsumerState<RouteSearchScreen> {
     final screenSize = MediaQuery.of(context).size;
     final fromSearchQuery = ref.watch(FromSearchProvider);
     final toSearchQuery = ref.watch(ToSearchProvider);
+    final startLocation = ref.watch(startProvider);
+    final endLocation = ref.watch(endProvider);
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -321,18 +385,44 @@ class _RouteSearchScreenState extends ConsumerState<RouteSearchScreen> {
           SizedBox(height: screenSize.height * 0.020),
           Expanded(
             child: Padding(
-              padding: EdgeInsets.only(
-                left: screenSize.width * 0.03,
-                right: screenSize.width * 0.03,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: _fromSearchFocusNode.hasFocus
                   ? fromSearchQuery.isEmpty
-                      ? Center(
-                          child: Text(
-                            AppLocalizations.of(context)
-                                .translate('Enter your Start Location.'),
-                            style: Theme.of(context).textTheme.bodySmall,
-                          ),
+                      ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(height: screenSize.height * 0.02),
+                            if (endLocation.id != 'Your Current Location')
+                              ElevatedButton.icon(
+                                onPressed: () => _checkLocationPermission(true),
+                                icon: Icon(Icons.navigation_outlined,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .secondary),
+                                label: Text('Your location',
+                                    style: TextStyle(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondary)),
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor:
+                                      Theme.of(context).colorScheme.primary,
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 12.0, horizontal: 20.0),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                ),
+                              ),
+                            SizedBox(height: screenSize.height * 0.2),
+                            Center(
+                              child: Text(
+                                AppLocalizations.of(context)
+                                    .translate('Enter your Start Location.'),
+                                style: Theme.of(context).textTheme.bodySmall,
+                              ),
+                            ),
+                          ],
                         )
                       : RouteSuggestionList(
                           onSuggestionSelected: _onSuggestionSelectedFrom,
@@ -340,12 +430,44 @@ class _RouteSearchScreenState extends ConsumerState<RouteSearchScreen> {
                         )
                   : _toSearchFocusNode.hasFocus
                       ? toSearchQuery.isEmpty
-                          ? Center(
-                              child: Text(
-                                AppLocalizations.of(context)
-                                    .translate('Enter your Destination.'),
-                                style: Theme.of(context).textTheme.bodySmall,
-                              ),
+                          ? Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(height: screenSize.height * 0.02),
+                                if (startLocation.id != 'Your Current Location')
+                                  ElevatedButton.icon(
+                                    onPressed: () =>
+                                        _checkLocationPermission(false),
+                                    icon: Icon(Icons.navigation_outlined,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondary),
+                                    label: Text('Your location',
+                                        style: TextStyle(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .secondary)),
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor:
+                                          Theme.of(context).colorScheme.primary,
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 12.0, horizontal: 20.0),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                      ),
+                                    ),
+                                  ),
+                                SizedBox(height: screenSize.height * 0.2),
+                                Center(
+                                  child: Text(
+                                    AppLocalizations.of(context)
+                                        .translate('Enter your Destination.'),
+                                    style:
+                                        Theme.of(context).textTheme.bodySmall,
+                                  ),
+                                ),
+                              ],
                             )
                           : RouteSuggestionList(
                               onSuggestionSelected: _onSuggestionSelectedTo,
