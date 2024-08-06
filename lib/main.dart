@@ -59,7 +59,8 @@ class MyApp extends ConsumerWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: const [
-        Locale('en', ''),
+        Locale('en', 'US'),
+        Locale('vi', 'VN'),
       ],
     );
   }
