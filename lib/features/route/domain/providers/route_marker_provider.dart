@@ -33,7 +33,7 @@ final routeMarkerProvider =
     markerId: const MarkerId('Destination'),
     position: LatLng(currentLocation.latitude, currentLocation.longitude),
     icon: flagIcon,
-    anchor: const Offset(0, 1),
+    anchor: const Offset(0, 0.8),
   ));
 
   return markers;

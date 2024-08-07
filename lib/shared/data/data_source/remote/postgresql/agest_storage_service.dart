@@ -215,27 +215,28 @@ class AgestStorageService extends RemoteStorageService {
         throw Exception('An unknown error occurred');
       }
     }
-
-    final PolylinePoints polylinePoints = PolylinePoints();
-    final PolylineResult result =
-        await polylinePoints.getRouteBetweenCoordinates(
-      googleApiKey: 'AIzaSyAGYJacplt2I8syt0aY4GXfSNXhKdsXUgM',
-      request: PolylineRequest(
-          origin: PointLatLng(userLat, userLong),
-          destination: PointLatLng(destinationLat, destinationLong),
-          mode: TravelMode.driving),
-    );
-
-    if (result.points.isNotEmpty) {
-      final routePoints = result.points
-          .map(
-              (point) => RoutePoint(lat: point.latitude, long: point.longitude))
-          .toList();
-      return RouteDataModel(route: routePoints, chargers: [], hashcode: '');
-    } else {
-      return RouteDataModel(route: [], chargers: [], hashcode: '');
-    }
   }
+
+  //   final PolylinePoints polylinePoints = PolylinePoints();
+  //   final PolylineResult result =
+  //       await polylinePoints.getRouteBetweenCoordinates(
+  //     googleApiKey: 'AIzaSyAGYJacplt2I8syt0aY4GXfSNXhKdsXUgM',
+  //     request: PolylineRequest(
+  //         origin: PointLatLng(userLat, userLong),
+  //         destination: PointLatLng(destinationLat, destinationLong),
+  //         mode: TravelMode.driving),
+  //   );
+  //
+  //   if (result.points.isNotEmpty) {
+  //     final routePoints = result.points
+  //         .map(
+  //             (point) => RoutePoint(lat: point.latitude, long: point.longitude))
+  //         .toList();
+  //     return RouteDataModel(route: routePoints, chargers: [], hashcode: '');
+  //   } else {
+  //     return RouteDataModel(route: [], chargers: [], hashcode: '');
+  //   }
+  // }
 
   @override
   Future<List<LocationDataModel>> fetchNearby(
