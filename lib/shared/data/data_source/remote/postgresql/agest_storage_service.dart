@@ -266,4 +266,53 @@ class AgestStorageService extends RemoteStorageService {
       }
     }
   }
+
+  @override
+  Future<List<LocationDataModel>> fetchFav(String token, String id) async {
+    const url = '/api/v1/user-favorite';
+    int currentPage = 1;
+    bool hasMoreData = true;
+    List<LocationDataModel> allLocations = [];
+
+    try {
+      while (hasMoreData) {
+        final response = await _dio.get(
+          uri + url,
+          queryParameters: {
+            'user_id': id,
+            'page': currentPage,
+          },
+          options: Options(
+            headers: {'Authorization': 'Bearer $token'},
+          ),
+        );
+
+        if (response.statusCode == 200) {
+          final data = response.data['founds'] as List;
+          if (data.isEmpty) {
+            hasMoreData = false;
+          } else {
+            final locations = data
+                .map((item) => LocationDataModel.fromJson(item['location'] as Map<String, dynamic>))
+                .toList();
+            allLocations.addAll(locations);
+
+            currentPage++;
+          }
+        } else {
+          throw Exception('Error code: ${response.statusCode}');
+        }
+      }
+      return allLocations;
+    } catch (e) {
+      print('Error: $e');
+      if (e is DioException && e.response != null) {
+        throw Exception('Error code: ${e.response?.statusCode}');
+      } else {
+        throw Exception('An unknown error occurred');
+      }
+    }
+  }
+
+
 }
