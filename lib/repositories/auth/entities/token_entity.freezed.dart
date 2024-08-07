@@ -14,32 +14,34 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-TokenEntity _$TokenFromJson(Map<String, dynamic> json) {
+TokenEntity _$TokenEntityFromJson(Map<String, dynamic> json) {
   return _Token.fromJson(json);
 }
 
 /// @nodoc
-mixin _$Token {
+mixin _$TokenEntity {
   String get accessToken => throw _privateConstructorUsedError;
   String get refreshToken => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $TokenCopyWith<TokenEntity> get copyWith => throw _privateConstructorUsedError;
+  $TokenEntityCopyWith<TokenEntity> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $TokenCopyWith<$Res> {
-  factory $TokenCopyWith(TokenEntity value, $Res Function(TokenEntity) then) =
-      _$TokenCopyWithImpl<$Res, TokenEntity>;
+abstract class $TokenEntityCopyWith<$Res> {
+  factory $TokenEntityCopyWith(
+          TokenEntity value, $Res Function(TokenEntity) then) =
+      _$TokenEntityCopyWithImpl<$Res, TokenEntity>;
   @useResult
   $Res call({String accessToken, String refreshToken});
 }
 
 /// @nodoc
-class _$TokenCopyWithImpl<$Res, $Val extends TokenEntity>
-    implements $TokenCopyWith<$Res> {
-  _$TokenCopyWithImpl(this._value, this._then);
+class _$TokenEntityCopyWithImpl<$Res, $Val extends TokenEntity>
+    implements $TokenEntityCopyWith<$Res> {
+  _$TokenEntityCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -66,7 +68,8 @@ class _$TokenCopyWithImpl<$Res, $Val extends TokenEntity>
 }
 
 /// @nodoc
-abstract class _$$TokenImplCopyWith<$Res> implements $TokenCopyWith<$Res> {
+abstract class _$$TokenImplCopyWith<$Res>
+    implements $TokenEntityCopyWith<$Res> {
   factory _$$TokenImplCopyWith(
           _$TokenImpl value, $Res Function(_$TokenImpl) then) =
       __$$TokenImplCopyWithImpl<$Res>;
@@ -77,7 +80,7 @@ abstract class _$$TokenImplCopyWith<$Res> implements $TokenCopyWith<$Res> {
 
 /// @nodoc
 class __$$TokenImplCopyWithImpl<$Res>
-    extends _$TokenCopyWithImpl<$Res, _$TokenImpl>
+    extends _$TokenEntityCopyWithImpl<$Res, _$TokenImpl>
     implements _$$TokenImplCopyWith<$Res> {
   __$$TokenImplCopyWithImpl(
       _$TokenImpl _value, $Res Function(_$TokenImpl) _then)
@@ -117,7 +120,7 @@ class _$TokenImpl implements _Token {
 
   @override
   String toString() {
-    return 'Token(accessToken: $accessToken, refreshToken: $refreshToken)';
+    return 'TokenEntity(accessToken: $accessToken, refreshToken: $refreshToken)';
   }
 
   @override

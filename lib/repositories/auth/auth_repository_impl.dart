@@ -1,3 +1,5 @@
+import 'package:ev_charger/repositories/auth/entities/sign_in_entity.dart';
+import 'package:ev_charger/repositories/auth/entities/sign_up_entity.dart';
 import 'package:ev_charger/repositories/auth/entities/token_entity.dart';
 
 import '../../shared/data/data_source/local/hive/adapters/token.dart';
@@ -13,8 +15,11 @@ class AuthRepositoryImpl extends AuthRepository {
       this.authRemoteDataSource, this.authLocalDataSource);
 
   @override
-  Future<TokenEntity> signIn(String email, String password) async {
-    final tokenDataModelResult = await authRemoteDataSource.signIn(email, password);
+  Future<TokenEntity> signIn(SignInEntity signInEntity) async {
+    final tokenDataModelResult = await authRemoteDataSource.signIn(
+        signInEntity.email,
+        signInEntity.password
+    );
 
     var tokenAdapterObject = TokenAdapterObject(
       tokenDataModelResult.accessToken,
@@ -27,11 +32,15 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<TokenEntity> signUp(String email, String password, String name) async {
-    await authRemoteDataSource.signUp(email, password, name);
+  Future<TokenEntity> signUp(SignUpEntity signUpEntity) async {
+    await authRemoteDataSource.signUp(
+        signUpEntity.email,
+        signUpEntity.password,
+        signUpEntity.name
+    );
     final tokenDataModelResult = await authRemoteDataSource.signIn(
-      email,
-      password,
+      signUpEntity.email,
+      signUpEntity.password,
     );
 
     var tokenAdapterObject = TokenAdapterObject(
@@ -47,6 +56,8 @@ class AuthRepositoryImpl extends AuthRepository {
   @override
   Future<bool> signOut(String refreshToken) async {
     final result =  await authRemoteDataSource.signOut(refreshToken);
+
+    await authLocalDataSource.clearToken();
 
     return result;
   }

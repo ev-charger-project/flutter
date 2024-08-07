@@ -8,10 +8,10 @@ part 'token_entity.freezed.dart';
 part 'token_entity.g.dart';
 
 @freezed
-class TokenEntity with _$Token {
+class TokenEntity with _$TokenEntity {
   factory TokenEntity({required String accessToken, required String refreshToken}) = _Token;
 
-  factory TokenEntity.fromJson(Map<String, dynamic> json) => _$TokenFromJson(json);
+  factory TokenEntity.fromJson(Map<String, dynamic> json) => _$TokenEntityFromJson(json);
 }
 
 class TokenMapper with EntityConvertible<TokenEntity, TokenDataModel> {

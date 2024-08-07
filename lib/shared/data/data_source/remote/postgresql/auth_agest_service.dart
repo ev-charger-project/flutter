@@ -7,7 +7,7 @@ import '../auth_service.dart';
 class AuthAgestService extends AuthService {
   final Dio _dio = Dio();
 
-  static const uri = 'http://127.0.0.1:3000';
+  static const uri = 'http://10.0.2.2:3000';
 
   // static const uri = 'http://172.16.11.139:14000';
 
@@ -158,6 +158,4 @@ class AuthAgestService extends AuthService {
       }
     }
   }
-
-
 }

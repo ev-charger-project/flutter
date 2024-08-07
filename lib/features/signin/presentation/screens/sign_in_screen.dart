@@ -1,40 +1,44 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../../repositories/auth/entities/sign_in_entity.dart';
 import '../../../../routes/app_route.dart';
-import '../../../account/presentation/providers/state/logout_state.dart';
-import '../../../login/presentation/widgets/login_field.dart';
-import '../providers/register_provider.dart';
-import '../widgets/register_button.dart';
+import '../providers/sign_in_provider.dart';
+import '../widgets/sign_in_button.dart';
+import '../widgets/sign_in_field.dart';
 
 @RoutePage()
-class RegisterScreen extends ConsumerWidget {
-  RegisterScreen({super.key});
+class SignInScreen extends ConsumerWidget {
+  SignInScreen({super.key});
 
   final TextEditingController emailController =
-  TextEditingController(text: 'huy@gmail.com');
+  TextEditingController(text: 'testuser@gmail.com');
   final TextEditingController passwordController =
   TextEditingController(text: 'password');
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(registerStateNotifierProvider);
-
-    ref.listen(
-      registerStateNotifierProvider.select((value) => value),
-          (previous, next) {
-        if (next is Success) {
+    ref.listen<AsyncValue<void>>(signInProvider, (previous, next) {
+      next.whenOrNull(
+        data: (_) {
           AutoRouter.of(context)
               .pushAndPopUntil(MapRoute(), predicate: (_) => false);
-        }
-      },
-    );
+        },
+        error: (error, stackTrace) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Error: ${error.toString()}')),
+          );
+        },
+      );
+    });
+
+    final signInState = ref.watch(signInProvider);
 
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => context.router.push(LoginRoute()),
+          onPressed: () => context.router.push(MapRoute()),
         ),
       ),
       body: SafeArea(
@@ -46,7 +50,7 @@ class RegisterScreen extends ConsumerWidget {
             children: [
               const Center(
                 child: Text(
-                  'Register',
+                  'Sign in',
                   style: TextStyle(
                     fontSize: 36,
                     fontWeight: FontWeight.bold,
@@ -67,22 +71,30 @@ class RegisterScreen extends ConsumerWidget {
                 prefixIcon: Icons.lock,
               ),
               const SizedBox(height: 24),
-              state.maybeMap(
-                loading: (_) => const Center(child: CircularProgressIndicator()),
-                orElse: () => RegisterButton(
-                  emailController: emailController,
-                  passwordController: passwordController,
-                  ref: ref,
+              signInState.when(
+                loading: () =>
+                const Center(child: CircularProgressIndicator()),
+                data: (_) => Center(
+                  child: SignInButton(
+                    usernameController: emailController,
+                    passwordController: passwordController,
+                  ),
+                ),
+                error: (error, stackTrace) => const Center(
+                  child: Text(
+                    'Sign in failed, please try again.',
+                    style: TextStyle(color: Colors.red),
+                  ),
                 ),
               ),
               const SizedBox(height: 16),
               Center(
                 child: GestureDetector(
                   onTap: () {
-                    AutoRouter.of(context).push(LoginRoute());
+                    AutoRouter.of(context).push(SignUpRoute());
                   },
                   child: const Text(
-                    'Already have an account? Sign in',
+                    'Sign Up',
                     style: TextStyle(
                       color: Colors.blue,
                       decoration: TextDecoration.underline,
