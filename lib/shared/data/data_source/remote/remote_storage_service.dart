@@ -15,7 +15,11 @@ abstract class RemoteStorageService {
       double lat, double long, double radius);
 
   Future<List<ChargerMarkerDataModel>> fetchMarker(
-      double userLat, double userLong, double radius);
+      double userLat, double userLong, double radius,
+      [int? stationCount,
+      List<String>? chargeType,
+      int? outputMin,
+      int? outputMax]);
 
   Future<List<ChargeTypeDataModel>> fetchChargeTypeData();
 

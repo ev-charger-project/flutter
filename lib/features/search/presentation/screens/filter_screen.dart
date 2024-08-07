@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:ev_charger/features/mapview/domain/providers/marker/marker_provider.dart';
 import 'package:ev_charger/features/search/presentation/providers/charge_type/hidden_plugs_provider.dart';
 import 'package:ev_charger/features/search/presentation/providers/charge_type/show_incompatible_plugs_provider.dart';
 import 'package:ev_charger/features/search/presentation/providers/charge_type/visible_plugs_provider.dart';
@@ -229,7 +230,7 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                               ..addAll(movingToHidden);
 
                         // Sort the lists based on chargeType and then chargePowerType
-                        /*updatedVisiblePlugs.sort((a, b) {
+                        updatedVisiblePlugs.sort((a, b) {
                           int compareChargeType =
                               a.chargeType.compareTo(b.chargeType);
                           if (compareChargeType != 0) return compareChargeType;
@@ -240,7 +241,7 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                               a.chargeType.compareTo(b.chargeType);
                           if (compareChargeType != 0) return compareChargeType;
                           return a.chargePowerType.compareTo(b.chargePowerType);
-                        });*/
+                        });
 
                         // Update providers with the new lists, converting to sets and back to lists to remove duplicates
                         ref.read(visiblePlugsProvider.notifier).state =
@@ -276,6 +277,8 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                                     .end),
                               ),
                             );
+
+                        ref.refresh(markerProvider);
                         print("Updated Filter: ${ref.read(filterProvider)}");
 
                         print("Apply pressed");

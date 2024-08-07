@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../../../../shared/domain/providers/location/user_location_provider.dart';
 import '../../../../location/presentation/providers/selected_location_id_provider.dart';
+import '../../../../search/presentation/providers/filter_provider.dart';
 import '../is_info_visible_provider.dart';
 import '../screen_center_provider.dart';
 import 'marker_repository_provider.dart';
@@ -14,9 +15,9 @@ class BitmapDescriptorHelper {
   static final Map<String, BitmapDescriptor> _cache = {};
 
   static Future<BitmapDescriptor> getBitmapDescriptorFromSvgAsset(
-      String assetName,
-      double iconSize,
-      ) async {
+    String assetName,
+    double iconSize,
+  ) async {
     final cacheKey = '${assetName}_$iconSize';
     if (_cache.containsKey(cacheKey)) {
       return _cache[cacheKey]!;
@@ -52,9 +53,9 @@ class BitmapDescriptorHelper {
   }
 
   static Future<BitmapDescriptor> getBitmapDescriptorFromPngAsset(
-      String assetName,
-      int width,
-      ) async {
+    String assetName,
+    int width,
+  ) async {
     final cacheKey = '${assetName}_$width';
     if (_cache.containsKey(cacheKey)) {
       return _cache[cacheKey]!;
@@ -74,22 +75,34 @@ class BitmapDescriptorHelper {
   }
 }
 
-
 final markerProvider = FutureProvider.autoDispose<List<Marker>>((ref) async {
   final userLatLng = ref.watch(screenCenterProvider);
   final userLat = userLatLng.latitude;
   final userLong = userLatLng.longitude;
   final markerRepository = ref.read(markerRepositoryProvider);
-  final markersData =
-      await markerRepository.fetchMarkers(userLat, userLong, 15);
-  
-  final BitmapDescriptor stationIcon =
-  await BitmapDescriptorHelper.getBitmapDescriptorFromSvgAsset(
-      'assets/icons/station_marker.svg', 15);
-  final BitmapDescriptor userIcon =
-  await BitmapDescriptorHelper.getBitmapDescriptorFromSvgAsset(
-      'assets/icons/user_icon.svg', 35);
 
+  final filter = ref.watch(filterProvider);
+  final stationCount = filter.station_count;
+  final chargeType = filter.charge_type;
+  final outputMin = filter.output_min;
+  final outputMax = filter.output_max;
+
+  final markersData = await markerRepository.fetchMarkers(
+    userLat,
+    userLong,
+    15,
+    stationCount,
+    chargeType,
+    outputMin,
+    outputMax,
+  );
+
+  final BitmapDescriptor stationIcon =
+      await BitmapDescriptorHelper.getBitmapDescriptorFromSvgAsset(
+          'assets/icons/station_marker.svg', 15);
+  final BitmapDescriptor userIcon =
+      await BitmapDescriptorHelper.getBitmapDescriptorFromSvgAsset(
+          'assets/icons/user_icon.svg', 35);
 
   List<Marker> markers = [];
 
