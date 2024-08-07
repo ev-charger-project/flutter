@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$RouteEntity {
   List<RoutePointEntity> get route => throw _privateConstructorUsedError;
   List<ChargerEntity> get chargers => throw _privateConstructorUsedError;
+  String get hashcode => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $RouteEntityCopyWith<RouteEntity> get copyWith =>
@@ -30,7 +31,10 @@ abstract class $RouteEntityCopyWith<$Res> {
           RouteEntity value, $Res Function(RouteEntity) then) =
       _$RouteEntityCopyWithImpl<$Res, RouteEntity>;
   @useResult
-  $Res call({List<RoutePointEntity> route, List<ChargerEntity> chargers});
+  $Res call(
+      {List<RoutePointEntity> route,
+      List<ChargerEntity> chargers,
+      String hashcode});
 }
 
 /// @nodoc
@@ -48,6 +52,7 @@ class _$RouteEntityCopyWithImpl<$Res, $Val extends RouteEntity>
   $Res call({
     Object? route = null,
     Object? chargers = null,
+    Object? hashcode = null,
   }) {
     return _then(_value.copyWith(
       route: null == route
@@ -58,6 +63,10 @@ class _$RouteEntityCopyWithImpl<$Res, $Val extends RouteEntity>
           ? _value.chargers
           : chargers // ignore: cast_nullable_to_non_nullable
               as List<ChargerEntity>,
+      hashcode: null == hashcode
+          ? _value.hashcode
+          : hashcode // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -70,7 +79,10 @@ abstract class _$$RouteEntityImplCopyWith<$Res>
       __$$RouteEntityImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<RoutePointEntity> route, List<ChargerEntity> chargers});
+  $Res call(
+      {List<RoutePointEntity> route,
+      List<ChargerEntity> chargers,
+      String hashcode});
 }
 
 /// @nodoc
@@ -86,6 +98,7 @@ class __$$RouteEntityImplCopyWithImpl<$Res>
   $Res call({
     Object? route = null,
     Object? chargers = null,
+    Object? hashcode = null,
   }) {
     return _then(_$RouteEntityImpl(
       route: null == route
@@ -96,6 +109,10 @@ class __$$RouteEntityImplCopyWithImpl<$Res>
           ? _value._chargers
           : chargers // ignore: cast_nullable_to_non_nullable
               as List<ChargerEntity>,
+      hashcode: null == hashcode
+          ? _value.hashcode
+          : hashcode // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -105,7 +122,8 @@ class __$$RouteEntityImplCopyWithImpl<$Res>
 class _$RouteEntityImpl implements _RouteEntity {
   const _$RouteEntityImpl(
       {required final List<RoutePointEntity> route,
-      required final List<ChargerEntity> chargers})
+      required final List<ChargerEntity> chargers,
+      required this.hashcode})
       : _route = route,
         _chargers = chargers;
 
@@ -126,8 +144,11 @@ class _$RouteEntityImpl implements _RouteEntity {
   }
 
   @override
+  final String hashcode;
+
+  @override
   String toString() {
-    return 'RouteEntity(route: $route, chargers: $chargers)';
+    return 'RouteEntity(route: $route, chargers: $chargers, hashcode: $hashcode)';
   }
 
   @override
@@ -136,14 +157,17 @@ class _$RouteEntityImpl implements _RouteEntity {
         (other.runtimeType == runtimeType &&
             other is _$RouteEntityImpl &&
             const DeepCollectionEquality().equals(other._route, _route) &&
-            const DeepCollectionEquality().equals(other._chargers, _chargers));
+            const DeepCollectionEquality().equals(other._chargers, _chargers) &&
+            (identical(other.hashcode, hashcode) ||
+                other.hashcode == hashcode));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(_route),
-      const DeepCollectionEquality().hash(_chargers));
+      const DeepCollectionEquality().hash(_chargers),
+      hashcode);
 
   @JsonKey(ignore: true)
   @override
@@ -155,12 +179,15 @@ class _$RouteEntityImpl implements _RouteEntity {
 abstract class _RouteEntity implements RouteEntity {
   const factory _RouteEntity(
       {required final List<RoutePointEntity> route,
-      required final List<ChargerEntity> chargers}) = _$RouteEntityImpl;
+      required final List<ChargerEntity> chargers,
+      required final String hashcode}) = _$RouteEntityImpl;
 
   @override
   List<RoutePointEntity> get route;
   @override
   List<ChargerEntity> get chargers;
+  @override
+  String get hashcode;
   @override
   @JsonKey(ignore: true)
   _$$RouteEntityImplCopyWith<_$RouteEntityImpl> get copyWith =>

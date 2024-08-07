@@ -9,6 +9,7 @@ class RouteEntity with _$RouteEntity {
   const factory RouteEntity({
     required List<RoutePointEntity> route,
     required List<ChargerEntity> chargers,
+    required String hashcode,
   }) = _RouteEntity;
 }
 
@@ -37,6 +38,7 @@ class RouteMapper {
       chargers: entity.chargers
           .map((e) => Charger(id: e.id, lat: e.lat, long: e.long))
           .toList(),
+      hashcode: entity.hashcode,
     );
   }
 
@@ -47,7 +49,7 @@ class RouteMapper {
           .toList(),
       chargers: dataModel.chargers
           .map((e) => ChargerEntity(id: e.id, lat: e.lat, long: e.long))
-          .toList(),
+          .toList(), hashcode: dataModel.hashcode,
     );
   }
 

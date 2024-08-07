@@ -231,9 +231,9 @@ class AgestStorageService extends RemoteStorageService {
           .map(
               (point) => RoutePoint(lat: point.latitude, long: point.longitude))
           .toList();
-      return RouteDataModel(route: routePoints, chargers: []);
+      return RouteDataModel(route: routePoints, chargers: [], hashcode: '');
     } else {
-      return RouteDataModel(route: [], chargers: []);
+      return RouteDataModel(route: [], chargers: [], hashcode: '');
     }
   }
 

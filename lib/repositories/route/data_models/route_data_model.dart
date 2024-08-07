@@ -8,6 +8,7 @@ class RouteDataModel with _$RouteDataModel {
   const factory RouteDataModel({
     @JsonKey(name: 'coordinates')required List<RoutePoint> route,
     @JsonKey(name: 'locations')required List<Charger> chargers,
+    @JsonKey(name: 'hashCode')required String hashcode,
   }) = _RouteDataModel;
 
   factory RouteDataModel.fromJson(Map<String, dynamic> json) =>
