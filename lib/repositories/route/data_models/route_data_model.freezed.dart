@@ -24,6 +24,8 @@ mixin _$RouteDataModel {
   List<RoutePoint> get route => throw _privateConstructorUsedError;
   @JsonKey(name: 'locations')
   List<Charger> get chargers => throw _privateConstructorUsedError;
+  @JsonKey(name: 'hashCode')
+  String get hashcode => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -39,7 +41,8 @@ abstract class $RouteDataModelCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(name: 'coordinates') List<RoutePoint> route,
-      @JsonKey(name: 'locations') List<Charger> chargers});
+      @JsonKey(name: 'locations') List<Charger> chargers,
+      @JsonKey(name: 'hashCode') String hashcode});
 }
 
 /// @nodoc
@@ -57,6 +60,7 @@ class _$RouteDataModelCopyWithImpl<$Res, $Val extends RouteDataModel>
   $Res call({
     Object? route = null,
     Object? chargers = null,
+    Object? hashcode = null,
   }) {
     return _then(_value.copyWith(
       route: null == route
@@ -67,6 +71,10 @@ class _$RouteDataModelCopyWithImpl<$Res, $Val extends RouteDataModel>
           ? _value.chargers
           : chargers // ignore: cast_nullable_to_non_nullable
               as List<Charger>,
+      hashcode: null == hashcode
+          ? _value.hashcode
+          : hashcode // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -81,7 +89,8 @@ abstract class _$$RouteDataModelImplCopyWith<$Res>
   @useResult
   $Res call(
       {@JsonKey(name: 'coordinates') List<RoutePoint> route,
-      @JsonKey(name: 'locations') List<Charger> chargers});
+      @JsonKey(name: 'locations') List<Charger> chargers,
+      @JsonKey(name: 'hashCode') String hashcode});
 }
 
 /// @nodoc
@@ -97,6 +106,7 @@ class __$$RouteDataModelImplCopyWithImpl<$Res>
   $Res call({
     Object? route = null,
     Object? chargers = null,
+    Object? hashcode = null,
   }) {
     return _then(_$RouteDataModelImpl(
       route: null == route
@@ -107,6 +117,10 @@ class __$$RouteDataModelImplCopyWithImpl<$Res>
           ? _value._chargers
           : chargers // ignore: cast_nullable_to_non_nullable
               as List<Charger>,
+      hashcode: null == hashcode
+          ? _value.hashcode
+          : hashcode // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -116,7 +130,8 @@ class __$$RouteDataModelImplCopyWithImpl<$Res>
 class _$RouteDataModelImpl implements _RouteDataModel {
   const _$RouteDataModelImpl(
       {@JsonKey(name: 'coordinates') required final List<RoutePoint> route,
-      @JsonKey(name: 'locations') required final List<Charger> chargers})
+      @JsonKey(name: 'locations') required final List<Charger> chargers,
+      @JsonKey(name: 'hashCode') required this.hashcode})
       : _route = route,
         _chargers = chargers;
 
@@ -142,8 +157,12 @@ class _$RouteDataModelImpl implements _RouteDataModel {
   }
 
   @override
+  @JsonKey(name: 'hashCode')
+  final String hashcode;
+
+  @override
   String toString() {
-    return 'RouteDataModel(route: $route, chargers: $chargers)';
+    return 'RouteDataModel(route: $route, chargers: $chargers, hashcode: $hashcode)';
   }
 
   @override
@@ -152,7 +171,9 @@ class _$RouteDataModelImpl implements _RouteDataModel {
         (other.runtimeType == runtimeType &&
             other is _$RouteDataModelImpl &&
             const DeepCollectionEquality().equals(other._route, _route) &&
-            const DeepCollectionEquality().equals(other._chargers, _chargers));
+            const DeepCollectionEquality().equals(other._chargers, _chargers) &&
+            (identical(other.hashcode, hashcode) ||
+                other.hashcode == hashcode));
   }
 
   @JsonKey(ignore: true)
@@ -160,7 +181,8 @@ class _$RouteDataModelImpl implements _RouteDataModel {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(_route),
-      const DeepCollectionEquality().hash(_chargers));
+      const DeepCollectionEquality().hash(_chargers),
+      hashcode);
 
   @JsonKey(ignore: true)
   @override
@@ -180,7 +202,8 @@ class _$RouteDataModelImpl implements _RouteDataModel {
 abstract class _RouteDataModel implements RouteDataModel {
   const factory _RouteDataModel(
           {@JsonKey(name: 'coordinates') required final List<RoutePoint> route,
-          @JsonKey(name: 'locations') required final List<Charger> chargers}) =
+          @JsonKey(name: 'locations') required final List<Charger> chargers,
+          @JsonKey(name: 'hashCode') required final String hashcode}) =
       _$RouteDataModelImpl;
 
   factory _RouteDataModel.fromJson(Map<String, dynamic> json) =
@@ -192,6 +215,9 @@ abstract class _RouteDataModel implements RouteDataModel {
   @override
   @JsonKey(name: 'locations')
   List<Charger> get chargers;
+  @override
+  @JsonKey(name: 'hashCode')
+  String get hashcode;
   @override
   @JsonKey(ignore: true)
   _$$RouteDataModelImplCopyWith<_$RouteDataModelImpl> get copyWith =>

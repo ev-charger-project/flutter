@@ -14,6 +14,7 @@ _$RouteDataModelImpl _$$RouteDataModelImplFromJson(Map<String, dynamic> json) =>
       chargers: (json['locations'] as List<dynamic>)
           .map((e) => Charger.fromJson(e as Map<String, dynamic>))
           .toList(),
+      hashcode: json['hashCode'] as String,
     );
 
 Map<String, dynamic> _$$RouteDataModelImplToJson(
@@ -21,6 +22,7 @@ Map<String, dynamic> _$$RouteDataModelImplToJson(
     <String, dynamic>{
       'coordinates': instance.route,
       'locations': instance.chargers,
+      'hashCode': instance.hashcode,
     };
 
 _$RoutePointImpl _$$RoutePointImplFromJson(Map<String, dynamic> json) =>

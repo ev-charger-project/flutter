@@ -89,7 +89,7 @@ class LocationMapper with EntityConvertible<LocationEntity, LocationDataModel> {
   @override
   LocationEntity toEntity(LocationDataModel dataModelObject) {
     return LocationEntity(
-      id: dataModelObject.id?? 'blank',
+      id: dataModelObject.id,
       name: dataModelObject.name,
       street: dataModelObject.street,
       district: dataModelObject.district,

@@ -1,10 +1,7 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:ev_charger/features/location/presentation/widgets/location_name_address.dart';
 import 'package:ev_charger/features/mapview/presentation/widgets/view_route_direction.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../../../../routes/app_route.dart';
 import '../../../../shared/domain/providers/auth/auth_provider.dart';
 import '../../../location/presentation/widgets/amount_chargers.dart';
 import '../../../notification/authentication/screens/authentication_screen.dart';

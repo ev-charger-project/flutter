@@ -1,5 +1,3 @@
-import 'package:ev_charger/repositories/user/entities/user_entity.dart';
-
 import 'entities/login_user_request_entity.dart';
 import 'entities/register_user_request_entity.dart';
 

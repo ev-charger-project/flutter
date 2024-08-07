@@ -1,5 +1,3 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import '../../../shared/data/data_source/local/hive/adapters/token.dart';
 import '../../../shared/data/data_source/local/hive/hive_storage_service.dart';
 

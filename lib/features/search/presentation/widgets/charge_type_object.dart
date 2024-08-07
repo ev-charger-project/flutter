@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 class ChargeTypeObject extends StatefulWidget {
   final String chargeType;
   final String chargePowerType;
-  bool isChecked; // Make isChecked non-final to allow updating
+  bool isChecked;
 
   ChargeTypeObject({
     super.key,

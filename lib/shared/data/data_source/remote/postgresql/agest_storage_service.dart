@@ -114,7 +114,6 @@ class AgestStorageService extends RemoteStorageService {
 
     try {
       final response = await _dio.get(fullUrl);
-      print('Full URL: $fullUrl');
 
       if (response.statusCode == 200) {
         return (response.data as List)
@@ -193,7 +192,7 @@ class AgestStorageService extends RemoteStorageService {
       double destinationLat, double destinationLong) async {
     const url = '/api/v1/gg-map/directions';
 
-    /*try {
+    try {
       final response = await _dio.get(uri + url, queryParameters: {
         'start_lat': userLat,
         'start_long': userLong,
@@ -215,28 +214,29 @@ class AgestStorageService extends RemoteStorageService {
       } else {
         throw Exception('An unknown error occurred');
       }
-    }*/
-
-    final PolylinePoints polylinePoints = PolylinePoints();
-    final PolylineResult result =
-        await polylinePoints.getRouteBetweenCoordinates(
-      googleApiKey: 'AIzaSyAGYJacplt2I8syt0aY4GXfSNXhKdsXUgM',
-      request: PolylineRequest(
-          origin: PointLatLng(userLat, userLong),
-          destination: PointLatLng(destinationLat, destinationLong),
-          mode: TravelMode.driving),
-    );
-
-    if (result.points.isNotEmpty) {
-      final routePoints = result.points
-          .map(
-              (point) => RoutePoint(lat: point.latitude, long: point.longitude))
-          .toList();
-      return RouteDataModel(route: routePoints, chargers: []);
-    } else {
-      return RouteDataModel(route: [], chargers: []);
     }
   }
+
+  //   final PolylinePoints polylinePoints = PolylinePoints();
+  //   final PolylineResult result =
+  //       await polylinePoints.getRouteBetweenCoordinates(
+  //     googleApiKey: 'AIzaSyAGYJacplt2I8syt0aY4GXfSNXhKdsXUgM',
+  //     request: PolylineRequest(
+  //         origin: PointLatLng(userLat, userLong),
+  //         destination: PointLatLng(destinationLat, destinationLong),
+  //         mode: TravelMode.driving),
+  //   );
+  //
+  //   if (result.points.isNotEmpty) {
+  //     final routePoints = result.points
+  //         .map(
+  //             (point) => RoutePoint(lat: point.latitude, long: point.longitude))
+  //         .toList();
+  //     return RouteDataModel(route: routePoints, chargers: [], hashcode: '');
+  //   } else {
+  //     return RouteDataModel(route: [], chargers: [], hashcode: '');
+  //   }
+  // }
 
   @override
   Future<List<LocationDataModel>> fetchNearby(
@@ -266,4 +266,53 @@ class AgestStorageService extends RemoteStorageService {
       }
     }
   }
+
+  @override
+  Future<List<LocationDataModel>> fetchFav(String token, String id) async {
+    const url = '/api/v1/user-favorite';
+    int currentPage = 1;
+    bool hasMoreData = true;
+    List<LocationDataModel> allLocations = [];
+
+    try {
+      while (hasMoreData) {
+        final response = await _dio.get(
+          uri + url,
+          queryParameters: {
+            'user_id': id,
+            'page': currentPage,
+          },
+          options: Options(
+            headers: {'Authorization': 'Bearer $token'},
+          ),
+        );
+
+        if (response.statusCode == 200) {
+          final data = response.data['founds'] as List;
+          if (data.isEmpty) {
+            hasMoreData = false;
+          } else {
+            final locations = data
+                .map((item) => LocationDataModel.fromJson(item['location'] as Map<String, dynamic>))
+                .toList();
+            allLocations.addAll(locations);
+
+            currentPage++;
+          }
+        } else {
+          throw Exception('Error code: ${response.statusCode}');
+        }
+      }
+      return allLocations;
+    } catch (e) {
+      print('Error: $e');
+      if (e is DioException && e.response != null) {
+        throw Exception('Error code: ${e.response?.statusCode}');
+      } else {
+        throw Exception('An unknown error occurred');
+      }
+    }
+  }
+
+
 }
