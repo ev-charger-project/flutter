@@ -32,6 +32,13 @@ class LocationEntity with _$LocationEntity {
 }
 
 class LocationMapper with EntityConvertible<LocationEntity, LocationDataModel> {
+  List<LocationEntity> fromModelList(List<LocationDataModel> models) {
+    return models.map((model) => toEntity(model)).toList();
+  }
+
+  List<LocationDataModel> toModelList(List<LocationEntity> entities) {
+    return entities.map((entity) => fromEntity(entity)).toList();
+  }
   @override
   LocationDataModel fromEntity(LocationEntity entityObject) {
     return LocationDataModel(
@@ -126,6 +133,7 @@ class LocationMapper with EntityConvertible<LocationEntity, LocationDataModel> {
           .toList()??[],
     );
   }
+
 }
 
 

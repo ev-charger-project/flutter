@@ -21,13 +21,15 @@ UserDataModel _$UserDataModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$UserDataModel {
   @JsonKey(name: 'user_id')
-  String get userId => throw _privateConstructorUsedError;
+  String? get userId => throw _privateConstructorUsedError;
   @JsonKey(name: 'username')
-  String get username => throw _privateConstructorUsedError;
+  String? get username => throw _privateConstructorUsedError;
   @JsonKey(name: 'email')
-  String get email => throw _privateConstructorUsedError;
+  String? get email => throw _privateConstructorUsedError;
   @JsonKey(name: 'phone_number')
   String? get phoneNumber => throw _privateConstructorUsedError;
+  @JsonKey(name: 'favourites')
+  List<LocationDataModel>? get favourites => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -42,10 +44,11 @@ abstract class $UserDataModelCopyWith<$Res> {
       _$UserDataModelCopyWithImpl<$Res, UserDataModel>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'user_id') String userId,
-      @JsonKey(name: 'username') String username,
-      @JsonKey(name: 'email') String email,
-      @JsonKey(name: 'phone_number') String? phoneNumber});
+      {@JsonKey(name: 'user_id') String? userId,
+      @JsonKey(name: 'username') String? username,
+      @JsonKey(name: 'email') String? email,
+      @JsonKey(name: 'phone_number') String? phoneNumber,
+      @JsonKey(name: 'favourites') List<LocationDataModel>? favourites});
 }
 
 /// @nodoc
@@ -61,28 +64,33 @@ class _$UserDataModelCopyWithImpl<$Res, $Val extends UserDataModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? userId = null,
-    Object? username = null,
-    Object? email = null,
+    Object? userId = freezed,
+    Object? username = freezed,
+    Object? email = freezed,
     Object? phoneNumber = freezed,
+    Object? favourites = freezed,
   }) {
     return _then(_value.copyWith(
-      userId: null == userId
+      userId: freezed == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
-              as String,
-      username: null == username
+              as String?,
+      username: freezed == username
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
-              as String,
-      email: null == email
+              as String?,
+      email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       phoneNumber: freezed == phoneNumber
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
               as String?,
+      favourites: freezed == favourites
+          ? _value.favourites
+          : favourites // ignore: cast_nullable_to_non_nullable
+              as List<LocationDataModel>?,
     ) as $Val);
   }
 }
@@ -96,10 +104,11 @@ abstract class _$$UserDataModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'user_id') String userId,
-      @JsonKey(name: 'username') String username,
-      @JsonKey(name: 'email') String email,
-      @JsonKey(name: 'phone_number') String? phoneNumber});
+      {@JsonKey(name: 'user_id') String? userId,
+      @JsonKey(name: 'username') String? username,
+      @JsonKey(name: 'email') String? email,
+      @JsonKey(name: 'phone_number') String? phoneNumber,
+      @JsonKey(name: 'favourites') List<LocationDataModel>? favourites});
 }
 
 /// @nodoc
@@ -113,28 +122,33 @@ class __$$UserDataModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? userId = null,
-    Object? username = null,
-    Object? email = null,
+    Object? userId = freezed,
+    Object? username = freezed,
+    Object? email = freezed,
     Object? phoneNumber = freezed,
+    Object? favourites = freezed,
   }) {
     return _then(_$UserDataModelImpl(
-      userId: null == userId
+      userId: freezed == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
-              as String,
-      username: null == username
+              as String?,
+      username: freezed == username
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
-              as String,
-      email: null == email
+              as String?,
+      email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       phoneNumber: freezed == phoneNumber
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
               as String?,
+      favourites: freezed == favourites
+          ? _value._favourites
+          : favourites // ignore: cast_nullable_to_non_nullable
+              as List<LocationDataModel>?,
     ));
   }
 }
@@ -143,30 +157,42 @@ class __$$UserDataModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$UserDataModelImpl implements _UserDataModel {
   const _$UserDataModelImpl(
-      {@JsonKey(name: 'user_id') required this.userId,
-      @JsonKey(name: 'username') required this.username,
-      @JsonKey(name: 'email') required this.email,
-      @JsonKey(name: 'phone_number') this.phoneNumber});
+      {@JsonKey(name: 'user_id') this.userId,
+      @JsonKey(name: 'username') this.username,
+      @JsonKey(name: 'email') this.email,
+      @JsonKey(name: 'phone_number') this.phoneNumber,
+      @JsonKey(name: 'favourites') final List<LocationDataModel>? favourites})
+      : _favourites = favourites;
 
   factory _$UserDataModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserDataModelImplFromJson(json);
 
   @override
   @JsonKey(name: 'user_id')
-  final String userId;
+  final String? userId;
   @override
   @JsonKey(name: 'username')
-  final String username;
+  final String? username;
   @override
   @JsonKey(name: 'email')
-  final String email;
+  final String? email;
   @override
   @JsonKey(name: 'phone_number')
   final String? phoneNumber;
+  final List<LocationDataModel>? _favourites;
+  @override
+  @JsonKey(name: 'favourites')
+  List<LocationDataModel>? get favourites {
+    final value = _favourites;
+    if (value == null) return null;
+    if (_favourites is EqualUnmodifiableListView) return _favourites;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'UserDataModel(userId: $userId, username: $username, email: $email, phoneNumber: $phoneNumber)';
+    return 'UserDataModel(userId: $userId, username: $username, email: $email, phoneNumber: $phoneNumber, favourites: $favourites)';
   }
 
   @override
@@ -179,13 +205,15 @@ class _$UserDataModelImpl implements _UserDataModel {
                 other.username == username) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.phoneNumber, phoneNumber) ||
-                other.phoneNumber == phoneNumber));
+                other.phoneNumber == phoneNumber) &&
+            const DeepCollectionEquality()
+                .equals(other._favourites, _favourites));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, userId, username, email, phoneNumber);
+  int get hashCode => Object.hash(runtimeType, userId, username, email,
+      phoneNumber, const DeepCollectionEquality().hash(_favourites));
 
   @JsonKey(ignore: true)
   @override
@@ -203,27 +231,31 @@ class _$UserDataModelImpl implements _UserDataModel {
 
 abstract class _UserDataModel implements UserDataModel {
   const factory _UserDataModel(
-          {@JsonKey(name: 'user_id') required final String userId,
-          @JsonKey(name: 'username') required final String username,
-          @JsonKey(name: 'email') required final String email,
-          @JsonKey(name: 'phone_number') final String? phoneNumber}) =
-      _$UserDataModelImpl;
+      {@JsonKey(name: 'user_id') final String? userId,
+      @JsonKey(name: 'username') final String? username,
+      @JsonKey(name: 'email') final String? email,
+      @JsonKey(name: 'phone_number') final String? phoneNumber,
+      @JsonKey(name: 'favourites')
+      final List<LocationDataModel>? favourites}) = _$UserDataModelImpl;
 
   factory _UserDataModel.fromJson(Map<String, dynamic> json) =
       _$UserDataModelImpl.fromJson;
 
   @override
   @JsonKey(name: 'user_id')
-  String get userId;
+  String? get userId;
   @override
   @JsonKey(name: 'username')
-  String get username;
+  String? get username;
   @override
   @JsonKey(name: 'email')
-  String get email;
+  String? get email;
   @override
   @JsonKey(name: 'phone_number')
   String? get phoneNumber;
+  @override
+  @JsonKey(name: 'favourites')
+  List<LocationDataModel>? get favourites;
   @override
   @JsonKey(ignore: true)
   _$$UserDataModelImplCopyWith<_$UserDataModelImpl> get copyWith =>

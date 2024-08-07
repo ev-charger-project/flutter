@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../../../../repositories/user/data_models/user_data_model.dart';
 import '../auth_storage_service.dart';
 
-class FirebaseRemoteStorageService implements AuthStorageService {
+class FirebaseRemoteStorageService implements AuthService {
 
   @override
   Future<bool> createUser(UserDataModel user) async {

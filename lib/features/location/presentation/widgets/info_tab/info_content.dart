@@ -1,5 +1,6 @@
 import 'package:ev_charger/features/search/presentation/widgets/suggestion_list.dart';
 import 'package:ev_charger/shared/presentation/theme/app_theme.dart';
+import 'package:expandable/expandable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -23,7 +24,7 @@ class _InfoContentState extends ConsumerState<InfoContent> {
   void _checkTextOverflow() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final RenderBox renderBox =
-      _textKey.currentContext?.findRenderObject() as RenderBox;
+          _textKey.currentContext?.findRenderObject() as RenderBox;
       final size = renderBox.size;
       final double maxHeight =
           4 * Theme.of(context).textTheme.bodyMedium!.fontSize! * 1.2;
@@ -86,7 +87,9 @@ class _InfoContentState extends ConsumerState<InfoContent> {
               });
             },
             child: Text(
-              isExpanded ? AppLocalizations.of(context).translate('Read less') : AppLocalizations.of(context).translate('Read more'),
+              isExpanded
+                  ? AppLocalizations.of(context).translate('Read less')
+                  : AppLocalizations.of(context).translate('Read more'),
               style: Theme.of(context).primaryTextTheme.bodyMedium,
             ),
           ),
@@ -95,16 +98,77 @@ class _InfoContentState extends ConsumerState<InfoContent> {
     );
   }
 
+  Widget _buildWorkingHoursList(List<Map<String, String>> workingHours) {
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: Colors.white,
+          width: 1.0,
+        ),
+        color: Theme.of(context).stationGrey,
+      ),
+      child: ExpandablePanel(
+        header: Container(
+          padding: EdgeInsets.symmetric(horizontal: 16.0),
+          child: Text(
+            'Working Hours',
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
+        ),
+        collapsed: Container(), // Nothing to show when collapsed
+        expanded: Column(
+          children: workingHours.map((Map<String, String> entry) {
+            String day = entry.keys.first;
+            String hours = entry.values.first;
+            return Container(
+              decoration: BoxDecoration(
+                border: const Border(
+                  top: BorderSide(
+                    color: Colors.white,
+                    width: 2.0,
+                  ),
+                ),
+                color: Theme.of(context).stationGrey,
+              ),
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      day,
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    Text(
+                      hours,
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                  ],
+                ),
+              ),
+            );
+          }).toList(),
+        ),
+        theme: const ExpandableThemeData(
+          tapHeaderToExpand: true,
+          hasIcon: true,
+          headerAlignment: ExpandablePanelHeaderAlignment.center,
+        ),
+      ),
+    );
+  }
+
   Widget _buildDataList(List<Map<String, String>> data) {
     return Column(
       children: List.generate(
         data.length,
-            (index) => Padding(
+        (index) => Padding(
           padding: const EdgeInsets.all(1),
           child: Container(
             color: Theme.of(context).stationGrey,
             padding:
-            const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -133,21 +197,31 @@ class _InfoContentState extends ConsumerState<InfoContent> {
         data: (location) {
           final String? longText = location.description;
           final List<Map<String, String>> data = [];
+          final List<Map<String, String>> workingHours = [];
           if (location.pricing != null && location.pricing!.isNotEmpty) {
-            data.add({AppLocalizations.of(context).translate('Fee'): location.pricing!});
+            data.add({
+              AppLocalizations.of(context).translate('Fee'): location.pricing!
+            });
           }
           if (location.phoneNumber != null &&
               location.phoneNumber!.isNotEmpty) {
-            data.add({AppLocalizations.of(context).translate('Phone'): location.phoneNumber!});
+            data.add({
+              AppLocalizations.of(context).translate('Phone'):
+                  location.phoneNumber!
+            });
           }
           if (location.parkingLevel != null &&
               location.parkingLevel!.isNotEmpty) {
-            data.add({AppLocalizations.of(context).translate('Parking Level'): location.parkingLevel!});
+            data.add({
+              AppLocalizations.of(context).translate('Parking Level'):
+                  location.parkingLevel!
+            });
           }
 
           for (var workingDay in location.workingDays) {
-            data.add({
-              dayToString(workingDay.day): '${workingDay.openTime} - ${workingDay.closeTime}'
+            workingHours.add({
+              dayToString(workingDay.day):
+                  '${workingDay.openTime.substring(0,5)} - ${workingDay.closeTime.substring(0,5)}'
             });
           }
 
@@ -159,6 +233,7 @@ class _InfoContentState extends ConsumerState<InfoContent> {
             children: [
               _buildAboutSection(longText),
               _buildDataList(data),
+              _buildWorkingHoursList(workingHours),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10.0),
                 child: Divider(
@@ -174,6 +249,9 @@ class _InfoContentState extends ConsumerState<InfoContent> {
                 height: 20,
               ),
               NearbyList(),
+              const SizedBox(
+                height: 20,
+              ),
               const SizedBox(
                 height: 80,
               ),

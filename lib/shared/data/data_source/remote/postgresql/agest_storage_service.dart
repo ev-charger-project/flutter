@@ -36,6 +36,12 @@ class AgestStorageService extends RemoteStorageService {
         throw Exception('An unknown error occurred');
       }
     }
+    // return const LocationDataModel(name: "Testy boi", street: 'Cheezy Street', city: 'Helmsdeep',
+    //     country: 'Rug Rog Raggy', latitude: 10.000, longitude: 106, workingDays: [
+    //       WorkingDay(day: 2, openTime: '04:00', closeTime: '04:00'),
+    //       WorkingDay(day: 3, openTime: '04:00', closeTime: '04:00'),
+    //       WorkingDay(day: 4, openTime: '04:00', closeTime: '04:00'),
+    //       WorkingDay(day: 5, openTime: '04:00', closeTime: '04:00')]);
   }
 
   @override
