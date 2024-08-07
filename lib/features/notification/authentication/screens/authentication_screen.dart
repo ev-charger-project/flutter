@@ -2,8 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:ev_charger/routes/app_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../../../../shared/domain/providers/permission/permission_provider.dart';
 import '../widgets/authentication_button.dart';
 import '../widgets/authentication_content.dart';
 

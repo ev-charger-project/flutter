@@ -76,7 +76,6 @@ dev_dependencies:
   flutter_lints: ^3.0.0
   very_good_analysis:
   json_serializable:
-  freezed:
   build_runner:
   auto_route_generator:
   syncfusion_flutter_sliders: ^26.1.41

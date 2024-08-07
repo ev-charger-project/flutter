@@ -36,7 +36,7 @@ class RouteDirectionButtons extends ConsumerWidget {
         final destinationLocation = ref.read(locationProvider);
 
         if (userLocation != null && destinationLocation is AsyncData<LocationEntity>) {
-          _updateStartAndEndLocations(ref, userLocation, destinationLocation.value!);
+          _updateStartAndEndLocations(ref, userLocation, destinationLocation.value);
           context.router.push(RouteRoute());
         }
       }

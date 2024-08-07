@@ -114,7 +114,6 @@ class AgestStorageService extends RemoteStorageService {
 
     try {
       final response = await _dio.get(fullUrl);
-      print('Full URL: $fullUrl');
 
       if (response.statusCode == 200) {
         return (response.data as List)
@@ -193,7 +192,7 @@ class AgestStorageService extends RemoteStorageService {
       double destinationLat, double destinationLong) async {
     const url = '/api/v1/gg-map/directions';
 
-    /*try {
+    try {
       final response = await _dio.get(uri + url, queryParameters: {
         'start_lat': userLat,
         'start_long': userLong,
@@ -215,7 +214,7 @@ class AgestStorageService extends RemoteStorageService {
       } else {
         throw Exception('An unknown error occurred');
       }
-    }*/
+    }
 
     final PolylinePoints polylinePoints = PolylinePoints();
     final PolylineResult result =

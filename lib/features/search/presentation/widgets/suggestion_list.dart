@@ -100,7 +100,7 @@ class SuggestionList extends ConsumerWidget {
                     maxLines: 2,
                   ),
                   subtitle: Text(
-                    '${suggestion.street ?? ''}, ${suggestion.district ?? ''}',
+                    '${suggestion.street}, ${suggestion.district}',
                     style: Theme.of(context).textTheme.bodySmall,
                     maxLines: 2,
                   ),

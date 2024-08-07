@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:ev_charger/features/route/presentation/providers/end_provider.dart';
 import 'package:ev_charger/features/route/presentation/providers/from_search_provider.dart';
-import 'package:ev_charger/shared/presentation/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -121,8 +120,6 @@ class _RouteSearchScreenState extends ConsumerState<RouteSearchScreen> {
     _toSearchController.dispose();
     _fromSearchFocusNode.dispose();
     _toSearchFocusNode.dispose();
-    ref.read(FromSearchProvider.notifier).state = '';
-    ref.read(ToSearchProvider.notifier).state = '';
     _debounceFrom?.cancel();
     _debounceTo?.cancel();
     super.dispose();
