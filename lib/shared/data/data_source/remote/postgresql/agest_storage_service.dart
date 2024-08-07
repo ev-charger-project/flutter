@@ -46,20 +46,21 @@ class AgestStorageService extends RemoteStorageService {
 
   @override
   Future<List<ChargerMarkerDataModel>> fetchMarker(
-      double userLat, double userLong, double radius,
+      double camLat, double camLong, double radius,
       [int? stationCount,
       List<String>? chargeType,
       int? outputMin,
       int? outputMax]) async {
     const baseUrl = '/api/v1/locations/search';
     final Map<String, dynamic> queryParams = {
-      'user_lat': userLat,
-      'user_long': userLong,
+      'cam_lat': camLat,
+      'cam_long': camLong,
       'radius': radius,
       'station_count': stationCount,
       'charger_type': chargeType,
       'power_output_gte': outputMin,
       'power_output_lte': outputMax,
+      'query': ' '
     };
 
     final StringBuffer urlBuffer = StringBuffer('$uri$baseUrl?');
@@ -144,7 +145,7 @@ class AgestStorageService extends RemoteStorageService {
 
     if (lat != null && long != null) {
       queryParams['lat'] = lat;
-      queryParams['long'] = long;
+      queryParams['lon'] = long;
     }
 
     final StringBuffer urlBuffer = StringBuffer('$uri$baseUrl?');

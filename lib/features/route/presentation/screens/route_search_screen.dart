@@ -126,10 +126,12 @@ class _RouteSearchScreenState extends ConsumerState<RouteSearchScreen> {
     _toSearchController.dispose();
     _fromSearchFocusNode.dispose();
     _toSearchFocusNode.dispose();
-    ref.read(FromSearchProvider.notifier).state = '';
-    ref.read(ToSearchProvider.notifier).state = '';
     _debounceFrom?.cancel();
     _debounceTo?.cancel();
+
+    ref.read(FromSearchProvider.notifier).state = '';
+    ref.read(ToSearchProvider.notifier).state = '';
+
     super.dispose();
   }
 

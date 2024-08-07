@@ -118,6 +118,8 @@ final markerProvider = FutureProvider.autoDispose<List<Marker>>((ref) async {
         },
       ),
     );
+    print(
+        'Marker added: ${markerData.id}, ${markerData.latitude}, ${markerData.longitude}');
   }
 
   final currentLocation = ref.watch(userLocationProvider);
@@ -130,7 +132,10 @@ final markerProvider = FutureProvider.autoDispose<List<Marker>>((ref) async {
         anchor: const Offset(0.5, 0.5),
       ),
     );
+    print(
+        'Current location marker added: ${currentLocation.latitude}, ${currentLocation.longitude}');
   }
 
+  print('Markers: $markers');
   return markers;
 });

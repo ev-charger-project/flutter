@@ -129,7 +129,6 @@ class _MapScreenState extends ConsumerState<MapScreen>
     final currentLocation = ref.watch(userLocationProvider);
     final screenSize = MediaQuery.of(context).size;
     final searchQuery = ref.watch(SearchQueryProvider);
-    final filterCriteria = ref.watch(filterProvider);
 
     _searchController.text = searchQuery;
 
