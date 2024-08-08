@@ -5,7 +5,7 @@ import '../../../../repositories/auth/entities/sign_in_entity.dart';
 import '../../../../routes/app_route.dart';
 import '../providers/sign_in_provider.dart';
 import '../widgets/sign_in_button.dart';
-import '../widgets/sign_in_field.dart';
+import '../../../../shared/presentation/widgets/auth_field.dart';
 
 @RoutePage()
 class SignInScreen extends ConsumerStatefulWidget {

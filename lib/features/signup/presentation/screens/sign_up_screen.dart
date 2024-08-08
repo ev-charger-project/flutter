@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../routes/app_route.dart';
-import '../../../signin/presentation/widgets/sign_in_field.dart';
+import '../../../../shared/presentation/widgets/auth_field.dart';
 import '../providers/sign_up_provider.dart';
 import '../widgets/sign_up_button.dart';
 
