@@ -15,7 +15,11 @@ abstract class RemoteStorageService {
       double lat, double long, double radius);
 
   Future<List<ChargerMarkerDataModel>> fetchMarker(
-      double userLat, double userLong, double radius);
+      double screenCenterLat, double screenCenterLong, double radius,
+      [int? stationCount,
+      List<String>? chargeType,
+      int? outputMin,
+      int? outputMax]);
 
   Future<List<ChargeTypeDataModel>> fetchChargeTypeData();
 
@@ -30,5 +34,5 @@ abstract class RemoteStorageService {
   Future<List<String>> fetchDistanceAndDuration(
       double userLat, double userLong, double desLat, double desLong);
 
-  Future<List<LocationDataModel>> fetchFav (String token, String id);
+  Future<List<LocationDataModel>> fetchFav(String token, String id);
 }

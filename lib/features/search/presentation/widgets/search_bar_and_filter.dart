@@ -8,7 +8,7 @@ import 'dart:async';
 
 import '../../../../shared/core/localization/localization.dart';
 
-class SearchBarAndFilter extends ConsumerWidget {
+class SearchBarAndFilter extends ConsumerStatefulWidget {
   final TextEditingController controller;
   final Function(String) onChanged;
 
@@ -26,28 +26,65 @@ class SearchBarAndFilter extends ConsumerWidget {
   });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  _SearchBarAndFilterState createState() => _SearchBarAndFilterState();
+}
+
+class _SearchBarAndFilterState extends ConsumerState<SearchBarAndFilter> {
+  // Implementing Debouncing for Search Bar (input delay)
+  Timer? _debounce;
+  bool clearIconVisible = false;
+
+  @override
+  void initState() {
+    super.initState();
+    widget.focusNode?.addListener(_handleFocusChange);
+    widget.controller.addListener(_handleTextChange);
+  }
+
+  @override
+  void dispose() {
+    widget.focusNode?.removeListener(_handleFocusChange);
+    widget.controller.removeListener(_handleTextChange);
+    _debounce?.cancel();
+    super.dispose();
+  }
+
+  void _handleFocusChange() {
+    setState(() {
+      clearIconVisible = widget.focusNode?.hasFocus ?? false;
+    });
+  }
+
+  void _handleTextChange() {
+    setState(() {
+      clearIconVisible = widget.controller.text.isNotEmpty;
+    });
+  }
+
+  void _onSearchChanged(String query) {
+    if (_debounce?.isActive ?? false) _debounce?.cancel();
+    _debounce = Timer(const Duration(milliseconds: 350), () {
+      widget.onChanged(query);
+    });
+  }
+
+  void _clearTextField() {
+    widget.controller.clear();
+    widget.onChanged('');
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final iconColor = ref.watch(SearchIconColorProvider);
     final borderColor = ref.watch(FilterBorderColorProvider);
     final screenSize = MediaQuery.of(context).size;
 
     // Define responsive values
-    final double fontSize = 14;
     final EdgeInsets padding = EdgeInsets.symmetric(
       horizontal: screenSize.width * 0.02,
       vertical: screenSize.height * 0.02,
     );
     final double iconSize = screenSize.width * 0.048;
-
-    // Implementing Debouncing for Search Bar (input delay)
-    Timer? _debounce;
-
-    void _onSearchChanged(String query) {
-      if (_debounce?.isActive ?? false) _debounce?.cancel();
-      _debounce = Timer(const Duration(milliseconds: 350), () {
-        onChanged(query);
-      });
-    }
 
     return Container(
       padding: padding,
@@ -64,21 +101,27 @@ class SearchBarAndFilter extends ConsumerWidget {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: IgnorePointer(
-                ignoring: !textFieldInteractable,
+                ignoring: !widget.textFieldInteractable,
                 child: TextField(
-                  focusNode: focusNode,
-                  controller: controller,
+                  focusNode: widget.focusNode,
+                  controller: widget.controller,
                   decoration: InputDecoration(
                     hintText: AppLocalizations.of(context)
                         .translate('Search stations'),
-                    hintStyle: TextStyle(
-                      color: Colors.black.withOpacity(0.65),
-                      fontSize: fontSize,
-                    ),
+                    hintStyle: Theme.of(context)
+                        .textTheme
+                        .bodySmall
+                        ?.copyWith(color: Colors.black.withOpacity(0.65)),
                     prefixIcon: Icon(
                       Icons.search,
                       color: iconColor,
                     ),
+                    suffixIcon: clearIconVisible
+                        ? IconButton(
+                            icon: Icon(Icons.clear, color: iconColor),
+                            onPressed: _clearTextField,
+                          )
+                        : null,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide: BorderSide.none,
@@ -92,11 +135,7 @@ class SearchBarAndFilter extends ConsumerWidget {
                     ),
                     contentPadding: EdgeInsets.all(8.0),
                   ),
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontFamily: 'Exo',
-                    fontSize: fontSize,
-                  ),
+                  style: Theme.of(context).textTheme.bodySmall,
                   onChanged: _onSearchChanged,
                 ),
               ),
@@ -121,7 +160,7 @@ class SearchBarAndFilter extends ConsumerWidget {
                       width: iconSize,
                       height: iconSize,
                     ),
-                    onPressed: onFilterPressed,
+                    onPressed: widget.onFilterPressed,
                   )
                 : IconButton(
                     icon: SvgPicture.asset(
@@ -129,7 +168,7 @@ class SearchBarAndFilter extends ConsumerWidget {
                       width: iconSize,
                       height: iconSize,
                     ),
-                    onPressed: onFilterPressed,
+                    onPressed: widget.onFilterPressed,
                   ),
           ),
         ],

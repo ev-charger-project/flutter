@@ -34,8 +34,13 @@ class _PowerOutputState extends ConsumerState<PowerOutput> {
             Row(
               children: [
                 Text(
-                    AppLocalizations.of(context).translate("Power Output (kW)"),
-                    style: Theme.of(context).textTheme.displaySmall),
+                  AppLocalizations.of(context).translate("Power Output "),
+                  style: Theme.of(context).textTheme.displaySmall,
+                ),
+                Text(
+                  "(${_currentRangeValues.start.round()} kW - ${_currentRangeValues.end.round()} kW)",
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
               ],
             ),
             Divider(

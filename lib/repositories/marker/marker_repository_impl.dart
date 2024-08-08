@@ -5,13 +5,25 @@ import 'marker_repository.dart';
 
 class MarkerRepositoryImpl extends MarkerRepository {
   MarkerRepositoryImpl(this.remoteDataSource);
+
   final MarkerRemoteDataSource remoteDataSource;
 
   @override
   Future<List<ChargerMarkerEntity>> fetchMarkers(
-      double userLat, double userLong, double radius) async {
-    final markerDataModelResult =
-        await remoteDataSource.fetchMarkers(userLat, userLong, radius);
+      double screenCenterLat, double screenCenterLong, double radius,
+      [int? stationCount,
+      List<String>? chargeType,
+      int? outputMin,
+      int? outputMax]) async {
+    final markerDataModelResult = await remoteDataSource.fetchMarkers(
+      screenCenterLat,
+      screenCenterLong,
+      radius,
+      stationCount ?? 0,
+      chargeType ?? [],
+      outputMin ?? 0,
+      outputMax ?? 360,
+    );
     final result = MarkerMapper().toEntityList(markerDataModelResult);
     return result;
   }

@@ -11,9 +11,9 @@ import '../../../../../repositories/route/data_models/route_data_model.dart';
 class AgestStorageService extends RemoteStorageService {
   final Dio _dio = Dio();
 
-  static const uri = 'http://10.0.2.2:4000';
+  //static const uri = 'http://10.0.2.2:4000';
 
-  // static const uri = 'http://172.16.11.139:14000';
+  static const uri = 'http://172.16.11.139:14000';
 
   @override
   Future<LocationDataModel> fetchLocationData(String locationId) async {
@@ -46,8 +46,60 @@ class AgestStorageService extends RemoteStorageService {
 
   @override
   Future<List<ChargerMarkerDataModel>> fetchMarker(
-      double userLat, double userLong, double radius) async {
-    const url = '/api/v1/locations/by_radius';
+      double screenCenterLat, double screenCenterLong, double radius,
+      [int? stationCount,
+      List<String>? chargeType,
+      int? outputMin,
+      int? outputMax]) async {
+    const baseUrl = '/api/v1/locations/search';
+    final Map<String, dynamic> queryParams = {
+      'lat': screenCenterLat,
+      'lon': screenCenterLong,
+      'radius': radius,
+      'station_count': stationCount,
+      'charger_type': chargeType,
+      'power_output_gte': outputMin,
+      'power_output_lte': outputMax,
+      'query': ''
+    };
+
+    final StringBuffer urlBuffer = StringBuffer('$uri$baseUrl?');
+    queryParams.forEach((key, value) {
+      if (value != null) {
+        if (value is List) {
+          for (var item in value) {
+            urlBuffer.write('$key=${item}&');
+          }
+        } else {
+          urlBuffer.write('$key=${value.toString()}&');
+        }
+      }
+    });
+
+    final String fullUrl =
+        urlBuffer.toString().substring(0, urlBuffer.length - 1);
+
+    try {
+      final response = await _dio.get(fullUrl);
+      print('Full fetchMarker URL: $fullUrl');
+
+      if (response.statusCode == 200) {
+        return (response.data as List)
+            .map((item) =>
+                ChargerMarkerDataModel.fromJson(item as Map<String, dynamic>))
+            .toList();
+      } else {
+        throw Exception('Error code: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error: $e');
+      if (e is DioException && e.response != null) {
+        throw Exception('Error code: ${e.response?.statusCode}');
+      } else {
+        throw Exception('An unknown error occurred');
+      }
+    }
+    /*const url = '/api/v1/locations/by_radius';
 
     try {
       final response = await _dio.get(uri + url, queryParameters: {
@@ -70,7 +122,7 @@ class AgestStorageService extends RemoteStorageService {
       } else {
         throw Exception('An unknown error occurred');
       }
-    }
+    }*/
   }
 
   @override
@@ -114,6 +166,7 @@ class AgestStorageService extends RemoteStorageService {
 
     try {
       final response = await _dio.get(fullUrl);
+      print('Full fetchSuggestion URL: $fullUrl');
 
       if (response.statusCode == 200) {
         return (response.data as List)
@@ -184,7 +237,7 @@ class AgestStorageService extends RemoteStorageService {
           print('Response is $founds');
           final fetchedChargeTypes = founds
               .map((item) =>
-              ChargeTypeDataModel.fromJson(item as Map<String, dynamic>))
+                  ChargeTypeDataModel.fromJson(item as Map<String, dynamic>))
               .toList();
 
           chargeTypes.addAll(fetchedChargeTypes);
@@ -211,7 +264,6 @@ class AgestStorageService extends RemoteStorageService {
 
     return chargeTypes;
   }
-
 
   @override
   Future<RouteDataModel> fetchRoute(double userLat, double userLong,
@@ -240,28 +292,27 @@ class AgestStorageService extends RemoteStorageService {
         throw Exception('An unknown error occurred');
       }
     }
-  }
 
-  //   final PolylinePoints polylinePoints = PolylinePoints();
-  //   final PolylineResult result =
-  //       await polylinePoints.getRouteBetweenCoordinates(
-  //     googleApiKey: 'AIzaSyAGYJacplt2I8syt0aY4GXfSNXhKdsXUgM',
-  //     request: PolylineRequest(
-  //         origin: PointLatLng(userLat, userLong),
-  //         destination: PointLatLng(destinationLat, destinationLong),
-  //         mode: TravelMode.driving),
-  //   );
-  //
-  //   if (result.points.isNotEmpty) {
-  //     final routePoints = result.points
-  //         .map(
-  //             (point) => RoutePoint(lat: point.latitude, long: point.longitude))
-  //         .toList();
-  //     return RouteDataModel(route: routePoints, chargers: [], hashcode: '');
-  //   } else {
-  //     return RouteDataModel(route: [], chargers: [], hashcode: '');
-  //   }
-  // }
+    final PolylinePoints polylinePoints = PolylinePoints();
+    final PolylineResult result =
+        await polylinePoints.getRouteBetweenCoordinates(
+      googleApiKey: 'AIzaSyAGYJacplt2I8syt0aY4GXfSNXhKdsXUgM',
+      request: PolylineRequest(
+          origin: PointLatLng(userLat, userLong),
+          destination: PointLatLng(destinationLat, destinationLong),
+          mode: TravelMode.driving),
+    );
+
+    if (result.points.isNotEmpty) {
+      final routePoints = result.points
+          .map(
+              (point) => RoutePoint(lat: point.latitude, long: point.longitude))
+          .toList();
+      return RouteDataModel(route: routePoints, chargers: []);
+    } else {
+      return RouteDataModel(route: [], chargers: []);
+    }
+  }
 
   @override
   Future<List<LocationDataModel>> fetchNearby(
@@ -318,7 +369,8 @@ class AgestStorageService extends RemoteStorageService {
             hasMoreData = false;
           } else {
             final locations = data
-                .map((item) => LocationDataModel.fromJson(item['location'] as Map<String, dynamic>))
+                .map((item) => LocationDataModel.fromJson(
+                    item['location'] as Map<String, dynamic>))
                 .toList();
             allLocations.addAll(locations);
 
@@ -338,6 +390,4 @@ class AgestStorageService extends RemoteStorageService {
       }
     }
   }
-
-
 }
