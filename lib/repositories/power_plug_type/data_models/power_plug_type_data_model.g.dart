@@ -11,7 +11,7 @@ _$PowerPlugTypeDataModelImpl _$$PowerPlugTypeDataModelImplFromJson(
     _$PowerPlugTypeDataModelImpl(
       powerModel: json['power_model'] as String,
       plugType: json['plug_type'] as String,
-      plugImage: json['plug_image'] as String?,
+      plugImage: json['plug_image_url'] as String?,
       usedInRegions: (json['used_in_regions'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
@@ -23,7 +23,7 @@ Map<String, dynamic> _$$PowerPlugTypeDataModelImplToJson(
     <String, dynamic>{
       'power_model': instance.powerModel,
       'plug_type': instance.plugType,
-      'plug_image': instance.plugImage,
+      'plug_image_url': instance.plugImage,
       'used_in_regions': instance.usedInRegions,
       'additional_notes': instance.additionalNotes,
     };

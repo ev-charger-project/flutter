@@ -1,3 +1,4 @@
+import 'package:ev_charger/features/location/presentation/widgets/charger_tab/port_box.dart';
 import 'package:ev_charger/shared/presentation/theme/app_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -93,43 +94,3 @@ class ChargerBox extends StatelessWidget {
   }
 }
 
-class PortBox extends StatelessWidget {
-  final Port port;
-
-  const PortBox({
-    Key? key,
-    required this.port,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final screenSize = MediaQuery.of(context).size;
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: screenSize.width*0.015),
-      child: Container(
-        width: screenSize.width*0.2,
-        height: screenSize.height*0.1,
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.secondary,
-          border: Border.all(color: Theme.of(context).stationGrey,),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Text(
-              "${port.power_model.outputValue.floor()}kw ${port.power_plug_type.powerModel}",
-              style: Theme.of(context).textTheme.titleSmall,
-              textAlign: TextAlign.center,
-            ),
-            Expanded(child: SvgPicture.asset('assets/icons/plug_icon.svg')),
-            Text(
-              port.power_plug_type.plugType,
-              style: Theme.of(context).textTheme.titleSmall,
-              textAlign: TextAlign.center,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}

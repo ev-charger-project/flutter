@@ -25,7 +25,7 @@ mixin _$PowerPlugTypeDataModel {
   String get powerModel => throw _privateConstructorUsedError;
   @JsonKey(name: 'plug_type')
   String get plugType => throw _privateConstructorUsedError;
-  @JsonKey(name: 'plug_image')
+  @JsonKey(name: 'plug_image_url')
   String? get plugImage => throw _privateConstructorUsedError;
   @JsonKey(name: 'used_in_regions')
   List<String>? get usedInRegions => throw _privateConstructorUsedError;
@@ -47,7 +47,7 @@ abstract class $PowerPlugTypeDataModelCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'power_model') String powerModel,
       @JsonKey(name: 'plug_type') String plugType,
-      @JsonKey(name: 'plug_image') String? plugImage,
+      @JsonKey(name: 'plug_image_url') String? plugImage,
       @JsonKey(name: 'used_in_regions') List<String>? usedInRegions,
       @JsonKey(name: 'additional_notes') String? additionalNotes});
 }
@@ -109,7 +109,7 @@ abstract class _$$PowerPlugTypeDataModelImplCopyWith<$Res>
   $Res call(
       {@JsonKey(name: 'power_model') String powerModel,
       @JsonKey(name: 'plug_type') String plugType,
-      @JsonKey(name: 'plug_image') String? plugImage,
+      @JsonKey(name: 'plug_image_url') String? plugImage,
       @JsonKey(name: 'used_in_regions') List<String>? usedInRegions,
       @JsonKey(name: 'additional_notes') String? additionalNotes});
 }
@@ -164,7 +164,7 @@ class _$PowerPlugTypeDataModelImpl implements _PowerPlugTypeDataModel {
   const _$PowerPlugTypeDataModelImpl(
       {@JsonKey(name: 'power_model') required this.powerModel,
       @JsonKey(name: 'plug_type') required this.plugType,
-      @JsonKey(name: 'plug_image') this.plugImage,
+      @JsonKey(name: 'plug_image_url') this.plugImage,
       @JsonKey(name: 'used_in_regions') final List<String>? usedInRegions,
       @JsonKey(name: 'additional_notes') this.additionalNotes})
       : _usedInRegions = usedInRegions;
@@ -179,7 +179,7 @@ class _$PowerPlugTypeDataModelImpl implements _PowerPlugTypeDataModel {
   @JsonKey(name: 'plug_type')
   final String plugType;
   @override
-  @JsonKey(name: 'plug_image')
+  @JsonKey(name: 'plug_image_url')
   final String? plugImage;
   final List<String>? _usedInRegions;
   @override
@@ -242,7 +242,7 @@ abstract class _PowerPlugTypeDataModel implements PowerPlugTypeDataModel {
   const factory _PowerPlugTypeDataModel(
           {@JsonKey(name: 'power_model') required final String powerModel,
           @JsonKey(name: 'plug_type') required final String plugType,
-          @JsonKey(name: 'plug_image') final String? plugImage,
+          @JsonKey(name: 'plug_image_url') final String? plugImage,
           @JsonKey(name: 'used_in_regions') final List<String>? usedInRegions,
           @JsonKey(name: 'additional_notes') final String? additionalNotes}) =
       _$PowerPlugTypeDataModelImpl;
@@ -257,7 +257,7 @@ abstract class _PowerPlugTypeDataModel implements PowerPlugTypeDataModel {
   @JsonKey(name: 'plug_type')
   String get plugType;
   @override
-  @JsonKey(name: 'plug_image')
+  @JsonKey(name: 'plug_image_url')
   String? get plugImage;
   @override
   @JsonKey(name: 'used_in_regions')
