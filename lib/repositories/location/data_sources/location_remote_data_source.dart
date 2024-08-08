@@ -10,6 +10,7 @@ abstract class LocationDataSource {
 class LocationRemoteDataSource extends LocationDataSource {
   LocationRemoteDataSource(this.remoteStorageService);
   final AgestStorageService remoteStorageService;
+
   @override
   Future<LocationDataModel> fetchLocationData(String locationId) async {
     return await remoteStorageService.fetchLocationData(locationId);

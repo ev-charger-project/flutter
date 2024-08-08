@@ -1,4 +1,3 @@
-import 'package:ev_charger/features/search/presentation/widgets/suggestion_list.dart';
 import 'package:ev_charger/shared/presentation/theme/app_theme.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/cupertino.dart';

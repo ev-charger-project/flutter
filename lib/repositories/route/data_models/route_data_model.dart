@@ -6,8 +6,9 @@ part 'route_data_model.g.dart';
 @freezed
 class RouteDataModel with _$RouteDataModel {
   const factory RouteDataModel({
-    @JsonKey(name: 'coordinates')required List<RoutePoint> route,
-    @JsonKey(name: 'locations')required List<Charger> chargers,
+    @Default([]) @JsonKey(name: 'coordinates') List<RoutePoint> route,
+    @Default([]) @JsonKey(name: 'locations') List<Charger> chargers,
+    @Default('') @JsonKey(name: 'overview_polyline') String hashcode,
   }) = _RouteDataModel;
 
   factory RouteDataModel.fromJson(Map<String, dynamic> json) =>
@@ -29,8 +30,8 @@ class RoutePoint with _$RoutePoint {
 class Charger with _$Charger {
   const factory Charger({
     required String id,
-    required double lat,
-    required double long,
+    @JsonKey(name: 'latitude') required double lat,
+    @JsonKey(name: 'longitude')required double long,
   }) = _Charger;
 
   factory Charger.fromJson(Map<String, dynamic> json) =>

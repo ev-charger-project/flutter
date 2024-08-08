@@ -1,10 +1,8 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:ev_charger/features/location/presentation/widgets/location_name_address.dart';
 import 'package:ev_charger/features/mapview/presentation/widgets/view_route_direction.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../routes/app_route.dart';
 import '../../../../shared/domain/providers/auth/auth_provider.dart';
 import '../../../location/presentation/widgets/amount_chargers.dart';
 import '../../../notification/authentication/screens/authentication_screen.dart';
@@ -21,7 +19,7 @@ class ShortInfoUI extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isAuthenticated = ref.watch(authCheckProvider);
+    final isAuthenticated = ref.watch(authProvider).value;
 
     return GestureDetector(
       onVerticalDragUpdate: (details) {
@@ -71,7 +69,7 @@ class ShortInfoUI extends ConsumerWidget {
               child: IconButton(
                 icon: const Icon(Icons.bookmark_border),
                 onPressed: () async {
-                  if (!isAuthenticated) {
+                  if (!isAuthenticated!) {
                     await showDialog(
                       context: context,
                       builder: (context) => const AuthenticationScreen(),

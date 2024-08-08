@@ -33,4 +33,6 @@ abstract class RemoteStorageService {
 
   Future<List<String>> fetchDistanceAndDuration(
       double userLat, double userLong, double desLat, double desLong);
+
+  Future<List<LocationDataModel>> fetchFav (String token, String id);
 }

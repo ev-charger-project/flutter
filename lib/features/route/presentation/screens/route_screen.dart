@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'package:auto_route/auto_route.dart';
 import 'package:ev_charger/features/route/domain/providers/route_marker_provider.dart';
+import 'package:ev_charger/features/route/presentation/providers/start_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -58,7 +60,8 @@ class _RouteScreenState extends ConsumerState<RouteScreen> {
   @override
   Widget build(BuildContext context) {
     final routeAsyncValue = ref.watch(routeProvider);
-    var userLocation;
+    final userCurrentLocation = ref.read(startProvider);
+    LatLng startLocation = LatLng(userCurrentLocation.latitude, userCurrentLocation.longitude);
     final markerAsyncValue = ref.watch(routeMarkerProvider);
 
     markerAsyncValue.when(
@@ -66,7 +69,6 @@ class _RouteScreenState extends ConsumerState<RouteScreen> {
         setState(() {
           _markers.clear();
           _markers.addAll(markers);
-          userLocation = markers.first.position;
         });
       },
       loading: () {},
@@ -77,14 +79,17 @@ class _RouteScreenState extends ConsumerState<RouteScreen> {
       data: (route) {
         setState(() {
           _polylines.clear();
-          final polylinePoints = route.route
-              .map((point) => LatLng(point.lat, point.long))
+          final polylinePoints = PolylinePoints().decodePolyline(route.hashcode);
+
+          final latLngPoints = polylinePoints
+              .map((point) => LatLng(point.latitude, point.longitude))
               .toList();
+
           _polylines.add(
             Polyline(
               polylineId: const PolylineId('route'),
               color: Theme.of(context).primaryColor,
-              points: polylinePoints,
+              points: latLngPoints,
               width: 5,
             ),
           );
@@ -94,13 +99,14 @@ class _RouteScreenState extends ConsumerState<RouteScreen> {
       error: (error, stack) => print('Error: $error'),
     );
 
+
     return Scaffold(
       body: Stack(
         children: [
           GoogleMap(
             mapType: MapType.normal,
             initialCameraPosition: CameraPosition(
-              target: LatLng(userLocation!.latitude, userLocation.longitude),
+              target: LatLng(startLocation.latitude, startLocation.longitude),
               zoom: 12,
             ),
             fortyFiveDegreeImageryEnabled: false,

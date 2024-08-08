@@ -8,12 +8,15 @@ part of 'route_data_model.dart';
 
 _$RouteDataModelImpl _$$RouteDataModelImplFromJson(Map<String, dynamic> json) =>
     _$RouteDataModelImpl(
-      route: (json['coordinates'] as List<dynamic>)
-          .map((e) => RoutePoint.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      chargers: (json['locations'] as List<dynamic>)
-          .map((e) => Charger.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      route: (json['coordinates'] as List<dynamic>?)
+              ?.map((e) => RoutePoint.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      chargers: (json['locations'] as List<dynamic>?)
+              ?.map((e) => Charger.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      hashcode: json['overview_polyline'] as String? ?? '',
     );
 
 Map<String, dynamic> _$$RouteDataModelImplToJson(
@@ -21,6 +24,7 @@ Map<String, dynamic> _$$RouteDataModelImplToJson(
     <String, dynamic>{
       'coordinates': instance.route,
       'locations': instance.chargers,
+      'overview_polyline': instance.hashcode,
     };
 
 _$RoutePointImpl _$$RoutePointImplFromJson(Map<String, dynamic> json) =>
@@ -38,13 +42,13 @@ Map<String, dynamic> _$$RoutePointImplToJson(_$RoutePointImpl instance) =>
 _$ChargerImpl _$$ChargerImplFromJson(Map<String, dynamic> json) =>
     _$ChargerImpl(
       id: json['id'] as String,
-      lat: (json['lat'] as num).toDouble(),
-      long: (json['long'] as num).toDouble(),
+      lat: (json['latitude'] as num).toDouble(),
+      long: (json['longitude'] as num).toDouble(),
     );
 
 Map<String, dynamic> _$$ChargerImplToJson(_$ChargerImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'lat': instance.lat,
-      'long': instance.long,
+      'latitude': instance.lat,
+      'longitude': instance.long,
     };

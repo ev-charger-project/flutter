@@ -5,7 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../routes/app_route.dart';
-import '../../../shared/domain/providers/auth/auth_provider.dart';
 
 @RoutePage()
 class SplashScreen extends ConsumerStatefulWidget {

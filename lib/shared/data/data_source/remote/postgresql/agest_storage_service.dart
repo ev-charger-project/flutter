@@ -48,9 +48,9 @@ class AgestStorageService extends RemoteStorageService {
   Future<List<ChargerMarkerDataModel>> fetchMarker(
       double camLat, double camLong, double radius,
       [int? stationCount,
-      List<String>? chargeType,
-      int? outputMin,
-      int? outputMax]) async {
+        List<String>? chargeType,
+        int? outputMin,
+        int? outputMax]) async {
     const baseUrl = '/api/v1/locations/search';
     final Map<String, dynamic> queryParams = {
       'cam_lat': camLat,
@@ -77,7 +77,7 @@ class AgestStorageService extends RemoteStorageService {
     });
 
     final String fullUrl =
-        urlBuffer.toString().substring(0, urlBuffer.length - 1);
+    urlBuffer.toString().substring(0, urlBuffer.length - 1);
 
     try {
       final response = await _dio.get(fullUrl);
@@ -86,7 +86,7 @@ class AgestStorageService extends RemoteStorageService {
       if (response.statusCode == 200) {
         return (response.data as List)
             .map((item) =>
-                ChargerMarkerDataModel.fromJson(item as Map<String, dynamic>))
+            ChargerMarkerDataModel.fromJson(item as Map<String, dynamic>))
             .toList();
       } else {
         throw Exception('Error code: ${response.statusCode}');
@@ -243,16 +243,16 @@ class AgestStorageService extends RemoteStorageService {
   @override
   Future<RouteDataModel> fetchRoute(double userLat, double userLong,
       double destinationLat, double destinationLong) async {
-    const url = '/api/v1/gg-map/directions';
+    const url = '/api/v1/locations/location-on-route';
 
-    /*try {
+    try {
       final response = await _dio.get(uri + url, queryParameters: {
         'start_lat': userLat,
         'start_long': userLong,
         'end_lat': destinationLat,
         'end_long': destinationLong,
       });
-
+      print('Response is $response');
       if (response.statusCode == 200) {
         final dynamic responseData = response.data;
         final result = RouteDataModel.fromJson(responseData);
@@ -267,7 +267,7 @@ class AgestStorageService extends RemoteStorageService {
       } else {
         throw Exception('An unknown error occurred');
       }
-    }*/
+    }
 
     final PolylinePoints polylinePoints = PolylinePoints();
     final PolylineResult result =
@@ -309,6 +309,53 @@ class AgestStorageService extends RemoteStorageService {
       } else {
         throw Exception('Error code: ${response.statusCode}');
       }
+    } catch (e) {
+      print('Error: $e');
+      if (e is DioException && e.response != null) {
+        throw Exception('Error code: ${e.response?.statusCode}');
+      } else {
+        throw Exception('An unknown error occurred');
+      }
+    }
+  }
+
+  @override
+  Future<List<LocationDataModel>> fetchFav(String token, String id) async {
+    const url = '/api/v1/user-favorite';
+    int currentPage = 1;
+    bool hasMoreData = true;
+    List<LocationDataModel> allLocations = [];
+
+    try {
+      while (hasMoreData) {
+        final response = await _dio.get(
+          uri + url,
+          queryParameters: {
+            'user_id': id,
+            'page': currentPage,
+          },
+          options: Options(
+            headers: {'Authorization': 'Bearer $token'},
+          ),
+        );
+
+        if (response.statusCode == 200) {
+          final data = response.data['founds'] as List;
+          if (data.isEmpty) {
+            hasMoreData = false;
+          } else {
+            final locations = data
+                .map((item) => LocationDataModel.fromJson(item['location'] as Map<String, dynamic>))
+                .toList();
+            allLocations.addAll(locations);
+
+            currentPage++;
+          }
+        } else {
+          throw Exception('Error code: ${response.statusCode}');
+        }
+      }
+      return allLocations;
     } catch (e) {
       print('Error: $e');
       if (e is DioException && e.response != null) {
