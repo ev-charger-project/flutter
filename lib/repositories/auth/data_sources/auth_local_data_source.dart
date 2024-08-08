@@ -1,31 +1,32 @@
-import '../../../shared/data/data_source/local/hive/adapters/token.dart';
-import '../../../shared/data/data_source/local/hive/hive_storage_service.dart';
+
+import '../../../shared/data/data_source/local/flutter_secure_storage/adapter/token.dart';
+import '../../../shared/data/data_source/local/flutter_secure_storage/flutter_secure_storage.dart';
 
 abstract class AuthLocalDataSource {
   Future<bool> setToken(TokenAdapterObject tokenAdapterObject);
 
-  Future<TokenAdapterObject> getToken();
+  Future<TokenAdapterObject?> getToken();
 
   Future<bool> clearToken();
 }
 
-class AuthHiveLocalDataSource extends AuthLocalDataSource {
-  final HiveStorageService storageService;
+class AuthSecureLocalDataSource extends AuthLocalDataSource {
+  final FlutterSecureStorageService secureStorageService;
 
-  AuthHiveLocalDataSource(this.storageService);
+  AuthSecureLocalDataSource(this.secureStorageService);
 
   @override
   Future<bool> clearToken() {
-    return storageService.clearToken();
+    return secureStorageService.clearToken();
   }
 
   @override
-  Future<TokenAdapterObject> getToken() {
-    return storageService.getToken();
+  Future<TokenAdapterObject?> getToken() {
+    return secureStorageService.getToken();
   }
 
   @override
   Future<bool> setToken(TokenAdapterObject tokenAdapterObject) {
-    return storageService.setToken(tokenAdapterObject);
+    return secureStorageService.setToken(tokenAdapterObject);
   }
 }

@@ -20,10 +20,11 @@ class AuthAgestService extends AuthService {
         'email': email,
         'password': password,
       });
+
       if(response.statusCode == 200) {
         TokenDataModel token = TokenDataModel(
-            accessToken: response.data['access_token'],
-            refreshToken: response.data['refresh_token']
+            access_token: response.data['access_token'],
+            refresh_token: response.data['refresh_token']
         );
 
         return token;
@@ -42,16 +43,15 @@ class AuthAgestService extends AuthService {
   }
 
   @override
-  Future<UserDataModel> signUp(String email, String password, String name) async {
+  Future<UserDataModel> signUp(String email, String password, String name, String phoneNumber) async {
     const url = '/api/v1/auth/sign-up';
-
     try {
       final response = await _dio.post(uri + url, data: {
         'email': email,
         'password': password,
         'name': name,
+        'phone_number': phoneNumber
       });
-
       if (response.statusCode == 200) {
         UserDataModel user = UserDataModel(
             userId: response.data['id'],
@@ -76,12 +76,12 @@ class AuthAgestService extends AuthService {
   }
 
   @override
-  Future<bool> signOut(String refreshToken) async {
+  Future<bool> signOut(String refresh_token) async {
     const url = '/api/v1/auth/sign-out';
 
     try {
       final response = await _dio.delete(uri + url, queryParameters: {
-        'token': refreshToken,
+        'token': refresh_token,
       });
 
       if (response.statusCode == 200) {
@@ -99,18 +99,18 @@ class AuthAgestService extends AuthService {
   }
 
   @override
-  Future<TokenDataModel> refreshToken(String refreshToken)  async {
+  Future<TokenDataModel> refreshToken(String refresh_token)  async {
     const url = 'api/v1/auth/refresh-token';
 
     try {
       final response = await _dio.get(uri + url, queryParameters: {
-        'token': refreshToken,
+        'token': refresh_token,
       });
 
       if (response.statusCode == 200) {
         TokenDataModel token = TokenDataModel(
-            accessToken: response.data['access_token'],
-            refreshToken: response.data['refresh_token'],
+            access_token: response.data['access_token'],
+            refresh_token: response.data['refresh_token'],
         );
         return token;
       }
@@ -128,7 +128,7 @@ class AuthAgestService extends AuthService {
   }
 
   @override
-  Future<UserDataModel?> getMe(String accessToken) async {
+  Future<UserDataModel?> getMe(String access_token) async {
     const url = '/api/v1/auth/get_';
 
     try {
@@ -136,7 +136,7 @@ class AuthAgestService extends AuthService {
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
-          'Authorization': 'Bearer $accessToken',
+          'Authorization': 'Bearer $access_token',
         }
       ));
 

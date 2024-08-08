@@ -1,26 +1,20 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:jwt_decode/jwt_decode.dart';
-import 'package:ev_charger/shared/domain/providers/local_storage_service_provider.dart';
+import '../secure_storage_service_provider.dart';
 
+final authProvider = StreamProvider<bool>((ref) {
+  final secureStorage = ref.watch(secureStorageServiceProvider);
+  return secureStorage.tokenStream.map((token) {
+    if (token == null || token.access_token.isEmpty || token.refresh_token.isEmpty) return false;
+    try {
+      Map<String, dynamic> decodedToken = Jwt.parseJwt(token.access_token);
+      DateTime expiryDate = DateTime.fromMillisecondsSinceEpoch(decodedToken['exp'] * 1000);
+      DateTime now = DateTime.now();
 
-final authProvider = FutureProvider<bool>((ref) async {
-  final localStorage = ref.read(localStorageServiceProvider);
-
-  final tokenData = await localStorage.getToken();
-  if(tokenData.refreshToken == '') return false;
-
-  try {
-    Map<String, dynamic> decodedToken = Jwt.parseJwt(tokenData.refreshToken);
-    DateTime expiryDate = DateTime.fromMillisecondsSinceEpoch(decodedToken['exp'] * 1000);
-    DateTime now = DateTime.now();
-
-    if (expiryDate.isAfter(now)) {
-      return true;
+      return expiryDate.isAfter(now);
+    } catch (e) {
+      print('Error during auth check: $e');
+      return false;
     }
-    return false;
-
-  } catch (e) {
-    print('Error during auth check: $e');
-    return false;
-  }
+  });
 });

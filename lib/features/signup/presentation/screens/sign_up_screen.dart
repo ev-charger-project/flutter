@@ -1,54 +1,39 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../repositories/auth/entities/sign_up_entity.dart';
 import '../../../../routes/app_route.dart';
 import '../../../signin/presentation/widgets/sign_in_field.dart';
 import '../providers/sign_up_provider.dart';
 import '../widgets/sign_up_button.dart';
 
 @RoutePage()
-class SignUpScreen extends ConsumerWidget {
+class SignUpScreen extends ConsumerStatefulWidget {
   SignUpScreen({super.key});
 
+  @override
+  ConsumerState<SignUpScreen> createState() => _SignUpScreenState();
+}
+
+class _SignUpScreenState extends ConsumerState<SignUpScreen> {
   final TextEditingController emailController =
   TextEditingController(text: 'testuser@gmail.com');
   final TextEditingController passwordController =
   TextEditingController(text: 'password');
   final TextEditingController nameController =
   TextEditingController(text: 'User Test');
+  final TextEditingController phoneNumberController =
+  TextEditingController(text: '+84836762402');
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final signUpState = ref.watch(signUpProvider(
-      SignUpEntity(
-        emailController.text,
-        passwordController.text,
-        nameController.text,
-      ),
-    ));
-
-    ref.listen<AsyncValue<void>>(signUpProvider(SignUpEntity(
-      emailController.text,
-      passwordController.text,
-      nameController.text
-    )), (previous, next) {
-      next.when(
-        data: (_) {
-          AutoRouter.of(context).pushAndPopUntil(
-            MapRoute(),
-            predicate: (_) => false,
-          );
-        },
-        error: (error, stackTrace) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Error: ${error.toString()}')),
-          );
-        },
-        loading: () {
-          // Show loading dialog or indicator if needed
-        },
-      );
+  Widget build(BuildContext context) {
+    ref.listen<SignUpState>(signUpProvider, (previous, next) {
+      if (next == SignUpState.success) {
+        AutoRouter.of(context).pushAndPopUntil(MapRoute(), predicate: (_) => false);
+      } else if (next == SignUpState.error) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Sign up failed, please try again.')),
+        );
+      }
     });
 
     return Scaffold(
@@ -93,15 +78,20 @@ class SignUpScreen extends ConsumerWidget {
                 controller: passwordController,
                 prefixIcon: Icons.lock,
               ),
-              const SizedBox(height: 24),
-              signUpState.maybeWhen(
-                loading: () => const Center(child: CircularProgressIndicator()),
-                orElse: () => SignUpButton(
-                  emailController: emailController,
-                  passwordController: passwordController,
-                  nameController: nameController,
-                ),
+              const SizedBox(height: 16),
+              AuthField(
+                hintText: 'Phone number',
+                controller: phoneNumberController,
+                prefixIcon: Icons.person,
               ),
+              const SizedBox(height: 24),
+              SignUpButton(
+                emailController: emailController,
+                passwordController: passwordController,
+                nameController: nameController,
+                phoneNumberController: phoneNumberController,
+              ),
+
               const SizedBox(height: 16),
               Center(
                 child: GestureDetector(

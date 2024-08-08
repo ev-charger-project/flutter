@@ -1,6 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../repositories/auth/entities/sign_in_entity.dart';
+import '../../../../routes/app_route.dart';
 import '../providers/sign_in_provider.dart';
 
 class SignInButton extends ConsumerWidget {
@@ -17,6 +19,8 @@ class SignInButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final signInState = ref.watch(signInProvider);
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
       child: SizedBox(
@@ -34,20 +38,21 @@ class SignInButton extends ConsumerWidget {
             ),
             minimumSize: const Size(double.infinity, 52.0),
           ),
-          onPressed: () {
-            // Create the SignInEntity from the controllers
-            final signInEntity = SignInEntity(
+          onPressed: signInState == SignInState.loading
+              ? null
+              : () {
+            ref
+                .read(signInProvider.notifier)
+                .signIn(SignInEntity(
               usernameController.text,
               passwordController.text,
-            );
-
-            // Update the signInEntityProvider with the current SignInEntity
-            ref.read(signInEntityProvider.notifier).state = signInEntity;
-
-            // Refresh the signInProvider to trigger the sign-in process
-            ref.refresh(signInProvider);
+            ));
           },
-          child: Row(
+          child: signInState == SignInState.loading
+              ? const CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+          )
+              : Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(

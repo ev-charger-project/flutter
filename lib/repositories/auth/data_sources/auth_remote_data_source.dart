@@ -4,8 +4,8 @@ import '../../../shared/data/data_source/remote/postgresql/auth_agest_service.da
 
 abstract class AuthDataSource {
   Future<TokenDataModel> signIn(String email, String password);
-  Future<UserDataModel> signUp(String email, String password, String name);
-  Future<bool> signOut(String refreshToken);
+  Future<UserDataModel> signUp(String email, String password, String name, String phoneNumber);
+  Future<bool> signOut(String refresh_token);
 }
 
 class AuthRemoteDataSource implements AuthDataSource {
@@ -18,12 +18,12 @@ class AuthRemoteDataSource implements AuthDataSource {
   }
 
   @override
-  Future<UserDataModel> signUp(String email, String password, String name) async {
-    return await authAgestService.signUp(email, password, name);
+  Future<UserDataModel> signUp(String email, String password, String name, String phoneNumber) async {
+    return await authAgestService.signUp(email, password, name, phoneNumber);
   }
 
   @override
-  Future<bool> signOut(String refreshToken) async {
-    return await authAgestService.signOut(refreshToken);
+  Future<bool> signOut(String refresh_token) async {
+    return await authAgestService.signOut(refresh_token);
   }
 }

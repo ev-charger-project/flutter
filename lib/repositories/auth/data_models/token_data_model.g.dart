@@ -8,13 +8,13 @@ part of 'token_data_model.dart';
 
 _$TokenDataModelImpl _$$TokenDataModelImplFromJson(Map<String, dynamic> json) =>
     _$TokenDataModelImpl(
-      accessToken: json['accessToken'] as String,
-      refreshToken: json['refreshToken'] as String,
+      access_token: json['access_token'] as String,
+      refresh_token: json['refresh_token'] as String,
     );
 
 Map<String, dynamic> _$$TokenDataModelImplToJson(
         _$TokenDataModelImpl instance) =>
     <String, dynamic>{
-      'accessToken': instance.accessToken,
-      'refreshToken': instance.refreshToken,
+      'access_token': instance.access_token,
+      'refresh_token': instance.refresh_token,
     };

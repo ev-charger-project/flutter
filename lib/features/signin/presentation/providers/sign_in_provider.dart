@@ -1,25 +1,34 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:dio/dio.dart';
+import '../../../../repositories/auth/auth_repository_impl.dart';
 import '../../../../repositories/auth/entities/sign_in_entity.dart';
 import '../../../../shared/domain/providers/auth/auth_repository_provider.dart';
 
-final signInProvider = FutureProvider.autoDispose<void>((ref) async {
-  final authRepository = ref.read(authRepositoryProvider);
-  final signInEntity = ref.watch(signInEntityProvider);
+enum SignInState {
+  initial,
+  loading,
+  success,
+  error,
+}
 
-  if (signInEntity == null) {
-    throw Exception('SignInEntity is null');
-  }
+class SignInNotifier extends StateNotifier<SignInState> {
+  final AuthRepositoryImpl authRepository;
 
-  try {
-    await authRepository.signIn(signInEntity);
-  } catch (e) {
-    if (e is DioException && e.response != null) {
-      throw Exception('Error code: ${e.response?.statusCode}');
-    } else {
-      throw Exception('An unknown error occurred');
+  SignInNotifier(this.authRepository) : super(SignInState.initial);
+
+  Future<void> signIn(SignInEntity signInEntity) async {
+    state = SignInState.loading;
+    try {
+      await authRepository.signIn(signInEntity);
+      state = SignInState.success;
+    } catch (e) {
+      state = SignInState.error;
     }
   }
-});
+}
 
-final signInEntityProvider = StateProvider<SignInEntity?>((ref) => null);
+final signInProvider = StateNotifierProvider<SignInNotifier, SignInState>(
+      (ref) {
+    final authRepository = ref.read(authRepositoryProvider);
+    return SignInNotifier(authRepository);
+  },
+);

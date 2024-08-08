@@ -1,17 +1,18 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'token_entity.dart';
+part of 'token.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$TokenImpl _$$TokenImplFromJson(Map<String, dynamic> json) => _$TokenImpl(
+TokenAdapterObject _$TokenAdapterObjectFromJson(Map<String, dynamic> json) =>
+    TokenAdapterObject(
       access_token: json['access_token'] as String,
       refresh_token: json['refresh_token'] as String,
     );
 
-Map<String, dynamic> _$$TokenImplToJson(_$TokenImpl instance) =>
+Map<String, dynamic> _$TokenAdapterObjectToJson(TokenAdapterObject instance) =>
     <String, dynamic>{
       'access_token': instance.access_token,
       'refresh_token': instance.refresh_token,

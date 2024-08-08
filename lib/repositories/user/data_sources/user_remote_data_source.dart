@@ -3,7 +3,7 @@ import 'package:ev_charger/shared/data/data_source/remote/postgresql/auth_agest_
 import '../data_models/user_data_model.dart';
 
 abstract class UserDataSource {
-  Future<UserDataModel?> fetchUser(String accessToken);
+  Future<UserDataModel?> fetchUser(String access_token);
 }
 
 class UserRemoteDataSource extends UserDataSource {
@@ -11,7 +11,7 @@ class UserRemoteDataSource extends UserDataSource {
   UserRemoteDataSource(this.authAgestService);
 
   @override
-  Future<UserDataModel?> fetchUser(String accessToken) async {
-    return await authAgestService.getMe(accessToken);
+  Future<UserDataModel?> fetchUser(String access_token) async {
+    return await authAgestService.getMe(access_token);
   }
 }

@@ -20,8 +20,8 @@ TokenEntity _$TokenEntityFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$TokenEntity {
-  String get accessToken => throw _privateConstructorUsedError;
-  String get refreshToken => throw _privateConstructorUsedError;
+  String get access_token => throw _privateConstructorUsedError;
+  String get refresh_token => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +35,7 @@ abstract class $TokenEntityCopyWith<$Res> {
           TokenEntity value, $Res Function(TokenEntity) then) =
       _$TokenEntityCopyWithImpl<$Res, TokenEntity>;
   @useResult
-  $Res call({String accessToken, String refreshToken});
+  $Res call({String access_token, String refresh_token});
 }
 
 /// @nodoc
@@ -51,17 +51,17 @@ class _$TokenEntityCopyWithImpl<$Res, $Val extends TokenEntity>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? accessToken = null,
-    Object? refreshToken = null,
+    Object? access_token = null,
+    Object? refresh_token = null,
   }) {
     return _then(_value.copyWith(
-      accessToken: null == accessToken
-          ? _value.accessToken
-          : accessToken // ignore: cast_nullable_to_non_nullable
+      access_token: null == access_token
+          ? _value.access_token
+          : access_token // ignore: cast_nullable_to_non_nullable
               as String,
-      refreshToken: null == refreshToken
-          ? _value.refreshToken
-          : refreshToken // ignore: cast_nullable_to_non_nullable
+      refresh_token: null == refresh_token
+          ? _value.refresh_token
+          : refresh_token // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -75,7 +75,7 @@ abstract class _$$TokenImplCopyWith<$Res>
       __$$TokenImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String accessToken, String refreshToken});
+  $Res call({String access_token, String refresh_token});
 }
 
 /// @nodoc
@@ -89,17 +89,17 @@ class __$$TokenImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? accessToken = null,
-    Object? refreshToken = null,
+    Object? access_token = null,
+    Object? refresh_token = null,
   }) {
     return _then(_$TokenImpl(
-      accessToken: null == accessToken
-          ? _value.accessToken
-          : accessToken // ignore: cast_nullable_to_non_nullable
+      access_token: null == access_token
+          ? _value.access_token
+          : access_token // ignore: cast_nullable_to_non_nullable
               as String,
-      refreshToken: null == refreshToken
-          ? _value.refreshToken
-          : refreshToken // ignore: cast_nullable_to_non_nullable
+      refresh_token: null == refresh_token
+          ? _value.refresh_token
+          : refresh_token // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -108,19 +108,19 @@ class __$$TokenImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$TokenImpl implements _Token {
-  _$TokenImpl({required this.accessToken, required this.refreshToken});
+  _$TokenImpl({required this.access_token, required this.refresh_token});
 
   factory _$TokenImpl.fromJson(Map<String, dynamic> json) =>
       _$$TokenImplFromJson(json);
 
   @override
-  final String accessToken;
+  final String access_token;
   @override
-  final String refreshToken;
+  final String refresh_token;
 
   @override
   String toString() {
-    return 'TokenEntity(accessToken: $accessToken, refreshToken: $refreshToken)';
+    return 'TokenEntity(access_token: $access_token, refresh_token: $refresh_token)';
   }
 
   @override
@@ -128,15 +128,15 @@ class _$TokenImpl implements _Token {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$TokenImpl &&
-            (identical(other.accessToken, accessToken) ||
-                other.accessToken == accessToken) &&
-            (identical(other.refreshToken, refreshToken) ||
-                other.refreshToken == refreshToken));
+            (identical(other.access_token, access_token) ||
+                other.access_token == access_token) &&
+            (identical(other.refresh_token, refresh_token) ||
+                other.refresh_token == refresh_token));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, accessToken, refreshToken);
+  int get hashCode => Object.hash(runtimeType, access_token, refresh_token);
 
   @JsonKey(ignore: true)
   @override
@@ -154,15 +154,15 @@ class _$TokenImpl implements _Token {
 
 abstract class _Token implements TokenEntity {
   factory _Token(
-      {required final String accessToken,
-      required final String refreshToken}) = _$TokenImpl;
+      {required final String access_token,
+      required final String refresh_token}) = _$TokenImpl;
 
   factory _Token.fromJson(Map<String, dynamic> json) = _$TokenImpl.fromJson;
 
   @override
-  String get accessToken;
+  String get access_token;
   @override
-  String get refreshToken;
+  String get refresh_token;
   @override
   @JsonKey(ignore: true)
   _$$TokenImplCopyWith<_$TokenImpl> get copyWith =>

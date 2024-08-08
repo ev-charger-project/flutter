@@ -1,6 +1,5 @@
-import 'hive/adapters/token.dart';
+import 'flutter_secure_storage/adapter/token.dart';
 
-/// Storage service interface
 abstract class StorageService {
   Future<bool> init();
 
@@ -10,13 +9,24 @@ abstract class StorageService {
 
   Future<bool> clearAll();
 
-  Future<bool> setToken(TokenAdapterObject tokenAdapterObject);
-
-  Future<TokenAdapterObject> getToken();
-
-  Future<bool> clearToken();
-
   Future<String> getAppTheme();
 
   Future<bool> setAppTheme(String themeMode);
+}
+
+abstract class SecureStorageService {
+  Future<bool> init();
+
+  Future<bool> dispose();
+
+  bool get hasInitialized;
+
+  Future<bool> clearToken();
+
+  Future<TokenAdapterObject?> getToken();
+
+  Future<bool> setToken(TokenAdapterObject tokenAdapterObject);
+
+  Future<bool> clearAll();
+
 }

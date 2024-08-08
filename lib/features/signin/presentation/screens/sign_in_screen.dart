@@ -8,31 +8,30 @@ import '../widgets/sign_in_button.dart';
 import '../widgets/sign_in_field.dart';
 
 @RoutePage()
-class SignInScreen extends ConsumerWidget {
+class SignInScreen extends ConsumerStatefulWidget {
   SignInScreen({super.key});
 
+  @override
+  ConsumerState<SignInScreen> createState() => _SignInScreenState();
+}
+
+class _SignInScreenState extends ConsumerState<SignInScreen> {
   final TextEditingController emailController =
   TextEditingController(text: 'testuser@gmail.com');
   final TextEditingController passwordController =
   TextEditingController(text: 'password');
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    ref.listen<AsyncValue<void>>(signInProvider, (previous, next) {
-      next.whenOrNull(
-        data: (_) {
-          AutoRouter.of(context)
-              .pushAndPopUntil(MapRoute(), predicate: (_) => false);
-        },
-        error: (error, stackTrace) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Error: ${error.toString()}')),
-          );
-        },
-      );
+  Widget build(BuildContext context) {
+    ref.listen<SignInState>(signInProvider, (previous, next) {
+      if (next == SignInState.success) {
+        AutoRouter.of(context).pushAndPopUntil(MapRoute(), predicate: (_) => false);
+      } else if (next == SignInState.error) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Sign in failed, please try again.')),
+        );
+      }
     });
-
-    final signInState = ref.watch(signInProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -71,21 +70,9 @@ class SignInScreen extends ConsumerWidget {
                 prefixIcon: Icons.lock,
               ),
               const SizedBox(height: 24),
-              signInState.when(
-                loading: () =>
-                const Center(child: CircularProgressIndicator()),
-                data: (_) => Center(
-                  child: SignInButton(
-                    usernameController: emailController,
-                    passwordController: passwordController,
-                  ),
-                ),
-                error: (error, stackTrace) => const Center(
-                  child: Text(
-                    'Sign in failed, please try again.',
-                    style: TextStyle(color: Colors.red),
-                  ),
-                ),
+              SignInButton(
+                usernameController: emailController,
+                passwordController: passwordController,
               ),
               const SizedBox(height: 16),
               Center(

@@ -9,11 +9,13 @@ class SignUpButton extends ConsumerWidget {
     required this.emailController,
     required this.passwordController,
     required this.nameController,
+    required this.phoneNumberController,
   });
 
   final TextEditingController emailController;
   final TextEditingController passwordController;
   final TextEditingController nameController;
+  final TextEditingController phoneNumberController;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -39,9 +41,10 @@ class SignUpButton extends ConsumerWidget {
               emailController.text,
               passwordController.text,
               nameController.text,
+              phoneNumberController.text
             );
 
-            ref.read(signUpProvider(signUpEntity).future);
+            ref.read(signUpProvider.notifier).signUp(signUpEntity);
           },
           child: const Row(
             mainAxisAlignment: MainAxisAlignment.center,

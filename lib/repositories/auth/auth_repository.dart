@@ -7,6 +7,6 @@ import 'entities/token_entity.dart';
 abstract class AuthRepository {
   Future<TokenEntity> signIn(SignInEntity signInEntity);
   Future<TokenEntity> signUp(SignUpEntity signUpEntity);
-  Future<bool> signOut(String refreshToken);
+  Future<bool> signOut(String refresh_token);
 }
 

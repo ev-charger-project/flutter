@@ -12,6 +12,17 @@ class AccountScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isAuthenticated = ref.watch(authProvider).value;
+    final signOutState = ref.watch(signOutProvider);
+
+    ref.listen<SignOutState>(signOutProvider, (previous, next) {
+      if (next == SignOutState.success) {
+        context.router.replaceAll([const SplashRoute()]);
+      } else if (next == SignOutState.error) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Failed to log out')),
+        );
+      }
+    });
 
     return Scaffold(
       appBar: AppBar(
@@ -44,16 +55,9 @@ class AccountScreen extends ConsumerWidget {
               ),
               const SizedBox(height: 24),
               ElevatedButton(
-                onPressed: () async {
-                  if (isAuthenticated) {
-                    final result = await ref.read(signOutProvider.future);
-                    if (result) {
-                      context.router.replaceAll([const SplashRoute()]);
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Failed to log out')),
-                      );
-                    }
+                onPressed: () {
+                  if (isAuthenticated!) {
+                    ref.read(signOutProvider.notifier).signOut();
                   } else {
                     context.router.push(SignInRoute());
                   }
@@ -62,16 +66,17 @@ class AccountScreen extends ConsumerWidget {
                   minimumSize: const Size(double.infinity, 52.0),
                   backgroundColor: Colors.black,
                   side: const BorderSide(
-                    color: Colors.black,
-                    width: 2.0,
-                  ),
+                      color: Colors.black,
+                      width: 2.0),
                   shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(
                       Radius.circular(0.0),
                     ),
                   ),
                 ),
-                child: Text(
+                child: signOutState == SignOutState.loading
+                    ? const CircularProgressIndicator(color: Colors.white)
+                    : Text(
                   isAuthenticated! ? 'Log Out' : 'Log In',
                   style: const TextStyle(color: Colors.white),
                 ),
