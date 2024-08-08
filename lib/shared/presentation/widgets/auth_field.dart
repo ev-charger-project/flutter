@@ -6,20 +6,23 @@ class AuthField extends StatelessWidget {
     required this.hintText,
     this.obscureText = false,
     required this.controller,
-    this.prefixIcon, // Thêm prefixIcon
+    this.prefixIcon,
+    this.regex = '',
+    this.errorMessage = 'Please enter a valid value',
   });
 
   final String hintText;
   final bool obscureText;
   final TextEditingController controller;
-  final IconData? prefixIcon; // Thêm prefixIcon
+  final IconData? prefixIcon;
+  final String regex;
+  final String errorMessage;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
-      child: TextField(
-        key: key,
+      child: TextFormField(
         controller: controller,
         obscureText: obscureText,
         decoration: InputDecoration(
@@ -46,6 +49,15 @@ class AuthField extends StatelessWidget {
             ),
           ),
         ),
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Please enter $hintText';
+          }
+          if (regex.isNotEmpty && !RegExp(regex).hasMatch(value)) {
+            return errorMessage;
+          }
+          return null;
+        },
       ),
     );
   }

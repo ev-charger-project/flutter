@@ -29,7 +29,7 @@ class AuthenticationContent extends StatelessWidget {
           height: height * 0.01,
         ),
         Text(
-        AppLocalizations.of(context).translate('Not Logged in'),
+          AppLocalizations.of(context).translate('Not Logged in'),
           style: AppTextStyles.b3.copyWith(fontSize: height * 0.02),
         ),
         SizedBox(
@@ -37,7 +37,7 @@ class AuthenticationContent extends StatelessWidget {
         ),
         Text(
           textAlign: TextAlign.center,
-    AppLocalizations.of(context).translate('Please login to continue.'),
+          AppLocalizations.of(context).translate('Please login to continue.'),
           style: AppTextStyles.bodyXs.copyWith(fontSize: height * 0.013),
         ),
       ],
