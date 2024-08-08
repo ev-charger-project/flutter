@@ -33,14 +33,6 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const LocationScreen(),
       );
     },
-    LoginRoute.name: (routeData) {
-      final args = routeData.argsAs<LoginRouteArgs>(
-          orElse: () => const LoginRouteArgs());
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: LoginScreen(key: args.key),
-      );
-    },
     MapRoute.name: (routeData) {
       final args =
           routeData.argsAs<MapRouteArgs>(orElse: () => const MapRouteArgs());
@@ -51,14 +43,6 @@ abstract class _$AppRouter extends RootStackRouter {
           latitude: args.latitude,
           longitude: args.longitude,
         ),
-      );
-    },
-    RegisterRoute.name: (routeData) {
-      final args = routeData.argsAs<RegisterRouteArgs>(
-          orElse: () => const RegisterRouteArgs());
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: RegisterScreen(key: args.key),
       );
     },
     RouteRoute.name: (routeData) {
@@ -79,6 +63,22 @@ abstract class _$AppRouter extends RootStackRouter {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: SearchScreen(key: args.key),
+      );
+    },
+    SignInRoute.name: (routeData) {
+      final args = routeData.argsAs<SignInRouteArgs>(
+          orElse: () => const SignInRouteArgs());
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: SignInScreen(key: args.key),
+      );
+    },
+    SignUpRoute.name: (routeData) {
+      final args = routeData.argsAs<SignUpRouteArgs>(
+          orElse: () => const SignUpRouteArgs());
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: SignUpScreen(key: args.key),
       );
     },
     SplashRoute.name: (routeData) {
@@ -133,34 +133,6 @@ class LocationRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [LoginScreen]
-class LoginRoute extends PageRouteInfo<LoginRouteArgs> {
-  LoginRoute({
-    Key? key,
-    List<PageRouteInfo>? children,
-  }) : super(
-          LoginRoute.name,
-          args: LoginRouteArgs(key: key),
-          initialChildren: children,
-        );
-
-  static const String name = 'LoginRoute';
-
-  static const PageInfo<LoginRouteArgs> page = PageInfo<LoginRouteArgs>(name);
-}
-
-class LoginRouteArgs {
-  const LoginRouteArgs({this.key});
-
-  final Key? key;
-
-  @override
-  String toString() {
-    return 'LoginRouteArgs{key: $key}';
-  }
-}
-
-/// generated route for
 /// [MapScreen]
 class MapRoute extends PageRouteInfo<MapRouteArgs> {
   MapRoute({
@@ -199,35 +171,6 @@ class MapRouteArgs {
   @override
   String toString() {
     return 'MapRouteArgs{key: $key, latitude: $latitude, longitude: $longitude}';
-  }
-}
-
-/// generated route for
-/// [RegisterScreen]
-class RegisterRoute extends PageRouteInfo<RegisterRouteArgs> {
-  RegisterRoute({
-    Key? key,
-    List<PageRouteInfo>? children,
-  }) : super(
-          RegisterRoute.name,
-          args: RegisterRouteArgs(key: key),
-          initialChildren: children,
-        );
-
-  static const String name = 'RegisterRoute';
-
-  static const PageInfo<RegisterRouteArgs> page =
-      PageInfo<RegisterRouteArgs>(name);
-}
-
-class RegisterRouteArgs {
-  const RegisterRouteArgs({this.key});
-
-  final Key? key;
-
-  @override
-  String toString() {
-    return 'RegisterRouteArgs{key: $key}';
   }
 }
 
@@ -284,6 +227,62 @@ class SearchRouteArgs {
   @override
   String toString() {
     return 'SearchRouteArgs{key: $key}';
+  }
+}
+
+/// generated route for
+/// [SignInScreen]
+class SignInRoute extends PageRouteInfo<SignInRouteArgs> {
+  SignInRoute({
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+          SignInRoute.name,
+          args: SignInRouteArgs(key: key),
+          initialChildren: children,
+        );
+
+  static const String name = 'SignInRoute';
+
+  static const PageInfo<SignInRouteArgs> page = PageInfo<SignInRouteArgs>(name);
+}
+
+class SignInRouteArgs {
+  const SignInRouteArgs({this.key});
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'SignInRouteArgs{key: $key}';
+  }
+}
+
+/// generated route for
+/// [SignUpScreen]
+class SignUpRoute extends PageRouteInfo<SignUpRouteArgs> {
+  SignUpRoute({
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+          SignUpRoute.name,
+          args: SignUpRouteArgs(key: key),
+          initialChildren: children,
+        );
+
+  static const String name = 'SignUpRoute';
+
+  static const PageInfo<SignUpRouteArgs> page = PageInfo<SignUpRouteArgs>(name);
+}
+
+class SignUpRouteArgs {
+  const SignUpRouteArgs({this.key});
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'SignUpRouteArgs{key: $key}';
   }
 }
 

@@ -16,7 +16,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await HiveStorageService.HiveInit();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
