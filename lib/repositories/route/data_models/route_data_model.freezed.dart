@@ -24,7 +24,7 @@ mixin _$RouteDataModel {
   List<RoutePoint> get route => throw _privateConstructorUsedError;
   @JsonKey(name: 'locations')
   List<Charger> get chargers => throw _privateConstructorUsedError;
-  @JsonKey(name: 'hashCode')
+  @JsonKey(name: 'overview_polyline')
   String get hashcode => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -42,7 +42,7 @@ abstract class $RouteDataModelCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'coordinates') List<RoutePoint> route,
       @JsonKey(name: 'locations') List<Charger> chargers,
-      @JsonKey(name: 'hashCode') String hashcode});
+      @JsonKey(name: 'overview_polyline') String hashcode});
 }
 
 /// @nodoc
@@ -90,7 +90,7 @@ abstract class _$$RouteDataModelImplCopyWith<$Res>
   $Res call(
       {@JsonKey(name: 'coordinates') List<RoutePoint> route,
       @JsonKey(name: 'locations') List<Charger> chargers,
-      @JsonKey(name: 'hashCode') String hashcode});
+      @JsonKey(name: 'overview_polyline') String hashcode});
 }
 
 /// @nodoc
@@ -129,9 +129,9 @@ class __$$RouteDataModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$RouteDataModelImpl implements _RouteDataModel {
   const _$RouteDataModelImpl(
-      {@JsonKey(name: 'coordinates') required final List<RoutePoint> route,
-      @JsonKey(name: 'locations') required final List<Charger> chargers,
-      @JsonKey(name: 'hashCode') required this.hashcode})
+      {@JsonKey(name: 'coordinates') final List<RoutePoint> route = const [],
+      @JsonKey(name: 'locations') final List<Charger> chargers = const [],
+      @JsonKey(name: 'overview_polyline') this.hashcode = ''})
       : _route = route,
         _chargers = chargers;
 
@@ -157,7 +157,7 @@ class _$RouteDataModelImpl implements _RouteDataModel {
   }
 
   @override
-  @JsonKey(name: 'hashCode')
+  @JsonKey(name: 'overview_polyline')
   final String hashcode;
 
   @override
@@ -201,9 +201,9 @@ class _$RouteDataModelImpl implements _RouteDataModel {
 
 abstract class _RouteDataModel implements RouteDataModel {
   const factory _RouteDataModel(
-          {@JsonKey(name: 'coordinates') required final List<RoutePoint> route,
-          @JsonKey(name: 'locations') required final List<Charger> chargers,
-          @JsonKey(name: 'hashCode') required final String hashcode}) =
+          {@JsonKey(name: 'coordinates') final List<RoutePoint> route,
+          @JsonKey(name: 'locations') final List<Charger> chargers,
+          @JsonKey(name: 'overview_polyline') final String hashcode}) =
       _$RouteDataModelImpl;
 
   factory _RouteDataModel.fromJson(Map<String, dynamic> json) =
@@ -216,7 +216,7 @@ abstract class _RouteDataModel implements RouteDataModel {
   @JsonKey(name: 'locations')
   List<Charger> get chargers;
   @override
-  @JsonKey(name: 'hashCode')
+  @JsonKey(name: 'overview_polyline')
   String get hashcode;
   @override
   @JsonKey(ignore: true)
@@ -395,7 +395,9 @@ Charger _$ChargerFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Charger {
   String get id => throw _privateConstructorUsedError;
+  @JsonKey(name: 'latitude')
   double get lat => throw _privateConstructorUsedError;
+  @JsonKey(name: 'longitude')
   double get long => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -408,7 +410,10 @@ abstract class $ChargerCopyWith<$Res> {
   factory $ChargerCopyWith(Charger value, $Res Function(Charger) then) =
       _$ChargerCopyWithImpl<$Res, Charger>;
   @useResult
-  $Res call({String id, double lat, double long});
+  $Res call(
+      {String id,
+      @JsonKey(name: 'latitude') double lat,
+      @JsonKey(name: 'longitude') double long});
 }
 
 /// @nodoc
@@ -452,7 +457,10 @@ abstract class _$$ChargerImplCopyWith<$Res> implements $ChargerCopyWith<$Res> {
       __$$ChargerImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, double lat, double long});
+  $Res call(
+      {String id,
+      @JsonKey(name: 'latitude') double lat,
+      @JsonKey(name: 'longitude') double long});
 }
 
 /// @nodoc
@@ -491,7 +499,9 @@ class __$$ChargerImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$ChargerImpl implements _Charger {
   const _$ChargerImpl(
-      {required this.id, required this.lat, required this.long});
+      {required this.id,
+      @JsonKey(name: 'latitude') required this.lat,
+      @JsonKey(name: 'longitude') required this.long});
 
   factory _$ChargerImpl.fromJson(Map<String, dynamic> json) =>
       _$$ChargerImplFromJson(json);
@@ -499,8 +509,10 @@ class _$ChargerImpl implements _Charger {
   @override
   final String id;
   @override
+  @JsonKey(name: 'latitude')
   final double lat;
   @override
+  @JsonKey(name: 'longitude')
   final double long;
 
   @override
@@ -539,16 +551,18 @@ class _$ChargerImpl implements _Charger {
 abstract class _Charger implements Charger {
   const factory _Charger(
       {required final String id,
-      required final double lat,
-      required final double long}) = _$ChargerImpl;
+      @JsonKey(name: 'latitude') required final double lat,
+      @JsonKey(name: 'longitude') required final double long}) = _$ChargerImpl;
 
   factory _Charger.fromJson(Map<String, dynamic> json) = _$ChargerImpl.fromJson;
 
   @override
   String get id;
   @override
+  @JsonKey(name: 'latitude')
   double get lat;
   @override
+  @JsonKey(name: 'longitude')
   double get long;
   @override
   @JsonKey(ignore: true)

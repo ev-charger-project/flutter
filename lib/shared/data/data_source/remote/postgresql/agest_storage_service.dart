@@ -190,7 +190,7 @@ class AgestStorageService extends RemoteStorageService {
   @override
   Future<RouteDataModel> fetchRoute(double userLat, double userLong,
       double destinationLat, double destinationLong) async {
-    const url = '/api/v1/gg-map/directions';
+    const url = '/api/v1/locations/location-on-route';
 
     try {
       final response = await _dio.get(uri + url, queryParameters: {
@@ -199,7 +199,7 @@ class AgestStorageService extends RemoteStorageService {
         'end_lat': destinationLat,
         'end_long': destinationLong,
       });
-
+      print('Response is $response');
       if (response.statusCode == 200) {
         final dynamic responseData = response.data;
         final result = RouteDataModel.fromJson(responseData);
