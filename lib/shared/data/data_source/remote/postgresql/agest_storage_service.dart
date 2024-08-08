@@ -93,7 +93,7 @@ class AgestStorageService extends RemoteStorageService {
 
     if (lat != null && long != null) {
       queryParams['lat'] = lat;
-      queryParams['long'] = long;
+      queryParams['lon'] = long;
     }
 
     final StringBuffer urlBuffer = StringBuffer('$uri$baseUrl?');
@@ -165,17 +165,40 @@ class AgestStorageService extends RemoteStorageService {
 
   @override
   Future<List<ChargeTypeDataModel>> fetchChargeTypeData() async {
-    const url = '/api/v1/power-plug-types/unique-types';
+    const url = '/api/v1/power-plug-types';
+    List<ChargeTypeDataModel> chargeTypes = [];
 
     try {
-      final response = await _dio.get(uri + url);
-      if (response.statusCode == 200) {
-        return (response.data as List)
-            .map((item) =>
-                ChargeTypeDataModel.fromJson(item as Map<String, dynamic>))
-            .toList();
-      } else {
-        throw Exception('Error code: ${response.statusCode}');
+      int page = 1;
+      bool hasMoreData = true;
+
+      while (hasMoreData) {
+        final response = await _dio.get(
+          uri + url,
+          queryParameters: {'page': page},
+        );
+
+        if (response.statusCode == 200) {
+          final data = response.data;
+          final founds = data['founds'] as List;
+          print('Response is $founds');
+          final fetchedChargeTypes = founds
+              .map((item) =>
+              ChargeTypeDataModel.fromJson(item as Map<String, dynamic>))
+              .toList();
+
+          chargeTypes.addAll(fetchedChargeTypes);
+
+          final totalCount = data['search_options']['total_count'] as int;
+
+          if (chargeTypes.length >= totalCount) {
+            hasMoreData = false;
+          } else {
+            page++;
+          }
+        } else {
+          throw Exception('Error code: ${response.statusCode}');
+        }
       }
     } catch (e) {
       print('Error: $e');
@@ -185,7 +208,10 @@ class AgestStorageService extends RemoteStorageService {
         throw Exception('An unknown error occurred');
       }
     }
+
+    return chargeTypes;
   }
+
 
   @override
   Future<RouteDataModel> fetchRoute(double userLat, double userLong,
@@ -199,7 +225,6 @@ class AgestStorageService extends RemoteStorageService {
         'end_lat': destinationLat,
         'end_long': destinationLong,
       });
-      print('Response is $response');
       if (response.statusCode == 200) {
         final dynamic responseData = response.data;
         final result = RouteDataModel.fromJson(responseData);
