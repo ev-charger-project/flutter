@@ -76,9 +76,9 @@ class BitmapDescriptorHelper {
 }
 
 final markerProvider = FutureProvider.autoDispose<List<Marker>>((ref) async {
-  final userLatLng = ref.watch(screenCenterProvider);
-  final userLat = userLatLng.latitude;
-  final userLong = userLatLng.longitude;
+  final screenCenterLatLng = ref.watch(screenCenterProvider);
+  final screenCenterLat = screenCenterLatLng.latitude;
+  final screenCenterLong = screenCenterLatLng.longitude;
   final markerRepository = ref.read(markerRepositoryProvider);
 
   final filter = ref.watch(filterProvider);
@@ -88,8 +88,8 @@ final markerProvider = FutureProvider.autoDispose<List<Marker>>((ref) async {
   final outputMax = filter.output_max;
 
   final markersData = await markerRepository.fetchMarkers(
-    userLat,
-    userLong,
+    screenCenterLat,
+    screenCenterLong,
     15,
     stationCount,
     chargeType,

@@ -4,8 +4,8 @@ import '../../../shared/data/data_source/remote/remote_storage_service.dart';
 
 abstract class MarkerDataSource {
   Future<List<ChargerMarkerDataModel>> fetchMarkers(
-    double userLat,
-    double userLong,
+    double screenCenterLat,
+    double screenCenterLong,
     double radius, [
     int? stationCount,
     List<String>? chargeType,
@@ -21,14 +21,14 @@ class MarkerRemoteDataSource extends MarkerDataSource {
 
   @override
   Future<List<ChargerMarkerDataModel>> fetchMarkers(
-      double userLat, double userLong, double radius,
+      double screenCenterLat, double screenCenterLong, double radius,
       [int? stationCount,
       List<String>? chargeType,
       int? outputMin,
       int? outputMax]) async {
     return await remoteStorageService.fetchMarker(
-      userLat,
-      userLong,
+      screenCenterLat,
+      screenCenterLong,
       radius,
       stationCount,
       chargeType,

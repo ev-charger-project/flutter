@@ -46,21 +46,21 @@ class AgestStorageService extends RemoteStorageService {
 
   @override
   Future<List<ChargerMarkerDataModel>> fetchMarker(
-      double camLat, double camLong, double radius,
+      double screenCenterLat, double screenCenterLong, double radius,
       [int? stationCount,
-        List<String>? chargeType,
-        int? outputMin,
-        int? outputMax]) async {
+      List<String>? chargeType,
+      int? outputMin,
+      int? outputMax]) async {
     const baseUrl = '/api/v1/locations/search';
     final Map<String, dynamic> queryParams = {
-      'cam_lat': camLat,
-      'cam_long': camLong,
+      'lat': screenCenterLat,
+      'lon': screenCenterLong,
       'radius': radius,
       'station_count': stationCount,
       'charger_type': chargeType,
       'power_output_gte': outputMin,
       'power_output_lte': outputMax,
-      'query': ' '
+      'query': ''
     };
 
     final StringBuffer urlBuffer = StringBuffer('$uri$baseUrl?');
@@ -77,7 +77,7 @@ class AgestStorageService extends RemoteStorageService {
     });
 
     final String fullUrl =
-    urlBuffer.toString().substring(0, urlBuffer.length - 1);
+        urlBuffer.toString().substring(0, urlBuffer.length - 1);
 
     try {
       final response = await _dio.get(fullUrl);
@@ -86,7 +86,7 @@ class AgestStorageService extends RemoteStorageService {
       if (response.statusCode == 200) {
         return (response.data as List)
             .map((item) =>
-            ChargerMarkerDataModel.fromJson(item as Map<String, dynamic>))
+                ChargerMarkerDataModel.fromJson(item as Map<String, dynamic>))
             .toList();
       } else {
         throw Exception('Error code: ${response.statusCode}');
@@ -345,7 +345,8 @@ class AgestStorageService extends RemoteStorageService {
             hasMoreData = false;
           } else {
             final locations = data
-                .map((item) => LocationDataModel.fromJson(item['location'] as Map<String, dynamic>))
+                .map((item) => LocationDataModel.fromJson(
+                    item['location'] as Map<String, dynamic>))
                 .toList();
             allLocations.addAll(locations);
 

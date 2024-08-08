@@ -10,14 +10,14 @@ class MarkerRepositoryImpl extends MarkerRepository {
 
   @override
   Future<List<ChargerMarkerEntity>> fetchMarkers(
-      double userLat, double userLong, double radius,
+      double screenCenterLat, double screenCenterLong, double radius,
       [int? stationCount,
       List<String>? chargeType,
       int? outputMin,
       int? outputMax]) async {
     final markerDataModelResult = await remoteDataSource.fetchMarkers(
-      userLat,
-      userLong,
+      screenCenterLat,
+      screenCenterLong,
       radius,
       stationCount ?? 0,
       chargeType ?? [],
