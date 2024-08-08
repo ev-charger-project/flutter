@@ -9,7 +9,7 @@ class ChargeTypeDataModel with _$ChargeTypeDataModel {
   const factory ChargeTypeDataModel({
     @JsonKey(name: 'plug_type') required String plug_type,
     @JsonKey(name: 'power_model') required String power_model,
-    @JsonKey(name: 'plug_image_url') required String plug_image_url,
+    @Default('') @JsonKey(name: 'plug_image_url') String plug_image_url,
   }) = _ChargeType;
 
   factory ChargeTypeDataModel.fromJson(Map<String, dynamic> json) =>
