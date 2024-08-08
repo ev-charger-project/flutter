@@ -77,27 +77,37 @@ class _ChargeTypeState extends ConsumerState<ChargeType> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  "${AppLocalizations.of(context).translate("Charge Type")} ($checkedPlugs of $totalPlugs)",
-                  style: Theme.of(context).textTheme.displaySmall,
+                Row(
+                  children: [
+                    Text(
+                      AppLocalizations.of(context).translate("Charge Type "),
+                      style: Theme.of(context).textTheme.displaySmall,
+                    ),
+                    Text(
+                      "($checkedPlugs of $totalPlugs)",
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                  ],
                 ),
                 ElevatedButton(
                   onPressed: _toggleAll,
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Theme.of(context).colorScheme.primary,
                     backgroundColor:
-                        Theme.of(context).moreGrey.withOpacity(0.9),
+                        Theme.of(context).moreGrey.withOpacity(0.96),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
                     padding: EdgeInsets.symmetric(
-                      horizontal: screenSize.width * 0.02,
-                      //vertical: screenSize.height * 0.004,
+                      horizontal: screenSize.width * 0.024,
                     ),
                   ),
                   child: Text(
                     AppLocalizations.of(context).translate("Toggle All"),
-                    style: Theme.of(context).textTheme.titleSmall,
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleSmall
+                        ?.copyWith(color: Theme.of(context).primaryColor),
                   ),
                 ),
               ],

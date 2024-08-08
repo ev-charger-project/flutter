@@ -12,7 +12,7 @@ final visiblePlugsInitializerProvider =
             chargeType: plug.chargeType,
             chargePowerType: plug.chargePowerType,
             isChecked: true,
-            onCheckedChanged: () {},
+            onCheckedChanged: plug.onCheckedChanged,
           ))
       .toList();
 });
