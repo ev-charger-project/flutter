@@ -64,9 +64,8 @@ class _ChargeTypeObjectState extends State<ChargeTypeObject> {
           onChanged: (bool? value) {
             setState(() {
               widget.isChecked = value!;
-              widget.onCheckedChanged();
             });
-
+            widget.onCheckedChanged();
             print('isChecked: ${widget.isChecked}');
           },
         ),

@@ -46,6 +46,7 @@ class _SearchRouteButtonState extends ConsumerState<SearchRouteButton> {
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   color: Theme.of(context).colorScheme.error,
                 ),
+            textAlign: TextAlign.center,
           ),
         Center(
           child: Container(
