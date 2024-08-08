@@ -1,9 +1,15 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:ev_charger/shared/domain/providers/user/fav_provider.dart';
+import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/svg.dart';
 import '../../../../../routes/app_route.dart';
 import '../../../../shared/domain/providers/auth/auth_provider.dart';
+import '../../../location/presentation/providers/selected_location_id_provider.dart';
+import '../../../mapview/domain/providers/is_info_visible_provider.dart';
 import '../providers/sign_out_provider.dart';
+import '../widgets/favourite.dart';
 
 @RoutePage()
 class AccountScreen extends ConsumerWidget {
@@ -81,6 +87,8 @@ class AccountScreen extends ConsumerWidget {
                   style: const TextStyle(color: Colors.white),
                 ),
               ),
+              const SizedBox(height: 24),
+              const Favorite(),
             ],
           ),
         ),
@@ -88,3 +96,4 @@ class AccountScreen extends ConsumerWidget {
     );
   }
 }
+
