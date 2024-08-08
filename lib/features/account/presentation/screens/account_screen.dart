@@ -20,6 +20,9 @@ class AccountScreen extends ConsumerWidget {
     final isAuthenticated = ref.watch(authProvider).value;
     final signOutState = ref.watch(signOutProvider);
 
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
+
     ref.listen<SignOutState>(signOutProvider, (previous, next) {
       if (next == SignOutState.success) {
         context.router.replaceAll([const SplashRoute()]);
@@ -40,36 +43,36 @@ class AccountScreen extends ConsumerWidget {
       ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          padding: EdgeInsets.symmetric(horizontal: width * 0.05),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const CircleAvatar(
-                radius: 50,
-                backgroundImage: AssetImage('assets/images/avatar_placeholder.png'), // Placeholder for user avatar
+              CircleAvatar(
+                radius: width * 0.15,
+                backgroundImage: const AssetImage('assets/images/avatar_placeholder.png'), // Placeholder for user avatar
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: height * 0.02),
               const Text(
                 'User Name', // Replace with actual user name from user data
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
-              const SizedBox(height: 8),
+              SizedBox(height: height * 0.01),
               const Text(
                 'user@example.com', // Replace with actual email from user data
                 style: TextStyle(fontSize: 16, color: Colors.grey),
               ),
-              const SizedBox(height: 24),
+              SizedBox(height: height * 0.03),
               ElevatedButton(
                 onPressed: () {
                   if (isAuthenticated!) {
                     ref.read(signOutProvider.notifier).signOut();
                   } else {
-                    context.router.push(SignInRoute());
+                    context.router.push(const SignInRoute());
                   }
                 },
                 style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(double.infinity, 52.0),
+                  minimumSize: Size(double.infinity, height * 0.055),
                   backgroundColor: Colors.black,
                   side: const BorderSide(
                       color: Colors.black,
