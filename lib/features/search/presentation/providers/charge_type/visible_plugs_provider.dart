@@ -11,7 +11,8 @@ final visiblePlugsInitializerProvider =
       .map((plug) => ChargeTypeObject(
             chargeType: plug.chargeType,
             chargePowerType: plug.chargePowerType,
-            isChecked: false,
+            isChecked: true,
+            onCheckedChanged: () {},
           ))
       .toList();
 });

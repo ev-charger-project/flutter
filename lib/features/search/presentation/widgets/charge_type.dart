@@ -16,12 +16,53 @@ class ChargeType extends ConsumerStatefulWidget {
 }
 
 class _ChargeTypeState extends ConsumerState<ChargeType> {
+  int checkedPlugs = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _updateCheckedPlugs();
+  }
+
+  void _updateCheckedPlugs() {
+    final visiblePlugs = ref.read(visiblePlugsProvider);
+    final hiddenPlugs = ref.read(hiddenPlugsProvider);
+    setState(() {
+      checkedPlugs = visiblePlugs.where((plug) => plug.isChecked).length +
+          hiddenPlugs.where((plug) => plug.isChecked).length;
+    });
+  }
+
+  void _toggleAll() {
+    final visiblePlugs = ref.read(visiblePlugsProvider.notifier);
+    final hiddenPlugs = ref.read(hiddenPlugsProvider.notifier);
+    final showIncompatiblePlugs =
+        ref.read(showIncompatiblePlugsProvider.notifier);
+
+    bool shouldDetoggle = visiblePlugs.state.any((plug) => plug.isChecked) ||
+        hiddenPlugs.state.any((plug) => plug.isChecked);
+
+    visiblePlugs.state = visiblePlugs.state
+        .map((plug) => plug.copyWith(isChecked: !shouldDetoggle))
+        .toList();
+
+    hiddenPlugs.state = hiddenPlugs.state
+        .map((plug) => plug.copyWith(isChecked: !shouldDetoggle))
+        .toList();
+    if (!showIncompatiblePlugs.state) {
+      showIncompatiblePlugs.state = true;
+    }
+    _updateCheckedPlugs();
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
     final visiblePlugs = ref.watch(visiblePlugsProvider);
     final hiddenPlugs = ref.watch(hiddenPlugsProvider);
     final showIncompatiblePlugs = ref.watch(showIncompatiblePlugsProvider);
+
+    final totalPlugs = visiblePlugs.length + hiddenPlugs.length;
 
     return Padding(
       padding: EdgeInsets.symmetric(vertical: screenSize.height * 0.016),
@@ -34,10 +75,30 @@ class _ChargeTypeState extends ConsumerState<ChargeType> {
         child: Column(
           children: [
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  AppLocalizations.of(context).translate("Charge Type"),
+                  "${AppLocalizations.of(context).translate("Charge Type")} ($checkedPlugs of $totalPlugs)",
                   style: Theme.of(context).textTheme.displaySmall,
+                ),
+                ElevatedButton(
+                  onPressed: _toggleAll,
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Theme.of(context).colorScheme.primary,
+                    backgroundColor:
+                        Theme.of(context).moreGrey.withOpacity(0.9),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: screenSize.width * 0.02,
+                      //vertical: screenSize.height * 0.004,
+                    ),
+                  ),
+                  child: Text(
+                    AppLocalizations.of(context).translate("Toggle All"),
+                    style: Theme.of(context).textTheme.titleSmall,
+                  ),
                 ),
               ],
             ),

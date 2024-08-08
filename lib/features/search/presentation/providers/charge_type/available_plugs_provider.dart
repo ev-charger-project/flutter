@@ -10,7 +10,8 @@ final availablePlugsProvider =
       .map((i) => ChargeTypeObject(
             chargeType: i.plug_type,
             chargePowerType: i.power_model,
-            isChecked: false,
+            isChecked: true,
+            onCheckedChanged: () {},
           ))
       .toList();
 });

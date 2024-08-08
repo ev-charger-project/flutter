@@ -97,12 +97,11 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                         // Reset Station Count
 
                         ref.read(selectedStationCountProvider.notifier).state =
-                            null;
-                        ref.read(stationCountValueProvider.notifier).state =
-                            null;
+                            0;
+                        ref.read(stationCountValueProvider.notifier).state = 0;
                         ref
                             .read(containerColorsProvider.notifier)
-                            .updateColors(null, context);
+                            .updateColors(0, context);
 
                         // Reset Charge Type
                         final visiblePlugsAsyncValue =
@@ -116,6 +115,7 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                                 chargeType: plug.chargeType,
                                 chargePowerType: plug.chargePowerType,
                                 isChecked: true,
+                                onCheckedChanged: () {},
                               );
                             }).toList();
                             ref.read(visiblePlugsProvider.notifier).state =

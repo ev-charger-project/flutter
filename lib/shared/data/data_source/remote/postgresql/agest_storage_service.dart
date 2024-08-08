@@ -237,7 +237,7 @@ class AgestStorageService extends RemoteStorageService {
           print('Response is $founds');
           final fetchedChargeTypes = founds
               .map((item) =>
-              ChargeTypeDataModel.fromJson(item as Map<String, dynamic>))
+                  ChargeTypeDataModel.fromJson(item as Map<String, dynamic>))
               .toList();
 
           chargeTypes.addAll(fetchedChargeTypes);
@@ -264,7 +264,6 @@ class AgestStorageService extends RemoteStorageService {
 
     return chargeTypes;
   }
-
 
   @override
   Future<RouteDataModel> fetchRoute(double userLat, double userLong,
