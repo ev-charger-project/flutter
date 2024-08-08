@@ -131,7 +131,7 @@ class _$ChargeTypeImpl implements _ChargeType {
   const _$ChargeTypeImpl(
       {@JsonKey(name: 'plug_type') required this.plug_type,
       @JsonKey(name: 'power_model') required this.power_model,
-      @JsonKey(name: 'plug_image_url') required this.plug_image_url});
+      @JsonKey(name: 'plug_image_url') this.plug_image_url = ''});
 
   factory _$ChargeTypeImpl.fromJson(Map<String, dynamic> json) =>
       _$$ChargeTypeImplFromJson(json);
@@ -185,10 +185,10 @@ class _$ChargeTypeImpl implements _ChargeType {
 
 abstract class _ChargeType implements ChargeTypeDataModel {
   const factory _ChargeType(
-      {@JsonKey(name: 'plug_type') required final String plug_type,
-      @JsonKey(name: 'power_model') required final String power_model,
-      @JsonKey(name: 'plug_image_url')
-      required final String plug_image_url}) = _$ChargeTypeImpl;
+          {@JsonKey(name: 'plug_type') required final String plug_type,
+          @JsonKey(name: 'power_model') required final String power_model,
+          @JsonKey(name: 'plug_image_url') final String plug_image_url}) =
+      _$ChargeTypeImpl;
 
   factory _ChargeType.fromJson(Map<String, dynamic> json) =
       _$ChargeTypeImpl.fromJson;
