@@ -40,5 +40,20 @@
   "Route Search": "Tìm Kiếm Lộ Trình",
   "Search": "Tìm Kiếm",
   "Not Logged in": "Chưa Đăng Nhập",
-  "Please login to continue": "Vui lòng đăng nhập để tiếp tục"
+  "Please login to continue": "Vui lòng đăng nhập để tiếp tục",
+  "Name": "Họ&Tên",
+  "Please enter a valid name": "Xin vui lòng nhập vào một tên hợp lệ",
+  "Email": "Email",
+  "Please enter a valid email": "Xin vui lòng nhập vào một email hợp lệ",
+  "Password": "Mật khẩu",
+  "Password must be at least 8 characters long and include a number": "Mật khẩu phải dài ít nhất 8 ký tự và bao gồm một số",
+  "Phone Number": "Số điện thoại",
+  "Please enter a valid phone number": "Xin vui lòng nhập vào một số điện thoại hợp lệ",
+  "Already have an account? Sign in": "Đã có tài khoản? Đăng nhập",
+  "Sign up failed, please try again.": "Đăng ký không thành công, vui lòng thử lại.",
+  "Sign in failed, please try again.": "Đăng nhập không thành công. Vui lòng thử lại.",
+  "SIGN UP": "ĐĂNG KÝ",
+  "SIGN IN": "ĐĂNG NHẬP",
+  "Sign In": "Đăng nhập",
+  "Sign Up": "Đăng ký"
 }

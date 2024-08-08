@@ -3,12 +3,10 @@ import 'package:ev_charger/shared/core/localization/localization.dart';
 import 'package:ev_charger/shared/data/data_source/local/hive/hive_storage_service.dart';
 import 'package:ev_charger/shared/domain/providers/theme_notifier.dart';
 import 'package:ev_charger/shared/presentation/theme/app_theme.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'firebase_options.dart';
 import 'main/observers.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 

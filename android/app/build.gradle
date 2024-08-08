@@ -1,6 +1,5 @@
 plugins {
     id "com.android.application"
-    id 'com.google.gms.google-services'
     id "kotlin-android"
     id "dev.flutter.flutter-gradle-plugin"
 }
@@ -54,13 +53,3 @@ android {
 flutter {
     source = "../.."
 }
-
-dependencies {
-    // Import the BoM for the Firebase platform
-    implementation(platform("com.google.firebase:firebase-bom:33.1.1"))
-    implementation ('com.google.firebase:firebase-core:21.1.1')
-    // Add the dependencies for the Firebase Cloud Messaging and Analytics libraries
-    // When using the BoM, you don't specify versions in Firebase library dependencies
-    implementation("com.google.firebase:firebase-messaging")
-}
-apply plugin: 'com.google.gms.google-services'
