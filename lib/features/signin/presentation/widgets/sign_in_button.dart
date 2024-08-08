@@ -1,68 +1,65 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../../../../repositories/auth/entities/sign_in_entity.dart';
-import '../../../../routes/app_route.dart';
+import '../../../../shared/core/localization/localization.dart';
 import '../providers/sign_in_provider.dart';
 
 class SignInButton extends ConsumerWidget {
   const SignInButton({
     super.key,
-    required this.usernameController,
+    required this.formKey,
+    required this.emailController,
     required this.passwordController,
-    this.icon = Icons.arrow_forward, // Default icon, can be customized
   });
 
-  final TextEditingController usernameController;
+  final GlobalKey<FormState> formKey;
+  final TextEditingController emailController;
   final TextEditingController passwordController;
-  final IconData icon; // Icon parameter for prefixIcon
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final signInState = ref.watch(signInProvider);
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
+      padding: EdgeInsets.symmetric(horizontal: width * 0.05, vertical: height * 0.01),
       child: SizedBox(
         width: double.infinity,
-        height: 52.0, // Height to make it square
+        height: height * 0.055,
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.black,
-            side: const BorderSide(
+            side: BorderSide(
               color: Colors.black,
-              width: 2.0,
+              width: width * 0.01,
             ),
             shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(0.0)), // Square corners
+              borderRadius: BorderRadius.all(Radius.circular(0.0)),
             ),
-            minimumSize: const Size(double.infinity, 52.0),
+            minimumSize: Size(double.infinity, width * 0.055),
           ),
-          onPressed: signInState == SignInState.loading
-              ? null
-              : () {
-            ref
-                .read(signInProvider.notifier)
-                .signIn(SignInEntity(
-              usernameController.text,
-              passwordController.text,
-            ));
+          onPressed: () {
+            if (formKey.currentState?.validate() ?? false) {
+              final signInEntity = SignInEntity(
+                emailController.text,
+                passwordController.text,
+              );
+
+              ref.read(signInProvider.notifier).signIn(signInEntity);
+            }
           },
-          child: signInState == SignInState.loading
-              ? const CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-          )
-              : Row(
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(
-                icon,
-                color: Colors.white, // Color of the icon
+              const Icon(
+                Icons.arrow_forward,
+                color: Colors.white,
               ),
-              const SizedBox(width: 8), // Spacing between icon and text
-              const Text(
-                'NEXT',
-                style: TextStyle(color: Colors.white),
+              SizedBox(width: width * 0.015),
+              Text(
+                AppLocalizations.of(context).translate('SIGN IN'),
+                style: const TextStyle(color: Colors.white),
               ),
             ],
           ),

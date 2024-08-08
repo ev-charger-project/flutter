@@ -40,5 +40,20 @@
   "Route Search": "Route Search",
   "Search": "Search",
   "Not Logged in": "Not Logged in",
-  "Please login to continue": "Please login to continue"
+  "Please login to continue": "Please login to continue",
+  "Name": "Name",
+  "Please enter a valid name": "Please enter a valid name",
+  "Email": "Email",
+  "Please enter a valid email": "Please enter a valid email",
+  "Password": "Password",
+  "Password must be at least 8 characters long and include a number": "Password must be at least 8 characters long and include a number",
+  "Phone Number": "Phone Number",
+  "Please enter a valid phone number": "Please enter a valid phone number",
+  "Already have an account? Sign in": "Already have an account? Sign in",
+  "Sign up failed, please try again.": "Sign up failed, please try again.",
+  "Sign in failed, please try again.": "Sign in failed, please try again.",
+  "SIGN UP": "SIGN UP",
+  "SIGN IN": "SIGN IN",
+  "Sign In": "Sign In",
+  "Sign Up": "Sign Up"
 }
