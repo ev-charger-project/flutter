@@ -64,10 +64,11 @@ class ShortInfoUI extends ConsumerWidget {
               ),
             ),
             Positioned(
-              top: 8,
-              right: 8,
+              top: 12,
+              right: 18,
               child: IconButton(
-                icon: const Icon(Icons.bookmark_border),
+                iconSize: 30,
+                icon: Icon(Icons.bookmark_border,color: Theme.of(context).primaryColor,),
                 onPressed: () async {
                   if (!isAuthenticated!) {
                     await showDialog(
