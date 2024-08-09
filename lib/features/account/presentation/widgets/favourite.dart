@@ -17,8 +17,10 @@ class Favorite extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final screenSize = MediaQuery.of(context).size;
-    final favouriteAsyncValue = ref.watch(favProvider);
-
+    final favouriteAsyncValue = ref.read(favProvider);
+    // final locations = locationDataModelResult
+    //     .map((item) => item.favourite)
+    //     .toList();
     return ExpandablePanel(
       header: Text(
         "Favourite",
@@ -27,11 +29,13 @@ class Favorite extends ConsumerWidget {
       collapsed: const SizedBox.shrink(),
       expanded: favouriteAsyncValue.when(
         data: (favourite) {
+          var answer = favourite.map((item) => item.favourite)
+              .toList();
           return ListView.builder(
             shrinkWrap: true,
             itemCount: favourite.length,
             itemBuilder: (context, index) {
-              final suggestion = favourite[index];
+              final suggestion = answer[index];
               String distanceText = '';
               return Column(
                 children: [

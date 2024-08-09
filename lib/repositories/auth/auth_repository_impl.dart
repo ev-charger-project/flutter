@@ -20,7 +20,6 @@ class AuthRepositoryImpl extends AuthRepository {
         signInEntity.email,
         signInEntity.password
     );
-    print('access_token: ${tokenDataModelResult.access_token}');
     var tokenAdapterObject = TokenAdapterObject(
       access_token: tokenDataModelResult.access_token,
       refresh_token: tokenDataModelResult.refresh_token,
@@ -59,8 +58,20 @@ class AuthRepositoryImpl extends AuthRepository {
     final result =  await authRemoteDataSource.signOut(refresh_token);
 
     await authLocalDataSource.clearToken();
-    print('check sign out: ${authLocalDataSource.getToken()}');
 
+    return result;
+  }
+  @override
+  Future<TokenEntity> refreshToken(String refresh_token) async {
+
+    final tokenDataModelResult =  await authRemoteDataSource.refreshToken(refresh_token);
+    var tokenAdapterObject = TokenAdapterObject(
+      access_token: tokenDataModelResult.access_token,
+      refresh_token: tokenDataModelResult.refresh_token,
+    );
+    await authLocalDataSource.setToken(tokenAdapterObject);
+
+    final result = TokenMapper().toEntity(tokenDataModelResult);
     return result;
   }
 }

@@ -101,7 +101,7 @@ class AuthAgestService extends AuthService {
 
   @override
   Future<TokenDataModel> refreshToken(String refresh_token)  async {
-    const url = 'api/v1/auth/refresh-token';
+    const url = '/api/v1/auth/refresh-token';
 
     try {
       final response = await _dio.get(uri + url, queryParameters: {
@@ -130,15 +130,11 @@ class AuthAgestService extends AuthService {
 
   @override
   Future<UserDataModel?> getMe(String access_token) async {
-    const url = '/api/v1/auth/get_';
+    const url = '/api/v1/auth/me';
 
     try {
       final response = await _dio.get(uri + url, options: Options(
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'Authorization': 'Bearer $access_token',
-        }
+        headers: {'Authorization': 'Bearer $access_token'}
       ));
 
       if (response.statusCode == 200) {
@@ -152,11 +148,7 @@ class AuthAgestService extends AuthService {
       return null;
     } catch(e) {
       print('Error: $e');
-      if (e is DioException && e.response != null) {
-        throw Exception('Error code: ${e.response?.statusCode}');
-      } else {
-        throw Exception('An unknown error occurred');
-      }
+      return null;
     }
   }
 }

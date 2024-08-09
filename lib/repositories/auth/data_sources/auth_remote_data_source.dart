@@ -6,6 +6,7 @@ abstract class AuthDataSource {
   Future<TokenDataModel> signIn(String email, String password);
   Future<UserDataModel> signUp(String email, String password, String name, String phoneNumber);
   Future<bool> signOut(String refresh_token);
+  Future<TokenDataModel> refreshToken(String refresh_token);
 }
 
 class AuthRemoteDataSource implements AuthDataSource {
@@ -25,5 +26,10 @@ class AuthRemoteDataSource implements AuthDataSource {
   @override
   Future<bool> signOut(String refresh_token) async {
     return await authAgestService.signOut(refresh_token);
+  }
+
+  @override
+  Future<TokenDataModel> refreshToken(String refresh_token) async {
+    return await authAgestService.refreshToken(refresh_token);
   }
 }

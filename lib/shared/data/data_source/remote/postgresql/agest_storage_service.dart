@@ -1,4 +1,5 @@
 import 'package:ev_charger/repositories/charge_type/data_models/charge_type_data_model.dart';
+import 'package:ev_charger/repositories/favourite/data_models/favourite_data_model.dart';
 import 'package:ev_charger/repositories/marker/data_models/charger_marker_data_model.dart';
 import 'package:ev_charger/repositories/location/data_models/location_data_model.dart';
 import 'package:ev_charger/repositories/suggestion/data_models/suggestion_data_model.dart';
@@ -46,59 +47,8 @@ class AgestStorageService extends RemoteStorageService {
 
   @override
   Future<List<ChargerMarkerDataModel>> fetchMarker(
-      double screenCenterLat, double screenCenterLong, double radius,
-      [int? stationCount,
-      List<String>? chargeType,
-      int? outputMin,
-      int? outputMax]) async {
-    const baseUrl = '/api/v1/locations/search';
-    final Map<String, dynamic> queryParams = {
-      'lat': screenCenterLat,
-      'lon': screenCenterLong,
-      'radius': 15,
-      'station_count': stationCount,
-      'charger_type': chargeType,
-      'power_output_gte': outputMin,
-      'power_output_lte': outputMax,
-    };
-
-    final StringBuffer urlBuffer = StringBuffer('$uri$baseUrl?');
-    queryParams.forEach((key, value) {
-      if (value != null) {
-        if (value is List) {
-          for (var item in value) {
-            urlBuffer.write('$key=${item}&');
-          }
-        } else {
-          urlBuffer.write('$key=${value.toString()}&');
-        }
-      }
-    });
-
-    final String fullUrl =
-        urlBuffer.toString().substring(0, urlBuffer.length - 1);
-
-    try {
-      final response = await _dio.get(fullUrl);
-      print('Full fetchMarker URL: $fullUrl');
-
-      if (response.statusCode == 200) {
-        return (response.data as List)
-            .map((item) =>
-                ChargerMarkerDataModel.fromJson(item as Map<String, dynamic>))
-            .toList();
-      } else {
-        throw Exception('Error code: ${response.statusCode}');
-      }
-    } catch (e) {
-      print('Error: $e');
-      if (e is DioException && e.response != null) {
-        throw Exception('Error code: ${e.response?.statusCode}');
-      } else {
-        throw Exception('An unknown error occurred');
-      }
-    }
-    /*const url = '/api/v1/locations/by_radius';
+      double userLat, double userLong, double radius) async {
+    const url = '/api/v1/locations/by_radius';
 
     try {
       final response = await _dio.get(uri + url, queryParameters: {
@@ -121,7 +71,7 @@ class AgestStorageService extends RemoteStorageService {
       } else {
         throw Exception('An unknown error occurred');
       }
-    }*/
+    }
   }
 
   @override
@@ -165,7 +115,6 @@ class AgestStorageService extends RemoteStorageService {
 
     try {
       final response = await _dio.get(fullUrl);
-      print('Full fetchSuggestion URL: $fullUrl');
 
       if (response.statusCode == 200) {
         return (response.data as List)
@@ -236,7 +185,7 @@ class AgestStorageService extends RemoteStorageService {
           print('Response is $founds');
           final fetchedChargeTypes = founds
               .map((item) =>
-                  ChargeTypeDataModel.fromJson(item as Map<String, dynamic>))
+              ChargeTypeDataModel.fromJson(item as Map<String, dynamic>))
               .toList();
 
           chargeTypes.addAll(fetchedChargeTypes);
@@ -263,6 +212,7 @@ class AgestStorageService extends RemoteStorageService {
 
     return chargeTypes;
   }
+
 
   @override
   Future<RouteDataModel> fetchRoute(double userLat, double userLong,
@@ -291,27 +241,28 @@ class AgestStorageService extends RemoteStorageService {
         throw Exception('An unknown error occurred');
       }
     }
-
-    final PolylinePoints polylinePoints = PolylinePoints();
-    final PolylineResult result =
-        await polylinePoints.getRouteBetweenCoordinates(
-      googleApiKey: 'AIzaSyAGYJacplt2I8syt0aY4GXfSNXhKdsXUgM',
-      request: PolylineRequest(
-          origin: PointLatLng(userLat, userLong),
-          destination: PointLatLng(destinationLat, destinationLong),
-          mode: TravelMode.driving),
-    );
-
-    if (result.points.isNotEmpty) {
-      final routePoints = result.points
-          .map(
-              (point) => RoutePoint(lat: point.latitude, long: point.longitude))
-          .toList();
-      return RouteDataModel(route: routePoints, chargers: []);
-    } else {
-      return RouteDataModel(route: [], chargers: []);
-    }
   }
+
+  //   final PolylinePoints polylinePoints = PolylinePoints();
+  //   final PolylineResult result =
+  //       await polylinePoints.getRouteBetweenCoordinates(
+  //     googleApiKey: 'AIzaSyAGYJacplt2I8syt0aY4GXfSNXhKdsXUgM',
+  //     request: PolylineRequest(
+  //         origin: PointLatLng(userLat, userLong),
+  //         destination: PointLatLng(destinationLat, destinationLong),
+  //         mode: TravelMode.driving),
+  //   );
+  //
+  //   if (result.points.isNotEmpty) {
+  //     final routePoints = result.points
+  //         .map(
+  //             (point) => RoutePoint(lat: point.latitude, long: point.longitude))
+  //         .toList();
+  //     return RouteDataModel(route: routePoints, chargers: [], hashcode: '');
+  //   } else {
+  //     return RouteDataModel(route: [], chargers: [], hashcode: '');
+  //   }
+  // }
 
   @override
   Future<List<LocationDataModel>> fetchNearby(
@@ -343,17 +294,17 @@ class AgestStorageService extends RemoteStorageService {
   }
 
   @override
-  Future<List<LocationDataModel>> fetchFav(String token, String id) async {
+  Future<List<FavouriteDataModel>> fetchFav(String token, String id) async {
     const url = '/api/v1/user-favorite';
     int currentPage = 1;
     bool hasMoreData = true;
-    List<LocationDataModel> allLocations = [];
-
+    List<FavouriteDataModel> allLocations = [];
+    print("fetchFav: $token, $id");
     try {
-      while (hasMoreData) {
+      // while (hasMoreData) {
         final response = await _dio.get(
           uri + url,
-          queryParameters: {
+          data: {
             'user_id': id,
             'page': currentPage,
           },
@@ -361,15 +312,14 @@ class AgestStorageService extends RemoteStorageService {
             headers: {'Authorization': 'Bearer $token'},
           ),
         );
-
+        print("response fetch: $response");
         if (response.statusCode == 200) {
           final data = response.data['founds'] as List;
           if (data.isEmpty) {
             hasMoreData = false;
           } else {
             final locations = data
-                .map((item) => LocationDataModel.fromJson(
-                    item['location'] as Map<String, dynamic>))
+                .map((item) => FavouriteDataModel.fromJson(item))
                 .toList();
             allLocations.addAll(locations);
 
@@ -378,8 +328,35 @@ class AgestStorageService extends RemoteStorageService {
         } else {
           throw Exception('Error code: ${response.statusCode}');
         }
-      }
+      // }
+      print("all location: $allLocations");
       return allLocations;
+    } catch (e) {
+      print('Error: $e');
+      if (e is DioException && e.response != null) {
+        throw Exception('Error code: ${e.response?.statusCode}');
+      } else {
+        throw Exception('An unknown error occurred');
+      }
+    }
+  }
+
+  @override
+  Future<void> createUserFav(String locationId, String access_token) async {
+    const url = '/api/v1/user-favorite';
+    print("createUserFav api: $access_token, $locationId");
+    print(uri + url);
+    try {
+      final response = await _dio.post(uri + url, data: {
+        'location_id': locationId,
+      },
+        options: Options(
+        headers: {'Authorization': 'Bearer $access_token'},
+      ));
+      print("create response: $response");
+      if (response.statusCode != 200) {
+        throw Exception('Error code: ${response.statusCode}');
+      }
     } catch (e) {
       print('Error: $e');
       if (e is DioException && e.response != null) {
