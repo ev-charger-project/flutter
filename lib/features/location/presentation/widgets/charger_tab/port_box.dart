@@ -38,7 +38,7 @@ class PortBox extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             Expanded(
-              child: port.power_plug_type.plugImage != null
+              child: (port.power_plug_type.plugImage != null && isValidUrl(port.power_plug_type.plugImage!))
                   ? Image.network(port.power_plug_type.plugImage!)
                   : SvgPicture.asset('assets/icons/plug_icon.svg'),
             ),
@@ -52,4 +52,12 @@ class PortBox extends StatelessWidget {
       ),
     );
   }
+}
+
+
+
+
+bool isValidUrl(String url) {
+Uri? uri = Uri.tryParse(url);
+return uri != null && (uri.isScheme('http') || uri.isScheme('https'));
 }

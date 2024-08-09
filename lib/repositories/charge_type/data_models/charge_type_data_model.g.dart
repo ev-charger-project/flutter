@@ -10,7 +10,7 @@ _$ChargeTypeImpl _$$ChargeTypeImplFromJson(Map<String, dynamic> json) =>
     _$ChargeTypeImpl(
       plug_type: json['plug_type'] as String,
       power_model: json['power_model'] as String,
-      plug_image_url: json['plug_image_url'] as String,
+      plug_image_url: json['plug_image_url'] as String? ?? '',
     );
 
 Map<String, dynamic> _$$ChargeTypeImplToJson(_$ChargeTypeImpl instance) =>

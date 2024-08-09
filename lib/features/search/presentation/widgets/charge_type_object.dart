@@ -40,7 +40,6 @@ class _ChargeTypeObjectState extends State<ChargeTypeObject> {
           children: [
             SvgPicture.asset(
               'assets/icons/charger_icon.svg',
-              color: Colors.black,
             ),
             SizedBox(width: screenSize.width * 0.02),
             Text(
