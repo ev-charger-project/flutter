@@ -2,6 +2,7 @@ import 'package:ev_charger/shared/presentation/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../providers/charge_type/checked_plugs_provider.dart';
 import '../providers/charge_type/hidden_plugs_provider.dart';
 import '../providers/charge_type/show_incompatible_plugs_provider.dart';
 import '../providers/charge_type/visible_plugs_provider.dart';
@@ -16,22 +17,23 @@ class ChargeType extends ConsumerStatefulWidget {
 }
 
 class _ChargeTypeState extends ConsumerState<ChargeType> {
-  int checkedPlugs = 0;
-
-  @override
+  /*@override
   void initState() {
     super.initState();
-    _updateCheckedPlugs();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _updateCheckedPlugs();
+    });
   }
 
   void _updateCheckedPlugs() {
     final visiblePlugs = ref.read(visiblePlugsProvider);
     final hiddenPlugs = ref.read(hiddenPlugsProvider);
     setState(() {
-      checkedPlugs = visiblePlugs.where((plug) => plug.isChecked).length +
-          hiddenPlugs.where((plug) => plug.isChecked).length;
+      ref.read(checkedPlugsProvider.notifier).state =
+          visiblePlugs.where((plug) => plug.isChecked).length +
+              hiddenPlugs.where((plug) => plug.isChecked).length;
     });
-  }
+  }*/
 
   void _toggleAll() {
     final visiblePlugs = ref.read(visiblePlugsProvider.notifier);
@@ -52,7 +54,7 @@ class _ChargeTypeState extends ConsumerState<ChargeType> {
     if (!showIncompatiblePlugs.state) {
       showIncompatiblePlugs.state = true;
     }
-    _updateCheckedPlugs();
+    ref.read(checkedPlugsProvider.notifier).updateCheckedPlugs();
   }
 
   @override
@@ -61,8 +63,11 @@ class _ChargeTypeState extends ConsumerState<ChargeType> {
     final visiblePlugs = ref.watch(visiblePlugsProvider);
     final hiddenPlugs = ref.watch(hiddenPlugsProvider);
     final showIncompatiblePlugs = ref.watch(showIncompatiblePlugsProvider);
-
+    final checkedPlugs = ref.watch(checkedPlugsProvider);
     final totalPlugs = visiblePlugs.length + hiddenPlugs.length;
+
+    print('checkedPlugs: $checkedPlugs');
+    print('totalPlugs: $totalPlugs');
 
     return Padding(
       padding: EdgeInsets.symmetric(vertical: screenSize.height * 0.016),

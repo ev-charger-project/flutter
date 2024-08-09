@@ -1,3 +1,4 @@
+import 'package:ev_charger/features/search/presentation/providers/charge_type/checked_plugs_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../widgets/charge_type_object.dart';
 import 'available_plugs_provider.dart';
@@ -11,8 +12,8 @@ final visiblePlugsInitializerProvider =
       .map((plug) => ChargeTypeObject(
             chargeType: plug.chargeType,
             chargePowerType: plug.chargePowerType,
-            isChecked: true,
-            onCheckedChanged: plug.onCheckedChanged,
+            isChecked: false,
+            checkedPlugsProvider: checkedPlugsProvider,
           ))
       .toList();
 });

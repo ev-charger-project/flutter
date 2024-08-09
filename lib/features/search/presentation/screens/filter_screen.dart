@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:ev_charger/features/mapview/domain/providers/marker/marker_provider.dart';
+import 'package:ev_charger/features/search/presentation/providers/charge_type/checked_plugs_provider.dart';
 import 'package:ev_charger/features/search/presentation/providers/charge_type/hidden_plugs_provider.dart';
 import 'package:ev_charger/features/search/presentation/providers/charge_type/show_incompatible_plugs_provider.dart';
 import 'package:ev_charger/features/search/presentation/providers/charge_type/visible_plugs_provider.dart';
@@ -114,8 +115,8 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                               return ChargeTypeObject(
                                 chargeType: plug.chargeType,
                                 chargePowerType: plug.chargePowerType,
-                                isChecked: true,
-                                onCheckedChanged: () {},
+                                isChecked: false,
+                                checkedPlugsProvider: plug.checkedPlugsProvider,
                               );
                             }).toList();
                             ref.read(visiblePlugsProvider.notifier).state =
@@ -169,6 +170,10 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                                     .read(rangeValuesProvider.notifier)
                                     .state
                                     .end)));
+
+                        ref
+                            .read(checkedPlugsProvider.notifier)
+                            .updateCheckedPlugs();
 
                         print("Reset pressed");
                         Navigator.pop(context);
@@ -277,6 +282,10 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                                     .end),
                               ),
                             );
+
+                        ref
+                            .read(checkedPlugsProvider.notifier)
+                            .updateCheckedPlugs();
 
                         ref.refresh(markerProvider);
                         print("Updated Filter: ${ref.read(filterProvider)}");
