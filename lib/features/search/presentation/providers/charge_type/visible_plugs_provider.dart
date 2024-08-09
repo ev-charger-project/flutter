@@ -22,6 +22,14 @@ final visiblePlugsInitializerProvider =
 final visiblePlugsProvider = StateProvider<List<ChargeTypeObject>>((ref) {
   List<ChargeTypeObject> visiblePlugs = [];
   ref.watch(visiblePlugsInitializerProvider).whenData((value) {
+    value.sort((a, b) {
+      int chargeTypeComparison = a.chargeType.compareTo(b.chargeType);
+      if (chargeTypeComparison != 0) {
+        return chargeTypeComparison;
+      } else {
+        return a.chargePowerType.compareTo(b.chargePowerType);
+      }
+    });
     visiblePlugs = value;
   });
   return visiblePlugs;
