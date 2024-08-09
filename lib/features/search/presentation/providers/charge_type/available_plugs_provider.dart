@@ -2,6 +2,7 @@ import 'package:ev_charger/features/search/domain/providers/charge_type_provider
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../widgets/charge_type_object.dart';
+import 'checked_plugs_provider.dart';
 
 final availablePlugsProvider =
     FutureProvider<List<ChargeTypeObject>>((ref) async {
@@ -11,7 +12,7 @@ final availablePlugsProvider =
             chargeType: i.plug_type,
             chargePowerType: i.power_model,
             isChecked: true,
-            onCheckedChanged: () {},
+            checkedPlugsProvider: checkedPlugsProvider,
           ))
       .toList();
 });

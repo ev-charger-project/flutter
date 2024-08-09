@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class ChargeTypeObject extends StatefulWidget {
+import '../providers/charge_type/checked_plugs_provider.dart';
+
+class ChargeTypeObject extends ConsumerStatefulWidget {
   final String chargeType;
   final String chargePowerType;
   bool isChecked;
-  final VoidCallback onCheckedChanged;
+  final StateNotifierProvider<CheckedPlugsNotifier, int> checkedPlugsProvider;
 
   ChargeTypeObject({
     super.key,
     required this.chargeType,
     required this.chargePowerType,
     required this.isChecked,
-    required this.onCheckedChanged,
+    required this.checkedPlugsProvider,
   });
 
   ChargeTypeObject copyWith(
@@ -21,7 +24,7 @@ class ChargeTypeObject extends StatefulWidget {
       chargeType: chargeType ?? this.chargeType,
       chargePowerType: chargePowerType ?? this.chargePowerType,
       isChecked: isChecked ?? this.isChecked,
-      onCheckedChanged: onCheckedChanged,
+      checkedPlugsProvider: checkedPlugsProvider,
     );
   }
 
@@ -29,7 +32,7 @@ class ChargeTypeObject extends StatefulWidget {
   _ChargeTypeObjectState createState() => _ChargeTypeObjectState();
 }
 
-class _ChargeTypeObjectState extends State<ChargeTypeObject> {
+class _ChargeTypeObjectState extends ConsumerState<ChargeTypeObject> {
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
@@ -63,10 +66,8 @@ class _ChargeTypeObjectState extends State<ChargeTypeObject> {
           onChanged: (bool? value) {
             setState(() {
               widget.isChecked = value!;
-              widget.onCheckedChanged();
             });
-
-            print('isChecked: ${widget.isChecked}');
+            ref.read(checkedPlugsProvider.notifier).updateCheckedPlugs();
           },
         ),
       ],
