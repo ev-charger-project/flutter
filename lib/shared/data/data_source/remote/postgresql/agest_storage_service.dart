@@ -47,8 +47,59 @@ class AgestStorageService extends RemoteStorageService {
 
   @override
   Future<List<ChargerMarkerDataModel>> fetchMarker(
-      double userLat, double userLong, double radius) async {
-    const url = '/api/v1/locations/by_radius';
+      double screenCenterLat, double screenCenterLong, double radius,
+      [int? stationCount,
+        List<String>? chargeType,
+        int? outputMin,
+        int? outputMax]) async {
+    const baseUrl = '/api/v1/locations/search';
+    final Map<String, dynamic> queryParams = {
+      'lat': screenCenterLat,
+      'lon': screenCenterLong,
+      'radius': 15,
+      'station_count': stationCount,
+      'charger_type': chargeType,
+      'power_output_gte': outputMin,
+      'power_output_lte': outputMax,
+    };
+
+    final StringBuffer urlBuffer = StringBuffer('$uri$baseUrl?');
+    queryParams.forEach((key, value) {
+      if (value != null) {
+        if (value is List) {
+          for (var item in value) {
+            urlBuffer.write('$key=${item}&');
+          }
+        } else {
+          urlBuffer.write('$key=${value.toString()}&');
+        }
+      }
+    });
+
+    final String fullUrl =
+    urlBuffer.toString().substring(0, urlBuffer.length - 1);
+
+    try {
+      final response = await _dio.get(fullUrl);
+      print('Full fetchMarker URL: $fullUrl');
+
+      if (response.statusCode == 200) {
+        return (response.data as List)
+            .map((item) =>
+            ChargerMarkerDataModel.fromJson(item as Map<String, dynamic>))
+            .toList();
+      } else {
+        throw Exception('Error code: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error: $e');
+      if (e is DioException && e.response != null) {
+        throw Exception('Error code: ${e.response?.statusCode}');
+      } else {
+        throw Exception('An unknown error occurred');
+      }
+    }
+    /*const url = '/api/v1/locations/by_radius';
 
     try {
       final response = await _dio.get(uri + url, queryParameters: {
@@ -71,9 +122,8 @@ class AgestStorageService extends RemoteStorageService {
       } else {
         throw Exception('An unknown error occurred');
       }
-    }
+    }*/
   }
-
   @override
   Future<List<SuggestionDataModel>> fetchSuggestion(String searchString,
       [int? stationCount,
