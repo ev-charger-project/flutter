@@ -30,31 +30,34 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
     return Scaffold(
-      body: Stack(
-        children: [
-          Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                SizedBox(height: screenSize.height * 0.2),
-                SizedBox(
-                  height: screenSize.height * 0.23,
-                  child: SvgPicture.asset('assets/images/splash.svg'),
-                ),
-                // Update with your actual splash image
-
-                SizedBox(
-                  height: 60,
-                  child: DotsCircularProgressIndicator(
-                    color: Theme.of(context).colorScheme.primary,
-                    numberOfDots: 8,
+      body: Container(
+        color: Theme.of(context).colorScheme.secondary,
+        child: Stack(
+          children: [
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(height: screenSize.height * 0.2),
+                  SizedBox(
+                    height: screenSize.height * 0.23,
+                    child: SvgPicture.asset('assets/images/splash.svg'),
                   ),
-                ),
-                SizedBox(height: screenSize.height * 0),
-              ],
+                  // Update with your actual splash image
+
+                  SizedBox(
+                    height: 60,
+                    child: DotsCircularProgressIndicator(
+                      color: Theme.of(context).colorScheme.primary,
+                      numberOfDots: 8,
+                    ),
+                  ),
+                  SizedBox(height: screenSize.height * 0),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -37,7 +37,7 @@ class AccountScreen extends ConsumerWidget {
       appBar: AppBar(
         title: const Text('Account'),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          icon: Icon(Icons.arrow_back, color: Theme.of(context).colorScheme.onSurface),
           onPressed: () => context.router.pop(),
         ),
       ),

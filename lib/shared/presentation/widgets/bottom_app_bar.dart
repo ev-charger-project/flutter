@@ -72,7 +72,7 @@ class SimpleBottomAppBar extends StatelessWidget {
           Expanded(
             child: SvgPicture.asset(
               assetName,
-              color: isSelected ? Theme.of(context).colorScheme.primary : null,
+              color: isSelected ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.onSurface,
             ),
           ),
           const SizedBox(height: 1),
@@ -91,6 +91,7 @@ class SimpleBottomAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
+      color: Theme.of(context).colorScheme.secondary,
       shape: const CircularNotchedRectangle(),
       notchMargin: 6.0,
       child: Row(
