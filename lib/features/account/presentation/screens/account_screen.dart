@@ -37,7 +37,8 @@ class AccountScreen extends ConsumerWidget {
       appBar: AppBar(
         title: const Text('Account'),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          icon: Icon(Icons.arrow_back,
+              color: Theme.of(context).colorScheme.onSurface),
           onPressed: () => context.router.pop(),
         ),
       ),
@@ -50,7 +51,8 @@ class AccountScreen extends ConsumerWidget {
             children: [
               CircleAvatar(
                 radius: width * 0.15,
-                backgroundImage: const AssetImage('assets/images/avatar_placeholder.png'), // Placeholder for user avatar
+                backgroundImage: const AssetImage(
+                    'assets/images/avatar_placeholder.png'), // Placeholder for user avatar
               ),
               SizedBox(height: height * 0.02),
               const Text(
@@ -74,9 +76,7 @@ class AccountScreen extends ConsumerWidget {
                 style: ElevatedButton.styleFrom(
                   minimumSize: Size(double.infinity, height * 0.055),
                   backgroundColor: Colors.black,
-                  side: const BorderSide(
-                      color: Colors.black,
-                      width: 2.0),
+                  side: const BorderSide(color: Colors.black, width: 2.0),
                   shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(
                       Radius.circular(0.0),
@@ -86,9 +86,9 @@ class AccountScreen extends ConsumerWidget {
                 child: signOutState == SignOutState.loading
                     ? const CircularProgressIndicator(color: Colors.white)
                     : Text(
-                  isAuthenticated! ? 'Log Out' : 'Log In',
-                  style: const TextStyle(color: Colors.white),
-                ),
+                        isAuthenticated! ? 'Log Out' : 'Log In',
+                        style: const TextStyle(color: Colors.white),
+                      ),
               ),
               const SizedBox(height: 24),
               const Favorite(),
@@ -99,4 +99,3 @@ class AccountScreen extends ConsumerWidget {
     );
   }
 }
-

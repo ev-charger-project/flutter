@@ -10,6 +10,7 @@ import '../../../../shared/core/localization/localization.dart';
 import '../../../../shared/domain/providers/location/user_location_provider.dart';
 import '../../../../shared/domain/providers/permission/permission_provider.dart';
 import '../../../notification/permission/screens/permission_screen.dart';
+import '../../../splash/widgets/dots_circular_progress_painter_widget.dart';
 import '../providers/start_provider.dart';
 import '../providers/to_search_provider.dart';
 import '../widgets/route_suggestion_list.dart';
@@ -215,8 +216,20 @@ class _RouteSearchScreenState extends ConsumerState<RouteSearchScreen> {
               );
         }
       },
-      loading: () {},
-      error: (error, stack) {},
+      loading: () {
+        Center(
+          child: SizedBox(
+            height: 60,
+            child: DotsCircularProgressIndicator(
+              color: Theme.of(context).colorScheme.primary,
+              numberOfDots: 8,
+            ),
+          ),
+        );
+      },
+      error: (error, stack) {
+        Center(child: Text('Error: $error'));
+      },
     );
   }
 
@@ -244,8 +257,20 @@ class _RouteSearchScreenState extends ConsumerState<RouteSearchScreen> {
               );
         }
       },
-      loading: () {},
-      error: (error, stack) {},
+      loading: () {
+        Center(
+          child: SizedBox(
+            height: 60,
+            child: DotsCircularProgressIndicator(
+              color: Theme.of(context).colorScheme.primary,
+              numberOfDots: 8,
+            ),
+          ),
+        );
+      },
+      error: (error, stack) {
+        Center(child: Text('Error: $error'));
+      },
     );
   }
 
@@ -258,13 +283,14 @@ class _RouteSearchScreenState extends ConsumerState<RouteSearchScreen> {
     final endLocation = ref.watch(endProvider);
 
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Theme.of(context).colorScheme.secondary,
         elevation: 0,
         shadowColor: Colors.transparent,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          icon: Icon(Icons.arrow_back,
+              color: Theme.of(context).colorScheme.onSurface),
           onPressed: () => context.router.pop(),
         ),
         title: Text(
@@ -384,9 +410,8 @@ class _RouteSearchScreenState extends ConsumerState<RouteSearchScreen> {
               child: _fromSearchFocusNode.hasFocus
                   ? fromSearchQuery.isEmpty
                       ? Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            SizedBox(height: screenSize.height * 0.02),
                             if (endLocation.id != 'Your Current Location')
                               InkWell(
                                 onTap: () => _checkLocationPermission(true),
@@ -425,7 +450,7 @@ class _RouteSearchScreenState extends ConsumerState<RouteSearchScreen> {
                                   ),
                                 ),
                               ),
-                            SizedBox(height: screenSize.height * 0.2),
+                            SizedBox(height: screenSize.height * 0.001),
                             Center(
                               child: Text(
                                 AppLocalizations.of(context)
@@ -442,9 +467,8 @@ class _RouteSearchScreenState extends ConsumerState<RouteSearchScreen> {
                   : _toSearchFocusNode.hasFocus
                       ? toSearchQuery.isEmpty
                           ? Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                SizedBox(height: screenSize.height * 0.02),
                                 if (startLocation.id != 'Your Current Location')
                                   InkWell(
                                     onTap: () =>
@@ -487,7 +511,7 @@ class _RouteSearchScreenState extends ConsumerState<RouteSearchScreen> {
                                       ),
                                     ),
                                   ),
-                                SizedBox(height: screenSize.height * 0.2),
+                                SizedBox(height: screenSize.height * 0.001),
                                 Center(
                                   child: Text(
                                     AppLocalizations.of(context)

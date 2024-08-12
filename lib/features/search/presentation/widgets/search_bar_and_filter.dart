@@ -159,6 +159,7 @@ class _SearchBarAndFilterState extends ConsumerState<SearchBarAndFilter> {
                       'assets/icons/filter_applied_icon.svg',
                       width: iconSize,
                       height: iconSize,
+                      color: Theme.of(context).colorScheme.primary,
                     ),
                     onPressed: widget.onFilterPressed,
                   )
@@ -167,6 +168,7 @@ class _SearchBarAndFilterState extends ConsumerState<SearchBarAndFilter> {
                       'assets/icons/filter_icon.svg',
                       width: iconSize,
                       height: iconSize,
+                      color: Theme.of(context).colorScheme.secondary,
                     ),
                     onPressed: widget.onFilterPressed,
                   ),

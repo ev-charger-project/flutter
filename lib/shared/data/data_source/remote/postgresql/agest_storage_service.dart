@@ -98,30 +98,6 @@ class AgestStorageService extends RemoteStorageService {
         throw Exception('An unknown error occurred');
       }
     }
-    /*const url = '/api/v1/locations/by_radius';
-
-    try {
-      final response = await _dio.get(uri + url, queryParameters: {
-        'user_lat': userLat,
-        'user_long': userLong,
-        'radius': radius,
-      });
-      if (response.statusCode == 200) {
-        return (response.data as List)
-            .map((item) =>
-                ChargerMarkerDataModel.fromJson(item as Map<String, dynamic>))
-            .toList();
-      } else {
-        throw Exception('Error code: ${response.statusCode}');
-      }
-    } catch (e) {
-      print('Error: $e');
-      if (e is DioException && e.response != null) {
-        throw Exception('Error code: ${e.response?.statusCode}');
-      } else {
-        throw Exception('An unknown error occurred');
-      }
-    }*/
   }
 
   @override
