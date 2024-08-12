@@ -43,7 +43,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          icon: Icon(Icons.arrow_back, color: Theme.of(context).colorScheme.onSurface),
           onPressed: () => AutoRouter.of(context).push(MapRoute()),
         ),
       ),

@@ -67,7 +67,7 @@ class _SearchRouteButtonState extends ConsumerState<SearchRouteButton> {
                   child: Text(
                     AppLocalizations.of(context).translate('Search'),
                     style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                          color: Theme.of(context).colorScheme.secondary,
+                          color: Theme.of(context).colorScheme.onSurface,
                         ),
                   ),
                 ),

@@ -48,7 +48,7 @@ class MyApp extends ConsumerWidget {
       routeInformationParser: _appRouter.defaultRouteParser(),
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-      themeMode: themeMode,
+      themeMode: ThemeMode.dark,
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,

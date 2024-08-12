@@ -48,42 +48,45 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Padding(
-            padding: EdgeInsets.only(
-              top: screenSize.height * 0.05,
-              left: screenSize.width * 0.05,
-              right: screenSize.width * 0.05,
-            ),
-            child: SearchBarAndFilter(
-              controller: _searchController,
-              focusNode: _searchFocusNode,
-              onChanged: (text) {
-                ref.read(SearchQueryProvider.notifier).state = text;
-              },
-              onFilterPressed: () => context.router.push(const FilterRoute()),
-            ),
-          ),
-          Expanded(
-            child: Padding(
+      body: Container(
+        color: Theme.of(context).colorScheme.secondary,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Padding(
               padding: EdgeInsets.only(
-                left: screenSize.width * 0.03,
-                right: screenSize.width * 0.03,
+                top: screenSize.height * 0.05,
+                left: screenSize.width * 0.05,
+                right: screenSize.width * 0.05,
               ),
-              child: searchQuery.isEmpty
-                  ? Center(
-                      child: Text(
-                        AppLocalizations.of(context)
-                            .translate('Enter search text to see results.'),
-                        style: Theme.of(context).textTheme.bodySmall,
-                      ),
-                    )
-                  : const SuggestionList(),
+              child: SearchBarAndFilter(
+                controller: _searchController,
+                focusNode: _searchFocusNode,
+                onChanged: (text) {
+                  ref.read(SearchQueryProvider.notifier).state = text;
+                },
+                onFilterPressed: () => context.router.push(const FilterRoute()),
+              ),
             ),
-          ),
-        ],
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.only(
+                  left: screenSize.width * 0.03,
+                  right: screenSize.width * 0.03,
+                ),
+                child: searchQuery.isEmpty
+                    ? Center(
+                        child: Text(
+                          AppLocalizations.of(context)
+                              .translate('Enter search text to see results.'),
+                          style: Theme.of(context).textTheme.bodySmall,
+                        ),
+                      )
+                    : const SuggestionList(),
+              ),
+            ),
+          ],
+        ),
       ),
       bottomNavigationBar: const SimpleBottomAppBar(),
     );
