@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:ev_charger/features/account/presentation/widgets/account_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../../routes/app_route.dart';
@@ -7,6 +8,7 @@ import '../../../../shared/domain/providers/user/user_provider.dart';
 import '../providers/sign_out_provider.dart';
 import '../widgets/favourite.dart';
 import '../../../../shared/domain/providers/user/fav_provider.dart';
+import '../widgets/user_profile.dart';
 
 @RoutePage()
 class AccountScreen extends ConsumerWidget {
@@ -16,7 +18,6 @@ class AccountScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final isAuthenticated = ref.watch(authProvider).value;
     final signOutState = ref.watch(signOutProvider);
-    final userAsyncValue = ref.watch(userProvider);
     ref.refresh(favProvider);
 
     final width = MediaQuery.of(context).size.width;
@@ -46,43 +47,7 @@ class AccountScreen extends ConsumerWidget {
           child: Column(
             children: [
               if (isAuthenticated == true) ...[
-                userAsyncValue.when(
-                  data: (user) {
-                    return Column(
-                      children: [
-                        CircleAvatar(
-                          radius: width * 0.15,
-                          backgroundImage: const AssetImage(
-                            'assets/images/avatar_placeholder.png',
-                          ),
-                        ),
-                        SizedBox(height: height * 0.02),
-                        Text(
-                          user?.username ?? 'User Name',
-                          style: const TextStyle(
-                              fontSize: 24, fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(height: height * 0.01),
-                        Text(
-                          user?.email ?? 'user@example.com',
-                          style: const TextStyle(
-                              fontSize: 16, color: Colors.grey),
-                        ),
-                        SizedBox(height: height * 0.01),
-                        SizedBox(height: height * 0.03),
-                      ],
-                    );
-                  },
-                  loading: () => const Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                  error: (error, stack) => Center(
-                    child: Text(
-                      'Failed to load user data: $error',
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
-                  ),
-                ),
+                const UserProfile(),
                 const SizedBox(height: 24),
                 SizedBox(
                   height: height * 0.5,
@@ -90,35 +55,20 @@ class AccountScreen extends ConsumerWidget {
                     child: Favorite(),
                   ),
                 ),
-
-                const Spacer(),
               ],
-              ElevatedButton(
-                onPressed: () {
-                  if (isAuthenticated == true) {
-                    ref.read(signOutProvider.notifier).signOut();
-                  } else {
-                    context.router.push(const SignInRoute());
-                  }
-                },
-                style: ElevatedButton.styleFrom(
-                  minimumSize: Size(double.infinity, height * 0.055),
-                  backgroundColor: Colors.black,
-                  side: const BorderSide(color: Colors.black, width: 2.0),
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(0.0),
-                    ),
-                  ),
-                ),
-                child: signOutState == SignOutState.loading
-                    ? const CircularProgressIndicator(color: Colors.white)
-                    : Text(
-                  isAuthenticated == true ? 'Sign Out' : 'Sign In',
-                  style: const TextStyle(color: Colors.white),
+              Align(
+                alignment: isAuthenticated == true ? Alignment.bottomCenter : Alignment.center,
+                child: AccountButton(
+                  buttonType:  isAuthenticated == true ? ButtonType.signOut : ButtonType.signIn,
+                  onTap: () {
+                    if (isAuthenticated == true) {
+                      ref.read(signOutProvider.notifier).signOut();
+                    } else {
+                      context.router.push(const SignInRoute());
+                    }
+                  },
                 ),
               ),
-              const SizedBox(height: 24),
             ],
           ),
         ),

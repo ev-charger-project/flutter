@@ -54,7 +54,7 @@ class Favorite extends ConsumerWidget {
                     trailing: const Icon(Icons.arrow_forward_ios),
                     onTap: () {
                       ref.read(selectedLocationIdProvider.notifier).state =
-                      suggestion.id!;
+                      suggestion.id;
                       ref.read(isInfoVisibleProvider.notifier).state = true;
                       context.router.push(MapRoute(
                           longitude: suggestion.longitude,

@@ -37,10 +37,10 @@ class ShortInfoUI extends ConsumerWidget {
       data: (favourite) => Map.fromEntries(
           favourite.map((item) => MapEntry(item.favourite.id, item.station_name))
       ),
-      loading: () => null,
-      error: (error, stack) => null,
+      loading: () => {},
+      error: (error, stack) => {},
     );
-    var favouriteLocationIdList = favouriteMap?.keys.toList();
+    var favouriteLocationIdList = favouriteMap.keys.toList();
     print('selected location id: $selectedLocationId');
     print('favourite map: $favouriteMap');
     print('favourite location id list: $favouriteLocationIdList');
