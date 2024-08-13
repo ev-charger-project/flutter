@@ -1,5 +1,4 @@
 import 'package:ev_charger/features/search/domain/providers/charge_type_provider.dart';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../widgets/charge_type_object.dart';
 import 'checked_plugs_provider.dart';

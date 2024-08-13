@@ -1,3 +1,4 @@
+import 'package:ev_charger/repositories/amenity/data_models/amenity_data_model.dart';
 import 'package:ev_charger/repositories/marker/data_models/charger_marker_data_model.dart';
 import 'package:ev_charger/repositories/location/data_models/location_data_model.dart';
 import 'package:ev_charger/repositories/suggestion/data_models/suggestion_data_model.dart';
@@ -35,4 +36,6 @@ abstract class RemoteStorageService {
       double userLat, double userLong, double desLat, double desLong);
 
   Future<List<LocationDataModel>> fetchFav(String token, String id);
+
+  Future<List<AmenityDataModel>> fetchAmenityData();
 }

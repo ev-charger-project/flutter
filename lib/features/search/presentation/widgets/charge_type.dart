@@ -17,24 +17,6 @@ class ChargeType extends ConsumerStatefulWidget {
 }
 
 class _ChargeTypeState extends ConsumerState<ChargeType> {
-  /*@override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _updateCheckedPlugs();
-    });
-  }
-
-  void _updateCheckedPlugs() {
-    final visiblePlugs = ref.read(visiblePlugsProvider);
-    final hiddenPlugs = ref.read(hiddenPlugsProvider);
-    setState(() {
-      ref.read(checkedPlugsProvider.notifier).state =
-          visiblePlugs.where((plug) => plug.isChecked).length +
-              hiddenPlugs.where((plug) => plug.isChecked).length;
-    });
-  }*/
-
   void _toggleAll() {
     final visiblePlugs = ref.read(visiblePlugsProvider.notifier);
     final hiddenPlugs = ref.read(hiddenPlugsProvider.notifier);

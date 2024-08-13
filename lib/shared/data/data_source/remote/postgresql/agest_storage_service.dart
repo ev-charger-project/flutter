@@ -1,3 +1,4 @@
+import 'package:ev_charger/repositories/amenity/data_models/amenity_data_model.dart';
 import 'package:ev_charger/repositories/charge_type/data_models/charge_type_data_model.dart';
 import 'package:ev_charger/repositories/marker/data_models/charger_marker_data_model.dart';
 import 'package:ev_charger/repositories/location/data_models/location_data_model.dart';
@@ -364,5 +365,54 @@ class AgestStorageService extends RemoteStorageService {
         throw Exception('An unknown error occurred');
       }
     }
+  }
+
+  @override
+  Future<List<AmenityDataModel>> fetchAmenityData() async {
+    const url = '/api/v1/amenities';
+    List<AmenityDataModel> amenities = [];
+
+    try {
+      int page = 1;
+      bool hasMoreData = true;
+
+      while (hasMoreData) {
+        final response = await _dio.get(
+          uri + url,
+          queryParameters: {'page': page},
+        );
+
+        if (response.statusCode == 200) {
+          final data = response.data;
+          final founds = data['founds'] as List;
+          print('Response is $founds');
+          final fetchedAmenities = founds
+              .map((item) =>
+                  AmenityDataModel.fromJson(item as Map<String, dynamic>))
+              .toList();
+
+          amenities.addAll(fetchedAmenities);
+
+          final totalCount = data['search_options']['total_count'] as int;
+
+          if (amenities.length >= totalCount) {
+            hasMoreData = false;
+          } else {
+            page++;
+          }
+        } else {
+          throw Exception('Error code: ${response.statusCode}');
+        }
+      }
+    } catch (e) {
+      print('Error: $e');
+      if (e is DioException && e.response != null) {
+        throw Exception('Error code: ${e.response?.statusCode}');
+      } else {
+        throw Exception('An unknown error occurred');
+      }
+    }
+
+    return amenities;
   }
 }

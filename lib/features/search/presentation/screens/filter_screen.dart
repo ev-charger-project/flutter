@@ -20,6 +20,7 @@ import 'package:ev_charger/features/search/presentation/widgets/widgets.dart';
 import '../providers/power_output/power_output_values_provider.dart';
 import '../providers/station_count/selected_station_count_provider.dart';
 import '../providers/station_count/station_count_value_provider.dart';
+import '../widgets/amenity.dart';
 import '../widgets/charge_type_object.dart';
 
 import 'package:syncfusion_flutter_sliders/sliders.dart';
@@ -85,6 +86,9 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
 
               // Power Output
               const PowerOutput(),
+
+              // Amenities
+              const Amenity(),
 
               // buttons "reset" and "apply filter"
               Padding(

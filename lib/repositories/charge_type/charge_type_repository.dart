@@ -1,4 +1,3 @@
-
 import 'entities/charge_type_entity.dart';
 
 abstract class ChargeTypeRepository {
