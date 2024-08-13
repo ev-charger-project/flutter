@@ -49,7 +49,8 @@ class ChargerNum extends ConsumerWidget {
                         children: [
                           // Text('${uniquePorts[index].power_model.outputValue.floor()} kW', style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 10),),
                           (uniquePorts[index].power_plug_type.plugImage != null && isValidUrl(uniquePorts[index].power_plug_type.plugImage!))
-                              ? Image.network(uniquePorts[index].power_plug_type.plugImage!)
+                              ? Image.network(
+                              "http://172.16.11.139:14000/api/v1/media/${uniquePorts[index].power_plug_type.plugImage!}")
                               : SvgPicture.asset('assets/icons/plug_icon.svg')
                         ],
                       ),

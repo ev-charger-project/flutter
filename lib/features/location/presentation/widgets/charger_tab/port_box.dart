@@ -39,7 +39,8 @@ class PortBox extends StatelessWidget {
             ),
             Expanded(
               child: (port.power_plug_type.plugImage != null && isValidUrl(port.power_plug_type.plugImage!))
-                  ? Image.network(port.power_plug_type.plugImage!)
+                  ? Image.network((
+                  "http://172.16.11.139:14000/api/v1/media/${port.power_plug_type.plugImage!}"))
                   : SvgPicture.asset('assets/icons/plug_icon.svg'),
             ),
             Text(
