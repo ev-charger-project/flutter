@@ -12,11 +12,8 @@ class UserRepositoryImpl extends UserRepository {
   final UserRemoteDataSource remoteDataSource;
 
   @override
-  Future<UserEntity?> fetchUser(String access_token) async {
+  Future<UserEntity> fetchUser(String access_token) async {
     final userDataModelResult = await remoteDataSource.fetchUser(access_token);
-    if(userDataModelResult != null){
-      return UserMapper().toEntity(userDataModelResult);
-    }
-    return null;
+    return UserMapper().toEntity(userDataModelResult);
   }
 }

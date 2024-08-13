@@ -25,4 +25,10 @@ class UserInfoRepositoryImpl extends UserInfoRepository {
     print("create favorite: $locationId, $access_token");
     await remoteDataSource.createFav(locationId, access_token);
   }
+
+  @override
+  Future<void> deleteFav(String favId, String access_token) async {
+    print("delete favorite: $favId, $access_token");
+    await remoteDataSource.deleteFav(favId, access_token);
+  }
 }

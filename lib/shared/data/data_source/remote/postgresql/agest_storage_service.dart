@@ -354,9 +354,9 @@ class AgestStorageService extends RemoteStorageService {
       // while (hasMoreData) {
         final response = await _dio.get(
           uri + url,
-          data: {
+          queryParameters: {
             'user_id': id,
-            'page': currentPage,
+            // 'page': currentPage,
           },
           options: Options(
             headers: {'Authorization': 'Bearer $token'},
@@ -379,7 +379,6 @@ class AgestStorageService extends RemoteStorageService {
           throw Exception('Error code: ${response.statusCode}');
         }
       // }
-      print("all location: $allLocations");
       return allLocations;
     } catch (e) {
       print('Error: $e');
@@ -392,7 +391,7 @@ class AgestStorageService extends RemoteStorageService {
   }
 
   @override
-  Future<void> createUserFav(String locationId, String access_token) async {
+  Future<void> createFav(String locationId, String access_token) async {
     const url = '/api/v1/user-favorite';
     print("createUserFav api: $access_token, $locationId");
     print(uri + url);
@@ -404,6 +403,31 @@ class AgestStorageService extends RemoteStorageService {
         headers: {'Authorization': 'Bearer $access_token'},
       ));
       print("create response: $response");
+      if (response.statusCode != 200) {
+        throw Exception('Error code: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error: $e');
+      if (e is DioException && e.response != null) {
+        throw Exception('Error code: ${e.response?.statusCode}');
+      } else {
+        throw Exception('An unknown error occurred');
+      }
+    }
+  }
+
+  @override
+  Future<void> deleteFav(String favId, String access_token) async {
+    const url = '/api/v1/user-favorite';
+
+    try {
+      final response = await _dio.delete(uri + url, queryParameters: {
+        'user_favorite_id': favId,
+      },
+          options: Options(
+            headers: {'Authorization': 'Bearer $access_token'},
+          ));
+      print("delete response: $response");
       if (response.statusCode != 200) {
         throw Exception('Error code: ${response.statusCode}');
       }

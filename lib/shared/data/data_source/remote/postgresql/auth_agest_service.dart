@@ -52,20 +52,12 @@ class AuthAgestService extends AuthService {
         'name': name,
         'phone_number': phoneNumber
       });
-      print('link is $uri$url');
-      if (response.statusCode == 200) {
-        UserDataModel user = UserDataModel(
-            userId: response.data['id'],
-            username: response.data['name'],
-            email: response.data['email'],
-        );
-
-        return user;
-      }
-      else {
-        print('Error code: ${response.statusCode}');
-        throw Exception('Duplication account');
-      }
+      UserDataModel user = UserDataModel(
+          userId: response.data['id'],
+          username: response.data['name'],
+          email: response.data['email'],
+      );
+      return user;
     } catch(e) {
       print('Error: $e');
       if (e is DioException && e.response != null) {
@@ -129,7 +121,7 @@ class AuthAgestService extends AuthService {
   }
 
   @override
-  Future<UserDataModel?> getMe(String access_token) async {
+  Future<UserDataModel> getMe(String access_token) async {
     const url = '/api/v1/auth/me';
 
     try {
@@ -145,10 +137,16 @@ class AuthAgestService extends AuthService {
         );
         return user;
       }
-      return null;
+      else {
+        throw Exception('An unknown error occurred');
+      }
     } catch(e) {
       print('Error: $e');
-      return null;
+      if (e is DioException && e.response != null) {
+        throw Exception('Error code: ${e.response?.statusCode}');
+      } else {
+        throw Exception('An unknown error occurred');
+      }
     }
   }
 }

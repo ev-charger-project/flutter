@@ -12,6 +12,7 @@ import '../../../../repositories/user/user_info_repository_provider.dart';
 import '../../../../shared/domain/providers/auth/auth_provider.dart';
 import '../../../../shared/domain/providers/location/location_provider.dart';
 import '../../../../shared/domain/providers/secure_storage_service_provider.dart';
+import '../../../../shared/domain/providers/user/fav_provider.dart';
 import '../../../../shared/domain/providers/user/user_provider.dart';
 import '../../../location/presentation/widgets/amount_chargers.dart';
 import '../../../notification/authentication/screens/authentication_screen.dart';
@@ -29,6 +30,20 @@ class ShortInfoUI extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isAuthenticated = ref.watch(authProvider).value;
+    final favouriteAsyncValue = ref.watch(favProvider);
+    final selectedLocationId = ref.watch(selectedLocationIdProvider);
+
+    var favouriteMap = favouriteAsyncValue.when(
+      data: (favourite) => Map.fromEntries(
+          favourite.map((item) => MapEntry(item.favourite.id, item.station_name))
+      ),
+      loading: () => null,
+      error: (error, stack) => null,
+    );
+    var favouriteLocationIdList = favouriteMap?.keys.toList();
+    print('selected location id: $selectedLocationId');
+    print('favourite map: $favouriteMap');
+    print('favourite location id list: $favouriteLocationIdList');
 
     return GestureDetector(
       onVerticalDragUpdate: (details) {
@@ -77,7 +92,9 @@ class ShortInfoUI extends ConsumerWidget {
               right: 18,
               child: IconButton(
                 iconSize: 30,
-                icon: Icon(Icons.bookmark_border,color: Theme.of(context).primaryColor,),
+                icon: favouriteLocationIdList!.contains(selectedLocationId) ?
+                  Icon(Icons.bookmark, color: Theme.of(context).primaryColor,):
+                  Icon(Icons.bookmark_border,color: Theme.of(context).primaryColor,),
                 onPressed: () async {
                   if (!isAuthenticated!) {
                     await showDialog(
@@ -86,13 +103,20 @@ class ShortInfoUI extends ConsumerWidget {
                     );
                   } else {
                     final userInfoRepository = ref.watch(userInfoRepositoryProvider);
-                    final userInfo = ref.watch(userProvider).value;
+                    final userInfo = await ref.watch(userProvider.future);
                     final secureStorage = ref.watch(secureStorageServiceProvider);
                     var tokenData = await secureStorage.getToken();
                     print(userInfo?.userId);
 
-                    final selectedLocationId = ref.watch(selectedLocationIdProvider);
-                    await userInfoRepository.createFav(selectedLocationId, tokenData!.access_token);
+                    if (favouriteLocationIdList.contains(selectedLocationId)) {
+                      print("delete location");
+                      await userInfoRepository.deleteFav(favouriteMap![selectedLocationId]!, tokenData!.access_token);
+                      ref.refresh(favProvider);
+                    } else {
+                      print("create lcoation");
+                      await userInfoRepository.createFav(selectedLocationId, tokenData!.access_token);
+                      ref.refresh(favProvider);
+                    }
                   }
                 },
               ),

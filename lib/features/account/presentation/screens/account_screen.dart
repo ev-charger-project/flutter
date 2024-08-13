@@ -6,6 +6,7 @@ import '../../../../shared/domain/providers/auth/auth_provider.dart';
 import '../../../../shared/domain/providers/user/user_provider.dart';
 import '../providers/sign_out_provider.dart';
 import '../widgets/favourite.dart';
+import '../../../../shared/domain/providers/user/fav_provider.dart';
 
 @RoutePage()
 class AccountScreen extends ConsumerWidget {
@@ -16,6 +17,7 @@ class AccountScreen extends ConsumerWidget {
     final isAuthenticated = ref.watch(authProvider).value;
     final signOutState = ref.watch(signOutProvider);
     final userAsyncValue = ref.watch(userProvider);
+    ref.refresh(favProvider);
 
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
@@ -82,11 +84,13 @@ class AccountScreen extends ConsumerWidget {
                   ),
                 ),
                 const SizedBox(height: 24),
-                const Expanded(
-                  child: SingleChildScrollView(
+                SizedBox(
+                  height: height * 0.5,
+                  child: const SingleChildScrollView(
                     child: Favorite(),
                   ),
                 ),
+
                 const Spacer(),
               ],
               ElevatedButton(
@@ -110,7 +114,7 @@ class AccountScreen extends ConsumerWidget {
                 child: signOutState == SignOutState.loading
                     ? const CircularProgressIndicator(color: Colors.white)
                     : Text(
-                  isAuthenticated == true ? 'Log Out' : 'Log In',
+                  isAuthenticated == true ? 'Sign Out' : 'Sign In',
                   style: const TextStyle(color: Colors.white),
                 ),
               ),
@@ -122,3 +126,4 @@ class AccountScreen extends ConsumerWidget {
     );
   }
 }
+
