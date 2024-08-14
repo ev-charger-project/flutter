@@ -19,20 +19,21 @@ class Favorite extends ConsumerWidget {
     final screenSize = MediaQuery.of(context).size;
     final favouriteAsyncValue = ref.watch(favProvider);
 
-    return ExpandablePanel(
-      header: Text(
-        "Favourite",
-        style: Theme.of(context).textTheme.displayMedium,
-      ),
-      collapsed: const SizedBox.shrink(),
-      expanded: favouriteAsyncValue.when(
-        data: (favourite) {
-          return ListView.builder(
+    return favouriteAsyncValue.when(
+      data: (favourite) {
+        var answer = favourite.map((item) => item.favourite).toList();
+        return ExpandablePanel(
+          header: Text(
+            "Favourite",
+            style: Theme.of(context).textTheme.displayMedium,
+          ),
+          collapsed: const SizedBox.shrink(),
+          expanded: ListView.builder(
             shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
             itemCount: favourite.length,
             itemBuilder: (context, index) {
-              final suggestion = favourite[index];
-              String distanceText = '';
+              final suggestion = answer[index];
               return Column(
                 children: [
                   ListTile(
@@ -50,20 +51,10 @@ class Favorite extends ConsumerWidget {
                       style: Theme.of(context).textTheme.bodySmall,
                       maxLines: 2,
                     ),
-                    trailing: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        if (distanceText.isNotEmpty)
-                          Text(
-                            distanceText,
-                            style: Theme.of(context).textTheme.bodySmall,
-                          ),
-                        const Icon(Icons.arrow_forward_ios),
-                      ],
-                    ),
+                    trailing: const Icon(Icons.arrow_forward_ios),
                     onTap: () {
                       ref.read(selectedLocationIdProvider.notifier).state =
-                          suggestion.id!;
+                      suggestion.id;
                       ref.read(isInfoVisibleProvider.notifier).state = true;
                       context.router.push(MapRoute(
                           longitude: suggestion.longitude,
@@ -77,23 +68,23 @@ class Favorite extends ConsumerWidget {
                 ],
               );
             },
-          );
-        },
-        loading: () => const Center(
-          child: CircularProgressIndicator(),
-        ),
-        error: (error, stack) => Center(
-          child: Text(
-            'Failed to load favourites: $error',
-            style: Theme.of(context).textTheme.bodyMedium,
           ),
-        ),
+          theme: const ExpandableThemeData(
+            headerAlignment: ExpandablePanelHeaderAlignment.center,
+            tapBodyToExpand: true,
+            tapBodyToCollapse: true,
+            hasIcon: true,
+          ),
+        );
+      },
+      loading: () => const Center(
+        child: CircularProgressIndicator(),
       ),
-      theme: const ExpandableThemeData(
-        headerAlignment: ExpandablePanelHeaderAlignment.center,
-        tapBodyToExpand: true,
-        tapBodyToCollapse: true,
-        hasIcon: true,
+      error: (error, stack) => Center(
+        child: Text(
+          'Failed to load favourites: $error',
+          style: Theme.of(context).textTheme.bodyMedium,
+        ),
       ),
     );
   }

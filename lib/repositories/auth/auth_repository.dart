@@ -8,5 +8,6 @@ abstract class AuthRepository {
   Future<TokenEntity> signIn(SignInEntity signInEntity);
   Future<TokenEntity> signUp(SignUpEntity signUpEntity);
   Future<bool> signOut(String refresh_token);
+  Future<TokenEntity> refreshToken(String refresh_token);
 }
 

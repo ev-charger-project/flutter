@@ -8,5 +8,5 @@ abstract class AuthService {
   Future<UserDataModel> signUp(String email, String password, String name, String phoneNumber);
   Future<bool> signOut(String refresh_token);
   Future<TokenDataModel> refreshToken(String refresh_token);
-  Future<UserDataModel?> getMe(String access_token);
+  Future<UserDataModel> getMe(String access_token);
 }
