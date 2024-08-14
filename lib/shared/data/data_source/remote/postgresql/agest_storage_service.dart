@@ -419,14 +419,16 @@ class AgestStorageService extends RemoteStorageService {
   @override
   Future<void> deleteFav(String favId, String access_token) async {
     const url = '/api/v1/user-favorite';
-
+    print('test delete: $uri$url/$favId');
     try {
-      final response = await _dio.delete(uri + url, queryParameters: {
-        'user_favorite_id': favId,
-      },
-          options: Options(
-            headers: {'Authorization': 'Bearer $access_token'},
-          ));
+      final response = await _dio.delete('$uri$url/$favId'
+      //   , queryParameters: {
+      //   'user_favorite_id': favId,
+      // },
+        // options: Options(
+        //   headers: {'Authorization': 'Bearer $access_token'},
+        // )
+      );
       print("delete response: $response");
       if (response.statusCode != 200) {
         throw Exception('Error code: ${response.statusCode}');
