@@ -12,9 +12,9 @@ import '../../../../../repositories/route/data_models/route_data_model.dart';
 class AgestStorageService extends RemoteStorageService {
   final Dio _dio = Dio();
 
-  // static const uri = 'http://10.0.2.2:4000';
+  static const uri = 'http://10.0.2.2:4000';
 
-  static const uri = 'http://172.16.11.139:14000';
+  //static const uri = 'http://172.16.11.139:14000';
 
   @override
   Future<LocationDataModel> fetchLocationData(String locationId) async {
@@ -51,7 +51,8 @@ class AgestStorageService extends RemoteStorageService {
       [int? stationCount,
       List<String>? chargeType,
       int? outputMin,
-      int? outputMax]) async {
+      int? outputMax,
+      List<String>? amenities]) async {
     const baseUrl = '/api/v1/locations/search';
     final Map<String, dynamic> queryParams = {
       'lat': screenCenterLat,
@@ -61,6 +62,7 @@ class AgestStorageService extends RemoteStorageService {
       'charger_type': chargeType,
       'power_output_gte': outputMin,
       'power_output_lte': outputMax,
+      'location_amenities': amenities,
     };
 
     final StringBuffer urlBuffer = StringBuffer('$uri$baseUrl?');
@@ -108,7 +110,8 @@ class AgestStorageService extends RemoteStorageService {
       int? outputMin,
       int? outputMax,
       double? lat,
-      double? long]) async {
+      double? long,
+      List<String>? amenities]) async {
     const baseUrl = '/api/v1/locations/search';
     final Map<String, dynamic> queryParams = {
       'query': searchString,
@@ -117,6 +120,7 @@ class AgestStorageService extends RemoteStorageService {
       'charger_type': chargeType,
       'power_output_gte': outputMin,
       'power_output_lte': outputMax,
+      'location_amenities': amenities,
     };
 
     if (lat != null && long != null) {

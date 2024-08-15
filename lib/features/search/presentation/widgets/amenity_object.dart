@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../shared/core/localization/localization.dart';
+import '../providers/amenity/available_amenities_provider.dart';
 
 class AmenityObject extends ConsumerStatefulWidget {
   final String amenityName;
@@ -17,16 +18,12 @@ class AmenityObject extends ConsumerStatefulWidget {
   });
 
   AmenityObject copyWith(
-      {String? amenityName, String? amenityIcon, bool? isChecked}) {
+      {String? amenityName, String? amenityIconPath, bool? isChecked}) {
     return AmenityObject(
       amenityName: amenityName ?? this.amenityName,
-      amenityIconPath: amenityIcon ?? this.amenityIconPath,
+      amenityIconPath: amenityIconPath ?? this.amenityIconPath,
       isChecked: isChecked ?? this.isChecked,
     );
-  }
-
-  void toggleChecked() {
-    isChecked = !isChecked;
   }
 
   @override
@@ -34,14 +31,26 @@ class AmenityObject extends ConsumerStatefulWidget {
 }
 
 class _AmenityObjectState extends ConsumerState<AmenityObject> {
+  void toggleChecked() {
+    setState(() {
+      widget.isChecked = !widget.isChecked;
+    });
+    print(widget.isChecked);
+    // Notify the provider about the change
+    ref.read(availableAmenitiesProvider.notifier).update((state) {
+      final index = state
+          .indexWhere((amenity) => amenity.amenityName == widget.amenityName);
+      if (index != -1) {
+        state[index] = state[index].copyWith(isChecked: widget.isChecked);
+      }
+      return state;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        setState(() {
-          widget.toggleChecked();
-        });
-      },
+      onTap: toggleChecked,
       child: Container(
         color: widget.isChecked
             ? Theme.of(context).colorScheme.secondary

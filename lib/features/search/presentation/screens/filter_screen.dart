@@ -17,10 +17,13 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../shared/presentation/widgets/button.dart';
 import 'package:ev_charger/features/search/presentation/widgets/widgets.dart';
 
+import '../providers/amenity/available_amenities_provider.dart';
+import '../providers/amenity/selected_amenities_provider.dart';
 import '../providers/power_output/power_output_values_provider.dart';
 import '../providers/station_count/selected_station_count_provider.dart';
 import '../providers/station_count/station_count_value_provider.dart';
 import '../widgets/amenity.dart';
+import '../widgets/amenity_object.dart';
 import '../widgets/charge_type_object.dart';
 
 import 'package:syncfusion_flutter_sliders/sliders.dart';
@@ -34,6 +37,38 @@ class FilterScreen extends ConsumerStatefulWidget {
 }
 
 class _FilterScreenState extends ConsumerState<FilterScreen> {
+  void resetAmenities() {
+    final initialAmenitiesAsyncValue = ref.read(initialAmenitiesProvider);
+
+    initialAmenitiesAsyncValue.when(
+      data: (initialAmenities) {
+        final resetAmenities = initialAmenities.map((amenity) {
+          return AmenityObject(
+            amenityName: amenity.amenityName,
+            amenityIconPath: amenity.amenityIconPath,
+            isChecked: false,
+          );
+        }).toList();
+        ref.read(availableAmenitiesProvider.notifier).state = resetAmenities;
+      },
+      loading: () => print("Loading initial amenities..."),
+      error: (err, stack) => print("Error loading initial amenities: $err"),
+    );
+  }
+
+  void applyAmenities() {
+    final amenities = ref.read(availableAmenitiesProvider);
+    final selectedAmenities =
+        amenities.where((amenity) => amenity.isChecked).toList();
+    ref.read(selectedAmenitiesProvider.notifier).state = selectedAmenities;
+    final abc = ref.read(selectedAmenitiesProvider);
+
+    for (var amenity in abc) {
+      print(
+          'Selected Amenity Name: ${amenity.amenityName}, Selected Icon Path: ${amenity.amenityIconPath},Selected Is Checked: ${amenity.isChecked}');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
@@ -150,30 +185,34 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                         ref.read(rangeValuesProvider.notifier).state =
                             SfRangeValues(0, 360);
 
+                        resetAmenities();
+
                         // Reset border color state to null
                         ref.read(FilterBorderColorProvider.notifier).state =
                             null;
 
                         // Update filter provider with the new filter
-                        ref.read(filterProvider.notifier).updateFilter(
-                            FilterEntity(
-                                station_count:
-                                    ref
-                                        .read(
-                                            stationCountValueProvider.notifier)
-                                        .state,
-                                charge_type: convertChargeTypeObjectsToStrings(
-                                    ref
-                                        .read(visiblePlugsProvider.notifier)
-                                        .state),
-                                output_min: convertDynamicToInt(ref
-                                    .read(rangeValuesProvider.notifier)
-                                    .state
-                                    .start),
-                                output_max: convertDynamicToInt(ref
-                                    .read(rangeValuesProvider.notifier)
-                                    .state
-                                    .end)));
+                        ref
+                            .read(filterProvider.notifier)
+                            .updateFilter(FilterEntity(
+                              station_count: ref
+                                  .read(stationCountValueProvider.notifier)
+                                  .state,
+                              charge_type: convertChargeTypeObjectsToStrings(ref
+                                  .read(visiblePlugsProvider.notifier)
+                                  .state),
+                              output_min: convertDynamicToInt(ref
+                                  .read(rangeValuesProvider.notifier)
+                                  .state
+                                  .start),
+                              output_max: convertDynamicToInt(ref
+                                  .read(rangeValuesProvider.notifier)
+                                  .state
+                                  .end),
+                              amenities: convertAmenityObjectsToStrings(ref
+                                  .read(selectedAmenitiesProvider.notifier)
+                                  .state),
+                            ));
 
                         ref
                             .read(checkedPlugsProvider.notifier)
@@ -266,6 +305,12 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                         ref.read(FilterBorderColorProvider.notifier).state =
                             Theme.of(context).primaryColor;
 
+                        applyAmenities();
+
+                        ref
+                            .read(checkedPlugsProvider.notifier)
+                            .updateCheckedPlugs();
+
                         // Update filter provider with the new filter
                         ref.read(filterProvider.notifier).updateFilter(
                               FilterEntity(
@@ -284,12 +329,11 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                                     .read(rangeValuesProvider.notifier)
                                     .state
                                     .end),
+                                amenities: convertAmenityObjectsToStrings(ref
+                                    .read(selectedAmenitiesProvider.notifier)
+                                    .state),
                               ),
                             );
-
-                        ref
-                            .read(checkedPlugsProvider.notifier)
-                            .updateCheckedPlugs();
 
                         ref.refresh(markerProvider);
                         print("Updated Filter: ${ref.read(filterProvider)}");
@@ -337,5 +381,12 @@ List<String> convertChargeTypeObjectsToStrings(
     List<ChargeTypeObject> chargeTypeObjects) {
   return chargeTypeObjects.map((chargeTypeObject) {
     return '${chargeTypeObject.chargeType} - ${chargeTypeObject.chargePowerType}';
+  }).toList();
+}
+
+List<String> convertAmenityObjectsToStrings(
+    List<AmenityObject> amenityObjects) {
+  return amenityObjects.map((amenityObject) {
+    return amenityObject.amenityName;
   }).toList();
 }

@@ -23,7 +23,7 @@ final initialAmenitiesProvider =
     AmenityObject(
       amenityName: 'Restrooms',
       amenityIconPath: 'assets/icons/restrooms.svg',
-      isChecked: true,
+      isChecked: false,
     ),
     AmenityObject(
       amenityName: 'Shopping',
@@ -33,14 +33,26 @@ final initialAmenitiesProvider =
     AmenityObject(
       amenityName: 'Lodging',
       amenityIconPath: 'assets/icons/lodging.svg',
-      isChecked: true,
+      isChecked: false,
     ),
   ];
   return exampleAmenities;
 });
 
-final availableAmenitiesProvider =
-    FutureProvider<List<AmenityObject>>((ref) async {
+/*final availableAmenitiesProvider =
+    StateNotifierProvider<AmenityNotifier, List<AmenityObject>>((ref) {
+  return AmenityNotifier();
+});
+
+class AmenityNotifier extends StateNotifier<List<AmenityObject>> {
+  AmenityNotifier() : super([]);
+
+  void updateAmenities(List<AmenityObject> amenities) {
+    state = amenities;
+  }
+}*/
+
+final availableAmenitiesProvider = StateProvider<List<AmenityObject>>((ref) {
   List<AmenityObject> availableAmenities = [];
   ref.watch(initialAmenitiesProvider).whenData((value) {
     availableAmenities = value;

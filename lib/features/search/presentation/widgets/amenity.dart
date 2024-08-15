@@ -16,12 +16,12 @@ class Amenity extends ConsumerStatefulWidget {
 }
 
 class _AmenityState extends ConsumerState<Amenity> {
-  final Set<int> selectedIndexes = {};
+  //final Set<int> selectedIndexes = {};
 
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
-    final amenitiesAsyncValue = ref.watch(availableAmenitiesProvider);
+    final amenities = ref.watch(availableAmenitiesProvider);
 
     return Padding(
       padding: EdgeInsets.symmetric(vertical: screenSize.height * 0.016),
@@ -44,11 +44,41 @@ class _AmenityState extends ConsumerState<Amenity> {
             Divider(
               color: Theme.of(context).dividerColor,
             ),
-            amenitiesAsyncValue.when(
+            amenities.isEmpty
+                ? Center(
+                    child: DotsCircularProgressIndicator(
+                      color: Theme.of(context).primaryColor,
+                      numberOfDots: 8,
+                    ),
+                  )
+                : GridView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      childAspectRatio: 1.5,
+                    ),
+                    itemCount: amenities.length,
+                    itemBuilder: (context, index) {
+                      final amenity = amenities[index];
+                      // print details of each amenity
+                      print('Amenity Name: ${amenity.amenityName}');
+                      print('Amenity Icon Path: ${amenity.amenityIconPath}');
+                      print('Is Checked: ${amenity.isChecked}');
+
+                      return AmenityObject(
+                        amenityName: amenity.amenityName,
+                        amenityIconPath: amenity.amenityIconPath,
+                        isChecked: amenity.isChecked,
+                      );
+                    },
+                  ),
+            /*amenities.when(
               data: (amenities) => GridView.builder(
                 shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
                   childAspectRatio: 1.5,
                 ),
@@ -58,7 +88,7 @@ class _AmenityState extends ConsumerState<Amenity> {
                   return AmenityObject(
                     amenityName: amenity.amenityName,
                     amenityIconPath: amenity.amenityIconPath,
-                    isChecked: selectedIndexes.contains(index),
+                    isChecked: amenity.isChecked,
                   );
                 },
               ),
@@ -71,7 +101,7 @@ class _AmenityState extends ConsumerState<Amenity> {
               error: (error, stack) => Center(
                 child: Text('Error: $error'),
               ),
-            ),
+            ),*/
           ],
         ),
       ),
