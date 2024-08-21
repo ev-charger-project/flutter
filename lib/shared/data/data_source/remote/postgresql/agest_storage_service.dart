@@ -13,9 +13,9 @@ import '../../../../../repositories/route/data_models/route_data_model.dart';
 class AgestStorageService extends RemoteStorageService {
   final Dio _dio = Dio();
 
-  static const uri = 'http://10.0.2.2:4000';
+  static const uri = 'http://10.0.2.2:8000';
 
-  //static const uri = 'http://172.16.11.139:14000';
+  // static const uri = 'http://172.16.11.139:14000';
 
   @override
   Future<LocationDataModel> fetchLocationData(String locationId) async {
@@ -80,7 +80,7 @@ class AgestStorageService extends RemoteStorageService {
     });
 
     final String fullUrl =
-    urlBuffer.toString().substring(0, urlBuffer.length - 1);
+        urlBuffer.toString().substring(0, urlBuffer.length - 1);
 
     try {
       final response = await _dio.get(fullUrl);
@@ -89,7 +89,7 @@ class AgestStorageService extends RemoteStorageService {
       if (response.statusCode == 200) {
         return (response.data as List)
             .map((item) =>
-            ChargerMarkerDataModel.fromJson(item as Map<String, dynamic>))
+                ChargerMarkerDataModel.fromJson(item as Map<String, dynamic>))
             .toList();
       } else {
         throw Exception('Error code: ${response.statusCode}');
@@ -103,6 +103,7 @@ class AgestStorageService extends RemoteStorageService {
       }
     }
   }
+
   @override
   Future<List<SuggestionDataModel>> fetchSuggestion(String searchString,
       [int? stationCount,
@@ -216,7 +217,7 @@ class AgestStorageService extends RemoteStorageService {
           print('Response is $founds');
           final fetchedChargeTypes = founds
               .map((item) =>
-              ChargeTypeDataModel.fromJson(item as Map<String, dynamic>))
+                  ChargeTypeDataModel.fromJson(item as Map<String, dynamic>))
               .toList();
 
           chargeTypes.addAll(fetchedChargeTypes);
@@ -243,7 +244,6 @@ class AgestStorageService extends RemoteStorageService {
 
     return chargeTypes;
   }
-
 
   @override
   Future<RouteDataModel> fetchRoute(double userLat, double userLong,
@@ -333,32 +333,31 @@ class AgestStorageService extends RemoteStorageService {
     print("fetchFav: $token, $id");
     try {
       // while (hasMoreData) {
-        final response = await _dio.get(
-          uri + url,
-          queryParameters: {
-            'user_id': id,
-            // 'page': currentPage,
-          },
-          options: Options(
-            headers: {'Authorization': 'Bearer $token'},
-          ),
-        );
-        print("response fetch: $response");
-        if (response.statusCode == 200) {
-          final data = response.data['founds'] as List;
-          if (data.isEmpty) {
-            hasMoreData = false;
-          } else {
-            final locations = data
-                .map((item) => FavouriteDataModel.fromJson(item))
-                .toList();
-            allLocations.addAll(locations);
-
-            currentPage++;
-          }
+      final response = await _dio.get(
+        uri + url,
+        queryParameters: {
+          'user_id': id,
+          // 'page': currentPage,
+        },
+        options: Options(
+          headers: {'Authorization': 'Bearer $token'},
+        ),
+      );
+      print("response fetch: $response");
+      if (response.statusCode == 200) {
+        final data = response.data['founds'] as List;
+        if (data.isEmpty) {
+          hasMoreData = false;
         } else {
-          throw Exception('Error code: ${response.statusCode}');
+          final locations =
+              data.map((item) => FavouriteDataModel.fromJson(item)).toList();
+          allLocations.addAll(locations);
+
+          currentPage++;
         }
+      } else {
+        throw Exception('Error code: ${response.statusCode}');
+      }
       // }
       return allLocations;
     } catch (e) {
@@ -370,56 +369,6 @@ class AgestStorageService extends RemoteStorageService {
       }
     }
   }
-  
-    @override
-  Future<List<AmenityDataModel>> fetchAmenityData() async {
-    const url = '/api/v1/amenities';
-    List<AmenityDataModel> amenities = [];
-
-    try {
-      int page = 1;
-      bool hasMoreData = true;
-
-      while (hasMoreData) {
-        final response = await _dio.get(
-          uri + url,
-          queryParameters: {'page': page},
-        );
-
-        if (response.statusCode == 200) {
-          final data = response.data;
-          final founds = data['founds'] as List;
-          print('Response is $founds');
-          final fetchedAmenities = founds
-              .map((item) =>
-                  AmenityDataModel.fromJson(item as Map<String, dynamic>))
-              .toList();
-
-          amenities.addAll(fetchedAmenities);
-
-          final totalCount = data['search_options']['total_count'] as int;
-
-          if (amenities.length >= totalCount) {
-            hasMoreData = false;
-          } else {
-            page++;
-          }
-        } else {
-          throw Exception('Error code: ${response.statusCode}');
-        }
-      }
-    } catch (e) {
-      print('Error: $e');
-      if (e is DioException && e.response != null) {
-        throw Exception('Error code: ${e.response?.statusCode}');
-      } else {
-        throw Exception('An unknown error occurred');
-      }
-    }
-
-    return amenities;
-  }
-}
 
   @override
   Future<void> createFav(String locationId, String access_token) async {
@@ -427,12 +376,13 @@ class AgestStorageService extends RemoteStorageService {
     print("createUserFav api: $access_token, $locationId");
     print(uri + url);
     try {
-      final response = await _dio.post(uri + url, data: {
-        'location_id': locationId,
-      },
-        options: Options(
-        headers: {'Authorization': 'Bearer $access_token'},
-      ));
+      final response = await _dio.post(uri + url,
+          data: {
+            'location_id': locationId,
+          },
+          options: Options(
+            headers: {'Authorization': 'Bearer $access_token'},
+          ));
       print("create response: $response");
       if (response.statusCode != 200) {
         throw Exception('Error code: ${response.statusCode}');
@@ -453,13 +403,13 @@ class AgestStorageService extends RemoteStorageService {
     print('test delete: $uri$url/$favId');
     try {
       final response = await _dio.delete('$uri$url/$favId'
-      //   , queryParameters: {
-      //   'user_favorite_id': favId,
-      // },
-        // options: Options(
-        //   headers: {'Authorization': 'Bearer $access_token'},
-        // )
-      );
+          //   , queryParameters: {
+          //   'user_favorite_id': favId,
+          // },
+          // options: Options(
+          //   headers: {'Authorization': 'Bearer $access_token'},
+          // )
+          );
       print("delete response: $response");
       if (response.statusCode != 200) {
         throw Exception('Error code: ${response.statusCode}');
@@ -472,6 +422,11 @@ class AgestStorageService extends RemoteStorageService {
         throw Exception('An unknown error occurred');
       }
     }
+  }
 
+  @override
+  Future<List<AmenityDataModel>> fetchAmenityData() {
+    // TODO: implement fetchAmenityData
+    throw UnimplementedError();
   }
 }

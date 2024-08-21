@@ -7,9 +7,9 @@ import '../auth_service.dart';
 class AuthAgestService extends AuthService {
   final Dio _dio = Dio();
 
-  // static const uri = 'http://10.0.2.2:3000';
+  static const uri = 'http://10.0.2.2:4000';
 
-  static const uri = 'http://172.16.11.139:15000';
+  // static const uri = 'http://172.16.11.139:15000';
 
   @override
   Future<TokenDataModel> signIn(String email, String password) async {

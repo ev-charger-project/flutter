@@ -37,9 +37,8 @@ abstract class RemoteStorageService {
       double userLat, double userLong, double desLat, double desLong);
 
 
-  Future<List<LocationDataModel>> fetchFav(String token, String id);
-  Future<List<AmenityDataModel>> fetchAmenityData();
   Future<List<FavouriteDataModel>> fetchFav(String token, String id);
+  Future<List<AmenityDataModel>> fetchAmenityData();
   Future<void> createFav(String locationId, String access_token);
   Future<void> deleteFav(String favId, String access_token);
 }
