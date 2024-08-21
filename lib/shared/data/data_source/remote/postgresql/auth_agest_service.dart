@@ -52,20 +52,12 @@ class AuthAgestService extends AuthService {
         'name': name,
         'phone_number': phoneNumber
       });
-      print('link is $uri$url');
-      if (response.statusCode == 200) {
-        UserDataModel user = UserDataModel(
-            userId: response.data['id'],
-            username: response.data['name'],
-            email: response.data['email'],
-        );
-
-        return user;
-      }
-      else {
-        print('Error code: ${response.statusCode}');
-        throw Exception('Duplication account');
-      }
+      UserDataModel user = UserDataModel(
+          userId: response.data['id'],
+          username: response.data['name'],
+          email: response.data['email'],
+      );
+      return user;
     } catch(e) {
       print('Error: $e');
       if (e is DioException && e.response != null) {
@@ -101,7 +93,7 @@ class AuthAgestService extends AuthService {
 
   @override
   Future<TokenDataModel> refreshToken(String refresh_token)  async {
-    const url = 'api/v1/auth/refresh-token';
+    const url = '/api/v1/auth/refresh-token';
 
     try {
       final response = await _dio.get(uri + url, queryParameters: {
@@ -129,16 +121,12 @@ class AuthAgestService extends AuthService {
   }
 
   @override
-  Future<UserDataModel?> getMe(String access_token) async {
-    const url = '/api/v1/auth/get_';
+  Future<UserDataModel> getMe(String access_token) async {
+    const url = '/api/v1/auth/me';
 
     try {
       final response = await _dio.get(uri + url, options: Options(
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'Authorization': 'Bearer $access_token',
-        }
+        headers: {'Authorization': 'Bearer $access_token'}
       ));
 
       if (response.statusCode == 200) {
@@ -149,7 +137,9 @@ class AuthAgestService extends AuthService {
         );
         return user;
       }
-      return null;
+      else {
+        throw Exception('An unknown error occurred');
+      }
     } catch(e) {
       print('Error: $e');
       if (e is DioException && e.response != null) {

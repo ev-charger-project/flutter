@@ -16,12 +16,12 @@ class SignUpNotifier extends StateNotifier<SignUpState> {
   SignUpNotifier(this.authRepository) : super(SignUpState.initial);
 
   Future<void> signUp(SignUpEntity signUpEntity) async {
-    print("sign up entity: ${signUpEntity.name}, ${signUpEntity.email}, ${signUpEntity.password}");
 
     state = SignUpState.loading;
     try {
       await authRepository.signUp(signUpEntity);
       state = SignUpState.success;
+      print('success');
     } catch (e) {
       state = SignUpState.error;
     }

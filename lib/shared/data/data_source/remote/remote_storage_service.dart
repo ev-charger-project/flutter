@@ -4,6 +4,7 @@ import 'package:ev_charger/repositories/location/data_models/location_data_model
 import 'package:ev_charger/repositories/suggestion/data_models/suggestion_data_model.dart';
 
 import '../../../../repositories/charge_type/data_models/charge_type_data_model.dart';
+import '../../../../repositories/favourite/data_models/favourite_data_model.dart';
 import '../../../../repositories/route/data_models/route_data_model.dart';
 
 abstract class RemoteStorageService {
@@ -35,7 +36,10 @@ abstract class RemoteStorageService {
   Future<List<String>> fetchDistanceAndDuration(
       double userLat, double userLong, double desLat, double desLong);
 
-  Future<List<LocationDataModel>> fetchFav(String token, String id);
 
+  Future<List<LocationDataModel>> fetchFav(String token, String id);
   Future<List<AmenityDataModel>> fetchAmenityData();
+  Future<List<FavouriteDataModel>> fetchFav(String token, String id);
+  Future<void> createFav(String locationId, String access_token);
+  Future<void> deleteFav(String favId, String access_token);
 }

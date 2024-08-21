@@ -6,61 +6,64 @@ import '../../../../shared/presentation/widgets/button.dart';
 
 
 enum ButtonType {
-  logIn,
-  cancel,
+  signIn,
+  signOut,
 }
 
 extension ButtonTypeExtension on ButtonType {
   String get text {
     switch (this) {
-      case ButtonType.logIn:
+      case ButtonType.signIn:
         return 'Sign in';
-      case ButtonType.cancel:
-        return 'Cancel';
+      case ButtonType.signOut:
+        return 'Sign out';
     }
   }
 
   Color get fillColor {
     switch (this) {
-      case ButtonType.logIn:
+      case ButtonType.signIn:
         return AppColors.primary;
-      case ButtonType.cancel:
+      case ButtonType.signOut:
         return AppColors.lightGreen;
     }
   }
 
   Color get textColor {
     switch (this) {
-      case ButtonType.logIn:
+      case ButtonType.signIn:
         return AppColors.white;
-      case ButtonType.cancel:
+      case ButtonType.signOut:
         return AppColors.primary;
     }
   }
 }
 
-class AuthenticationButton extends StatelessWidget {
+class AccountButton extends StatelessWidget {
   final ButtonType buttonType;
   final VoidCallback onTap;
 
-  const AuthenticationButton(
+  const AccountButton(
       {super.key, required this.buttonType, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.sizeOf(context).height;
 
-    return Button(
-      onTap: onTap,
-      fillColor: buttonType.fillColor,
-      border: false,
-      shadow: true,
-      shadowOpacity: 0.35,
-      padding: EdgeInsets.all(height * 0.01),
-      child: Text(
-        buttonType.text,
-        style: AppTextStyles.body
-            .copyWith(fontSize: height * 0.02, color: buttonType.textColor),
+    return Padding(
+      padding: EdgeInsets.only(top: height * 0.03),
+      child: Button(
+        onTap: onTap,
+        fillColor: buttonType.fillColor,
+        border: false,
+        shadow: true,
+        shadowOpacity: 0.35,
+        padding: EdgeInsets.all(height * 0.005),
+        child: Text(
+          buttonType.text,
+          style: AppTextStyles.body
+              .copyWith(fontSize: height * 0.02, color: buttonType.textColor),
+        ),
       ),
     );
   }

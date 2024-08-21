@@ -76,8 +76,8 @@ class _SignUpFormState extends State<SignUpForm> {
             hintText: AppLocalizations.of(context).translate('Phone Number'),
             controller: widget.phoneNumberController,
             prefixIcon: Icons.phone,
-            regex: CheckValidate.phoneNumber,
-            errorMessage: AppLocalizations.of(context).translate('Please enter a valid phone number'),
+            // regex: CheckValidate.phoneNumber,
+            // errorMessage: AppLocalizations.of(context).translate('Please enter a valid phone number'),
           ),
           SizedBox(height: height * 0.03),
           SignUpButton(
