@@ -4,39 +4,14 @@ import '../../widgets/amenity_object.dart';
 
 final initialAmenitiesProvider =
     FutureProvider<List<AmenityObject>>((ref) async {
-  /*final amenityList = await ref.watch(amenityProvider.future);
+  final amenityList = await ref.watch(amenityProvider.future);
   return amenityList
       .map((i) => AmenityObject(
             amenityName: i.amenity,
-            amenityIconPath: i.amenity_image_url,
+            amenityIconPath: i.imageUrl,
             isChecked: false,
           ))
-      .toList();*/
-
-  await Future.delayed(Duration(seconds: 2));
-  final exampleAmenities = [
-    AmenityObject(
-      amenityName: 'Dining',
-      amenityIconPath: 'assets/icons/dining.svg',
-      isChecked: false,
-    ),
-    AmenityObject(
-      amenityName: 'Restrooms',
-      amenityIconPath: 'assets/icons/restrooms.svg',
-      isChecked: false,
-    ),
-    AmenityObject(
-      amenityName: 'Shopping',
-      amenityIconPath: 'assets/icons/shopping.svg',
-      isChecked: false,
-    ),
-    AmenityObject(
-      amenityName: 'Lodging',
-      amenityIconPath: 'assets/icons/lodging.svg',
-      isChecked: false,
-    ),
-  ];
-  return exampleAmenities;
+      .toList();
 });
 
 /*final availableAmenitiesProvider =

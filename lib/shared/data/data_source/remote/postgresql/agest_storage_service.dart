@@ -6,7 +6,7 @@ import 'package:ev_charger/repositories/location/data_models/location_data_model
 import 'package:ev_charger/repositories/suggestion/data_models/suggestion_data_model.dart';
 import 'package:ev_charger/shared/data/data_source/remote/remote_storage_service.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter_polyline_points/flutter_polyline_points.dart';
+// import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 
 import '../../../../../repositories/route/data_models/route_data_model.dart';
 
@@ -38,12 +38,6 @@ class AgestStorageService extends RemoteStorageService {
         throw Exception('An unknown error occurred');
       }
     }
-    // return const LocationDataModel(name: "Testy boi", street: 'Cheezy Street', city: 'Helmsdeep',
-    //     country: 'Rug Rog Raggy', latitude: 10.000, longitude: 106, workingDays: [
-    //       WorkingDay(day: 2, openTime: '04:00', closeTime: '04:00'),
-    //       WorkingDay(day: 3, openTime: '04:00', closeTime: '04:00'),
-    //       WorkingDay(day: 4, openTime: '04:00', closeTime: '04:00'),
-    //       WorkingDay(day: 5, openTime: '04:00', closeTime: '04:00')]);
   }
 
   @override
@@ -402,14 +396,7 @@ class AgestStorageService extends RemoteStorageService {
     const url = '/api/v1/user-favorite';
     print('test delete: $uri$url/$favId');
     try {
-      final response = await _dio.delete('$uri$url/$favId'
-          //   , queryParameters: {
-          //   'user_favorite_id': favId,
-          // },
-          // options: Options(
-          //   headers: {'Authorization': 'Bearer $access_token'},
-          // )
-          );
+      final response = await _dio.delete('$uri$url/$favId');
       print("delete response: $response");
       if (response.statusCode != 200) {
         throw Exception('Error code: ${response.statusCode}');
@@ -425,8 +412,47 @@ class AgestStorageService extends RemoteStorageService {
   }
 
   @override
-  Future<List<AmenityDataModel>> fetchAmenityData() {
-    // TODO: implement fetchAmenityData
-    throw UnimplementedError();
+  Future<List<AmenityDataModel>> fetchAmenityData() async {
+    const url = '/api/v1/amenities';
+    const mediaUrl = '/api/v1/media/';
+    int currentPage = 1;
+    bool hasMoreData = true;
+    List<AmenityDataModel> allAmenities = [];
+    try {
+      // while (hasMoreData) {
+      final response = await _dio.get(
+        uri + url,
+      );
+      print("response fetch: $response");
+      if (response.statusCode == 200) {
+        final data = response.data['founds'] as List;
+        if (data.isEmpty) {
+          hasMoreData = false;
+        } else {
+          final amenities = data.map((item) {
+            final imageFileName = item['image_url'];
+            if (item['image_url'] != null) {
+              item['image_url'] = "$uri/api/v1/media/$imageFileName";
+            }
+            print(item['image_url']);
+            return AmenityDataModel.fromJson(item);
+          }).toList();
+          allAmenities.addAll(amenities);
+
+          currentPage++;
+        }
+      } else {
+        throw Exception('Error code: ${response.statusCode}');
+      }
+      // }
+      return allAmenities;
+    } catch (e) {
+      print('Error: $e');
+      if (e is DioException && e.response != null) {
+        throw Exception('Error code: ${e.response?.statusCode}');
+      } else {
+        throw Exception('An unknown error occurred');
+      }
+    }
   }
 }

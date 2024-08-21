@@ -8,7 +8,7 @@ part 'amenity_entity.freezed.dart';
 class AmenityEntity with _$AmenityEntity {
   const factory AmenityEntity({
     required String amenity,
-    required String amenity_image_url,
+    required String imageUrl,
   }) = _AmenityEntity;
 }
 
@@ -17,7 +17,7 @@ class AmenityMapper with EntityConvertible<AmenityEntity, AmenityDataModel> {
   AmenityDataModel fromEntity(AmenityEntity entityObject) {
     return AmenityDataModel(
       amenity: entityObject.amenity,
-      amenity_image_url: entityObject.amenity_image_url,
+      imageUrl: entityObject.imageUrl,
     );
   }
 
@@ -25,7 +25,7 @@ class AmenityMapper with EntityConvertible<AmenityEntity, AmenityDataModel> {
   AmenityEntity toEntity(AmenityDataModel dataModelObject) {
     return AmenityEntity(
       amenity: dataModelObject.amenity,
-      amenity_image_url: dataModelObject.amenity_image_url,
+      imageUrl: dataModelObject.imageUrl,
     );
   }
 

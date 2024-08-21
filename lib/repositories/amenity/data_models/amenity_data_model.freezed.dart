@@ -20,10 +20,10 @@ AmenityDataModel _$AmenityDataModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$AmenityDataModel {
-  @JsonKey(name: 'amenity')
+  @JsonKey(name: 'amenities_types')
   String get amenity => throw _privateConstructorUsedError;
-  @JsonKey(name: 'amenity_image_url')
-  String get amenity_image_url => throw _privateConstructorUsedError;
+  @JsonKey(name: 'image_url')
+  String get imageUrl => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -38,8 +38,8 @@ abstract class $AmenityDataModelCopyWith<$Res> {
       _$AmenityDataModelCopyWithImpl<$Res, AmenityDataModel>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'amenity') String amenity,
-      @JsonKey(name: 'amenity_image_url') String amenity_image_url});
+      {@JsonKey(name: 'amenities_types') String amenity,
+      @JsonKey(name: 'image_url') String imageUrl});
 }
 
 /// @nodoc
@@ -56,16 +56,16 @@ class _$AmenityDataModelCopyWithImpl<$Res, $Val extends AmenityDataModel>
   @override
   $Res call({
     Object? amenity = null,
-    Object? amenity_image_url = null,
+    Object? imageUrl = null,
   }) {
     return _then(_value.copyWith(
       amenity: null == amenity
           ? _value.amenity
           : amenity // ignore: cast_nullable_to_non_nullable
               as String,
-      amenity_image_url: null == amenity_image_url
-          ? _value.amenity_image_url
-          : amenity_image_url // ignore: cast_nullable_to_non_nullable
+      imageUrl: null == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -80,8 +80,8 @@ abstract class _$$AmenityImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'amenity') String amenity,
-      @JsonKey(name: 'amenity_image_url') String amenity_image_url});
+      {@JsonKey(name: 'amenities_types') String amenity,
+      @JsonKey(name: 'image_url') String imageUrl});
 }
 
 /// @nodoc
@@ -96,16 +96,16 @@ class __$$AmenityImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? amenity = null,
-    Object? amenity_image_url = null,
+    Object? imageUrl = null,
   }) {
     return _then(_$AmenityImpl(
       amenity: null == amenity
           ? _value.amenity
           : amenity // ignore: cast_nullable_to_non_nullable
               as String,
-      amenity_image_url: null == amenity_image_url
-          ? _value.amenity_image_url
-          : amenity_image_url // ignore: cast_nullable_to_non_nullable
+      imageUrl: null == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -115,22 +115,22 @@ class __$$AmenityImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$AmenityImpl implements _Amenity {
   const _$AmenityImpl(
-      {@JsonKey(name: 'amenity') required this.amenity,
-      @JsonKey(name: 'amenity_image_url') this.amenity_image_url = ''});
+      {@JsonKey(name: 'amenities_types') required this.amenity,
+      @JsonKey(name: 'image_url') this.imageUrl = ''});
 
   factory _$AmenityImpl.fromJson(Map<String, dynamic> json) =>
       _$$AmenityImplFromJson(json);
 
   @override
-  @JsonKey(name: 'amenity')
+  @JsonKey(name: 'amenities_types')
   final String amenity;
   @override
-  @JsonKey(name: 'amenity_image_url')
-  final String amenity_image_url;
+  @JsonKey(name: 'image_url')
+  final String imageUrl;
 
   @override
   String toString() {
-    return 'AmenityDataModel(amenity: $amenity, amenity_image_url: $amenity_image_url)';
+    return 'AmenityDataModel(amenity: $amenity, imageUrl: $imageUrl)';
   }
 
   @override
@@ -139,13 +139,13 @@ class _$AmenityImpl implements _Amenity {
         (other.runtimeType == runtimeType &&
             other is _$AmenityImpl &&
             (identical(other.amenity, amenity) || other.amenity == amenity) &&
-            (identical(other.amenity_image_url, amenity_image_url) ||
-                other.amenity_image_url == amenity_image_url));
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, amenity, amenity_image_url);
+  int get hashCode => Object.hash(runtimeType, amenity, imageUrl);
 
   @JsonKey(ignore: true)
   @override
@@ -163,18 +163,17 @@ class _$AmenityImpl implements _Amenity {
 
 abstract class _Amenity implements AmenityDataModel {
   const factory _Amenity(
-          {@JsonKey(name: 'amenity') required final String amenity,
-          @JsonKey(name: 'amenity_image_url') final String amenity_image_url}) =
-      _$AmenityImpl;
+      {@JsonKey(name: 'amenities_types') required final String amenity,
+      @JsonKey(name: 'image_url') final String imageUrl}) = _$AmenityImpl;
 
   factory _Amenity.fromJson(Map<String, dynamic> json) = _$AmenityImpl.fromJson;
 
   @override
-  @JsonKey(name: 'amenity')
+  @JsonKey(name: 'amenities_types')
   String get amenity;
   @override
-  @JsonKey(name: 'amenity_image_url')
-  String get amenity_image_url;
+  @JsonKey(name: 'image_url')
+  String get imageUrl;
   @override
   @JsonKey(ignore: true)
   _$$AmenityImplCopyWith<_$AmenityImpl> get copyWith =>

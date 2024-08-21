@@ -54,10 +54,11 @@ class _AmenityState extends ConsumerState<Amenity> {
                 : GridView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
+
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3,
-                      childAspectRatio: 1.5,
+                      childAspectRatio: 1.25,
                     ),
                     itemCount: amenities.length,
                     itemBuilder: (context, index) {

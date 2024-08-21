@@ -17,7 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$AmenityEntity {
   String get amenity => throw _privateConstructorUsedError;
-  String get amenity_image_url => throw _privateConstructorUsedError;
+  String get imageUrl => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AmenityEntityCopyWith<AmenityEntity> get copyWith =>
@@ -30,7 +30,7 @@ abstract class $AmenityEntityCopyWith<$Res> {
           AmenityEntity value, $Res Function(AmenityEntity) then) =
       _$AmenityEntityCopyWithImpl<$Res, AmenityEntity>;
   @useResult
-  $Res call({String amenity, String amenity_image_url});
+  $Res call({String amenity, String imageUrl});
 }
 
 /// @nodoc
@@ -47,16 +47,16 @@ class _$AmenityEntityCopyWithImpl<$Res, $Val extends AmenityEntity>
   @override
   $Res call({
     Object? amenity = null,
-    Object? amenity_image_url = null,
+    Object? imageUrl = null,
   }) {
     return _then(_value.copyWith(
       amenity: null == amenity
           ? _value.amenity
           : amenity // ignore: cast_nullable_to_non_nullable
               as String,
-      amenity_image_url: null == amenity_image_url
-          ? _value.amenity_image_url
-          : amenity_image_url // ignore: cast_nullable_to_non_nullable
+      imageUrl: null == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -70,7 +70,7 @@ abstract class _$$AmenityEntityImplCopyWith<$Res>
       __$$AmenityEntityImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String amenity, String amenity_image_url});
+  $Res call({String amenity, String imageUrl});
 }
 
 /// @nodoc
@@ -85,16 +85,16 @@ class __$$AmenityEntityImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? amenity = null,
-    Object? amenity_image_url = null,
+    Object? imageUrl = null,
   }) {
     return _then(_$AmenityEntityImpl(
       amenity: null == amenity
           ? _value.amenity
           : amenity // ignore: cast_nullable_to_non_nullable
               as String,
-      amenity_image_url: null == amenity_image_url
-          ? _value.amenity_image_url
-          : amenity_image_url // ignore: cast_nullable_to_non_nullable
+      imageUrl: null == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -103,17 +103,16 @@ class __$$AmenityEntityImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$AmenityEntityImpl implements _AmenityEntity {
-  const _$AmenityEntityImpl(
-      {required this.amenity, required this.amenity_image_url});
+  const _$AmenityEntityImpl({required this.amenity, required this.imageUrl});
 
   @override
   final String amenity;
   @override
-  final String amenity_image_url;
+  final String imageUrl;
 
   @override
   String toString() {
-    return 'AmenityEntity(amenity: $amenity, amenity_image_url: $amenity_image_url)';
+    return 'AmenityEntity(amenity: $amenity, imageUrl: $imageUrl)';
   }
 
   @override
@@ -122,12 +121,12 @@ class _$AmenityEntityImpl implements _AmenityEntity {
         (other.runtimeType == runtimeType &&
             other is _$AmenityEntityImpl &&
             (identical(other.amenity, amenity) || other.amenity == amenity) &&
-            (identical(other.amenity_image_url, amenity_image_url) ||
-                other.amenity_image_url == amenity_image_url));
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, amenity, amenity_image_url);
+  int get hashCode => Object.hash(runtimeType, amenity, imageUrl);
 
   @JsonKey(ignore: true)
   @override
@@ -139,12 +138,12 @@ class _$AmenityEntityImpl implements _AmenityEntity {
 abstract class _AmenityEntity implements AmenityEntity {
   const factory _AmenityEntity(
       {required final String amenity,
-      required final String amenity_image_url}) = _$AmenityEntityImpl;
+      required final String imageUrl}) = _$AmenityEntityImpl;
 
   @override
   String get amenity;
   @override
-  String get amenity_image_url;
+  String get imageUrl;
   @override
   @JsonKey(ignore: true)
   _$$AmenityEntityImplCopyWith<_$AmenityEntityImpl> get copyWith =>

@@ -7,8 +7,8 @@ part 'amenity_data_model.g.dart';
 @freezed
 class AmenityDataModel with _$AmenityDataModel {
   const factory AmenityDataModel({
-    @JsonKey(name: 'amenity') required String amenity,
-    @Default('') @JsonKey(name: 'amenity_image_url') String amenity_image_url,
+    @JsonKey(name: 'amenities_types') required String amenity,
+    @Default('') @JsonKey(name: 'image_url') String imageUrl,
   }) = _Amenity;
 
   factory AmenityDataModel.fromJson(Map<String, dynamic> json) =>

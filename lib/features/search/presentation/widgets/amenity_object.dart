@@ -58,11 +58,11 @@ class _AmenityObjectState extends ConsumerState<AmenityObject> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SvgPicture.asset(
+            SvgPicture.network(
               widget.amenityIconPath,
               color: widget.isChecked ? Theme.of(context).primaryColor : null,
-              width: 24,
-              height: 24,
+              width: 48,
+              height: 48,
             ),
             const SizedBox(height: 5),
             Text(
