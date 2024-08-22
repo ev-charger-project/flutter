@@ -14,19 +14,6 @@ final initialAmenitiesProvider =
       .toList();
 });
 
-/*final availableAmenitiesProvider =
-    StateNotifierProvider<AmenityNotifier, List<AmenityObject>>((ref) {
-  return AmenityNotifier();
-});
-
-class AmenityNotifier extends StateNotifier<List<AmenityObject>> {
-  AmenityNotifier() : super([]);
-
-  void updateAmenities(List<AmenityObject> amenities) {
-    state = amenities;
-  }
-}*/
-
 final availableAmenitiesProvider = StateProvider<List<AmenityObject>>((ref) {
   List<AmenityObject> availableAmenities = [];
   ref.watch(initialAmenitiesProvider).whenData((value) {
