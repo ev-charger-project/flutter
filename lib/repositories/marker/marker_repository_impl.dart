@@ -14,7 +14,8 @@ class MarkerRepositoryImpl extends MarkerRepository {
       [int? stationCount,
       List<String>? chargeType,
       int? outputMin,
-      int? outputMax]) async {
+      int? outputMax,
+      List<String>? amenities]) async {
     final markerDataModelResult = await remoteDataSource.fetchMarkers(
       screenCenterLat,
       screenCenterLong,
@@ -23,6 +24,7 @@ class MarkerRepositoryImpl extends MarkerRepository {
       chargeType ?? [],
       outputMin ?? 0,
       outputMax ?? 360,
+      amenities ?? [],
     );
     final result = MarkerMapper().toEntityList(markerDataModelResult);
     return result;

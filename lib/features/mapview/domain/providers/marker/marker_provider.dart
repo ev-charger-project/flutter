@@ -86,6 +86,7 @@ final markerProvider = FutureProvider.autoDispose<List<Marker>>((ref) async {
   final chargeType = filter.charge_type;
   final outputMin = filter.output_min;
   final outputMax = filter.output_max;
+  final amenities = filter.amenities;
 
   final markersData = await markerRepository.fetchMarkers(
     screenCenterLat,
@@ -95,6 +96,7 @@ final markerProvider = FutureProvider.autoDispose<List<Marker>>((ref) async {
     chargeType,
     outputMin,
     outputMax,
+    amenities,
   );
 
   final BitmapDescriptor stationIcon =

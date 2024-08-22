@@ -47,6 +47,7 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
             amenityName: amenity.amenityName,
             amenityIconPath: amenity.amenityIconPath,
             isChecked: false,
+            selectedAmenitiesProvider: selectedAmenitiesProvider,
           );
         }).toList();
         ref.read(availableAmenitiesProvider.notifier).state = resetAmenities;
@@ -57,16 +58,20 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
   }
 
   void applyAmenities() {
-    final amenities = ref.read(availableAmenitiesProvider);
-    final selectedAmenities =
-        amenities.where((amenity) => amenity.isChecked).toList();
-    ref.read(selectedAmenitiesProvider.notifier).state = selectedAmenities;
-    final abc = ref.read(selectedAmenitiesProvider);
-
-    for (var amenity in abc) {
-      print(
-          'Selected Amenity Name: ${amenity.amenityName}, Selected Icon Path: ${amenity.amenityIconPath},Selected Is Checked: ${amenity.isChecked}');
-    }
+    final currentStateAvailablePlugs =
+    ref.read(availableAmenitiesProvider);
+    final remainingAvailable = currentStateAvailablePlugs
+        .where((amenity) => amenity.isChecked)
+        .toList();
+    // final movingToVisible = currentStateHiddenPlugs
+    //     .where((plug) => plug.isChecked)
+    //     .toList();
+    // final updatedAvailableAmenities =
+    // List<AmenityObject>.from(remainingAvailable)
+    //   ..addAll(movingToVisible);
+    ref.read(availableAmenitiesProvider.notifier).state =
+        remainingAvailable.toSet().toList();
+    ref.read(selectedAmenitiesProvider.notifier).updateSelectedAmenities();
   }
 
   @override
@@ -210,7 +215,7 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                                   .state
                                   .end),
                               amenities: convertAmenityObjectsToStrings(ref
-                                  .read(selectedAmenitiesProvider.notifier)
+                                  .read(availableAmenitiesProvider.notifier)
                                   .state),
                             ));
 
@@ -310,7 +315,7 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                         ref
                             .read(checkedPlugsProvider.notifier)
                             .updateCheckedPlugs();
-
+                        // print(selectedAmenitiesProvider.notifier);
                         // Update filter provider with the new filter
                         ref.read(filterProvider.notifier).updateFilter(
                               FilterEntity(
@@ -329,8 +334,9 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                                     .read(rangeValuesProvider.notifier)
                                     .state
                                     .end),
-                                amenities: convertAmenityObjectsToStrings(ref
-                                    .read(selectedAmenitiesProvider.notifier)
+                                amenities: convertAmenityObjectsToStrings(
+                                    ref
+                                    .read(availableAmenitiesProvider.notifier)
                                     .state),
                               ),
                             );

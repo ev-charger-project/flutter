@@ -1,3 +1,4 @@
+import 'package:ev_charger/features/search/presentation/providers/amenity/selected_amenities_provider.dart';
 import 'package:ev_charger/features/splash/widgets/dots_circular_progress_painter_widget.dart';
 import 'package:ev_charger/shared/presentation/theme/app_theme.dart';
 import 'package:flutter/material.dart';
@@ -72,6 +73,7 @@ class _AmenityState extends ConsumerState<Amenity> {
                         amenityName: amenity.amenityName,
                         amenityIconPath: amenity.amenityIconPath,
                         isChecked: amenity.isChecked,
+                        selectedAmenitiesProvider: selectedAmenitiesProvider,
                       );
                     },
                   ),

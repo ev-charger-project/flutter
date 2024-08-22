@@ -4,17 +4,20 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../shared/core/localization/localization.dart';
 import '../providers/amenity/available_amenities_provider.dart';
+import '../providers/amenity/selected_amenities_provider.dart';
 
 class AmenityObject extends ConsumerStatefulWidget {
   final String amenityName;
   final String amenityIconPath;
   bool isChecked;
+  final StateNotifierProvider<SelectedAmenitiesNotifier, int> selectedAmenitiesProvider;
 
   AmenityObject({
     super.key,
     required this.amenityName,
     required this.amenityIconPath,
     required this.isChecked,
+    required this.selectedAmenitiesProvider,
   });
 
   AmenityObject copyWith(
@@ -23,6 +26,7 @@ class AmenityObject extends ConsumerStatefulWidget {
       amenityName: amenityName ?? this.amenityName,
       amenityIconPath: amenityIconPath ?? this.amenityIconPath,
       isChecked: isChecked ?? this.isChecked,
+      selectedAmenitiesProvider: selectedAmenitiesProvider,
     );
   }
 

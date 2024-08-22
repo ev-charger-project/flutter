@@ -21,7 +21,8 @@ abstract class RemoteStorageService {
       [int? stationCount,
       List<String>? chargeType,
       int? outputMin,
-      int? outputMax]);
+      int? outputMax,
+      List<String>? amenities]);
 
   Future<List<ChargeTypeDataModel>> fetchChargeTypeData();
 

@@ -25,7 +25,8 @@ class MarkerRemoteDataSource extends MarkerDataSource {
       [int? stationCount,
       List<String>? chargeType,
       int? outputMin,
-      int? outputMax]) async {
+      int? outputMax,
+      List<String>? amenities]) async {
     return await remoteStorageService.fetchMarker(
       screenCenterLat,
       screenCenterLong,
@@ -34,6 +35,7 @@ class MarkerRemoteDataSource extends MarkerDataSource {
       chargeType,
       outputMin,
       outputMax,
+      amenities,
     );
   }
 }

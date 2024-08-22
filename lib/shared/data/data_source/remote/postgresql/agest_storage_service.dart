@@ -57,8 +57,10 @@ class AgestStorageService extends RemoteStorageService {
       'charger_type': chargeType,
       'power_output_gte': outputMin,
       'power_output_lte': outputMax,
-      'location_amenities': amenities,
+      'amenities': amenities,
     };
+
+    print("queryParams: $queryParams");
 
     final StringBuffer urlBuffer = StringBuffer('$uri$baseUrl?');
     queryParams.forEach((key, value) {
@@ -115,7 +117,7 @@ class AgestStorageService extends RemoteStorageService {
       'charger_type': chargeType,
       'power_output_gte': outputMin,
       'power_output_lte': outputMax,
-      'location_amenities': amenities,
+      'amenities': amenities,
     };
 
     if (lat != null && long != null) {
