@@ -13,9 +13,9 @@ import '../../../../../repositories/route/data_models/route_data_model.dart';
 class AgestStorageService extends RemoteStorageService {
   final Dio _dio = Dio();
 
-  static const uri = 'http://10.0.2.2:8000';
-
-  // static const uri = 'http://172.16.11.139:14000';
+  // static const uri = 'http://10.0.2.2:8000'; // localhost
+  static const uri = 'http://ev-charger.zapto.org:4000'; // my server
+  // static const uri = 'http://172.16.11.139:14000'; // agest internal server
 
   @override
   Future<LocationDataModel> fetchLocationData(String locationId) async {
@@ -378,7 +378,7 @@ class AgestStorageService extends RemoteStorageService {
             headers: {'Authorization': 'Bearer $access_token'},
           ));
       print("create response: $response");
-      if (response.statusCode != 200) {
+      if (response.statusCode != 201) {
         throw Exception('Error code: ${response.statusCode}');
       }
     } catch (e) {
@@ -396,7 +396,10 @@ class AgestStorageService extends RemoteStorageService {
     const url = '/api/v1/user-favorite';
     print('test delete: $uri$url/$favId');
     try {
-      final response = await _dio.delete('$uri$url/$favId');
+      final response = await _dio.delete('$uri$url/$favId',
+          options: Options(
+            headers: {'Authorization': 'Bearer $access_token'},
+          ));
       print("delete response: $response");
       if (response.statusCode != 200) {
         throw Exception('Error code: ${response.statusCode}');

@@ -49,7 +49,7 @@ class SignUpButton extends ConsumerWidget {
         shadowOpacity: 0.35,
         padding: EdgeInsets.all(height * 0.005),
         child: Text(
-          AppLocalizations.of(context).translate('SIGN IN'),
+          AppLocalizations.of(context).translate('SIGN UP'),
           style: AppTextStyles.body
               .copyWith(fontSize: height * 0.02, color: AppColors.primary),
         ),

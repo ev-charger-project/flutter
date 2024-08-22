@@ -92,7 +92,7 @@ class ShortInfoUI extends ConsumerWidget {
               right: 18,
               child: IconButton(
                 iconSize: 30,
-                icon: favouriteLocationIdList!.contains(selectedLocationId) ?
+                icon: favouriteLocationIdList.contains(selectedLocationId) ?
                   Icon(Icons.bookmark, color: Theme.of(context).primaryColor,):
                   Icon(Icons.bookmark_border,color: Theme.of(context).primaryColor,),
                 onPressed: () async {
@@ -106,14 +106,12 @@ class ShortInfoUI extends ConsumerWidget {
                     final userInfo = await ref.watch(userProvider.future);
                     final secureStorage = ref.watch(secureStorageServiceProvider);
                     var tokenData = await secureStorage.getToken();
-                    print(userInfo?.userId);
+                    print(userInfo.userId);
 
                     if (favouriteLocationIdList.contains(selectedLocationId)) {
-                      print("delete location");
-                      await userInfoRepository.deleteFav(favouriteMap![selectedLocationId]!, tokenData!.access_token);
+                      await userInfoRepository.deleteFav(favouriteMap[selectedLocationId]!, tokenData!.access_token);
                       ref.refresh(favProvider);
                     } else {
-                      print("create lcoation");
                       await userInfoRepository.createFav(selectedLocationId, tokenData!.access_token);
                       ref.refresh(favProvider);
                     }
