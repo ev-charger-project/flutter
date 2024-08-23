@@ -26,30 +26,31 @@ class SignInButton extends ConsumerWidget {
     final height = MediaQuery.of(context).size.height;
 
     return Padding(
-      padding: EdgeInsets.symmetric(
-          horizontal: width * 0.05, vertical: height * 0.01),
-      child: Button(
-        onTap: () {
-          if (formKey.currentState?.validate() ?? false) {
-            final signInEntity = SignInEntity(
-              emailController.text,
-              passwordController.text,
-            );
+        padding: EdgeInsets.symmetric(
+            horizontal: width * 0.05, vertical: height * 0.01),
+        child: Row(children: [
+          Button(
+            onTap: () {
+              if (formKey.currentState?.validate() ?? false) {
+                final signInEntity = SignInEntity(
+                  emailController.text,
+                  passwordController.text,
+                );
 
-            ref.read(signInProvider.notifier).signIn(signInEntity);
-          }
-        },
-        fillColor: AppColors.primary,
-        border: false,
-        shadow: true,
-        shadowOpacity: 0.35,
-        padding: EdgeInsets.all(height * 0.005),
-        child: Text(
-          AppLocalizations.of(context).translate('SIGN IN'),
-          style: AppTextStyles.body
-              .copyWith(fontSize: height * 0.02, color: AppColors.white),
-        ),
-      ),
-    );
+                ref.read(signInProvider.notifier).signIn(signInEntity);
+              }
+            },
+            fillColor: AppColors.primary,
+            border: false,
+            shadow: true,
+            shadowOpacity: 0.35,
+            padding: EdgeInsets.all(height * 0.005),
+            child: Text(
+              AppLocalizations.of(context).translate('SIGN IN'),
+              style: AppTextStyles.body
+                  .copyWith(fontSize: height * 0.02, color: AppColors.white),
+            ),
+          )
+        ]));
   }
 }
