@@ -83,7 +83,7 @@ class _LocationScreenState extends ConsumerState<LocationScreen> {
                       return pageState == PageState.info
                           ? const InfoContent()
                           : const Flexible(
-                          fit: FlexFit.loose, child: ChargersContent());
+                              fit: FlexFit.loose, child: ChargersContent());
                     },
                   ),
                 ],

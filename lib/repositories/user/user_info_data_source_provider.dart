@@ -4,6 +4,6 @@ import '../../shared/data/data_source/remote/postgresql/agest_storage_service.da
 import 'data_sources/user_info_data_source.dart';
 
 final userInfoDataSourceProvider =
-Provider.family<UserInfoRemoteDataSource, AgestStorageService>(
-      (_, networkService) => UserInfoRemoteDataSource(networkService),
+    Provider.family<UserInfoRemoteDataSource, AgestStorageService>(
+  (_, networkService) => UserInfoRemoteDataSource(networkService),
 );

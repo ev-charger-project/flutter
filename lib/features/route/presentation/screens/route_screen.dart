@@ -62,7 +62,8 @@ class _RouteScreenState extends ConsumerState<RouteScreen> {
   Widget build(BuildContext context) {
     final routeAsyncValue = ref.watch(routeProvider);
     final userCurrentLocation = ref.read(startProvider);
-    LatLng startLocation = LatLng(userCurrentLocation.latitude, userCurrentLocation.longitude);
+    LatLng startLocation =
+        LatLng(userCurrentLocation.latitude, userCurrentLocation.longitude);
     final markerAsyncValue = ref.watch(routeMarkerProvider);
 
     markerAsyncValue.when(
@@ -80,7 +81,8 @@ class _RouteScreenState extends ConsumerState<RouteScreen> {
       data: (route) {
         setState(() {
           _polylines.clear();
-          final polylinePoints = PolylinePoints().decodePolyline(route.hashcode);
+          final polylinePoints =
+              PolylinePoints().decodePolyline(route.hashcode);
 
           final latLngPoints = polylinePoints
               .map((point) => LatLng(point.latitude, point.longitude))
@@ -99,7 +101,6 @@ class _RouteScreenState extends ConsumerState<RouteScreen> {
       loading: () {},
       error: (error, stack) => log('Error: $error'),
     );
-
 
     return Scaffold(
       body: Stack(

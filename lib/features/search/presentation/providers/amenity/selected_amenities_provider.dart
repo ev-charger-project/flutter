@@ -11,5 +11,6 @@ class SelectedAmenitiesNotifier extends StateNotifier<int> {
   }
 }
 
-final selectedAmenitiesProvider = StateNotifierProvider<SelectedAmenitiesNotifier, int>(
+final selectedAmenitiesProvider =
+    StateNotifierProvider<SelectedAmenitiesNotifier, int>(
         (ref) => SelectedAmenitiesNotifier(ref));

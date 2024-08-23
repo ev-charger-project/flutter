@@ -72,7 +72,9 @@ class SimpleBottomAppBar extends StatelessWidget {
           Expanded(
             child: SvgPicture.asset(
               assetName,
-              color: isSelected ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.onSurface,
+              color: isSelected
+                  ? Theme.of(context).colorScheme.primary
+                  : Theme.of(context).colorScheme.onSurface,
             ),
           ),
           const SizedBox(height: 1),

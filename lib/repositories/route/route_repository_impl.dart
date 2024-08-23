@@ -8,8 +8,10 @@ class RouteRepositoryImpl extends RouteRepository {
   final RouteRemoteDataSource remoteDataSource;
 
   @override
-  Future<RouteEntity> fetchRoute(double userLat, double userLong, double destinationLat, double destinationLong) async {
-    final routeDataModel = await remoteDataSource.fetchRoute(userLat, userLong, destinationLat, destinationLong);
+  Future<RouteEntity> fetchRoute(double userLat, double userLong,
+      double destinationLat, double destinationLong) async {
+    final routeDataModel = await remoteDataSource.fetchRoute(
+        userLat, userLong, destinationLat, destinationLong);
     final routeEntity = RouteMapper().toEntity(routeDataModel);
     return routeEntity;
   }

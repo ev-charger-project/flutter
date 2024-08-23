@@ -29,6 +29,7 @@ class ChargerEntity with _$ChargerEntity {
     required double long,
   }) = _ChargerEntity;
 }
+
 class RouteMapper {
   RouteDataModel toDataModel(RouteEntity entity) {
     return RouteDataModel(
@@ -49,7 +50,8 @@ class RouteMapper {
           .toList(),
       chargers: dataModel.chargers
           .map((e) => ChargerEntity(id: e.id, lat: e.lat, long: e.long))
-          .toList(), hashcode: dataModel.hashcode,
+          .toList(),
+      hashcode: dataModel.hashcode,
     );
   }
 

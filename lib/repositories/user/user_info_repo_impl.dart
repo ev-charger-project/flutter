@@ -11,8 +11,7 @@ class UserInfoRepositoryImpl extends UserInfoRepository {
 
   @override
   Future<List<FavouriteDataModel>> fetchFav(String token, String id) async {
-    final locationDataModelResult =
-        await remoteDataSource.fetchFav(token, id);
+    final locationDataModelResult = await remoteDataSource.fetchFav(token, id);
     // final locations = locationDataModelResult
     //     .map((item) => item.favourite)
     //     .toList();

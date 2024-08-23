@@ -28,5 +28,4 @@ abstract class SecureStorageService {
   Future<bool> setToken(TokenAdapterObject tokenAdapterObject);
 
   Future<bool> clearAll();
-
 }

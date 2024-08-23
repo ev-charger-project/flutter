@@ -8,14 +8,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../repositories/user/user_info_repository_provider.dart';
 
 final favProvider =
-FutureProvider.autoDispose<List<FavouriteDataModel>>((ref) async {
+    FutureProvider.autoDispose<List<FavouriteDataModel>>((ref) async {
   final userInfoRepository = ref.read(userInfoRepositoryProvider);
   final userInfo = await ref.read(userProvider.future);
   final secureStorage = ref.read(secureStorageServiceProvider);
   var tokenData = await secureStorage.getToken();
 
   if (tokenData != null) {
-    final favs = await userInfoRepository.fetchFav(tokenData.access_token, userInfo.userId!);
+    final favs = await userInfoRepository.fetchFav(
+        tokenData.access_token, userInfo.userId!);
     log('fav list: $favs');
     return favs;
   } else {
