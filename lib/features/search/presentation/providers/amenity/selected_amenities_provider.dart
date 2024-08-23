@@ -2,7 +2,6 @@ import 'package:ev_charger/features/search/presentation/providers/amenity/availa
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../widgets/amenity_object.dart';
 
-
 // final selectedAmenitiesInitializerProvider =
 // FutureProvider<List<AmenityObject>>((ref) async {
 //   final selectedAmenities = await ref.watch(availableAmenitiesProvider.future);
@@ -47,5 +46,6 @@ class SelectedAmenitiesNotifier extends StateNotifier<int> {
   }
 }
 
-final selectedAmenitiesProvider = StateNotifierProvider<SelectedAmenitiesNotifier, int>(
+final selectedAmenitiesProvider =
+    StateNotifierProvider<SelectedAmenitiesNotifier, int>(
         (ref) => SelectedAmenitiesNotifier(ref));

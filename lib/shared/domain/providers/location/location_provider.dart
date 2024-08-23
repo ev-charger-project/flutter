@@ -12,8 +12,9 @@ final locationProvider =
 });
 
 final nearbyProvider =
-FutureProvider.autoDispose<List<LocationEntity>>((ref) async {
+    FutureProvider.autoDispose<List<LocationEntity>>((ref) async {
   final locationRepository = ref.read(locationRepositoryProvider);
   final currentLocation = ref.watch(locationProvider).value;
-  return await locationRepository.fetchNearby(currentLocation!.latitude, currentLocation.longitude, 10 );
+  return await locationRepository.fetchNearby(
+      currentLocation!.latitude, currentLocation.longitude, 10);
 });

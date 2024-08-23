@@ -11,7 +11,8 @@ class AmenityObject extends ConsumerStatefulWidget {
   final String amenityName;
   final String amenityIconPath;
   bool isChecked;
-  final StateNotifierProvider<SelectedAmenitiesNotifier, int> selectedAmenitiesProvider;
+  final StateNotifierProvider<SelectedAmenitiesNotifier, int>
+      selectedAmenitiesProvider;
 
   AmenityObject({
     super.key,

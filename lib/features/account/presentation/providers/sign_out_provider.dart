@@ -18,7 +18,8 @@ class SignOutNotifier extends StateNotifier<SignOutState> {
   final AuthRepositoryImpl authRepository;
   final SecureStorageService secureStorage;
 
-  SignOutNotifier(this.authRepository, this.secureStorage) : super(SignOutState.initial);
+  SignOutNotifier(this.authRepository, this.secureStorage)
+      : super(SignOutState.initial);
 
   Future<void> signOut() async {
     state = SignOutState.loading;
@@ -42,7 +43,7 @@ class SignOutNotifier extends StateNotifier<SignOutState> {
 }
 
 final signOutProvider = StateNotifierProvider<SignOutNotifier, SignOutState>(
-      (ref) {
+  (ref) {
     final authRepository = ref.read(authRepositoryProvider);
     final secureStorage = ref.read(secureStorageServiceProvider);
     return SignOutNotifier(authRepository, secureStorage);

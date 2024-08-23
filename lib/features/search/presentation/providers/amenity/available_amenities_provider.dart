@@ -16,7 +16,8 @@ final initialAmenitiesProvider =
       .toList();
 });
 
-final filteredAmenitiesProvider = StateProvider<List<AmenityObject>>((ref) => []);
+final filteredAmenitiesProvider =
+    StateProvider<List<AmenityObject>>((ref) => []);
 
 final availableAmenitiesProvider = StateProvider<List<AmenityObject>>((ref) {
   List<AmenityObject> availableAmenities = [];

@@ -23,18 +23,17 @@ class AuthAgestService extends AuthService {
         'password': password,
       });
 
-      if(response.statusCode == 200) {
+      if (response.statusCode == 200) {
         TokenDataModel token = TokenDataModel(
             access_token: response.data['access_token'],
-            refresh_token: response.data['refresh_token']
-        );
+            refresh_token: response.data['refresh_token']);
 
         return token;
       } else {
         log('Error code: ${response.statusCode}');
         throw Exception('Incorrect email or password');
       }
-    } catch(e) {
+    } catch (e) {
       log('Error: $e');
       if (e is DioException && e.response != null) {
         throw Exception('Error code: ${e.response?.statusCode}');
@@ -45,7 +44,8 @@ class AuthAgestService extends AuthService {
   }
 
   @override
-  Future<UserDataModel> signUp(String email, String password, String name, String phoneNumber) async {
+  Future<UserDataModel> signUp(
+      String email, String password, String name, String phoneNumber) async {
     const url = '/api/v1/auth/sign-up';
     try {
       final response = await _dio.post(uri + url, data: {
@@ -55,12 +55,12 @@ class AuthAgestService extends AuthService {
         'phone_number': phoneNumber
       });
       UserDataModel user = UserDataModel(
-          userId: response.data['id'],
-          username: response.data['name'],
-          email: response.data['email'],
+        userId: response.data['id'],
+        username: response.data['name'],
+        email: response.data['email'],
       );
       return user;
-    } catch(e) {
+    } catch (e) {
       log('Error: $e');
       if (e is DioException && e.response != null) {
         throw Exception('Error code: ${e.response?.statusCode}');
@@ -83,7 +83,7 @@ class AuthAgestService extends AuthService {
         return true;
       }
       return false;
-    } catch(e) {
+    } catch (e) {
       log('Error: $e');
       if (e is DioException && e.response != null) {
         throw Exception('Error code: ${e.response?.statusCode}');
@@ -94,7 +94,7 @@ class AuthAgestService extends AuthService {
   }
 
   @override
-  Future<TokenDataModel> refreshToken(String refresh_token)  async {
+  Future<TokenDataModel> refreshToken(String refresh_token) async {
     const url = '/api/v1/auth/refresh-token';
 
     try {
@@ -104,15 +104,14 @@ class AuthAgestService extends AuthService {
 
       if (response.statusCode == 200) {
         TokenDataModel token = TokenDataModel(
-            access_token: response.data['access_token'],
-            refresh_token: response.data['refresh_token'],
+          access_token: response.data['access_token'],
+          refresh_token: response.data['refresh_token'],
         );
         return token;
-      }
-      else {
+      } else {
         throw Exception('Error code: ${response.statusCode}');
       }
-    } catch(e) {
+    } catch (e) {
       log('Error: $e');
       if (e is DioException && e.response != null) {
         throw Exception('Error code: ${e.response?.statusCode}');
@@ -127,23 +126,19 @@ class AuthAgestService extends AuthService {
     const url = '/api/v1/auth/me';
 
     try {
-      final response = await _dio.get(uri + url, options: Options(
-        headers: {'Authorization': 'Bearer $access_token'}
-      ));
+      final response = await _dio.get(uri + url,
+          options: Options(headers: {'Authorization': 'Bearer $access_token'}));
 
       if (response.statusCode == 200) {
         UserDataModel user = UserDataModel(
             userId: response.data['id'],
             username: response.data['name'],
-            email: response.data['email']
-        );
+            email: response.data['email']);
         return user;
-      }
-      else {
+      } else {
         throw Exception('An unknown error occurred');
       }
-    } catch(e) {
-
+    } catch (e) {
       log('Error: $e');
       if (e is DioException && e.response != null) {
         throw Exception('Error code: ${e.response?.statusCode}');

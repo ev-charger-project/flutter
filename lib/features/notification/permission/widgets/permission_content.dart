@@ -5,7 +5,6 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../../../shared/core/localization/localization.dart';
 
-
 class PermissionContent extends StatelessWidget {
   const PermissionContent({
     super.key,
@@ -29,7 +28,7 @@ class PermissionContent extends StatelessWidget {
           height: height * 0.01,
         ),
         Text(
-        AppLocalizations.of(context).translate('Enable Location'),
+          AppLocalizations.of(context).translate('Enable Location'),
           style: AppTextStyles.b3.copyWith(fontSize: height * 0.02),
         ),
         SizedBox(
@@ -37,7 +36,8 @@ class PermissionContent extends StatelessWidget {
         ),
         Text(
           textAlign: TextAlign.center,
-    AppLocalizations.of(context).translate('We need access to your location to find EV Charging stations around you.'),
+          AppLocalizations.of(context).translate(
+              'We need access to your location to find EV Charging stations around you.'),
           style: AppTextStyles.bodyXs.copyWith(fontSize: height * 0.013),
         ),
       ],

@@ -5,6 +5,7 @@ import '../../../../../shared/domain/providers/remote_storage_service_provider.d
 
 final routeRepositoryProvider = Provider<RouteRepositoryImpl>((ref) {
   final storageService = ref.read(remoteStorageServiceProvider);
-  final remoteDataSource = ref.read(routeRemoteDataSourceProvider(storageService));
+  final remoteDataSource =
+      ref.read(routeRemoteDataSourceProvider(storageService));
   return RouteRepositoryImpl(remoteDataSource);
 });
