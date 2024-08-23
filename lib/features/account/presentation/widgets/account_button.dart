@@ -50,20 +50,21 @@ class AccountButton extends StatelessWidget {
     final height = MediaQuery.sizeOf(context).height;
 
     return Padding(
-      padding: EdgeInsets.only(top: height * 0.03),
-      child: Button(
-        onTap: onTap,
-        fillColor: buttonType.fillColor,
-        border: false,
-        shadow: true,
-        shadowOpacity: 0.35,
-        padding: EdgeInsets.all(height * 0.005),
-        child: Text(
-          buttonType.text,
-          style: AppTextStyles.body
-              .copyWith(fontSize: height * 0.02, color: buttonType.textColor),
-        ),
-      ),
-    );
+        padding: EdgeInsets.only(top: height * 0.03),
+        child: Row(children: [
+          Button(
+            onTap: onTap,
+            fillColor: buttonType.fillColor,
+            border: false,
+            shadow: true,
+            shadowOpacity: 0.35,
+            padding: EdgeInsets.all(height * 0.005),
+            child: Text(
+              buttonType.text,
+              style: AppTextStyles.body.copyWith(
+                  fontSize: height * 0.02, color: buttonType.textColor),
+            ),
+          ),
+        ]));
   }
 }
