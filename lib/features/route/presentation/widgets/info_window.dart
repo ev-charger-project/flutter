@@ -17,7 +17,7 @@ class DistanceTime extends ConsumerWidget {
     timeDistanceAsyncValue.when(
       data: (routeInfo) {
         infoWindowText =
-            '${routeInfo['distance']?.toStringAsFixed(2)} km, ${routeInfo['time']?.toStringAsFixed(2)} mins';
+        '${routeInfo['distance']?.toStringAsFixed(2)} km, ${routeInfo['time']?.toStringAsFixed(2)} mins';
       },
       loading: () {
         infoWindowText = 'Loading...';
@@ -28,12 +28,13 @@ class DistanceTime extends ConsumerWidget {
     );
 
     return Positioned(
-      left: 0,
+      left:0,
       top: screenSize.height * 0.18,
       child: SizedBox(
-        width: screenSize.width,
+        width: screenSize.width ,
         child: Center(
           child: Container(
+
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.primary,
@@ -50,8 +51,8 @@ class DistanceTime extends ConsumerWidget {
               infoWindowText,
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Theme.of(context).colorScheme.secondary,
-                  ),
+                color: Theme.of(context).colorScheme.secondary,
+              ),
             ),
           ),
         ),

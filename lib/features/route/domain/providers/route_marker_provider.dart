@@ -47,8 +47,7 @@ final routeMarkerProvider =
   chargerLocationAsyncValue.when(
     data: (chargerLocation) {
       for (var markerData in chargerLocation.chargers) {
-        if (markerData.lat != currentLocation.latitude &&
-            markerData.lat != userCurrentLocation.latitude) {
+        if (markerData.lat !=currentLocation.latitude && markerData.lat != userCurrentLocation.latitude) {
           markers.add(
             Marker(
               markerId: MarkerId(markerData.id),

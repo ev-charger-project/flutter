@@ -27,15 +27,14 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
 
     ref.listen<SignUpState>(signUpProvider, (previous, next) {
       if (next == SignUpState.success) {
-        AutoRouter.of(context)
-            .pushAndPopUntil(MapRoute(), predicate: (_) => false);
+        AutoRouter.of(context).pushAndPopUntil(MapRoute(), predicate: (_) => false);
       } else if (next == SignUpState.error) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-              content: Text(
-            AppLocalizations.of(context)
-                .translate('Sign up failed, please try again.'),
-          )),
+          SnackBar(content:
+            Text(
+                AppLocalizations.of(context).translate('Sign up failed, please try again.'),
+            )
+          ),
         );
       }
     });
@@ -44,15 +43,13 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back,
-              color: Theme.of(context).colorScheme.onSurface),
+          icon: Icon(Icons.arrow_back, color: Theme.of(context).colorScheme.onSurface),
           onPressed: () => AutoRouter.of(context).push(const SignInRoute()),
         ),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(
-              horizontal: width * 0.02, vertical: height * 0.02),
+          padding: EdgeInsets.symmetric(horizontal: width * 0.02, vertical: height * 0.02),
           child: SignUpForm(
             emailController: emailController,
             passwordController: passwordController,

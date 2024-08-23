@@ -35,10 +35,8 @@ class ViewRouteDirectionButtons extends ConsumerWidget {
         final userLocation = ref.read(userLocationProvider);
         final destinationLocation = ref.read(locationProvider);
 
-        if (userLocation != null &&
-            destinationLocation is AsyncData<LocationEntity>) {
-          _updateStartAndEndLocations(
-              ref, userLocation, destinationLocation.value);
+        if (userLocation != null && destinationLocation is AsyncData<LocationEntity>) {
+          _updateStartAndEndLocations(ref, userLocation, destinationLocation.value);
           context.router.push(RouteRoute());
         }
       }
@@ -131,9 +129,9 @@ class ViewRouteDirectionButtons extends ConsumerWidget {
               child: Text(
                 AppLocalizations.of(context).translate('Direction'),
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.onPrimary,
-                      fontSize: height * 0.02,
-                    ),
+                  color: Theme.of(context).colorScheme.onPrimary,
+                  fontSize: height * 0.02,
+                ),
               ),
             ),
           ),
@@ -150,21 +148,20 @@ void _showPermissionDialog(BuildContext context) {
   );
 }
 
-void _updateStartAndEndLocations(
-    WidgetRef ref, Position userLocation, LocationEntity destinationLocation) {
+void _updateStartAndEndLocations(WidgetRef ref, Position userLocation, LocationEntity destinationLocation) {
   ref.read(startProvider.notifier).updateStartLocation(ChargerMarkerEntity(
-        id: 'Your Location',
-        latitude: userLocation.latitude,
-        longitude: userLocation.longitude,
-      ));
+    id: 'Your Location',
+    latitude: userLocation.latitude,
+    longitude: userLocation.longitude,
+  ));
 
   final locationName = _buildLocationName(destinationLocation);
 
   ref.read(endProvider.notifier).updateEndLocation(ChargerMarkerEntity(
-        id: locationName,
-        latitude: destinationLocation.latitude,
-        longitude: destinationLocation.longitude,
-      ));
+    id: locationName,
+    latitude: destinationLocation.latitude,
+    longitude: destinationLocation.longitude,
+  ));
 }
 
 String _buildLocationName(LocationEntity location) {

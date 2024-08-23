@@ -29,8 +29,7 @@ class SignUpButton extends ConsumerWidget {
     final height = MediaQuery.of(context).size.height;
 
     return Padding(
-      padding: EdgeInsets.symmetric(
-          horizontal: width * 0.05, vertical: height * 0.01),
+      padding: EdgeInsets.symmetric(horizontal: width * 0.05, vertical: height * 0.01),
       child: Button(
         onTap: () {
           if (formKey.currentState?.validate() ?? false) {

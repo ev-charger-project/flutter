@@ -22,10 +22,11 @@ class ChargersContent extends ConsumerWidget {
     return currentLocation.when(
       data: (location) {
         return Padding(
-          padding: EdgeInsets.symmetric(vertical: screenSize.height * 0.04),
+          padding: EdgeInsets.symmetric(vertical: screenSize.height*0.04),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: List.generate(location.ev_chargers.length, (index) {
+            children:
+            List.generate(location.ev_chargers.length, (index) {
               final charger = location.ev_chargers[index];
               return ChargerBox(charger: charger);
             }),
@@ -59,9 +60,10 @@ class ChargerBox extends StatelessWidget {
         children: [
           Container(
             width: double.infinity,
-            padding: EdgeInsets.all(screenSize.width * 0.025),
+            padding:EdgeInsets.all(screenSize.width*0.025),
             decoration: BoxDecoration(
               color: Theme.of(context).stationGrey,
+
             ),
             child: Text(
               charger.station_name,
@@ -69,30 +71,26 @@ class ChargerBox extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 20.0, top: 10),
+            padding: const EdgeInsets.only(left: 20.0,top:10),
             child: Text(
               AppLocalizations.of(context).translate('Plugs'),
-              style: Theme.of(context)
-                  .textTheme
-                  .headlineMedium
-                  ?.copyWith(fontSize: 14),
+              style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontSize: 14),
             ),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: screenSize.width * 0.025,
-                vertical: screenSize.height * 0.015),
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: charger.ports.map((port) {
-                  return PortBox(port: port);
-                }).toList(),
-              ),
+            padding: EdgeInsets.symmetric(horizontal: screenSize.width*0.025,vertical: screenSize.height*0.015),
+            child:  SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: charger.ports.map((port) {
+                return PortBox(port: port);
+              }).toList(),
             ),
+          ),
           ),
         ],
       ),
     );
   }
 }
+

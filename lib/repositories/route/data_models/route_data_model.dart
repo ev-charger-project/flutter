@@ -18,8 +18,8 @@ class RouteDataModel with _$RouteDataModel {
 @freezed
 class RoutePoint with _$RoutePoint {
   const factory RoutePoint({
-    @JsonKey(name: 'lat') required double lat,
-    @JsonKey(name: 'lng') required double long,
+    @JsonKey(name: 'lat')required double lat,
+    @JsonKey(name: 'lng')required double long,
   }) = _RoutePoint;
 
   factory RoutePoint.fromJson(Map<String, dynamic> json) =>
@@ -31,7 +31,7 @@ class Charger with _$Charger {
   const factory Charger({
     required String id,
     @JsonKey(name: 'latitude') required double lat,
-    @JsonKey(name: 'longitude') required double long,
+    @JsonKey(name: 'longitude')required double long,
   }) = _Charger;
 
   factory Charger.fromJson(Map<String, dynamic> json) =>

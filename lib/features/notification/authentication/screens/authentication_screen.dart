@@ -23,6 +23,7 @@ class AuthenticationScreen extends ConsumerWidget {
             const Spacer(),
             AuthenticationButton(
               buttonType: ButtonType.logIn,
+
               onTap: () async {
                 context.router.push(SignInRoute());
                 Navigator.of(context).pop();

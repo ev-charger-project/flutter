@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../../../shared/core/localization/localization.dart';
 
+
 class AuthenticationContent extends StatelessWidget {
   const AuthenticationContent({
     super.key,

@@ -9,41 +9,31 @@ part 'token_entity.g.dart';
 
 @freezed
 class TokenEntity with _$TokenEntity {
-  factory TokenEntity(
-      {required String access_token, required String refresh_token}) = _Token;
+  factory TokenEntity({required String access_token, required String refresh_token}) = _Token;
 
-  factory TokenEntity.fromJson(Map<String, dynamic> json) =>
-      _$TokenEntityFromJson(json);
+  factory TokenEntity.fromJson(Map<String, dynamic> json) => _$TokenEntityFromJson(json);
 }
 
 class TokenMapper with EntityConvertible<TokenEntity, TokenDataModel> {
   @override
   TokenDataModel fromEntity(TokenEntity entityObject) {
-    return TokenDataModel(
-        access_token: entityObject.access_token,
-        refresh_token: entityObject.refresh_token);
+    return TokenDataModel(access_token: entityObject.access_token, refresh_token: entityObject.refresh_token);
   }
 
   @override
   TokenEntity toEntity(TokenDataModel dataModelObject) {
-    return TokenEntity(
-        access_token: dataModelObject.access_token,
-        refresh_token: dataModelObject.refresh_token);
+    return TokenEntity(access_token: dataModelObject.access_token, refresh_token: dataModelObject.refresh_token);
   }
 }
 
 class TokenLocalMapper with EntityConvertible<TokenEntity, TokenAdapterObject> {
   @override
   TokenAdapterObject fromEntity(TokenEntity entityObject) {
-    return TokenAdapterObject(
-        access_token: entityObject.access_token,
-        refresh_token: entityObject.refresh_token);
+    return TokenAdapterObject(access_token: entityObject.access_token, refresh_token: entityObject.refresh_token);
   }
 
   @override
   TokenEntity toEntity(TokenAdapterObject dataModelObject) {
-    return TokenEntity(
-        access_token: dataModelObject.access_token,
-        refresh_token: dataModelObject.refresh_token);
+    return TokenEntity(access_token: dataModelObject.access_token, refresh_token: dataModelObject.refresh_token);
   }
 }

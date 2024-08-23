@@ -18,6 +18,7 @@ class SignUpNotifier extends StateNotifier<SignUpState> {
   SignUpNotifier(this.authRepository) : super(SignUpState.initial);
 
   Future<void> signUp(SignUpEntity signUpEntity) async {
+
     state = SignUpState.loading;
     try {
       await authRepository.signUp(signUpEntity);
@@ -30,7 +31,7 @@ class SignUpNotifier extends StateNotifier<SignUpState> {
 }
 
 final signUpProvider = StateNotifierProvider<SignUpNotifier, SignUpState>(
-  (ref) {
+      (ref) {
     final authRepository = ref.read(authRepositoryProvider);
     return SignUpNotifier(authRepository);
   },

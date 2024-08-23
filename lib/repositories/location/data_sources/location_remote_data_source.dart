@@ -5,8 +5,7 @@ import '../data_models/location_data_model.dart';
 
 abstract class LocationDataSource {
   Future<LocationDataModel> fetchLocationData(String locationId);
-  Future<List<LocationDataModel>> fetchNearby(
-      double lat, double long, double radius);
+  Future<List<LocationDataModel>> fetchNearby(double lat, double long,double radius);
 }
 
 class LocationRemoteDataSource extends LocationDataSource {
@@ -19,8 +18,7 @@ class LocationRemoteDataSource extends LocationDataSource {
   }
 
   @override
-  Future<List<LocationDataModel>> fetchNearby(
-      double lat, double long, double radius) async {
+  Future<List<LocationDataModel>> fetchNearby(double lat, double long, double radius) async {
     return await remoteStorageService.fetchNearby(lat, long, radius);
   }
 }

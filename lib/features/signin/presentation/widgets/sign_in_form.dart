@@ -48,8 +48,7 @@ class _SignInFormState extends State<SignInForm> {
             controller: widget.emailController,
             prefixIcon: Icons.email,
             regex: CheckValidate.email,
-            errorMessage: AppLocalizations.of(context)
-                .translate('Please enter a valid email'),
+            errorMessage: AppLocalizations.of(context).translate('Please enter a valid email'),
           ),
           SizedBox(height: height * 0.015),
           AuthField(
@@ -58,8 +57,7 @@ class _SignInFormState extends State<SignInForm> {
             controller: widget.passwordController,
             prefixIcon: Icons.lock,
             regex: CheckValidate.password,
-            errorMessage: AppLocalizations.of(context).translate(
-                'Password must be at least 8 characters long and include a number'),
+            errorMessage: AppLocalizations.of(context).translate('Password must be at least 8 characters long and include a number'),
           ),
           SizedBox(height: height * 0.03),
           SignInButton(

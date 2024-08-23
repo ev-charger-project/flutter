@@ -1,3 +1,4 @@
+
 const String simpleMapStyle = '''
 [
   {

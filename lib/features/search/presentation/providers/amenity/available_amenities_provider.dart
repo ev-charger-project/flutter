@@ -24,5 +24,4 @@ final availableAmenitiesProvider = StateProvider<List<AmenityObject>>((ref) {
   return availableAmenities;
 });
 
-final filteredAmenitiesProvider =
-    StateProvider<List<AmenityObject>>((ref) => []);
+final filteredAmenitiesProvider = StateProvider<List<AmenityObject>>((ref) => []);

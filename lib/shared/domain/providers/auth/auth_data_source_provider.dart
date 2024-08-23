@@ -7,11 +7,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../repositories/auth/data_sources/auth_remote_data_source.dart';
 
 final authRemoteDataSourceProvider =
-    Provider.family<AuthRemoteDataSource, AuthAgestService>(
-  (_, networkService) => AuthRemoteDataSource(networkService),
+Provider.family<AuthRemoteDataSource, AuthAgestService>(
+      (_, networkService) => AuthRemoteDataSource(networkService),
 );
 
 final authLocalDataSourceProvider =
-    Provider.family<AuthLocalDataSource, FlutterSecureStorageService>(
-  (_, secureStorageService) => AuthSecureLocalDataSource(secureStorageService),
+Provider.family<AuthLocalDataSource, FlutterSecureStorageService>(
+      (_, secureStorageService) => AuthSecureLocalDataSource(secureStorageService),
 );

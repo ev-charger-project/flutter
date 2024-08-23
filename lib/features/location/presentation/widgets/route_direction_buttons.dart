@@ -25,6 +25,7 @@ class RouteDirectionButtons extends ConsumerWidget {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
 
+
     void handleButtonPress2() async {
       final permissionState = ref.read(permissionProvider);
 
@@ -34,14 +35,13 @@ class RouteDirectionButtons extends ConsumerWidget {
         final userLocation = ref.read(userLocationProvider);
         final destinationLocation = ref.read(locationProvider);
 
-        if (userLocation != null &&
-            destinationLocation is AsyncData<LocationEntity>) {
-          _updateStartAndEndLocations(
-              ref, userLocation, destinationLocation.value);
+        if (userLocation != null && destinationLocation is AsyncData<LocationEntity>) {
+          _updateStartAndEndLocations(ref, userLocation, destinationLocation.value);
           context.router.push(RouteRoute());
         }
       }
     }
+
 
     void handleButtonPress() async {
       final permissionState = ref.read(permissionProvider);
@@ -68,6 +68,7 @@ class RouteDirectionButtons extends ConsumerWidget {
         }
       }
     }
+
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -116,6 +117,8 @@ class RouteDirectionButtons extends ConsumerWidget {
   }
 }
 
+
+
 void _showPermissionDialog(BuildContext context) {
   showDialog(
     context: context,
@@ -123,21 +126,20 @@ void _showPermissionDialog(BuildContext context) {
   );
 }
 
-void _updateStartAndEndLocations(
-    WidgetRef ref, Position userLocation, LocationEntity destinationLocation) {
+void _updateStartAndEndLocations(WidgetRef ref, Position userLocation, LocationEntity destinationLocation) {
   ref.read(startProvider.notifier).updateStartLocation(ChargerMarkerEntity(
-        id: 'Your Location',
-        latitude: userLocation.latitude,
-        longitude: userLocation.longitude,
-      ));
+    id: 'Your Location',
+    latitude: userLocation.latitude,
+    longitude: userLocation.longitude,
+  ));
 
   final locationName = _buildLocationName(destinationLocation);
 
   ref.read(endProvider.notifier).updateEndLocation(ChargerMarkerEntity(
-        id: locationName,
-        latitude: destinationLocation.latitude,
-        longitude: destinationLocation.longitude,
-      ));
+    id: locationName,
+    latitude: destinationLocation.latitude,
+    longitude: destinationLocation.longitude,
+  ));
 }
 
 String _buildLocationName(LocationEntity location) {

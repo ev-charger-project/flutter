@@ -63,7 +63,9 @@ class AgestStorageService extends RemoteStorageService {
       'amenities': amenities,
     };
 
+
     log("queryParams: $queryParams");
+
 
     final StringBuffer urlBuffer = StringBuffer('$uri$baseUrl?');
     queryParams.forEach((key, value) {
@@ -104,16 +106,15 @@ class AgestStorageService extends RemoteStorageService {
   }
 
   @override
-  Future<List<SuggestionDataModel>> fetchSuggestion(
-    String searchString, [
-    int? stationCount,
-    List<String>? chargeType,
-    int? outputMin,
-    int? outputMax,
-    List<String>? amenities,
-    double? lat,
-    double? long,
-  ]) async {
+  Future<List<SuggestionDataModel>> fetchSuggestion(String searchString,
+      [int? stationCount,
+      List<String>? chargeType,
+      int? outputMin,
+      int? outputMax,
+      List<String>? amenities,
+      double? lat,
+      double? long,
+      ]) async {
     const baseUrl = '/api/v1/locations/search';
     final Map<String, dynamic> queryParams = {
       'query': searchString,

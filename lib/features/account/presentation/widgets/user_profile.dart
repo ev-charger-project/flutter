@@ -3,9 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../shared/domain/providers/user/user_provider.dart';
 
 class UserProfile extends ConsumerWidget {
-  const UserProfile({
-    super.key,
-  });
+  const UserProfile({super.key,});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -26,18 +24,20 @@ class UserProfile extends ConsumerWidget {
             SizedBox(height: height * 0.02),
             Text(
               user.username!,
-              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              style: const TextStyle(
+                  fontSize: 24, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: height * 0.01),
             Text(
               user.email!,
-              style: const TextStyle(fontSize: 16, color: Colors.grey),
+              style: const TextStyle(
+                  fontSize: 16, color: Colors.grey),
             ),
-            if (user.phoneNumber != null)
-              Text(
-                user.phoneNumber!,
-                style: const TextStyle(fontSize: 16, color: Colors.grey),
-              ),
+            if(user.phoneNumber != null) Text(
+              user.phoneNumber!,
+              style: const TextStyle(
+                  fontSize: 16, color: Colors.grey),
+            ),
             SizedBox(height: height * 0.03),
           ],
         );

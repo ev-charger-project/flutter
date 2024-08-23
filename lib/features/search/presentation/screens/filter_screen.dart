@@ -253,6 +253,7 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                         log("Selected Station Count Index: $selectedStationCount");
                         log("Selected Station Count Value: $selectedStationCountValue");
 
+
                         final currentStateVisiblePlugs =
                             ref.read(visiblePlugsProvider);
                         final currentStateHiddenPlugs =

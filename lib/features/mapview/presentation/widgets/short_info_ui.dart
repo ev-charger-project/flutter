@@ -37,8 +37,9 @@ class ShortInfoUI extends ConsumerWidget {
     final selectedLocationId = ref.watch(selectedLocationIdProvider);
 
     var favouriteMap = favouriteAsyncValue.when(
-      data: (favourite) => Map.fromEntries(favourite
-          .map((item) => MapEntry(item.favourite.id, item.station_name))),
+      data: (favourite) => Map.fromEntries(
+          favourite.map((item) => MapEntry(item.favourite.id, item.station_name))
+      ),
       loading: () => {},
       error: (error, stack) => {},
     );
@@ -65,15 +66,13 @@ class ShortInfoUI extends ConsumerWidget {
               ),
               child: Center(
                 child: Padding(
-                  padding:
-                      EdgeInsets.all(MediaQuery.of(context).size.width * 0.035),
+                  padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.035),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Padding(
                         padding: EdgeInsets.symmetric(
-                            horizontal:
-                                MediaQuery.of(context).size.width * 0.015),
+                            horizontal: MediaQuery.of(context).size.width * 0.015),
                         child: const LocationNameAddress(),
                       ),
                       Divider(
@@ -96,15 +95,9 @@ class ShortInfoUI extends ConsumerWidget {
               right: 18,
               child: IconButton(
                 iconSize: 30,
-                icon: favouriteLocationIdList.contains(selectedLocationId)
-                    ? Icon(
-                        Icons.bookmark,
-                        color: Theme.of(context).primaryColor,
-                      )
-                    : Icon(
-                        Icons.bookmark_border,
-                        color: Theme.of(context).primaryColor,
-                      ),
+                icon: favouriteLocationIdList.contains(selectedLocationId) ?
+                  Icon(Icons.bookmark, color: Theme.of(context).primaryColor,):
+                  Icon(Icons.bookmark_border,color: Theme.of(context).primaryColor,),
                 onPressed: () async {
                   if (!isAuthenticated!) {
                     await showDialog(
@@ -112,24 +105,19 @@ class ShortInfoUI extends ConsumerWidget {
                       builder: (context) => const AuthenticationScreen(),
                     );
                   } else {
-                    final userInfoRepository =
-                        ref.watch(userInfoRepositoryProvider);
+                    final userInfoRepository = ref.watch(userInfoRepositoryProvider);
                     final userInfo = await ref.watch(userProvider.future);
-                    final secureStorage =
-                        ref.watch(secureStorageServiceProvider);
+                    final secureStorage = ref.watch(secureStorageServiceProvider);
                     var tokenData = await secureStorage.getToken();
                     if (kDebugMode) {
                       print(userInfo.userId);
                     }
 
                     if (favouriteLocationIdList.contains(selectedLocationId)) {
-                      await userInfoRepository.deleteFav(
-                          favouriteMap[selectedLocationId]!,
-                          tokenData!.access_token);
+                      await userInfoRepository.deleteFav(favouriteMap[selectedLocationId]!, tokenData!.access_token);
                       ref.refresh(favProvider);
                     } else {
-                      await userInfoRepository.createFav(
-                          selectedLocationId, tokenData!.access_token);
+                      await userInfoRepository.createFav(selectedLocationId, tokenData!.access_token);
                       ref.refresh(favProvider);
                     }
                   }

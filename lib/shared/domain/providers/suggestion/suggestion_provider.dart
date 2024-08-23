@@ -27,6 +27,7 @@ final suggestionProvider = FutureProvider<List<SuggestionEntity>>((ref) async {
   final outputMax = filter.output_max;
   final amenities = filter.amenities;
 
+
   final suggestionsData = await suggestionRepository.fetchSuggestionsData(
       suggestionQuery,
       stationCount,

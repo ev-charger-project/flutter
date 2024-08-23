@@ -4,6 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../repositories/user/data_sources/user_remote_data_source.dart';
 
 final userDataSourceProvider =
-    Provider.family<UserRemoteDataSource, AuthAgestService>(
-  (_, networkService) => UserRemoteDataSource(networkService),
+Provider.family<UserRemoteDataSource, AuthAgestService>(
+      (_, networkService) => UserRemoteDataSource(networkService),
 );

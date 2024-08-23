@@ -11,16 +11,15 @@ class SuggestionRepositoryImpl extends SuggestionRepository {
   final SuggestionRemoteDataSource remoteDataSource;
 
   @override
-  Future<List<SuggestionEntity>> fetchSuggestionsData(
-    String searchString, [
-    int? stationCount,
-    List<String>? chargeType,
-    int? outputMin,
-    int? outputMax,
-    List<String>? amenities,
-    double? lat,
-    double? long,
-  ]) async {
+  Future<List<SuggestionEntity>> fetchSuggestionsData(String searchString,
+      [int? stationCount,
+      List<String>? chargeType,
+      int? outputMin,
+      int? outputMax,
+      List<String>? amenities,
+      double? lat,
+      double? long,
+      ]) async {
     final suggestionDataModelResult =
         await remoteDataSource.fetchSuggestionData(
             searchString,

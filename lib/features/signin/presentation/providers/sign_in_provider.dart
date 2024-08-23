@@ -27,7 +27,7 @@ class SignInNotifier extends StateNotifier<SignInState> {
 }
 
 final signInProvider = StateNotifierProvider<SignInNotifier, SignInState>(
-  (ref) {
+      (ref) {
     final authRepository = ref.read(authRepositoryProvider);
     return SignInNotifier(authRepository);
   },

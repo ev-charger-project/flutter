@@ -13,8 +13,7 @@ class TokenAdapterObject {
     required this.refresh_token,
   });
 
-  factory TokenAdapterObject.fromJson(Map<String, dynamic> json) =>
-      _$TokenAdapterObjectFromJson(json);
+  factory TokenAdapterObject.fromJson(Map<String, dynamic> json) => _$TokenAdapterObjectFromJson(json);
 
   Map<String, dynamic> toJson() => _$TokenAdapterObjectToJson(this);
 }

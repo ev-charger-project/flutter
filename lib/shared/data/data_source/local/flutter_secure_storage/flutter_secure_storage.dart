@@ -21,8 +21,7 @@ class FlutterSecureStorageService extends SecureStorageService {
     final refresh_token = await _storage.read(key: 'refresh_token');
 
     final token = access_token != null && refresh_token != null
-        ? TokenAdapterObject(
-            access_token: access_token, refresh_token: refresh_token)
+        ? TokenAdapterObject(access_token: access_token, refresh_token: refresh_token)
         : null;
 
     _tokenController.add(token);
@@ -47,17 +46,14 @@ class FlutterSecureStorageService extends SecureStorageService {
     final refresh_token = await _storage.read(key: 'refresh_token');
 
     return access_token != null && refresh_token != null
-        ? TokenAdapterObject(
-            access_token: access_token, refresh_token: refresh_token)
+        ? TokenAdapterObject(access_token: access_token, refresh_token: refresh_token)
         : null;
   }
 
   @override
   Future<bool> setToken(TokenAdapterObject tokenAdapterObject) async {
-    await _storage.write(
-        key: 'access_token', value: tokenAdapterObject.access_token);
-    await _storage.write(
-        key: 'refresh_token', value: tokenAdapterObject.refresh_token);
+    await _storage.write(key: 'access_token', value: tokenAdapterObject.access_token);
+    await _storage.write(key: 'refresh_token', value: tokenAdapterObject.refresh_token);
 
     _tokenController.add(tokenAdapterObject);
     return true;

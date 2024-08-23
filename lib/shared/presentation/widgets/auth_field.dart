@@ -27,8 +27,9 @@ class AuthField extends StatelessWidget {
         obscureText: obscureText,
         decoration: InputDecoration(
           hintText: hintText,
-          prefixIcon:
-              prefixIcon != null ? Icon(prefixIcon, color: Colors.black) : null,
+          prefixIcon: prefixIcon != null
+              ? Icon(prefixIcon, color: Colors.black)
+              : null,
           border: const OutlineInputBorder(
             borderSide: BorderSide(
               color: Colors.black,
