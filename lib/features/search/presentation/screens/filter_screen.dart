@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:ev_charger/features/mapview/domain/providers/marker/marker_provider.dart';
 import 'package:ev_charger/features/search/presentation/providers/charge_type/checked_plugs_provider.dart';
@@ -10,10 +8,8 @@ import 'package:ev_charger/features/search/presentation/providers/filter_provide
 import 'package:ev_charger/features/search/presentation/providers/search_bar_and_filter/filter_border_color_provider.dart';
 import 'package:ev_charger/repositories/filter/filter.dart';
 import 'package:ev_charger/shared/presentation/theme/app_theme.dart';
-import 'package:flutter/foundation.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -56,8 +52,8 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
         ref.read(availableAmenitiesProvider.notifier).state = resetAmenities;
         ref.read(filteredAmenitiesProvider.notifier).state = [];
       },
-      loading: () => log("Loading initial amenities..."),
-      error: (err, stack) => log("Error loading initial amenities: $err"),
+      loading: () => print("Loading initial amenities..."),
+      error: (err, stack) => print("Error loading initial amenities: $err"),
     );
   }
 
@@ -163,11 +159,9 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                             ref.read(visiblePlugsProvider.notifier).state =
                                 resetVisiblePlugs;
                           },
-                          loading: () => {
-                            log("Loading visible plugs..."),
-                          },
+                          loading: () => print("Loading visible plugs..."),
                           error: (err, stack) =>
-                              log("Error loading visible plugs: $err"),
+                              print("Error loading visible plugs: $err"),
                         );
 
                         final hiddenPlugsAsyncValue =
@@ -177,9 +171,9 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                             ref.read(hiddenPlugsProvider.notifier).state =
                                 initialHiddenPlugs;
                           },
-                          loading: () => log("Loading hidden plugs..."),
+                          loading: () => print("Loading hidden plugs..."),
                           error: (err, stack) =>
-                              log("Error loading hidden plugs: $err"),
+                              print("Error loading hidden plugs: $err"),
                         );
 
                         ref.read(showIncompatiblePlugsProvider.notifier).state =
@@ -222,7 +216,7 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                             .read(checkedPlugsProvider.notifier)
                             .updateCheckedPlugs();
 
-                        log("Reset pressed");
+                        print("Reset pressed");
                         Navigator.pop(context);
                       },
                       fillColor: Theme.of(context).lightGreen,
@@ -250,9 +244,10 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                             ref.read(selectedStationCountProvider);
                         final selectedStationCountValue =
                             ref.read(stationCountValueProvider);
-                        log("Selected Station Count Index: $selectedStationCount");
-                        log("Selected Station Count Value: $selectedStationCountValue");
-
+                        print(
+                            "Selected Station Count Index: $selectedStationCount");
+                        print(
+                            "Selected Station Count Value: $selectedStationCountValue");
 
                         final currentStateVisiblePlugs =
                             ref.read(visiblePlugsProvider);
@@ -297,7 +292,8 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                         // Update providers with the new lists, converting to sets and back to lists to remove duplicates
                         ref.read(visiblePlugsProvider.notifier).state =
                             updatedVisiblePlugs.toSet().toList();
-                        log("Updated Visible Plugs: ${ref.read(visiblePlugsProvider)}");
+                        print(
+                            "Updated Visible Plugs: ${ref.read(visiblePlugsProvider)}");
                         ref.read(hiddenPlugsProvider.notifier).state =
                             updatedHiddenPlugs.toSet().toList();
                         ref.read(showIncompatiblePlugsProvider.notifier).state =
@@ -312,6 +308,7 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                         ref
                             .read(checkedPlugsProvider.notifier)
                             .updateCheckedPlugs();
+                        // print(selectedAmenitiesProvider.notifier);
                         // Update filter provider with the new filter
                         ref.read(filterProvider.notifier).updateFilter(
                               FilterEntity(
@@ -337,8 +334,8 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                             );
 
                         ref.refresh(markerProvider);
-                        log("Updated Filter: ${ref.read(filterProvider)}");
-                        log("Apply pressed");
+                        print("Updated Filter: ${ref.read(filterProvider)}");
+                        print("Apply pressed");
                         Navigator.pop(context);
                       },
                       fillColor: Theme.of(context).primaryColor,
