@@ -33,7 +33,7 @@ class Observers extends ProviderObserver {
     Object? value,
     ProviderContainer container,
   ) {
-    print('Provider $provider was initialized with $value');
+    log('Provider $provider was initialized with $value');
   }
 
   @override
@@ -43,6 +43,6 @@ class Observers extends ProviderObserver {
     StackTrace stackTrace,
     ProviderContainer container,
   ) {
-    print('Provider $provider threw $error at $stackTrace');
+    log('Provider $provider threw $error at $stackTrace');
   }
 }

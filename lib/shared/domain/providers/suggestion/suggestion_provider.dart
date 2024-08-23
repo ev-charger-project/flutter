@@ -3,7 +3,6 @@ import 'package:ev_charger/repositories/suggestion/entities/suggestion_entity.da
 import 'package:ev_charger/shared/domain/providers/location/user_location_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../features/search/domain/providers/search_query_provider.dart';
-import '../../../../features/search/presentation/widgets/charge_type_object.dart';
 import 'suggestion_repository_provider.dart';
 
 final suggestionProvider = FutureProvider<List<SuggestionEntity>>((ref) async {

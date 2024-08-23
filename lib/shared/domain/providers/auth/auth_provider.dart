@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:jwt_decode/jwt_decode.dart';
 import '../secure_storage_service_provider.dart';
@@ -13,7 +15,7 @@ final authProvider = StreamProvider<bool>((ref) {
 
       return expiryDate.isAfter(now);
     } catch (e) {
-      print('Error during auth check: $e');
+      log('Error during auth check: $e');
       return false;
     }
   });

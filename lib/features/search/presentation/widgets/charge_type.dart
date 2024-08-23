@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:ev_charger/shared/presentation/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -48,8 +50,8 @@ class _ChargeTypeState extends ConsumerState<ChargeType> {
     final checkedPlugs = ref.watch(checkedPlugsProvider);
     final totalPlugs = visiblePlugs.length + hiddenPlugs.length;
 
-    print('checkedPlugs: $checkedPlugs');
-    print('totalPlugs: $totalPlugs');
+    log('checkedPlugs: $checkedPlugs');
+    log('totalPlugs: $totalPlugs');
 
     return Padding(
       padding: EdgeInsets.symmetric(vertical: screenSize.height * 0.016),

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:ev_charger/repositories/favourite/data_models/favourite_data_model.dart';
 import 'package:ev_charger/shared/domain/providers/secure_storage_service_provider.dart';
 import 'package:ev_charger/shared/domain/providers/user/user_provider.dart';
@@ -14,7 +16,7 @@ FutureProvider.autoDispose<List<FavouriteDataModel>>((ref) async {
 
   if (tokenData != null) {
     final favs = await userInfoRepository.fetchFav(tokenData.access_token, userInfo.userId!);
-    print('fav list: $favs');
+    log('fav list: $favs');
     return favs;
   } else {
     return [];

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:ev_charger/features/location/presentation/providers/selected_location_id_provider.dart';
 import 'package:ev_charger/features/location/presentation/widgets/location_name_address.dart';
 import 'package:ev_charger/features/mapview/presentation/widgets/view_route_direction.dart';
@@ -5,6 +7,7 @@ import 'package:ev_charger/repositories/user/data_sources/user_info_data_source.
 import 'package:ev_charger/repositories/user/data_sources/user_remote_data_source.dart';
 import 'package:ev_charger/repositories/user/user_info_repo_impl.dart';
 import 'package:ev_charger/shared/data/data_source/remote/remote_storage_service.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -41,9 +44,9 @@ class ShortInfoUI extends ConsumerWidget {
       error: (error, stack) => {},
     );
     var favouriteLocationIdList = favouriteMap.keys.toList();
-    print('selected location id: $selectedLocationId');
-    print('favourite map: $favouriteMap');
-    print('favourite location id list: $favouriteLocationIdList');
+    log('selected location id: $selectedLocationId');
+    log('favourite map: $favouriteMap');
+    log('favourite location id list: $favouriteLocationIdList');
 
     return GestureDetector(
       onVerticalDragUpdate: (details) {
@@ -106,7 +109,9 @@ class ShortInfoUI extends ConsumerWidget {
                     final userInfo = await ref.watch(userProvider.future);
                     final secureStorage = ref.watch(secureStorageServiceProvider);
                     var tokenData = await secureStorage.getToken();
-                    print(userInfo.userId);
+                    if (kDebugMode) {
+                      print(userInfo.userId);
+                    }
 
                     if (favouriteLocationIdList.contains(selectedLocationId)) {
                       await userInfoRepository.deleteFav(favouriteMap[selectedLocationId]!, tokenData!.access_token);

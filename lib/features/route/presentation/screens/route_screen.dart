@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:auto_route/auto_route.dart';
 import 'package:ev_charger/features/route/domain/providers/route_marker_provider.dart';
 import 'package:ev_charger/features/route/presentation/providers/start_provider.dart';
@@ -72,7 +73,7 @@ class _RouteScreenState extends ConsumerState<RouteScreen> {
         });
       },
       loading: () {},
-      error: (error, stack) => print('Error: $error'),
+      error: (error, stack) => log('Error: $error'),
     );
 
     routeAsyncValue.when(
@@ -96,7 +97,7 @@ class _RouteScreenState extends ConsumerState<RouteScreen> {
         });
       },
       loading: () {},
-      error: (error, stack) => print('Error: $error'),
+      error: (error, stack) => log('Error: $error'),
     );
 
 

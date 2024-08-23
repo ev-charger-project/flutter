@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:ev_charger/features/mapview/domain/providers/screen_center_provider.dart';
@@ -157,7 +158,7 @@ class _MapScreenState extends ConsumerState<MapScreen>
         });
       },
       loading: () {},
-      error: (error, stack) => print('Error: $error'),
+      error: (error, stack) => log('Error: $error'),
     );
 
     return Scaffold(

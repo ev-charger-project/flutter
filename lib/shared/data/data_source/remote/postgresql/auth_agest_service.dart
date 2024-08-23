@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 
 import '../../../../../repositories/auth/data_models/token_data_model.dart';
@@ -29,11 +31,11 @@ class AuthAgestService extends AuthService {
 
         return token;
       } else {
-        print('Error code: ${response.statusCode}');
+        log('Error code: ${response.statusCode}');
         throw Exception('Incorrect email or password');
       }
     } catch(e) {
-      print('Error: $e');
+      log('Error: $e');
       if (e is DioException && e.response != null) {
         throw Exception('Error code: ${e.response?.statusCode}');
       } else {
@@ -59,7 +61,7 @@ class AuthAgestService extends AuthService {
       );
       return user;
     } catch(e) {
-      print('Error: $e');
+      log('Error: $e');
       if (e is DioException && e.response != null) {
         throw Exception('Error code: ${e.response?.statusCode}');
       } else {
@@ -82,7 +84,7 @@ class AuthAgestService extends AuthService {
       }
       return false;
     } catch(e) {
-      print('Error: $e');
+      log('Error: $e');
       if (e is DioException && e.response != null) {
         throw Exception('Error code: ${e.response?.statusCode}');
       } else {
@@ -111,7 +113,7 @@ class AuthAgestService extends AuthService {
         throw Exception('Error code: ${response.statusCode}');
       }
     } catch(e) {
-      print('Error: $e');
+      log('Error: $e');
       if (e is DioException && e.response != null) {
         throw Exception('Error code: ${e.response?.statusCode}');
       } else {
@@ -141,7 +143,8 @@ class AuthAgestService extends AuthService {
         throw Exception('An unknown error occurred');
       }
     } catch(e) {
-      print('Error: $e');
+
+      log('Error: $e');
       if (e is DioException && e.response != null) {
         throw Exception('Error code: ${e.response?.statusCode}');
       } else {

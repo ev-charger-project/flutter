@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:ev_charger/features/search/presentation/providers/amenity/selected_amenities_provider.dart';
 import 'package:ev_charger/features/splash/widgets/dots_circular_progress_painter_widget.dart';
 import 'package:ev_charger/shared/presentation/theme/app_theme.dart';
@@ -61,9 +63,9 @@ class _AmenityState extends ConsumerState<Amenity> {
                     itemBuilder: (context, index) {
                       final amenity = amenities[index];
                       // print details of each amenity
-                      print('Amenity Name: ${amenity.amenityName}');
-                      print('Amenity Icon Path: ${amenity.amenityIconPath}');
-                      print('Is Checked: ${amenity.isChecked}');
+                      log('Amenity Name: ${amenity.amenityName}');
+                      log('Amenity Icon Path: ${amenity.amenityIconPath}');
+                      log('Is Checked: ${amenity.isChecked}');
 
                       return AmenityObject(
                         amenityName: amenity.amenityName,

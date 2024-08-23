@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -39,7 +40,9 @@ class _AmenityObjectState extends ConsumerState<AmenityObject> {
     setState(() {
       widget.isChecked = !widget.isChecked;
     });
-    print(widget.isChecked);
+    if (kDebugMode) {
+      print(widget.isChecked);
+    }
     // Notify the provider about the change
     ref.read(availableAmenitiesProvider.notifier).update((state) {
       final index = state

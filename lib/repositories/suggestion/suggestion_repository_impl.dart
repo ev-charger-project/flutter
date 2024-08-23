@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:ev_charger/repositories/suggestion/suggestion_repository.dart';
 
 import 'data_sources/suggestion_remote_data_source.dart';
@@ -29,14 +31,14 @@ class SuggestionRepositoryImpl extends SuggestionRepository {
             lat,
             long);
     final result = SuggestionMapper().toEntityList(suggestionDataModelResult);
-    print('searchString: $searchString');
-    print('stationCount: $stationCount');
-    print('chargeType: $chargeType');
-    print('outputMin: $outputMin');
-    print('outputMax: $outputMax');
-    print('amenities: $amenities');
-    print('lat: $lat');
-    print('long: $long');
+    log('searchString: $searchString');
+    log('stationCount: $stationCount');
+    log('chargeType: $chargeType');
+    log('outputMin: $outputMin');
+    log('outputMax: $outputMax');
+    log('amenities: $amenities');
+    log('lat: $lat');
+    log('long: $long');
 
     return result;
   }

@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:ev_charger/features/route/presentation/providers/end_provider.dart';
 import 'package:ev_charger/features/route/presentation/providers/from_search_provider.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -75,7 +78,7 @@ class _RouteSearchScreenState extends ConsumerState<RouteSearchScreen> {
 
         _fromSearchFocusNode.unfocus();
         _showClearIconFrom = false;
-        print('start location: ${FromSearchProvider.notifier}');
+        log('start location: ${FromSearchProvider.notifier}');
       } else {
         ref.read(endProvider.notifier).updateEndLocation(
               ChargerMarkerEntity(
@@ -92,7 +95,7 @@ class _RouteSearchScreenState extends ConsumerState<RouteSearchScreen> {
         });
         _toSearchFocusNode.unfocus();
         _showClearIconTo = false;
-        print('end location: ${endProvider.notifier}');
+        log('end location: ${endProvider.notifier}');
       }
     }
   }

@@ -164,10 +164,10 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                                 resetVisiblePlugs;
                           },
                           loading: () => {
-                            print("Loading visible plugs..."),
+                            log("Loading visible plugs..."),
                           },
                           error: (err, stack) =>
-                              print("Error loading visible plugs: $err"),
+                              log("Error loading visible plugs: $err"),
                         );
 
                         final hiddenPlugsAsyncValue =
@@ -177,9 +177,9 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                             ref.read(hiddenPlugsProvider.notifier).state =
                                 initialHiddenPlugs;
                           },
-                          loading: () => print("Loading hidden plugs..."),
+                          loading: () => log("Loading hidden plugs..."),
                           error: (err, stack) =>
-                              print("Error loading hidden plugs: $err"),
+                              log("Error loading hidden plugs: $err"),
                         );
 
                         ref.read(showIncompatiblePlugsProvider.notifier).state =
@@ -222,9 +222,7 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                             .read(checkedPlugsProvider.notifier)
                             .updateCheckedPlugs();
 
-                        if (kDebugMode) {
-                          print("Reset pressed");
-                        }
+                        log("Reset pressed");
                         Navigator.pop(context);
                       },
                       fillColor: Theme.of(context).lightGreen,
@@ -252,12 +250,9 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                             ref.read(selectedStationCountProvider);
                         final selectedStationCountValue =
                             ref.read(stationCountValueProvider);
-                        if (kDebugMode) {
-                          print(
-                              "Selected Station Count Index: $selectedStationCount");
-                          print(
-                              "Selected Station Count Value: $selectedStationCountValue");
-                        }
+                        log("Selected Station Count Index: $selectedStationCount");
+                        log("Selected Station Count Value: $selectedStationCountValue");
+
 
                         final currentStateVisiblePlugs =
                             ref.read(visiblePlugsProvider);
@@ -302,8 +297,7 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                         // Update providers with the new lists, converting to sets and back to lists to remove duplicates
                         ref.read(visiblePlugsProvider.notifier).state =
                             updatedVisiblePlugs.toSet().toList();
-                        print(
-                            "Updated Visible Plugs: ${ref.read(visiblePlugsProvider)}");
+                        log("Updated Visible Plugs: ${ref.read(visiblePlugsProvider)}");
                         ref.read(hiddenPlugsProvider.notifier).state =
                             updatedHiddenPlugs.toSet().toList();
                         ref.read(showIncompatiblePlugsProvider.notifier).state =
@@ -318,7 +312,6 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                         ref
                             .read(checkedPlugsProvider.notifier)
                             .updateCheckedPlugs();
-                        // print(selectedAmenitiesProvider.notifier);
                         // Update filter provider with the new filter
                         ref.read(filterProvider.notifier).updateFilter(
                               FilterEntity(
@@ -344,10 +337,8 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                             );
 
                         ref.refresh(markerProvider);
-                        if (kDebugMode) {
-                          print("Updated Filter: ${ref.read(filterProvider)}");
-                          print("Apply pressed");
-                        }
+                        log("Updated Filter: ${ref.read(filterProvider)}");
+                        log("Apply pressed");
                         Navigator.pop(context);
                       },
                       fillColor: Theme.of(context).primaryColor,
