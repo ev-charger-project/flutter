@@ -71,6 +71,5 @@ class AppRouter extends _$AppRouter {
           durationInMilliseconds: 800,
           initial: false,
         )
-
       ];
 }

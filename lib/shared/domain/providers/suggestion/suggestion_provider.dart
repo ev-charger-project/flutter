@@ -3,7 +3,6 @@ import 'package:ev_charger/repositories/suggestion/entities/suggestion_entity.da
 import 'package:ev_charger/shared/domain/providers/location/user_location_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../features/search/domain/providers/search_query_provider.dart';
-import '../../../../features/search/presentation/widgets/charge_type_object.dart';
 import 'suggestion_repository_provider.dart';
 
 final suggestionProvider = FutureProvider<List<SuggestionEntity>>((ref) async {
@@ -26,6 +25,7 @@ final suggestionProvider = FutureProvider<List<SuggestionEntity>>((ref) async {
   final chargeType = filter.charge_type;
   final outputMin = filter.output_min;
   final outputMax = filter.output_max;
+  final amenities = filter.amenities;
 
   final suggestionsData = await suggestionRepository.fetchSuggestionsData(
       suggestionQuery,
@@ -33,6 +33,7 @@ final suggestionProvider = FutureProvider<List<SuggestionEntity>>((ref) async {
       chargeType,
       outputMin,
       outputMax,
+      amenities,
       lat,
       long);
 

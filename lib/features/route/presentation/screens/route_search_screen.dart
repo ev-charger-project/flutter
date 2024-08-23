@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:ev_charger/features/route/presentation/providers/end_provider.dart';
 import 'package:ev_charger/features/route/presentation/providers/from_search_provider.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -10,6 +13,7 @@ import '../../../../shared/core/localization/localization.dart';
 import '../../../../shared/domain/providers/location/user_location_provider.dart';
 import '../../../../shared/domain/providers/permission/permission_provider.dart';
 import '../../../notification/permission/screens/permission_screen.dart';
+import '../../../splash/widgets/dots_circular_progress_painter_widget.dart';
 import '../providers/start_provider.dart';
 import '../providers/to_search_provider.dart';
 import '../widgets/route_suggestion_list.dart';
@@ -74,7 +78,7 @@ class _RouteSearchScreenState extends ConsumerState<RouteSearchScreen> {
 
         _fromSearchFocusNode.unfocus();
         _showClearIconFrom = false;
-        print('start location: ${FromSearchProvider.notifier}');
+        log('start location: ${FromSearchProvider.notifier}');
       } else {
         ref.read(endProvider.notifier).updateEndLocation(
               ChargerMarkerEntity(
@@ -91,7 +95,7 @@ class _RouteSearchScreenState extends ConsumerState<RouteSearchScreen> {
         });
         _toSearchFocusNode.unfocus();
         _showClearIconTo = false;
-        print('end location: ${endProvider.notifier}');
+        log('end location: ${endProvider.notifier}');
       }
     }
   }
@@ -215,8 +219,20 @@ class _RouteSearchScreenState extends ConsumerState<RouteSearchScreen> {
               );
         }
       },
-      loading: () {},
-      error: (error, stack) {},
+      loading: () {
+        Center(
+          child: SizedBox(
+            height: 60,
+            child: DotsCircularProgressIndicator(
+              color: Theme.of(context).colorScheme.primary,
+              numberOfDots: 8,
+            ),
+          ),
+        );
+      },
+      error: (error, stack) {
+        Center(child: Text('Error: $error'));
+      },
     );
   }
 
@@ -244,8 +260,20 @@ class _RouteSearchScreenState extends ConsumerState<RouteSearchScreen> {
               );
         }
       },
-      loading: () {},
-      error: (error, stack) {},
+      loading: () {
+        Center(
+          child: SizedBox(
+            height: 60,
+            child: DotsCircularProgressIndicator(
+              color: Theme.of(context).colorScheme.primary,
+              numberOfDots: 8,
+            ),
+          ),
+        );
+      },
+      error: (error, stack) {
+        Center(child: Text('Error: $error'));
+      },
     );
   }
 
@@ -258,13 +286,14 @@ class _RouteSearchScreenState extends ConsumerState<RouteSearchScreen> {
     final endLocation = ref.watch(endProvider);
 
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.secondary,
         elevation: 0,
         shadowColor: Colors.transparent,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Theme.of(context).colorScheme.onSurface),
+          icon: Icon(Icons.arrow_back,
+              color: Theme.of(context).colorScheme.onSurface),
           onPressed: () => context.router.pop(),
         ),
         title: Text(
@@ -273,276 +302,271 @@ class _RouteSearchScreenState extends ConsumerState<RouteSearchScreen> {
         ),
         centerTitle: false,
       ),
-      body: Container(
-        color: Theme.of(context).colorScheme.secondary,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                AppLocalizations.of(context).translate('From'),
-                style: Theme.of(context).textTheme.headlineMedium,
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              AppLocalizations.of(context).translate('From'),
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+            SizedBox(height: screenSize.height * 0.010),
+            Container(
+              padding: EdgeInsets.symmetric(
+                //vertical: screenSize.height * 0.004,
+                horizontal: screenSize.width * 0.02,
               ),
-              SizedBox(height: screenSize.height * 0.010),
-              Container(
-                padding: EdgeInsets.symmetric(
-                  //vertical: screenSize.height * 0.004,
-                  horizontal: screenSize.width * 0.02,
-                ),
-                decoration: BoxDecoration(
-                  border: Border(
-                      bottom: BorderSide(
-                          color: Theme.of(context).colorScheme.primary,
-                          width: 2)),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: TextField(
-                        controller: _fromSearchController,
-                        focusNode: _fromSearchFocusNode,
-                        decoration: InputDecoration(
-                          hintText: AppLocalizations.of(context)
-                              .translate('Choose your Start Location'),
-                          border: InputBorder.none,
-                        ),
-                        style:
-                            Theme.of(context).textTheme.headlineMedium?.copyWith(
-                                  color: Colors.black,
-                                ),
-                        onChanged: _onFromSearchChanged,
-                        onSubmitted: _onFromSearchSubmitted,
-                      ),
-                    ),
-                    if (_showClearIconFrom)
-                      IconButton(
-                        icon: const Icon(Icons.clear),
-                        onPressed: _clearFromSearchField,
-                      ),
-                    SvgPicture.asset(
-                      'assets/icons/location_icon.svg',
-                      width: 20,
-                      height: 20,
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
-                  ],
-                ),
+              decoration: BoxDecoration(
+                border: Border(
+                    bottom: BorderSide(
+                        color: Theme.of(context).colorScheme.primary,
+                        width: 2)),
               ),
-              SizedBox(height: screenSize.height * 0.020),
-              Text(
-                AppLocalizations.of(context).translate('To'),
-                style: Theme.of(context).textTheme.headlineMedium,
-              ),
-              SizedBox(height: screenSize.height * 0.010),
-              Container(
-                padding: EdgeInsets.symmetric(
-                  //vertical: screenSize.height * 0.004,
-                  horizontal: screenSize.width * 0.02,
-                ),
-                decoration: BoxDecoration(
-                  border: Border(
-                      bottom: BorderSide(
-                          color: Theme.of(context).colorScheme.primary,
-                          width: 2)),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: TextField(
-                        controller: _toSearchController,
-                        focusNode: _toSearchFocusNode,
-                        decoration: InputDecoration(
-                          hintText: AppLocalizations.of(context)
-                              .translate('Choose your Destination'),
-                          border: InputBorder.none,
-                        ),
-                        style:
-                            Theme.of(context).textTheme.headlineMedium?.copyWith(
-                                  color: Colors.black,
-                                ),
-                        onChanged: _onToSearchChanged,
-                        onSubmitted: _onToSearchSubmitted,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: _fromSearchController,
+                      focusNode: _fromSearchFocusNode,
+                      decoration: InputDecoration(
+                        hintText: AppLocalizations.of(context)
+                            .translate('Choose your Start Location'),
+                        border: InputBorder.none,
                       ),
-                    ),
-                    if (_showClearIconTo)
-                      IconButton(
-                        icon: const Icon(Icons.clear),
-                        onPressed: _clearToSearchField,
-                      ),
-                    SvgPicture.asset(
-                      'assets/icons/location_icon.svg',
-                      width: 20,
-                      height: 20,
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: screenSize.height * 0.020),
-              Expanded(
-                child: _fromSearchFocusNode.hasFocus
-                    ? fromSearchQuery.isEmpty
-                        ? Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(height: screenSize.height * 0.02),
-                              if (endLocation.id != 'Your Current Location')
-                                InkWell(
-                                  onTap: () => _checkLocationPermission(true),
-                                  child: Container(
-                                    padding: EdgeInsets.symmetric(
-                                      vertical: screenSize.height * 0.014,
-                                      horizontal: 24.0,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      color:
-                                          Theme.of(context).colorScheme.secondary,
-                                      borderRadius: BorderRadius.circular(12.0),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.black.withOpacity(0.1),
-                                          blurRadius: 2,
-                                          offset: Offset(0, 2),
-                                        ),
-                                      ],
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        Icon(Icons.navigation,
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .primary),
-                                        const SizedBox(width: 14),
-                                        Text(
-                                          AppLocalizations.of(context)
-                                              .translate('Your location'),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodySmall,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              SizedBox(height: screenSize.height * 0.2),
-                              Center(
-                                child: Text(
-                                  AppLocalizations.of(context)
-                                      .translate('Enter your Start Location.'),
-                                  style: Theme.of(context).textTheme.bodySmall,
-                                ),
+                      style:
+                          Theme.of(context).textTheme.headlineMedium?.copyWith(
+                                color: Colors.black,
                               ),
-                            ],
-                          )
-                        : RouteSuggestionList(
-                            onSuggestionSelected: _onSuggestionSelectedFrom,
-                            isStart: true,
-                          )
-                    : _toSearchFocusNode.hasFocus
-                        ? toSearchQuery.isEmpty
-                            ? Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(height: screenSize.height * 0.02),
-                                  if (startLocation.id != 'Your Current Location')
-                                    InkWell(
-                                      onTap: () =>
-                                          _checkLocationPermission(false),
-                                      child: Container(
-                                        padding: EdgeInsets.symmetric(
-                                          vertical: screenSize.height * 0.014,
-                                          horizontal: 24.0,
-                                        ),
-                                        decoration: BoxDecoration(
+                      onChanged: _onFromSearchChanged,
+                      onSubmitted: _onFromSearchSubmitted,
+                    ),
+                  ),
+                  if (_showClearIconFrom)
+                    IconButton(
+                      icon: const Icon(Icons.clear),
+                      onPressed: _clearFromSearchField,
+                    ),
+                  SvgPicture.asset(
+                    'assets/icons/location_icon.svg',
+                    width: 20,
+                    height: 20,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: screenSize.height * 0.020),
+            Text(
+              AppLocalizations.of(context).translate('To'),
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+            SizedBox(height: screenSize.height * 0.010),
+            Container(
+              padding: EdgeInsets.symmetric(
+                //vertical: screenSize.height * 0.004,
+                horizontal: screenSize.width * 0.02,
+              ),
+              decoration: BoxDecoration(
+                border: Border(
+                    bottom: BorderSide(
+                        color: Theme.of(context).colorScheme.primary,
+                        width: 2)),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: _toSearchController,
+                      focusNode: _toSearchFocusNode,
+                      decoration: InputDecoration(
+                        hintText: AppLocalizations.of(context)
+                            .translate('Choose your Destination'),
+                        border: InputBorder.none,
+                      ),
+                      style:
+                          Theme.of(context).textTheme.headlineMedium?.copyWith(
+                                color: Colors.black,
+                              ),
+                      onChanged: _onToSearchChanged,
+                      onSubmitted: _onToSearchSubmitted,
+                    ),
+                  ),
+                  if (_showClearIconTo)
+                    IconButton(
+                      icon: const Icon(Icons.clear),
+                      onPressed: _clearToSearchField,
+                    ),
+                  SvgPicture.asset(
+                    'assets/icons/location_icon.svg',
+                    width: 20,
+                    height: 20,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: screenSize.height * 0.020),
+            Expanded(
+              child: _fromSearchFocusNode.hasFocus
+                  ? fromSearchQuery.isEmpty
+                      ? Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            if (endLocation.id != 'Your Current Location')
+                              InkWell(
+                                onTap: () => _checkLocationPermission(true),
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                    vertical: screenSize.height * 0.014,
+                                    horizontal: 24.0,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color:
+                                        Theme.of(context).colorScheme.secondary,
+                                    borderRadius: BorderRadius.circular(12.0),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.1),
+                                        blurRadius: 2,
+                                        offset: Offset(0, 2),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      Icon(Icons.navigation,
                                           color: Theme.of(context)
                                               .colorScheme
-                                              .secondary,
-                                          borderRadius:
-                                              BorderRadius.circular(12.0),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color:
-                                                  Colors.black.withOpacity(0.1),
-                                              blurRadius: 2,
-                                              offset: Offset(0, 2),
-                                            ),
-                                          ],
-                                        ),
-                                        child: Row(
-                                          children: [
-                                            Icon(Icons.navigation,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .primary),
-                                            const SizedBox(width: 14),
-                                            Text(
-                                              AppLocalizations.of(context)
-                                                  .translate('Your location'),
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodySmall,
-                                            ),
-                                          ],
-                                        ),
+                                              .primary),
+                                      const SizedBox(width: 14),
+                                      Text(
+                                        AppLocalizations.of(context)
+                                            .translate('Your location'),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall,
                                       ),
-                                    ),
-                                  SizedBox(height: screenSize.height * 0.2),
-                                  Center(
-                                    child: Text(
-                                      AppLocalizations.of(context)
-                                          .translate('Enter your Destination.'),
-                                      style:
-                                          Theme.of(context).textTheme.bodySmall,
-                                    ),
+                                    ],
                                   ),
-                                ],
-                              )
-                            : RouteSuggestionList(
-                                onSuggestionSelected: _onSuggestionSelectedTo,
-                                isStart: false,
-                              )
-                        : Center(
-                            child: fromSearchQuery.isEmpty &&
-                                    toSearchQuery.isEmpty
-                                ? Text(
-                                    AppLocalizations.of(context).translate(
-                                        'Enter your Start Location and Destination.'),
-                                    style: Theme.of(context).textTheme.bodySmall,
-                                  )
-                                : fromSearchQuery.isEmpty &&
-                                        toSearchQuery.isNotEmpty
-                                    ? Text(
-                                        AppLocalizations.of(context).translate(
-                                            'Enter your Start Location.'),
-                                        style:
-                                            Theme.of(context).textTheme.bodySmall,
-                                      )
-                                    : toSearchQuery.isEmpty &&
-                                            fromSearchQuery.isNotEmpty
-                                        ? Text(
+                                ),
+                              ),
+                            SizedBox(height: screenSize.height * 0.001),
+                            Center(
+                              child: Text(
+                                AppLocalizations.of(context)
+                                    .translate('Enter your Start Location.'),
+                                style: Theme.of(context).textTheme.bodySmall,
+                              ),
+                            ),
+                          ],
+                        )
+                      : RouteSuggestionList(
+                          onSuggestionSelected: _onSuggestionSelectedFrom,
+                          isStart: true,
+                        )
+                  : _toSearchFocusNode.hasFocus
+                      ? toSearchQuery.isEmpty
+                          ? Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                if (startLocation.id != 'Your Current Location')
+                                  InkWell(
+                                    onTap: () =>
+                                        _checkLocationPermission(false),
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(
+                                        vertical: screenSize.height * 0.014,
+                                        horizontal: 24.0,
+                                      ),
+                                      decoration: BoxDecoration(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondary,
+                                        borderRadius:
+                                            BorderRadius.circular(12.0),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color:
+                                                Colors.black.withOpacity(0.1),
+                                            blurRadius: 2,
+                                            offset: Offset(0, 2),
+                                          ),
+                                        ],
+                                      ),
+                                      child: Row(
+                                        children: [
+                                          Icon(Icons.navigation,
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .primary),
+                                          const SizedBox(width: 14),
+                                          Text(
                                             AppLocalizations.of(context)
-                                                .translate(
-                                                    'Enter your Destination.'),
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodySmall,
-                                          )
-                                        : Text(
-                                            AppLocalizations.of(context)
-                                                .translate('Search for routes.'),
+                                                .translate('Your location'),
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .bodySmall,
                                           ),
-                          ),
-              ),
-              const SearchRouteButton(),
-              SizedBox(height: screenSize.height * 0.020),
-            ],
-          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                SizedBox(height: screenSize.height * 0.001),
+                                Center(
+                                  child: Text(
+                                    AppLocalizations.of(context)
+                                        .translate('Enter your Destination.'),
+                                    style:
+                                        Theme.of(context).textTheme.bodySmall,
+                                  ),
+                                ),
+                              ],
+                            )
+                          : RouteSuggestionList(
+                              onSuggestionSelected: _onSuggestionSelectedTo,
+                              isStart: false,
+                            )
+                      : Center(
+                          child: fromSearchQuery.isEmpty &&
+                                  toSearchQuery.isEmpty
+                              ? Text(
+                                  AppLocalizations.of(context).translate(
+                                      'Enter your Start Location and Destination.'),
+                                  style: Theme.of(context).textTheme.bodySmall,
+                                )
+                              : fromSearchQuery.isEmpty &&
+                                      toSearchQuery.isNotEmpty
+                                  ? Text(
+                                      AppLocalizations.of(context).translate(
+                                          'Enter your Start Location.'),
+                                      style:
+                                          Theme.of(context).textTheme.bodySmall,
+                                    )
+                                  : toSearchQuery.isEmpty &&
+                                          fromSearchQuery.isNotEmpty
+                                      ? Text(
+                                          AppLocalizations.of(context)
+                                              .translate(
+                                                  'Enter your Destination.'),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall,
+                                        )
+                                      : Text(
+                                          AppLocalizations.of(context)
+                                              .translate('Search for routes.'),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall,
+                                        ),
+                        ),
+            ),
+            const SearchRouteButton(),
+            SizedBox(height: screenSize.height * 0.020),
+          ],
         ),
       ),
     );

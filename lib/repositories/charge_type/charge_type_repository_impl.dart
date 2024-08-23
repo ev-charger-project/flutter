@@ -10,7 +10,7 @@ class ChargeTypeRepositoryImpl extends ChargeTypeRepository {
   @override
   Future<List<ChargeTypeEntity>> fetchChargeType() async {
     final chargeTypeDataModelResult =
-    await remoteDataSource.fetchChargeTypeData();
+        await remoteDataSource.fetchChargeTypeData();
     final result = ChargeTypeMapper().toEntityList(chargeTypeDataModelResult);
     return result;
   }

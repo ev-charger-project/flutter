@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:ev_charger/features/mapview/domain/providers/screen_center_provider.dart';
@@ -52,7 +53,6 @@ class _MapScreenState extends ConsumerState<MapScreen>
   late TextEditingController _searchController;
   double currentZoom = 16.0;
 
-
   static CameraPosition _initialCameraPosition(Position? currentLocation,
       {double? latitude, double? longitude}) {
     if (latitude != null && longitude != null) {
@@ -103,18 +103,19 @@ class _MapScreenState extends ConsumerState<MapScreen>
     await ref.read(userLocationProvider.notifier).getUserLocation();
     final currentLocation = ref.read(userLocationProvider);
     if (currentLocation != null) {
-      LatLng targetLocation = LatLng(currentLocation.latitude, currentLocation.longitude);
+      LatLng targetLocation =
+          LatLng(currentLocation.latitude, currentLocation.longitude);
       CameraPosition cameraPosition = CameraPosition(
         target: targetLocation,
         zoom: 16,
       );
       final GoogleMapController controller = await _controller.future;
-      controller
-          .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+      controller.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
     }
   }
 
-  Future<void> _animateCameraToPosition(LatLng position, {double zoom = 16.0}) async {
+  Future<void> _animateCameraToPosition(LatLng position,
+      {double zoom = 16.0}) async {
     final GoogleMapController controller = await _controller.future;
     controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
       target: position,
@@ -137,7 +138,7 @@ class _MapScreenState extends ConsumerState<MapScreen>
         setState(() {
           _markers.clear();
           _markers.addAll(markers.map((marker) {
-            if (marker.markerId.value != 'currentLocation'){
+            if (marker.markerId.value != 'currentLocation') {
               return marker.copyWith(
                 onTapParam: () async {
                   final controller = await _controller.future;
@@ -145,7 +146,8 @@ class _MapScreenState extends ConsumerState<MapScreen>
                   currentZoom = await controller.getZoomLevel();
 
                   setState(() {
-                    ref.read(selectedLocationIdProvider.notifier).state = marker.markerId.value;
+                    ref.read(selectedLocationIdProvider.notifier).state =
+                        marker.markerId.value;
                     ref.read(isInfoVisibleProvider.notifier).state = true;
                   });
                   await _animateCameraToPosition(marker.position, zoom: 18.0);
@@ -157,7 +159,7 @@ class _MapScreenState extends ConsumerState<MapScreen>
         });
       },
       loading: () {},
-      error: (error, stack) => print('Error: $error'),
+      error: (error, stack) => log('Error: $error'),
     );
 
     return Scaffold(
@@ -246,7 +248,6 @@ class _MapScreenState extends ConsumerState<MapScreen>
               },
             ),
           ),
-
           AnimatedPositioned(
             duration: const Duration(milliseconds: 300),
             bottom: isInfoVisible ? getShortInfoHeight() : 16.0,
@@ -259,7 +260,8 @@ class _MapScreenState extends ConsumerState<MapScreen>
               },
               child: SizedBox(
                 height: 30,
-                child: SvgPicture.asset('assets/icons/floating_button_icon.svg'),
+                child:
+                    SvgPicture.asset('assets/icons/floating_button_icon.svg'),
               ),
             ),
           ),

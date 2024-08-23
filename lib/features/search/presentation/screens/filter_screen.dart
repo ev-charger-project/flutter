@@ -10,16 +10,19 @@ import 'package:ev_charger/repositories/filter/filter.dart';
 import 'package:ev_charger/shared/presentation/theme/app_theme.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../shared/presentation/widgets/button.dart';
 import 'package:ev_charger/features/search/presentation/widgets/widgets.dart';
 
+import '../providers/amenity/available_amenities_provider.dart';
+import '../providers/amenity/selected_amenities_provider.dart';
 import '../providers/power_output/power_output_values_provider.dart';
 import '../providers/station_count/selected_station_count_provider.dart';
 import '../providers/station_count/station_count_value_provider.dart';
+import '../widgets/amenity.dart';
+import '../widgets/amenity_object.dart';
 import '../widgets/charge_type_object.dart';
 
 import 'package:syncfusion_flutter_sliders/sliders.dart';
@@ -33,6 +36,37 @@ class FilterScreen extends ConsumerStatefulWidget {
 }
 
 class _FilterScreenState extends ConsumerState<FilterScreen> {
+  void resetAmenities() {
+    final initialAmenitiesAsyncValue = ref.read(initialAmenitiesProvider);
+
+    initialAmenitiesAsyncValue.when(
+      data: (initialAmenities) {
+        final resetAmenities = initialAmenities.map((amenity) {
+          return AmenityObject(
+            amenityName: amenity.amenityName,
+            amenityIconPath: amenity.amenityIconPath,
+            isChecked: false,
+            selectedAmenitiesProvider: selectedAmenitiesProvider,
+          );
+        }).toList();
+        ref.read(availableAmenitiesProvider.notifier).state = resetAmenities;
+        ref.read(filteredAmenitiesProvider.notifier).state = [];
+      },
+      loading: () => print("Loading initial amenities..."),
+      error: (err, stack) => print("Error loading initial amenities: $err"),
+    );
+  }
+
+  void applyAmenities() {
+    final currentStateAvailablePlugs = ref.read(availableAmenitiesProvider);
+    final filteredAmenities = currentStateAvailablePlugs
+        .where((amenity) => amenity.isChecked)
+        .toList();
+    ref.read(filteredAmenitiesProvider.notifier).state =
+        filteredAmenities.toSet().toList();
+    ref.read(selectedAmenitiesProvider.notifier).updateSelectedAmenities();
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
@@ -85,6 +119,9 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
 
               // Power Output
               const PowerOutput(),
+
+              // Amenities
+              const Amenity(),
 
               // buttons "reset" and "apply filter"
               Padding(
@@ -146,30 +183,34 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                         ref.read(rangeValuesProvider.notifier).state =
                             SfRangeValues(0, 360);
 
+                        resetAmenities();
+
                         // Reset border color state to null
                         ref.read(FilterBorderColorProvider.notifier).state =
                             null;
 
                         // Update filter provider with the new filter
-                        ref.read(filterProvider.notifier).updateFilter(
-                            FilterEntity(
-                                station_count:
-                                    ref
-                                        .read(
-                                            stationCountValueProvider.notifier)
-                                        .state,
-                                charge_type: convertChargeTypeObjectsToStrings(
-                                    ref
-                                        .read(visiblePlugsProvider.notifier)
-                                        .state),
-                                output_min: convertDynamicToInt(ref
-                                    .read(rangeValuesProvider.notifier)
-                                    .state
-                                    .start),
-                                output_max: convertDynamicToInt(ref
-                                    .read(rangeValuesProvider.notifier)
-                                    .state
-                                    .end)));
+                        ref
+                            .read(filterProvider.notifier)
+                            .updateFilter(FilterEntity(
+                              station_count: ref
+                                  .read(stationCountValueProvider.notifier)
+                                  .state,
+                              charge_type: convertChargeTypeObjectsToStrings(ref
+                                  .read(visiblePlugsProvider.notifier)
+                                  .state),
+                              output_min: convertDynamicToInt(ref
+                                  .read(rangeValuesProvider.notifier)
+                                  .state
+                                  .start),
+                              output_max: convertDynamicToInt(ref
+                                  .read(rangeValuesProvider.notifier)
+                                  .state
+                                  .end),
+                              amenities: convertAmenityObjectsToStrings(ref
+                                  .read(filteredAmenitiesProvider.notifier)
+                                  .state),
+                            ));
 
                         ref
                             .read(checkedPlugsProvider.notifier)
@@ -262,6 +303,12 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                         ref.read(FilterBorderColorProvider.notifier).state =
                             Theme.of(context).primaryColor;
 
+                        applyAmenities();
+
+                        ref
+                            .read(checkedPlugsProvider.notifier)
+                            .updateCheckedPlugs();
+                        // print(selectedAmenitiesProvider.notifier);
                         // Update filter provider with the new filter
                         ref.read(filterProvider.notifier).updateFilter(
                               FilterEntity(
@@ -280,16 +327,14 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                                     .read(rangeValuesProvider.notifier)
                                     .state
                                     .end),
+                                amenities: convertAmenityObjectsToStrings(ref
+                                    .read(filteredAmenitiesProvider.notifier)
+                                    .state),
                               ),
                             );
 
-                        ref
-                            .read(checkedPlugsProvider.notifier)
-                            .updateCheckedPlugs();
-
                         ref.refresh(markerProvider);
                         print("Updated Filter: ${ref.read(filterProvider)}");
-
                         print("Apply pressed");
                         Navigator.pop(context);
                       },
@@ -333,5 +378,12 @@ List<String> convertChargeTypeObjectsToStrings(
     List<ChargeTypeObject> chargeTypeObjects) {
   return chargeTypeObjects.map((chargeTypeObject) {
     return '${chargeTypeObject.chargeType} - ${chargeTypeObject.chargePowerType}';
+  }).toList();
+}
+
+List<String> convertAmenityObjectsToStrings(
+    List<AmenityObject> amenityObjects) {
+  return amenityObjects.map((amenityObject) {
+    return amenityObject.amenityName;
   }).toList();
 }

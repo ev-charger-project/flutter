@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../../routes/app_route.dart';
 import '../../../../shared/domain/providers/auth/auth_provider.dart';
-import '../../../../shared/domain/providers/user/user_provider.dart';
 import '../providers/sign_out_provider.dart';
 import '../widgets/favourite.dart';
 import '../../../../shared/domain/providers/user/fav_provider.dart';
@@ -37,7 +36,8 @@ class AccountScreen extends ConsumerWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Theme.of(context).colorScheme.onSurface),
+          icon: Icon(Icons.arrow_back,
+              color: Theme.of(context).colorScheme.onSurface),
           onPressed: () => context.router.pop(),
         ),
       ),
@@ -57,9 +57,13 @@ class AccountScreen extends ConsumerWidget {
                 ),
               ],
               Align(
-                alignment: isAuthenticated == true ? Alignment.bottomCenter : Alignment.center,
+                alignment: isAuthenticated == true
+                    ? Alignment.bottomCenter
+                    : Alignment.center,
                 child: AccountButton(
-                  buttonType:  isAuthenticated == true ? ButtonType.signOut : ButtonType.signIn,
+                  buttonType: isAuthenticated == true
+                      ? ButtonType.signOut
+                      : ButtonType.signIn,
                   onTap: () {
                     if (isAuthenticated == true) {
                       ref.read(signOutProvider.notifier).signOut();
@@ -76,4 +80,3 @@ class AccountScreen extends ConsumerWidget {
     );
   }
 }
-

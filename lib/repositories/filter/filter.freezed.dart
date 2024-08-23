@@ -20,6 +20,7 @@ mixin _$FilterEntity {
   List<String> get charge_type => throw _privateConstructorUsedError;
   int get output_min => throw _privateConstructorUsedError;
   int get output_max => throw _privateConstructorUsedError;
+  List<String> get amenities => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $FilterEntityCopyWith<FilterEntity> get copyWith =>
@@ -36,7 +37,8 @@ abstract class $FilterEntityCopyWith<$Res> {
       {int? station_count,
       List<String> charge_type,
       int output_min,
-      int output_max});
+      int output_max,
+      List<String> amenities});
 }
 
 /// @nodoc
@@ -56,6 +58,7 @@ class _$FilterEntityCopyWithImpl<$Res, $Val extends FilterEntity>
     Object? charge_type = null,
     Object? output_min = null,
     Object? output_max = null,
+    Object? amenities = null,
   }) {
     return _then(_value.copyWith(
       station_count: freezed == station_count
@@ -74,6 +77,10 @@ class _$FilterEntityCopyWithImpl<$Res, $Val extends FilterEntity>
           ? _value.output_max
           : output_max // ignore: cast_nullable_to_non_nullable
               as int,
+      amenities: null == amenities
+          ? _value.amenities
+          : amenities // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ) as $Val);
   }
 }
@@ -90,7 +97,8 @@ abstract class _$$FilterEntityImplCopyWith<$Res>
       {int? station_count,
       List<String> charge_type,
       int output_min,
-      int output_max});
+      int output_max,
+      List<String> amenities});
 }
 
 /// @nodoc
@@ -108,6 +116,7 @@ class __$$FilterEntityImplCopyWithImpl<$Res>
     Object? charge_type = null,
     Object? output_min = null,
     Object? output_max = null,
+    Object? amenities = null,
   }) {
     return _then(_$FilterEntityImpl(
       station_count: freezed == station_count
@@ -126,6 +135,10 @@ class __$$FilterEntityImplCopyWithImpl<$Res>
           ? _value.output_max
           : output_max // ignore: cast_nullable_to_non_nullable
               as int,
+      amenities: null == amenities
+          ? _value._amenities
+          : amenities // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
@@ -137,8 +150,10 @@ class _$FilterEntityImpl implements _FilterEntity {
       {required this.station_count,
       required final List<String> charge_type,
       required this.output_min,
-      required this.output_max})
-      : _charge_type = charge_type;
+      required this.output_max,
+      required final List<String> amenities})
+      : _charge_type = charge_type,
+        _amenities = amenities;
 
   @override
   final int? station_count;
@@ -154,10 +169,17 @@ class _$FilterEntityImpl implements _FilterEntity {
   final int output_min;
   @override
   final int output_max;
+  final List<String> _amenities;
+  @override
+  List<String> get amenities {
+    if (_amenities is EqualUnmodifiableListView) return _amenities;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_amenities);
+  }
 
   @override
   String toString() {
-    return 'FilterEntity(station_count: $station_count, charge_type: $charge_type, output_min: $output_min, output_max: $output_max)';
+    return 'FilterEntity(station_count: $station_count, charge_type: $charge_type, output_min: $output_min, output_max: $output_max, amenities: $amenities)';
   }
 
   @override
@@ -172,7 +194,9 @@ class _$FilterEntityImpl implements _FilterEntity {
             (identical(other.output_min, output_min) ||
                 other.output_min == output_min) &&
             (identical(other.output_max, output_max) ||
-                other.output_max == output_max));
+                other.output_max == output_max) &&
+            const DeepCollectionEquality()
+                .equals(other._amenities, _amenities));
   }
 
   @override
@@ -181,7 +205,8 @@ class _$FilterEntityImpl implements _FilterEntity {
       station_count,
       const DeepCollectionEquality().hash(_charge_type),
       output_min,
-      output_max);
+      output_max,
+      const DeepCollectionEquality().hash(_amenities));
 
   @JsonKey(ignore: true)
   @override
@@ -195,7 +220,8 @@ abstract class _FilterEntity implements FilterEntity {
       {required final int? station_count,
       required final List<String> charge_type,
       required final int output_min,
-      required final int output_max}) = _$FilterEntityImpl;
+      required final int output_max,
+      required final List<String> amenities}) = _$FilterEntityImpl;
 
   @override
   int? get station_count;
@@ -205,6 +231,8 @@ abstract class _FilterEntity implements FilterEntity {
   int get output_min;
   @override
   int get output_max;
+  @override
+  List<String> get amenities;
   @override
   @JsonKey(ignore: true)
   _$$FilterEntityImplCopyWith<_$FilterEntityImpl> get copyWith =>

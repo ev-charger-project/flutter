@@ -15,11 +15,9 @@ class SplashScreen extends ConsumerStatefulWidget {
 }
 
 class _SplashScreenState extends ConsumerState<SplashScreen> {
-
   @override
   void initState() {
     super.initState();
-
 
     Timer(const Duration(seconds: 2), () {
       context.router.push(MapRoute());

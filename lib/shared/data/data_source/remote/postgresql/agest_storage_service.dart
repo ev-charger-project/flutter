@@ -1,3 +1,4 @@
+import 'package:ev_charger/repositories/amenity/data_models/amenity_data_model.dart';
 import 'package:ev_charger/repositories/charge_type/data_models/charge_type_data_model.dart';
 import 'package:ev_charger/repositories/favourite/data_models/favourite_data_model.dart';
 import 'package:ev_charger/repositories/marker/data_models/charger_marker_data_model.dart';
@@ -5,16 +6,17 @@ import 'package:ev_charger/repositories/location/data_models/location_data_model
 import 'package:ev_charger/repositories/suggestion/data_models/suggestion_data_model.dart';
 import 'package:ev_charger/shared/data/data_source/remote/remote_storage_service.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter_polyline_points/flutter_polyline_points.dart';
+import 'package:flutter/foundation.dart';
+// import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 
 import '../../../../../repositories/route/data_models/route_data_model.dart';
 
 class AgestStorageService extends RemoteStorageService {
   final Dio _dio = Dio();
 
-  // static const uri = 'http://10.0.2.2:4000';
-
-  static const uri = 'http://172.16.11.139:14000';
+  // static const uri = 'http://10.0.2.2:8000'; // localhost
+  static const uri = 'http://ev-charger.zapto.org:4000'; // my server
+  // static const uri = 'http://172.16.11.139:14000'; // agest internal server
 
   @override
   Future<LocationDataModel> fetchLocationData(String locationId) async {
@@ -37,21 +39,16 @@ class AgestStorageService extends RemoteStorageService {
         throw Exception('An unknown error occurred');
       }
     }
-    // return const LocationDataModel(name: "Testy boi", street: 'Cheezy Street', city: 'Helmsdeep',
-    //     country: 'Rug Rog Raggy', latitude: 10.000, longitude: 106, workingDays: [
-    //       WorkingDay(day: 2, openTime: '04:00', closeTime: '04:00'),
-    //       WorkingDay(day: 3, openTime: '04:00', closeTime: '04:00'),
-    //       WorkingDay(day: 4, openTime: '04:00', closeTime: '04:00'),
-    //       WorkingDay(day: 5, openTime: '04:00', closeTime: '04:00')]);
   }
 
   @override
   Future<List<ChargerMarkerDataModel>> fetchMarker(
       double screenCenterLat, double screenCenterLong, double radius,
       [int? stationCount,
-        List<String>? chargeType,
-        int? outputMin,
-        int? outputMax]) async {
+      List<String>? chargeType,
+      int? outputMin,
+      int? outputMax,
+      List<String>? amenities]) async {
     const baseUrl = '/api/v1/locations/search';
     final Map<String, dynamic> queryParams = {
       'lat': screenCenterLat,
@@ -61,7 +58,10 @@ class AgestStorageService extends RemoteStorageService {
       'charger_type': chargeType,
       'power_output_gte': outputMin,
       'power_output_lte': outputMax,
+      'amenities': amenities,
     };
+
+    print("queryParams: $queryParams");
 
     final StringBuffer urlBuffer = StringBuffer('$uri$baseUrl?');
     queryParams.forEach((key, value) {
@@ -77,36 +77,12 @@ class AgestStorageService extends RemoteStorageService {
     });
 
     final String fullUrl =
-    urlBuffer.toString().substring(0, urlBuffer.length - 1);
+        urlBuffer.toString().substring(0, urlBuffer.length - 1);
 
     try {
       final response = await _dio.get(fullUrl);
       print('Full fetchMarker URL: $fullUrl');
 
-      if (response.statusCode == 200) {
-        return (response.data as List)
-            .map((item) =>
-            ChargerMarkerDataModel.fromJson(item as Map<String, dynamic>))
-            .toList();
-      } else {
-        throw Exception('Error code: ${response.statusCode}');
-      }
-    } catch (e) {
-      print('Error: $e');
-      if (e is DioException && e.response != null) {
-        throw Exception('Error code: ${e.response?.statusCode}');
-      } else {
-        throw Exception('An unknown error occurred');
-      }
-    }
-    /*const url = '/api/v1/locations/by_radius';
-
-    try {
-      final response = await _dio.get(uri + url, queryParameters: {
-        'user_lat': userLat,
-        'user_long': userLong,
-        'radius': radius,
-      });
       if (response.statusCode == 200) {
         return (response.data as List)
             .map((item) =>
@@ -122,16 +98,20 @@ class AgestStorageService extends RemoteStorageService {
       } else {
         throw Exception('An unknown error occurred');
       }
-    }*/
+    }
   }
+
   @override
-  Future<List<SuggestionDataModel>> fetchSuggestion(String searchString,
-      [int? stationCount,
-      List<String>? chargeType,
-      int? outputMin,
-      int? outputMax,
-      double? lat,
-      double? long]) async {
+  Future<List<SuggestionDataModel>> fetchSuggestion(
+    String searchString, [
+    int? stationCount,
+    List<String>? chargeType,
+    int? outputMin,
+    int? outputMax,
+    List<String>? amenities,
+    double? lat,
+    double? long,
+  ]) async {
     const baseUrl = '/api/v1/locations/search';
     final Map<String, dynamic> queryParams = {
       'query': searchString,
@@ -140,6 +120,7 @@ class AgestStorageService extends RemoteStorageService {
       'charger_type': chargeType,
       'power_output_gte': outputMin,
       'power_output_lte': outputMax,
+      'amenities': amenities,
     };
 
     if (lat != null && long != null) {
@@ -235,7 +216,7 @@ class AgestStorageService extends RemoteStorageService {
           print('Response is $founds');
           final fetchedChargeTypes = founds
               .map((item) =>
-              ChargeTypeDataModel.fromJson(item as Map<String, dynamic>))
+                  ChargeTypeDataModel.fromJson(item as Map<String, dynamic>))
               .toList();
 
           chargeTypes.addAll(fetchedChargeTypes);
@@ -262,7 +243,6 @@ class AgestStorageService extends RemoteStorageService {
 
     return chargeTypes;
   }
-
 
   @override
   Future<RouteDataModel> fetchRoute(double userLat, double userLong,
@@ -352,32 +332,31 @@ class AgestStorageService extends RemoteStorageService {
     print("fetchFav: $token, $id");
     try {
       // while (hasMoreData) {
-        final response = await _dio.get(
-          uri + url,
-          queryParameters: {
-            'user_id': id,
-            // 'page': currentPage,
-          },
-          options: Options(
-            headers: {'Authorization': 'Bearer $token'},
-          ),
-        );
-        print("response fetch: $response");
-        if (response.statusCode == 200) {
-          final data = response.data['founds'] as List;
-          if (data.isEmpty) {
-            hasMoreData = false;
-          } else {
-            final locations = data
-                .map((item) => FavouriteDataModel.fromJson(item))
-                .toList();
-            allLocations.addAll(locations);
-
-            currentPage++;
-          }
+      final response = await _dio.get(
+        uri + url,
+        queryParameters: {
+          'user_id': id,
+          // 'page': currentPage,
+        },
+        options: Options(
+          headers: {'Authorization': 'Bearer $token'},
+        ),
+      );
+      print("response fetch: $response");
+      if (response.statusCode == 200) {
+        final data = response.data['founds'] as List;
+        if (data.isEmpty) {
+          hasMoreData = false;
         } else {
-          throw Exception('Error code: ${response.statusCode}');
+          final locations =
+              data.map((item) => FavouriteDataModel.fromJson(item)).toList();
+          allLocations.addAll(locations);
+
+          currentPage++;
         }
+      } else {
+        throw Exception('Error code: ${response.statusCode}');
+      }
       // }
       return allLocations;
     } catch (e) {
@@ -396,14 +375,15 @@ class AgestStorageService extends RemoteStorageService {
     print("createUserFav api: $access_token, $locationId");
     print(uri + url);
     try {
-      final response = await _dio.post(uri + url, data: {
-        'location_id': locationId,
-      },
-        options: Options(
-        headers: {'Authorization': 'Bearer $access_token'},
-      ));
+      final response = await _dio.post(uri + url,
+          data: {
+            'location_id': locationId,
+          },
+          options: Options(
+            headers: {'Authorization': 'Bearer $access_token'},
+          ));
       print("create response: $response");
-      if (response.statusCode != 200) {
+      if (response.statusCode != 201) {
         throw Exception('Error code: ${response.statusCode}');
       }
     } catch (e) {
@@ -421,18 +401,59 @@ class AgestStorageService extends RemoteStorageService {
     const url = '/api/v1/user-favorite';
     print('test delete: $uri$url/$favId');
     try {
-      final response = await _dio.delete('$uri$url/$favId'
-      //   , queryParameters: {
-      //   'user_favorite_id': favId,
-      // },
-        // options: Options(
-        //   headers: {'Authorization': 'Bearer $access_token'},
-        // )
-      );
+      final response = await _dio.delete('$uri$url/$favId',
+          options: Options(
+            headers: {'Authorization': 'Bearer $access_token'},
+          ));
       print("delete response: $response");
       if (response.statusCode != 200) {
         throw Exception('Error code: ${response.statusCode}');
       }
+    } catch (e) {
+      print('Error: $e');
+      if (e is DioException && e.response != null) {
+        throw Exception('Error code: ${e.response?.statusCode}');
+      } else {
+        throw Exception('An unknown error occurred');
+      }
+    }
+  }
+
+  @override
+  Future<List<AmenityDataModel>> fetchAmenityData() async {
+    const url = '/api/v1/amenities';
+    const mediaUrl = '/api/v1/media/';
+    int currentPage = 1;
+    bool hasMoreData = true;
+    List<AmenityDataModel> allAmenities = [];
+    try {
+      // while (hasMoreData) {
+      final response = await _dio.get(
+        uri + url,
+      );
+      print("response fetch: $response");
+      if (response.statusCode == 200) {
+        final data = response.data['founds'] as List;
+        if (data.isEmpty) {
+          hasMoreData = false;
+        } else {
+          final amenities = data.map((item) {
+            final imageFileName = item['image_url'];
+            if (item['image_url'] != null) {
+              item['image_url'] = "$uri/api/v1/media/$imageFileName";
+            }
+            print(item['image_url']);
+            return AmenityDataModel.fromJson(item);
+          }).toList();
+          allAmenities.addAll(amenities);
+
+          currentPage++;
+        }
+      } else {
+        throw Exception('Error code: ${response.statusCode}');
+      }
+      // }
+      return allAmenities;
     } catch (e) {
       print('Error: $e');
       if (e is DioException && e.response != null) {

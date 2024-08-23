@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:dio/dio.dart';
 import '../../../../repositories/auth/auth_repository_impl.dart';
@@ -16,7 +18,8 @@ class SignOutNotifier extends StateNotifier<SignOutState> {
   final AuthRepositoryImpl authRepository;
   final SecureStorageService secureStorage;
 
-  SignOutNotifier(this.authRepository, this.secureStorage) : super(SignOutState.initial);
+  SignOutNotifier(this.authRepository, this.secureStorage)
+      : super(SignOutState.initial);
 
   Future<void> signOut() async {
     state = SignOutState.loading;
@@ -30,9 +33,9 @@ class SignOutNotifier extends StateNotifier<SignOutState> {
       }
     } catch (e) {
       if (e is DioException && e.response != null) {
-        print('Error code: ${e.response?.statusCode}');
+        log('Error code: ${e.response?.statusCode}');
       } else {
-        print('An unknown error occurred: $e');
+        log('An unknown error occurred: $e');
       }
       state = SignOutState.error;
     }
@@ -40,7 +43,7 @@ class SignOutNotifier extends StateNotifier<SignOutState> {
 }
 
 final signOutProvider = StateNotifierProvider<SignOutNotifier, SignOutState>(
-      (ref) {
+  (ref) {
     final authRepository = ref.read(authRepositoryProvider);
     final secureStorage = ref.read(secureStorageServiceProvider);
     return SignOutNotifier(authRepository, secureStorage);

@@ -7,4 +7,3 @@ final localStorageServiceProvider = Provider<HiveStorageService>((ref) {
   hiveStorageService.init();
   return hiveStorageService;
 });
-

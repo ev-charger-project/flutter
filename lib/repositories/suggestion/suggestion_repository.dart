@@ -6,6 +6,7 @@ abstract class SuggestionRepository {
       List<String>? chargeType,
       int? outputMin,
       int? outputMax,
+      List<String>? amenities,
       double? lat,
       double? long]);
 }

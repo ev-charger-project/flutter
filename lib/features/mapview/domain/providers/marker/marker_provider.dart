@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -86,6 +88,7 @@ final markerProvider = FutureProvider.autoDispose<List<Marker>>((ref) async {
   final chargeType = filter.charge_type;
   final outputMin = filter.output_min;
   final outputMax = filter.output_max;
+  final amenities = filter.amenities;
 
   final markersData = await markerRepository.fetchMarkers(
     screenCenterLat,
@@ -95,6 +98,7 @@ final markerProvider = FutureProvider.autoDispose<List<Marker>>((ref) async {
     chargeType,
     outputMin,
     outputMax,
+    amenities,
   );
 
   final BitmapDescriptor stationIcon =
@@ -118,8 +122,7 @@ final markerProvider = FutureProvider.autoDispose<List<Marker>>((ref) async {
         },
       ),
     );
-    print(
-        'Marker added: ${markerData.id}, ${markerData.latitude}, ${markerData.longitude}');
+    log('Marker added: ${markerData.id}, ${markerData.latitude}, ${markerData.longitude}');
   }
 
   final currentLocation = ref.watch(userLocationProvider);
@@ -132,10 +135,9 @@ final markerProvider = FutureProvider.autoDispose<List<Marker>>((ref) async {
         anchor: const Offset(0.5, 0.5),
       ),
     );
-    print(
-        'Current location marker added: ${currentLocation.latitude}, ${currentLocation.longitude}');
+    log('Current location marker added: ${currentLocation.latitude}, ${currentLocation.longitude}');
   }
 
-  print('Markers: $markers');
+  log('Markers: $markers');
   return markers;
 });

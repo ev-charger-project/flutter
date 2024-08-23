@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 import '../../../../shared/presentation/widgets/button.dart';
 
-
 enum ButtonType {
   signIn,
   signOut,

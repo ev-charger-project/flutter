@@ -48,8 +48,7 @@ class PermissionState {
 
   PermissionState({required this.hasPermission});
 
-  factory PermissionState.initial() =>
-      PermissionState(hasPermission: false);
+  factory PermissionState.initial() => PermissionState(hasPermission: false);
 
   PermissionState copyWith({bool? hasPermission}) {
     return PermissionState(

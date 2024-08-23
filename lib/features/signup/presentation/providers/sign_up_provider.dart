@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../repositories/auth/auth_repository_impl.dart';
 import '../../../../repositories/auth/entities/sign_up_entity.dart';
@@ -16,12 +18,11 @@ class SignUpNotifier extends StateNotifier<SignUpState> {
   SignUpNotifier(this.authRepository) : super(SignUpState.initial);
 
   Future<void> signUp(SignUpEntity signUpEntity) async {
-
     state = SignUpState.loading;
     try {
       await authRepository.signUp(signUpEntity);
       state = SignUpState.success;
-      print('success');
+      log('success');
     } catch (e) {
       state = SignUpState.error;
     }
@@ -29,7 +30,7 @@ class SignUpNotifier extends StateNotifier<SignUpState> {
 }
 
 final signUpProvider = StateNotifierProvider<SignUpNotifier, SignUpState>(
-      (ref) {
+  (ref) {
     final authRepository = ref.read(authRepositoryProvider);
     return SignUpNotifier(authRepository);
   },

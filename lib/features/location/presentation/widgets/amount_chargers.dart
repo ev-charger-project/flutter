@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -24,7 +26,8 @@ class ChargerNum extends ConsumerWidget {
 
         for (var charger in locationEntity.ev_chargers) {
           for (var port in charger.ports) {
-            final identifier = '${port.power_plug_type.powerModel}-${port.power_plug_type.plugType}';
+            final identifier =
+                '${port.power_plug_type.powerModel}-${port.power_plug_type.plugType}';
             if (!uniquePortIdentifiers.contains(identifier)) {
               uniquePortIdentifiers.add(identifier);
               uniquePorts.add(port);
@@ -41,16 +44,20 @@ class ChargerNum extends ConsumerWidget {
               Row(
                 children: List.generate(
                   uniquePorts.length,
-                      (index) => Padding(
+                  (index) => Padding(
                     padding: const EdgeInsets.all(2.5),
                     child: SizedBox(
                       width: 20,
                       child: Column(
                         children: [
                           // Text('${uniquePorts[index].power_model.outputValue.floor()} kW', style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 10),),
-                          (uniquePorts[index].power_plug_type.plugImage != null && isValidUrl(uniquePorts[index].power_plug_type.plugImage!))
+                          (uniquePorts[index].power_plug_type.plugImage !=
+                                      null &&
+                                  isValidUrl(uniquePorts[index]
+                                      .power_plug_type
+                                      .plugImage!))
                               ? Image.network(
-                              "http://172.16.11.139:14000/api/v1/media/${uniquePorts[index].power_plug_type.plugImage!}")
+                                  "http://172.16.11.139:14000/api/v1/media/${uniquePorts[index].power_plug_type.plugImage!}")
                               : SvgPicture.asset('assets/icons/plug_icon.svg')
                         ],
                       ),
@@ -69,7 +76,7 @@ class ChargerNum extends ConsumerWidget {
       },
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (error, stack) {
-        print('Error: $error');
+        log('Error: $error');
         return Center(child: Text('Error: $error'));
       },
     );

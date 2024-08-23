@@ -9,13 +9,16 @@ class SuggestionRepositoryImpl extends SuggestionRepository {
   final SuggestionRemoteDataSource remoteDataSource;
 
   @override
-  Future<List<SuggestionEntity>> fetchSuggestionsData(String searchString,
-      [int? stationCount,
-      List<String>? chargeType,
-      int? outputMin,
-      int? outputMax,
-      double? lat,
-      double? long]) async {
+  Future<List<SuggestionEntity>> fetchSuggestionsData(
+    String searchString, [
+    int? stationCount,
+    List<String>? chargeType,
+    int? outputMin,
+    int? outputMax,
+    List<String>? amenities,
+    double? lat,
+    double? long,
+  ]) async {
     final suggestionDataModelResult =
         await remoteDataSource.fetchSuggestionData(
             searchString,
@@ -23,6 +26,7 @@ class SuggestionRepositoryImpl extends SuggestionRepository {
             chargeType ?? [],
             outputMin ?? 0,
             outputMax ?? 360,
+            amenities,
             lat,
             long);
     final result = SuggestionMapper().toEntityList(suggestionDataModelResult);

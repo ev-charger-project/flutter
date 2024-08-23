@@ -1,4 +1,3 @@
-
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../shared/core/mixins/entity_convertible.mixin.dart';
@@ -13,6 +12,7 @@ class ChargeTypeEntity with _$ChargeTypeEntity {
     required String plug_image_url,
   }) = _ChargeTypeEntity;
 }
+
 class ChargeTypeMapper
     with EntityConvertible<ChargeTypeEntity, ChargeTypeDataModel> {
   @override

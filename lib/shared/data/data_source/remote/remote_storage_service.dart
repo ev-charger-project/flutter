@@ -1,3 +1,4 @@
+import 'package:ev_charger/repositories/amenity/data_models/amenity_data_model.dart';
 import 'package:ev_charger/repositories/marker/data_models/charger_marker_data_model.dart';
 import 'package:ev_charger/repositories/location/data_models/location_data_model.dart';
 import 'package:ev_charger/repositories/suggestion/data_models/suggestion_data_model.dart';
@@ -20,7 +21,8 @@ abstract class RemoteStorageService {
       [int? stationCount,
       List<String>? chargeType,
       int? outputMin,
-      int? outputMax]);
+      int? outputMax,
+      List<String>? amenities]);
 
   Future<List<ChargeTypeDataModel>> fetchChargeTypeData();
 
@@ -29,6 +31,7 @@ abstract class RemoteStorageService {
       List<String>? chargeType,
       int? outputMin,
       int? outputMax,
+      List<String>? amenities,
       double? lat,
       double? long]);
 
@@ -36,6 +39,7 @@ abstract class RemoteStorageService {
       double userLat, double userLong, double desLat, double desLong);
 
   Future<List<FavouriteDataModel>> fetchFav(String token, String id);
+  Future<List<AmenityDataModel>> fetchAmenityData();
   Future<void> createFav(String locationId, String access_token);
   Future<void> deleteFav(String favId, String access_token);
 }

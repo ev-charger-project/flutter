@@ -220,7 +220,7 @@ class _InfoContentState extends ConsumerState<InfoContent> {
           for (var workingDay in location.workingDays) {
             workingHours.add({
               dayToString(workingDay.day):
-                  '${workingDay.openTime.substring(0,5)} - ${workingDay.closeTime.substring(0,5)}'
+                  '${workingDay.openTime.substring(0, 5)} - ${workingDay.closeTime.substring(0, 5)}'
             });
           }
 

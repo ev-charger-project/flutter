@@ -1,4 +1,3 @@
-
 import 'package:ev_charger/shared/domain/providers/location/location_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

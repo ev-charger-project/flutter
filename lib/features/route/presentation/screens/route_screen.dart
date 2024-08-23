@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:auto_route/auto_route.dart';
 import 'package:ev_charger/features/route/domain/providers/route_marker_provider.dart';
 import 'package:ev_charger/features/route/presentation/providers/start_provider.dart';
@@ -61,7 +62,8 @@ class _RouteScreenState extends ConsumerState<RouteScreen> {
   Widget build(BuildContext context) {
     final routeAsyncValue = ref.watch(routeProvider);
     final userCurrentLocation = ref.read(startProvider);
-    LatLng startLocation = LatLng(userCurrentLocation.latitude, userCurrentLocation.longitude);
+    LatLng startLocation =
+        LatLng(userCurrentLocation.latitude, userCurrentLocation.longitude);
     final markerAsyncValue = ref.watch(routeMarkerProvider);
 
     markerAsyncValue.when(
@@ -72,14 +74,15 @@ class _RouteScreenState extends ConsumerState<RouteScreen> {
         });
       },
       loading: () {},
-      error: (error, stack) => print('Error: $error'),
+      error: (error, stack) => log('Error: $error'),
     );
 
     routeAsyncValue.when(
       data: (route) {
         setState(() {
           _polylines.clear();
-          final polylinePoints = PolylinePoints().decodePolyline(route.hashcode);
+          final polylinePoints =
+              PolylinePoints().decodePolyline(route.hashcode);
 
           final latLngPoints = polylinePoints
               .map((point) => LatLng(point.latitude, point.longitude))
@@ -96,9 +99,8 @@ class _RouteScreenState extends ConsumerState<RouteScreen> {
         });
       },
       loading: () {},
-      error: (error, stack) => print('Error: $error'),
+      error: (error, stack) => log('Error: $error'),
     );
-
 
     return Scaffold(
       body: Stack(

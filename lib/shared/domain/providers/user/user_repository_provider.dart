@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../repositories/user/user_repository_impl.dart';
 
-
 final userRepositoryProvider = Provider<UserRepositoryImpl>((ref) {
   final authService = ref.read(authAgestServiceProvider);
 
