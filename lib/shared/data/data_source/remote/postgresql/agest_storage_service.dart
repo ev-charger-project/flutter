@@ -6,6 +6,7 @@ import 'package:ev_charger/repositories/location/data_models/location_data_model
 import 'package:ev_charger/repositories/suggestion/data_models/suggestion_data_model.dart';
 import 'package:ev_charger/shared/data/data_source/remote/remote_storage_service.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 // import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 
 import '../../../../../repositories/route/data_models/route_data_model.dart';
@@ -60,7 +61,9 @@ class AgestStorageService extends RemoteStorageService {
       'amenities': amenities,
     };
 
-    print("queryParams: $queryParams");
+    if (kDebugMode) {
+      print("queryParams: $queryParams");
+    }
 
     final StringBuffer urlBuffer = StringBuffer('$uri$baseUrl?');
     queryParams.forEach((key, value) {
@@ -106,9 +109,10 @@ class AgestStorageService extends RemoteStorageService {
       List<String>? chargeType,
       int? outputMin,
       int? outputMax,
+      List<String>? amenities,
       double? lat,
       double? long,
-      List<String>? amenities]) async {
+      ]) async {
     const baseUrl = '/api/v1/locations/search';
     final Map<String, dynamic> queryParams = {
       'query': searchString,

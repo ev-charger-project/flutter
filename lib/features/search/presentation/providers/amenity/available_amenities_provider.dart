@@ -24,15 +24,4 @@ final availableAmenitiesProvider = StateProvider<List<AmenityObject>>((ref) {
   return availableAmenities;
 });
 
-
-// final availableAmenitiesProvider =
-// FutureProvider<List<AmenityObject>>((ref) async {
-//   final amenityList = await ref.watch(amenityProvider.future);
-//   return amenityList
-//       .map((i) => AmenityObject(
-//             amenityName: i.amenity,
-//             amenityIconPath: i.imageUrl,
-//             isChecked: false,
-//           ))
-//       .toList();
-// });
+final filteredAmenitiesProvider = StateProvider<List<AmenityObject>>((ref) => []);

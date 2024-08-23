@@ -8,6 +8,7 @@ abstract class SuggestionDataSource {
       List<String>? chargeType,
       int? outputMin,
       int? outputMax,
+      List<String>? amenities,
       double? lat,
       double? long]);
 }
@@ -23,6 +24,7 @@ class SuggestionRemoteDataSource implements SuggestionDataSource {
       List<String>? chargeType,
       int? outputMin,
       int? outputMax,
+      List<String>? amenities,
       double? lat,
       double? long]) async {
     final data = await remoteStorageService.fetchSuggestion(
@@ -31,6 +33,7 @@ class SuggestionRemoteDataSource implements SuggestionDataSource {
         chargeType,
         outputMin,
         outputMax,
+        amenities,
         lat,
         long); // Adjust fetchData method according to your service
     return data;

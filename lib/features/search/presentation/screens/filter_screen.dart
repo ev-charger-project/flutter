@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:ev_charger/features/mapview/domain/providers/marker/marker_provider.dart';
 import 'package:ev_charger/features/search/presentation/providers/charge_type/checked_plugs_provider.dart';
@@ -8,6 +10,7 @@ import 'package:ev_charger/features/search/presentation/providers/filter_provide
 import 'package:ev_charger/features/search/presentation/providers/search_bar_and_filter/filter_border_color_provider.dart';
 import 'package:ev_charger/repositories/filter/filter.dart';
 import 'package:ev_charger/shared/presentation/theme/app_theme.dart';
+import 'package:flutter/foundation.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -51,26 +54,20 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
           );
         }).toList();
         ref.read(availableAmenitiesProvider.notifier).state = resetAmenities;
+        ref.read(filteredAmenitiesProvider.notifier).state = [];
       },
-      loading: () => print("Loading initial amenities..."),
-      error: (err, stack) => print("Error loading initial amenities: $err"),
+      loading: () => log("Loading initial amenities..."),
+      error: (err, stack) => log("Error loading initial amenities: $err"),
     );
   }
 
   void applyAmenities() {
-    final currentStateAvailablePlugs =
-    ref.read(availableAmenitiesProvider);
-    final remainingAvailable = currentStateAvailablePlugs
+    final currentStateAvailablePlugs = ref.read(availableAmenitiesProvider);
+    final filteredAmenities = currentStateAvailablePlugs
         .where((amenity) => amenity.isChecked)
         .toList();
-    // final movingToVisible = currentStateHiddenPlugs
-    //     .where((plug) => plug.isChecked)
-    //     .toList();
-    // final updatedAvailableAmenities =
-    // List<AmenityObject>.from(remainingAvailable)
-    //   ..addAll(movingToVisible);
-    ref.read(availableAmenitiesProvider.notifier).state =
-        remainingAvailable.toSet().toList();
+    ref.read(filteredAmenitiesProvider.notifier).state =
+        filteredAmenities.toSet().toList();
     ref.read(selectedAmenitiesProvider.notifier).updateSelectedAmenities();
   }
 
@@ -166,7 +163,9 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                             ref.read(visiblePlugsProvider.notifier).state =
                                 resetVisiblePlugs;
                           },
-                          loading: () => print("Loading visible plugs..."),
+                          loading: () => {
+                            print("Loading visible plugs..."),
+                          },
                           error: (err, stack) =>
                               print("Error loading visible plugs: $err"),
                         );
@@ -215,7 +214,7 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                                   .state
                                   .end),
                               amenities: convertAmenityObjectsToStrings(ref
-                                  .read(availableAmenitiesProvider.notifier)
+                                  .read(filteredAmenitiesProvider.notifier)
                                   .state),
                             ));
 
@@ -223,7 +222,9 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                             .read(checkedPlugsProvider.notifier)
                             .updateCheckedPlugs();
 
-                        print("Reset pressed");
+                        if (kDebugMode) {
+                          print("Reset pressed");
+                        }
                         Navigator.pop(context);
                       },
                       fillColor: Theme.of(context).lightGreen,
@@ -251,10 +252,12 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                             ref.read(selectedStationCountProvider);
                         final selectedStationCountValue =
                             ref.read(stationCountValueProvider);
-                        print(
-                            "Selected Station Count Index: $selectedStationCount");
-                        print(
-                            "Selected Station Count Value: $selectedStationCountValue");
+                        if (kDebugMode) {
+                          print(
+                              "Selected Station Count Index: $selectedStationCount");
+                          print(
+                              "Selected Station Count Value: $selectedStationCountValue");
+                        }
 
                         final currentStateVisiblePlugs =
                             ref.read(visiblePlugsProvider);
@@ -334,17 +337,17 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                                     .read(rangeValuesProvider.notifier)
                                     .state
                                     .end),
-                                amenities: convertAmenityObjectsToStrings(
-                                    ref
-                                    .read(availableAmenitiesProvider.notifier)
+                                amenities: convertAmenityObjectsToStrings(ref
+                                    .read(filteredAmenitiesProvider.notifier)
                                     .state),
                               ),
                             );
 
                         ref.refresh(markerProvider);
-                        print("Updated Filter: ${ref.read(filterProvider)}");
-
-                        print("Apply pressed");
+                        if (kDebugMode) {
+                          print("Updated Filter: ${ref.read(filterProvider)}");
+                          print("Apply pressed");
+                        }
                         Navigator.pop(context);
                       },
                       fillColor: Theme.of(context).primaryColor,

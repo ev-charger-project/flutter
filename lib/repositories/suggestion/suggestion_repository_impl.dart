@@ -14,8 +14,10 @@ class SuggestionRepositoryImpl extends SuggestionRepository {
       List<String>? chargeType,
       int? outputMin,
       int? outputMax,
+      List<String>? amenities,
       double? lat,
-      double? long]) async {
+      double? long,
+      ]) async {
     final suggestionDataModelResult =
         await remoteDataSource.fetchSuggestionData(
             searchString,
@@ -23,6 +25,7 @@ class SuggestionRepositoryImpl extends SuggestionRepository {
             chargeType ?? [],
             outputMin ?? 0,
             outputMax ?? 360,
+            amenities,
             lat,
             long);
     final result = SuggestionMapper().toEntityList(suggestionDataModelResult);
@@ -31,6 +34,7 @@ class SuggestionRepositoryImpl extends SuggestionRepository {
     print('chargeType: $chargeType');
     print('outputMin: $outputMin');
     print('outputMax: $outputMax');
+    print('amenities: $amenities');
     print('lat: $lat');
     print('long: $long');
 

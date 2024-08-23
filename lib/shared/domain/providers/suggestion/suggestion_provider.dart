@@ -26,6 +26,8 @@ final suggestionProvider = FutureProvider<List<SuggestionEntity>>((ref) async {
   final chargeType = filter.charge_type;
   final outputMin = filter.output_min;
   final outputMax = filter.output_max;
+  final amenities = filter.amenities;
+
 
   final suggestionsData = await suggestionRepository.fetchSuggestionsData(
       suggestionQuery,
@@ -33,6 +35,7 @@ final suggestionProvider = FutureProvider<List<SuggestionEntity>>((ref) async {
       chargeType,
       outputMin,
       outputMax,
+      amenities,
       lat,
       long);
 
