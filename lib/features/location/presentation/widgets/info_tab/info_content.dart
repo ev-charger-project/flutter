@@ -1,10 +1,11 @@
 import 'package:ev_charger/shared/presentation/theme/app_theme.dart';
 import 'package:expandable/expandable.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ev_charger/shared/domain/providers/location/location_provider.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../../../../repositories/location_amenity/entities/location_amenity_entity.dart';
 import '../../../../../shared/core/localization/localization.dart';
 import 'nearbyList.dart';
 
@@ -59,7 +60,7 @@ class _InfoContentState extends ConsumerState<InfoContent> {
 
   Widget _buildAboutSection(String? longText) {
     if (longText == null || longText.isEmpty) {
-      return SizedBox.shrink();
+      return const SizedBox.shrink();
     }
 
     return Column(
@@ -97,6 +98,68 @@ class _InfoContentState extends ConsumerState<InfoContent> {
     );
   }
 
+  Widget _buildAmenitiesSection(
+      List<LocationAmenityEntity> locationAmenitiesData) {
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: Colors.white,
+          width: 1.0,
+        ),
+        color: Theme.of(context).stationGrey,
+      ),
+      child: ExpandablePanel(
+        header: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Text(
+            'Amenities',
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
+        ),
+        collapsed: Container(), // Nothing to show when collapsed
+        expanded: Column(
+          children: locationAmenitiesData.map((entry) {
+            return Container(
+              decoration: BoxDecoration(
+                border: const Border(
+                  top: BorderSide(
+                    color: Colors.white,
+                    width: 2.0,
+                  ),
+                ),
+                color: Theme.of(context).stationGrey,
+              ),
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SvgPicture.network(
+                      entry.amenities.imageUrl,
+                      width: 24,
+                      height: 24,
+                    ),
+                    const SizedBox(width: 12),
+                    Text(
+                      entry.amenities.amenity,
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                  ],
+                ),
+              ),
+            );
+          }).toList(),
+        ),
+        theme: const ExpandableThemeData(
+          tapHeaderToExpand: true,
+          hasIcon: true,
+          headerAlignment: ExpandablePanelHeaderAlignment.center,
+        ),
+      ),
+    );
+  }
+
   Widget _buildWorkingHoursList(List<Map<String, String>> workingHours) {
     return Container(
       decoration: BoxDecoration(
@@ -108,7 +171,7 @@ class _InfoContentState extends ConsumerState<InfoContent> {
       ),
       child: ExpandablePanel(
         header: Container(
-          padding: EdgeInsets.symmetric(horizontal: 16.0),
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Text(
             'Working Hours',
             style: Theme.of(context).textTheme.bodySmall,
@@ -197,6 +260,7 @@ class _InfoContentState extends ConsumerState<InfoContent> {
           final String? longText = location.description;
           final List<Map<String, String>> data = [];
           final List<Map<String, String>> workingHours = [];
+          final List<Map<String, String>> locationAmenities = [];
           if (location.pricing != null && location.pricing!.isNotEmpty) {
             data.add({
               AppLocalizations.of(context).translate('Fee'): location.pricing!
@@ -224,6 +288,13 @@ class _InfoContentState extends ConsumerState<InfoContent> {
             });
           }
 
+          // for (var locationAmenity in location.locationAmenities) {
+          //   locationAmenities.add({
+          //     locationAmenity.amenities.amenity:
+          //     '${workingDay.openTime.substring(0, 5)} - ${workingDay.closeTime.substring(0, 5)}'
+          //   });
+          // }
+
           WidgetsBinding.instance
               .addPostFrameCallback((_) => _checkTextOverflow());
 
@@ -233,6 +304,7 @@ class _InfoContentState extends ConsumerState<InfoContent> {
               _buildAboutSection(longText),
               _buildDataList(data),
               _buildWorkingHoursList(workingHours),
+              _buildAmenitiesSection(location.locationAmenities),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10.0),
                 child: Divider(
@@ -247,7 +319,7 @@ class _InfoContentState extends ConsumerState<InfoContent> {
               const SizedBox(
                 height: 20,
               ),
-              NearbyList(),
+              const NearbyList(),
               const SizedBox(
                 height: 20,
               ),

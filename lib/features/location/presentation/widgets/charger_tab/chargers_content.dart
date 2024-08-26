@@ -1,11 +1,9 @@
 import 'package:ev_charger/features/location/presentation/widgets/charger_tab/port_box.dart';
 import 'package:ev_charger/shared/presentation/theme/app_theme.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ev_charger/repositories/charger/entities/charger_entity.dart'; // Adjust the path accordingly
 import 'package:ev_charger/shared/domain/providers/location/location_provider.dart';
-import 'package:flutter_svg/svg.dart';
 
 import '../../../../../shared/core/localization/localization.dart';
 
@@ -42,9 +40,9 @@ class ChargerBox extends StatelessWidget {
   final ChargerEntity charger;
 
   const ChargerBox({
-    Key? key,
+    super.key,
     required this.charger,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

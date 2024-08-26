@@ -40,6 +40,6 @@ abstract class RemoteStorageService {
 
   Future<List<FavouriteDataModel>> fetchFav(String token, String id);
   Future<List<AmenityDataModel>> fetchAmenityData();
-  Future<void> createFav(String locationId, String access_token);
-  Future<void> deleteFav(String favId, String access_token);
+  Future<void> createFav(String locationId, String accessToken);
+  Future<void> deleteFav(String favId, String accessToken);
 }

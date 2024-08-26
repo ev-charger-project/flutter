@@ -1,6 +1,5 @@
 import 'package:ev_charger/repositories/auth/auth_repository_impl.dart';
 import 'package:ev_charger/shared/domain/providers/auth_agest_service_provider.dart';
-import 'package:ev_charger/shared/domain/providers/local_storage_service_provider.dart';
 import 'package:ev_charger/shared/domain/providers/secure_storage_service_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

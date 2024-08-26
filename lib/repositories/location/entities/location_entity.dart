@@ -1,6 +1,10 @@
+import 'package:ev_charger/repositories/amenity/data_models/amenity_data_model.dart';
 import 'package:ev_charger/repositories/charger/entities/charger_entity.dart';
+import 'package:ev_charger/repositories/location_amenity/data_models/location_amenity_data_model.dart';
+import 'package:ev_charger/repositories/location_amenity/entities/location_amenity_entity.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import '../../../shared/core/mixins/entity_convertible.mixin.dart';
+import '../../amenity/entities/amenity_entity.dart';
 import '../../charger/data_models/charger_data_model.dart';
 import '../../power_output/data_models/power_output_data_model.dart';
 import '../../power_output/entities/power_output_entity.dart';
@@ -28,6 +32,7 @@ class LocationEntity with _$LocationEntity {
     String? phoneNumber,
     String? parkingLevel,
     required List<ChargerEntity> ev_chargers,
+    required List<LocationAmenityEntity> locationAmenities,
   }) = _LocationEntity;
 }
 
@@ -86,59 +91,74 @@ class LocationMapper with EntityConvertible<LocationEntity, LocationDataModel> {
                     .toList(),
               ))
           .toList(),
+      locationAmenities: entityObject.locationAmenities
+          .map((locationAmenity) => LocationAmenityDataModel(
+                amenities: AmenityDataModel(
+                    amenity: locationAmenity.amenities.amenity,
+                    imageUrl: locationAmenity.amenities.imageUrl),
+              ))
+          .toList(),
     );
   }
 
   @override
   LocationEntity toEntity(LocationDataModel dataModelObject) {
     return LocationEntity(
-      id: dataModelObject.id,
-      name: dataModelObject.name,
-      street: dataModelObject.street,
-      district: dataModelObject.district,
-      city: dataModelObject.city,
-      country: dataModelObject.country,
-      postalCode: dataModelObject.postal,
-      latitude: dataModelObject.latitude,
-      longitude: dataModelObject.longitude,
-      description: dataModelObject.description,
-      workingDays: dataModelObject.workingDays
-              ?.map((workingDay) => WorkingDay(
-                    day: workingDay.day,
-                    openTime: workingDay.openTime,
-                    closeTime: workingDay.closeTime,
-                  ))
-              .toList() ??
-          [],
-      pricing: dataModelObject.pricing,
-      phoneNumber: dataModelObject.phoneNumber,
-      parkingLevel: dataModelObject.parkingLevel,
-      ev_chargers: dataModelObject.ev_chargers
-              ?.map((charger) => ChargerEntity(
-                    station_name: charger.station_name,
-                    availability: charger.availability,
-                    ports: charger.ports
-                        .map((port) => Port(
-                              power_plug_type: PowerPlugTypeEntity(
-                                powerModel: port.power_plug_type.powerModel,
-                                plugType: port.power_plug_type.plugType,
-                                plugImage: port.power_plug_type.plugImage,
-                                usedInRegions:
-                                    port.power_plug_type.usedInRegions,
-                                additionalNotes:
-                                    port.power_plug_type.additionalNotes,
-                              ),
-                              power_model: PowerOutputEntity(
-                                outputValue: port.power_model.outputValue,
-                                chargingSpeed: port.power_model.chargingSpeed,
-                                voltage: port.power_model.voltage,
-                              ),
-                            ))
-                        .toList(),
-                  ))
-              .toList() ??
-          [],
-    );
+        id: dataModelObject.id,
+        name: dataModelObject.name,
+        street: dataModelObject.street,
+        district: dataModelObject.district,
+        city: dataModelObject.city,
+        country: dataModelObject.country,
+        postalCode: dataModelObject.postal,
+        latitude: dataModelObject.latitude,
+        longitude: dataModelObject.longitude,
+        description: dataModelObject.description,
+        workingDays: dataModelObject.workingDays
+                ?.map((workingDay) => WorkingDay(
+                      day: workingDay.day,
+                      openTime: workingDay.openTime,
+                      closeTime: workingDay.closeTime,
+                    ))
+                .toList() ??
+            [],
+        pricing: dataModelObject.pricing,
+        phoneNumber: dataModelObject.phoneNumber,
+        parkingLevel: dataModelObject.parkingLevel,
+        ev_chargers: dataModelObject.ev_chargers
+                ?.map((charger) => ChargerEntity(
+                      station_name: charger.station_name,
+                      availability: charger.availability,
+                      ports: charger.ports
+                          .map((port) => Port(
+                                power_plug_type: PowerPlugTypeEntity(
+                                  powerModel: port.power_plug_type.powerModel,
+                                  plugType: port.power_plug_type.plugType,
+                                  plugImage: port.power_plug_type.plugImage,
+                                  usedInRegions:
+                                      port.power_plug_type.usedInRegions,
+                                  additionalNotes:
+                                      port.power_plug_type.additionalNotes,
+                                ),
+                                power_model: PowerOutputEntity(
+                                  outputValue: port.power_model.outputValue,
+                                  chargingSpeed: port.power_model.chargingSpeed,
+                                  voltage: port.power_model.voltage,
+                                ),
+                              ))
+                          .toList(),
+                    ))
+                .toList() ??
+            [],
+        locationAmenities: dataModelObject.locationAmenities
+                ?.map((locationAmenity) => LocationAmenityEntity(
+                      amenities: AmenityEntity(
+                        amenity: locationAmenity.amenities.amenity,
+                        imageUrl: locationAmenity.amenities.imageUrl,
+                      ),
+                    ))
+                .toList() ??
+            []);
   }
 }
 

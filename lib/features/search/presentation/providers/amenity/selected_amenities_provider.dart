@@ -1,6 +1,5 @@
 import 'package:ev_charger/features/search/presentation/providers/amenity/available_amenities_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../widgets/amenity_object.dart';
 
 // final selectedAmenitiesInitializerProvider =
 // FutureProvider<List<AmenityObject>>((ref) async {

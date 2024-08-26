@@ -1,5 +1,4 @@
 import 'package:ev_charger/shared/domain/providers/location/location_provider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
@@ -64,12 +63,12 @@ class LocationNameAddress extends ConsumerWidget {
     if (textPainter.didExceedMaxLines) {
       for (int i = 0; i < text.length; i++) {
         textPainter.text = TextSpan(
-            text: text.substring(0, i) + "\n" + text.substring(i),
+            text: "${text.substring(0, i)}\n${text.substring(i)}",
             style: style);
         textPainter.layout(maxWidth: maxWidth);
 
         if (!textPainter.didExceedMaxLines) {
-          return text.substring(0, i) + "\n" + text.substring(i);
+          return "${text.substring(0, i)}\n${text.substring(i)}";
         }
       }
     }

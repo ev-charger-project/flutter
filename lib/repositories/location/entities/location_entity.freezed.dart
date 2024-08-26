@@ -31,6 +31,8 @@ mixin _$LocationEntity {
   String? get phoneNumber => throw _privateConstructorUsedError;
   String? get parkingLevel => throw _privateConstructorUsedError;
   List<ChargerEntity> get ev_chargers => throw _privateConstructorUsedError;
+  List<LocationAmenityEntity> get locationAmenities =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $LocationEntityCopyWith<LocationEntity> get copyWith =>
@@ -58,7 +60,8 @@ abstract class $LocationEntityCopyWith<$Res> {
       String? pricing,
       String? phoneNumber,
       String? parkingLevel,
-      List<ChargerEntity> ev_chargers});
+      List<ChargerEntity> ev_chargers,
+      List<LocationAmenityEntity> locationAmenities});
 }
 
 /// @nodoc
@@ -89,6 +92,7 @@ class _$LocationEntityCopyWithImpl<$Res, $Val extends LocationEntity>
     Object? phoneNumber = freezed,
     Object? parkingLevel = freezed,
     Object? ev_chargers = null,
+    Object? locationAmenities = null,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -151,6 +155,10 @@ class _$LocationEntityCopyWithImpl<$Res, $Val extends LocationEntity>
           ? _value.ev_chargers
           : ev_chargers // ignore: cast_nullable_to_non_nullable
               as List<ChargerEntity>,
+      locationAmenities: null == locationAmenities
+          ? _value.locationAmenities
+          : locationAmenities // ignore: cast_nullable_to_non_nullable
+              as List<LocationAmenityEntity>,
     ) as $Val);
   }
 }
@@ -178,7 +186,8 @@ abstract class _$$LocationEntityImplCopyWith<$Res>
       String? pricing,
       String? phoneNumber,
       String? parkingLevel,
-      List<ChargerEntity> ev_chargers});
+      List<ChargerEntity> ev_chargers,
+      List<LocationAmenityEntity> locationAmenities});
 }
 
 /// @nodoc
@@ -207,6 +216,7 @@ class __$$LocationEntityImplCopyWithImpl<$Res>
     Object? phoneNumber = freezed,
     Object? parkingLevel = freezed,
     Object? ev_chargers = null,
+    Object? locationAmenities = null,
   }) {
     return _then(_$LocationEntityImpl(
       id: freezed == id
@@ -269,6 +279,10 @@ class __$$LocationEntityImplCopyWithImpl<$Res>
           ? _value._ev_chargers
           : ev_chargers // ignore: cast_nullable_to_non_nullable
               as List<ChargerEntity>,
+      locationAmenities: null == locationAmenities
+          ? _value._locationAmenities
+          : locationAmenities // ignore: cast_nullable_to_non_nullable
+              as List<LocationAmenityEntity>,
     ));
   }
 }
@@ -291,9 +305,11 @@ class _$LocationEntityImpl implements _LocationEntity {
       this.pricing,
       this.phoneNumber,
       this.parkingLevel,
-      required final List<ChargerEntity> ev_chargers})
+      required final List<ChargerEntity> ev_chargers,
+      required final List<LocationAmenityEntity> locationAmenities})
       : _workingDays = workingDays,
-        _ev_chargers = ev_chargers;
+        _ev_chargers = ev_chargers,
+        _locationAmenities = locationAmenities;
 
   @override
   final String? id;
@@ -337,9 +353,18 @@ class _$LocationEntityImpl implements _LocationEntity {
     return EqualUnmodifiableListView(_ev_chargers);
   }
 
+  final List<LocationAmenityEntity> _locationAmenities;
+  @override
+  List<LocationAmenityEntity> get locationAmenities {
+    if (_locationAmenities is EqualUnmodifiableListView)
+      return _locationAmenities;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_locationAmenities);
+  }
+
   @override
   String toString() {
-    return 'LocationEntity(id: $id, name: $name, street: $street, district: $district, city: $city, postalCode: $postalCode, country: $country, latitude: $latitude, longitude: $longitude, description: $description, workingDays: $workingDays, pricing: $pricing, phoneNumber: $phoneNumber, parkingLevel: $parkingLevel, ev_chargers: $ev_chargers)';
+    return 'LocationEntity(id: $id, name: $name, street: $street, district: $district, city: $city, postalCode: $postalCode, country: $country, latitude: $latitude, longitude: $longitude, description: $description, workingDays: $workingDays, pricing: $pricing, phoneNumber: $phoneNumber, parkingLevel: $parkingLevel, ev_chargers: $ev_chargers, locationAmenities: $locationAmenities)';
   }
 
   @override
@@ -370,7 +395,9 @@ class _$LocationEntityImpl implements _LocationEntity {
             (identical(other.parkingLevel, parkingLevel) ||
                 other.parkingLevel == parkingLevel) &&
             const DeepCollectionEquality()
-                .equals(other._ev_chargers, _ev_chargers));
+                .equals(other._ev_chargers, _ev_chargers) &&
+            const DeepCollectionEquality()
+                .equals(other._locationAmenities, _locationAmenities));
   }
 
   @override
@@ -390,7 +417,8 @@ class _$LocationEntityImpl implements _LocationEntity {
       pricing,
       phoneNumber,
       parkingLevel,
-      const DeepCollectionEquality().hash(_ev_chargers));
+      const DeepCollectionEquality().hash(_ev_chargers),
+      const DeepCollectionEquality().hash(_locationAmenities));
 
   @JsonKey(ignore: true)
   @override
@@ -402,21 +430,23 @@ class _$LocationEntityImpl implements _LocationEntity {
 
 abstract class _LocationEntity implements LocationEntity {
   const factory _LocationEntity(
-      {final String? id,
-      required final String name,
-      required final String street,
-      final String? district,
-      required final String city,
-      final String? postalCode,
-      required final String country,
-      required final double latitude,
-      required final double longitude,
-      final String? description,
-      required final List<WorkingDay> workingDays,
-      final String? pricing,
-      final String? phoneNumber,
-      final String? parkingLevel,
-      required final List<ChargerEntity> ev_chargers}) = _$LocationEntityImpl;
+          {final String? id,
+          required final String name,
+          required final String street,
+          final String? district,
+          required final String city,
+          final String? postalCode,
+          required final String country,
+          required final double latitude,
+          required final double longitude,
+          final String? description,
+          required final List<WorkingDay> workingDays,
+          final String? pricing,
+          final String? phoneNumber,
+          final String? parkingLevel,
+          required final List<ChargerEntity> ev_chargers,
+          required final List<LocationAmenityEntity> locationAmenities}) =
+      _$LocationEntityImpl;
 
   @override
   String? get id;
@@ -448,6 +478,8 @@ abstract class _LocationEntity implements LocationEntity {
   String? get parkingLevel;
   @override
   List<ChargerEntity> get ev_chargers;
+  @override
+  List<LocationAmenityEntity> get locationAmenities;
   @override
   @JsonKey(ignore: true)
   _$$LocationEntityImplCopyWith<_$LocationEntityImpl> get copyWith =>

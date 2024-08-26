@@ -1,4 +1,3 @@
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:ev_charger/features/search/presentation/widgets/search_bar_and_filter.dart';
 import 'package:ev_charger/shared/presentation/widgets/bottom_app_bar.dart';
@@ -11,7 +10,7 @@ import '../widgets/suggestion_list.dart';
 
 @RoutePage()
 class SearchScreen extends ConsumerStatefulWidget {
-  SearchScreen({super.key});
+  const SearchScreen({super.key});
 
   @override
   ConsumerState<SearchScreen> createState() => _SearchScreenState();

@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geolocator/geolocator.dart';
@@ -39,7 +38,7 @@ class ViewRouteDirectionButtons extends ConsumerWidget {
             destinationLocation is AsyncData<LocationEntity>) {
           _updateStartAndEndLocations(
               ref, userLocation, destinationLocation.value);
-          context.router.push(RouteRoute());
+          context.router.push(const RouteRoute());
         }
       }
     }
@@ -78,7 +77,7 @@ class ViewRouteDirectionButtons extends ConsumerWidget {
             child: OutlinedButton(
               onPressed: () => context.router.push(const LocationRoute()),
               style: OutlinedButton.styleFrom(
-                padding: EdgeInsets.all(0),
+                padding: const EdgeInsets.all(0),
                 side: BorderSide(color: Theme.of(context).colorScheme.primary),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30),
@@ -100,7 +99,7 @@ class ViewRouteDirectionButtons extends ConsumerWidget {
             child: OutlinedButton(
               onPressed: handleButtonPress2,
               style: OutlinedButton.styleFrom(
-                padding: EdgeInsets.all(0),
+                padding: const EdgeInsets.all(0),
                 side: BorderSide(color: Theme.of(context).colorScheme.primary),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30),
@@ -122,7 +121,7 @@ class ViewRouteDirectionButtons extends ConsumerWidget {
             child: ElevatedButton(
               onPressed: handleButtonPress,
               style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.all(0),
+                padding: const EdgeInsets.all(0),
                 backgroundColor: Theme.of(context).colorScheme.primary,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30),

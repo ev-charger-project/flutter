@@ -6,7 +6,7 @@ abstract class AuthService {
   Future<TokenDataModel> signIn(String email, String password);
   Future<UserDataModel> signUp(
       String email, String password, String name, String phoneNumber);
-  Future<bool> signOut(String refresh_token);
-  Future<TokenDataModel> refreshToken(String refresh_token);
-  Future<UserDataModel> getMe(String access_token);
+  Future<bool> signOut(String refreshToken);
+  Future<TokenDataModel> refreshToken(String refreshToken);
+  Future<UserDataModel> getMe(String accessToken);
 }

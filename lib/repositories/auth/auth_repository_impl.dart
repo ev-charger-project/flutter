@@ -47,8 +47,8 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<bool> signOut(String refresh_token) async {
-    final result = await authRemoteDataSource.signOut(refresh_token);
+  Future<bool> signOut(String refreshToken) async {
+    final result = await authRemoteDataSource.signOut(refreshToken);
 
     await authLocalDataSource.clearToken();
 
@@ -56,9 +56,9 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<TokenEntity> refreshToken(String refresh_token) async {
+  Future<TokenEntity> refreshToken(String refreshToken) async {
     final tokenDataModelResult =
-        await authRemoteDataSource.refreshToken(refresh_token);
+        await authRemoteDataSource.refreshToken(refreshToken);
     var tokenAdapterObject = TokenAdapterObject(
       access_token: tokenDataModelResult.access_token,
       refresh_token: tokenDataModelResult.refresh_token,

@@ -19,7 +19,7 @@ import '../widgets/start_button.dart';
 
 @RoutePage()
 class RouteScreen extends ConsumerStatefulWidget {
-  const RouteScreen({Key? key}) : super(key: key);
+  const RouteScreen({super.key});
 
   @override
   _RouteScreenState createState() => _RouteScreenState();
