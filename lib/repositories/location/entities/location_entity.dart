@@ -91,71 +91,74 @@ class LocationMapper with EntityConvertible<LocationEntity, LocationDataModel> {
                     .toList(),
               ))
           .toList(),
-      locationAmenities: entityObject.locationAmenities.map((locationAmenity) => LocationAmenityDataModel(
-        amenities: AmenityDataModel(
-          amenity: locationAmenity.amenities.amenity,
-          imageUrl: locationAmenity.amenities.imageUrl
-        ),
-      )).toList(),
+      locationAmenities: entityObject.locationAmenities
+          .map((locationAmenity) => LocationAmenityDataModel(
+                amenities: AmenityDataModel(
+                    amenity: locationAmenity.amenities.amenity,
+                    imageUrl: locationAmenity.amenities.imageUrl),
+              ))
+          .toList(),
     );
   }
 
   @override
   LocationEntity toEntity(LocationDataModel dataModelObject) {
     return LocationEntity(
-      id: dataModelObject.id,
-      name: dataModelObject.name,
-      street: dataModelObject.street,
-      district: dataModelObject.district,
-      city: dataModelObject.city,
-      country: dataModelObject.country,
-      postalCode: dataModelObject.postal,
-      latitude: dataModelObject.latitude,
-      longitude: dataModelObject.longitude,
-      description: dataModelObject.description,
-      workingDays: dataModelObject.workingDays
-              ?.map((workingDay) => WorkingDay(
-                    day: workingDay.day,
-                    openTime: workingDay.openTime,
-                    closeTime: workingDay.closeTime,
-                  ))
-              .toList() ??
-          [],
-      pricing: dataModelObject.pricing,
-      phoneNumber: dataModelObject.phoneNumber,
-      parkingLevel: dataModelObject.parkingLevel,
-      ev_chargers: dataModelObject.ev_chargers
-              ?.map((charger) => ChargerEntity(
-                    station_name: charger.station_name,
-                    availability: charger.availability,
-                    ports: charger.ports
-                        .map((port) => Port(
-                              power_plug_type: PowerPlugTypeEntity(
-                                powerModel: port.power_plug_type.powerModel,
-                                plugType: port.power_plug_type.plugType,
-                                plugImage: port.power_plug_type.plugImage,
-                                usedInRegions:
-                                    port.power_plug_type.usedInRegions,
-                                additionalNotes:
-                                    port.power_plug_type.additionalNotes,
-                              ),
-                              power_model: PowerOutputEntity(
-                                outputValue: port.power_model.outputValue,
-                                chargingSpeed: port.power_model.chargingSpeed,
-                                voltage: port.power_model.voltage,
-                              ),
-                            ))
-                        .toList(),
-                  ))
-              .toList() ??
-          [],
-      locationAmenities: dataModelObject.locationAmenities?.map((locationAmenity) => LocationAmenityEntity(
-        amenities: AmenityEntity(
-            amenity: locationAmenity.amenities.amenity,
-            imageUrl:locationAmenity.amenities.imageUrl,
-        ),
-      )).toList() ?? []
-    );
+        id: dataModelObject.id,
+        name: dataModelObject.name,
+        street: dataModelObject.street,
+        district: dataModelObject.district,
+        city: dataModelObject.city,
+        country: dataModelObject.country,
+        postalCode: dataModelObject.postal,
+        latitude: dataModelObject.latitude,
+        longitude: dataModelObject.longitude,
+        description: dataModelObject.description,
+        workingDays: dataModelObject.workingDays
+                ?.map((workingDay) => WorkingDay(
+                      day: workingDay.day,
+                      openTime: workingDay.openTime,
+                      closeTime: workingDay.closeTime,
+                    ))
+                .toList() ??
+            [],
+        pricing: dataModelObject.pricing,
+        phoneNumber: dataModelObject.phoneNumber,
+        parkingLevel: dataModelObject.parkingLevel,
+        ev_chargers: dataModelObject.ev_chargers
+                ?.map((charger) => ChargerEntity(
+                      station_name: charger.station_name,
+                      availability: charger.availability,
+                      ports: charger.ports
+                          .map((port) => Port(
+                                power_plug_type: PowerPlugTypeEntity(
+                                  powerModel: port.power_plug_type.powerModel,
+                                  plugType: port.power_plug_type.plugType,
+                                  plugImage: port.power_plug_type.plugImage,
+                                  usedInRegions:
+                                      port.power_plug_type.usedInRegions,
+                                  additionalNotes:
+                                      port.power_plug_type.additionalNotes,
+                                ),
+                                power_model: PowerOutputEntity(
+                                  outputValue: port.power_model.outputValue,
+                                  chargingSpeed: port.power_model.chargingSpeed,
+                                  voltage: port.power_model.voltage,
+                                ),
+                              ))
+                          .toList(),
+                    ))
+                .toList() ??
+            [],
+        locationAmenities: dataModelObject.locationAmenities
+                ?.map((locationAmenity) => LocationAmenityEntity(
+                      amenities: AmenityEntity(
+                        amenity: locationAmenity.amenities.amenity,
+                        imageUrl: locationAmenity.amenities.imageUrl,
+                      ),
+                    ))
+                .toList() ??
+            []);
   }
 }
 

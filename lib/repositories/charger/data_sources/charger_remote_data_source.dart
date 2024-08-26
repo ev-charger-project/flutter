@@ -1,4 +1,3 @@
-
 import '../../../shared/data/data_source/remote/remote_storage_service.dart';
 import '../data_models/charger_data_model.dart';
 

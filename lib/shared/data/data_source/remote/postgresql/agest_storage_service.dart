@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:ev_charger/repositories/amenity/data_models/amenity_data_model.dart';
 import 'package:ev_charger/repositories/charge_type/data_models/charge_type_data_model.dart';
 import 'package:ev_charger/repositories/favourite/data_models/favourite_data_model.dart';
@@ -6,7 +8,6 @@ import 'package:ev_charger/repositories/location/data_models/location_data_model
 import 'package:ev_charger/repositories/suggestion/data_models/suggestion_data_model.dart';
 import 'package:ev_charger/shared/data/data_source/remote/remote_storage_service.dart';
 import 'package:dio/dio.dart';
-// import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 
 import '../../../../../repositories/route/data_models/route_data_model.dart';
 
@@ -16,6 +17,7 @@ class AgestStorageService extends RemoteStorageService {
   // static const uri = 'http://10.0.2.2:8000'; // localhost
   static const uri = 'http://ev-charger.zapto.org:4000'; // my server
   // static const uri = 'http://172.16.11.139:14000'; // agest internal server
+  static const mediaUrl = '/api/v1/media';
 
   @override
   Future<LocationDataModel> fetchLocationData(String locationId) async {
@@ -25,13 +27,22 @@ class AgestStorageService extends RemoteStorageService {
       final response = await _dio.get('$uri$url/$locationId');
       if (response.statusCode == 200) {
         final dynamic responseData = response.data;
+        List<dynamic> locationAmenitiesData =
+            responseData['location_amenities'];
+        responseData['location_amenities'] = locationAmenitiesData.map((item) {
+          final String? imageFileName = item['amenities']['image_url'];
+          if (imageFileName != null) {
+            item['amenities']['image_url'] = "$uri$mediaUrl/$imageFileName";
+          }
+          return item;
+        }).toList();
         final result = LocationDataModel.fromJson(responseData);
         return result;
       } else {
         throw Exception('Error code: ${response.statusCode}');
       }
     } catch (e) {
-      print('Error: $e');
+      log('Error: $e');
       if (e is DioException && e.response != null) {
         throw Exception('Error code: ${e.response?.statusCode}');
       } else {
@@ -60,7 +71,7 @@ class AgestStorageService extends RemoteStorageService {
       'amenities': amenities,
     };
 
-    print("queryParams: $queryParams");
+    log("queryParams: $queryParams");
 
     final StringBuffer urlBuffer = StringBuffer('$uri$baseUrl?');
     queryParams.forEach((key, value) {
@@ -80,7 +91,7 @@ class AgestStorageService extends RemoteStorageService {
 
     try {
       final response = await _dio.get(fullUrl);
-      print('Full fetchMarker URL: $fullUrl');
+      log('Full fetchMarker URL: $fullUrl');
 
       if (response.statusCode == 200) {
         return (response.data as List)
@@ -91,7 +102,7 @@ class AgestStorageService extends RemoteStorageService {
         throw Exception('Error code: ${response.statusCode}');
       }
     } catch (e) {
-      print('Error: $e');
+      log('Error: $e');
       if (e is DioException && e.response != null) {
         throw Exception('Error code: ${e.response?.statusCode}');
       } else {
@@ -155,7 +166,7 @@ class AgestStorageService extends RemoteStorageService {
         throw Exception('Error code: ${response.statusCode}');
       }
     } catch (e) {
-      print('Error: $e');
+      log('Error: $e');
       if (e is DioException && e.response != null) {
         throw Exception('Error code: ${e.response?.statusCode}');
       } else {
@@ -185,7 +196,7 @@ class AgestStorageService extends RemoteStorageService {
         throw Exception('Error code: ${response.statusCode}');
       }
     } catch (e) {
-      print('Error: $e');
+      log('Error: $e');
       if (e is DioException && e.response != null) {
         throw Exception('Error code: ${e.response?.statusCode}');
       } else {
@@ -212,7 +223,7 @@ class AgestStorageService extends RemoteStorageService {
         if (response.statusCode == 200) {
           final data = response.data;
           final founds = data['founds'] as List;
-          print('Response is $founds');
+          log('Response is $founds');
           final fetchedChargeTypes = founds
               .map((item) =>
                   ChargeTypeDataModel.fromJson(item as Map<String, dynamic>))
@@ -232,7 +243,7 @@ class AgestStorageService extends RemoteStorageService {
         }
       }
     } catch (e) {
-      print('Error: $e');
+      log('Error: $e');
       if (e is DioException && e.response != null) {
         throw Exception('Error code: ${e.response?.statusCode}');
       } else {
@@ -263,7 +274,7 @@ class AgestStorageService extends RemoteStorageService {
         throw Exception('Error code: ${response.statusCode}');
       }
     } catch (e) {
-      print('Error: $e');
+      log('Error: $e');
       if (e is DioException && e.response != null) {
         throw Exception('Error code: ${e.response?.statusCode}');
       } else {
@@ -271,27 +282,6 @@ class AgestStorageService extends RemoteStorageService {
       }
     }
   }
-
-  //   final PolylinePoints polylinePoints = PolylinePoints();
-  //   final PolylineResult result =
-  //       await polylinePoints.getRouteBetweenCoordinates(
-  //     googleApiKey: 'AIzaSyAGYJacplt2I8syt0aY4GXfSNXhKdsXUgM',
-  //     request: PolylineRequest(
-  //         origin: PointLatLng(userLat, userLong),
-  //         destination: PointLatLng(destinationLat, destinationLong),
-  //         mode: TravelMode.driving),
-  //   );
-  //
-  //   if (result.points.isNotEmpty) {
-  //     final routePoints = result.points
-  //         .map(
-  //             (point) => RoutePoint(lat: point.latitude, long: point.longitude))
-  //         .toList();
-  //     return RouteDataModel(route: routePoints, chargers: [], hashcode: '');
-  //   } else {
-  //     return RouteDataModel(route: [], chargers: [], hashcode: '');
-  //   }
-  // }
 
   @override
   Future<List<LocationDataModel>> fetchNearby(
@@ -313,7 +303,7 @@ class AgestStorageService extends RemoteStorageService {
         throw Exception('Error code: ${response.statusCode}');
       }
     } catch (e) {
-      print('Error: $e');
+      log('Error: $e');
       if (e is DioException && e.response != null) {
         throw Exception('Error code: ${e.response?.statusCode}');
       } else {
@@ -328,7 +318,7 @@ class AgestStorageService extends RemoteStorageService {
     int currentPage = 1;
     bool hasMoreData = true;
     List<FavouriteDataModel> allLocations = [];
-    print("fetchFav: $token, $id");
+    log("fetchFav: $token, $id");
     try {
       // while (hasMoreData) {
       final response = await _dio.get(
@@ -341,7 +331,7 @@ class AgestStorageService extends RemoteStorageService {
           headers: {'Authorization': 'Bearer $token'},
         ),
       );
-      print("response fetch: $response");
+      log("response fetch: $response");
       if (response.statusCode == 200) {
         final data = response.data['founds'] as List;
         if (data.isEmpty) {
@@ -359,7 +349,7 @@ class AgestStorageService extends RemoteStorageService {
       // }
       return allLocations;
     } catch (e) {
-      print('Error: $e');
+      log('Error: $e');
       if (e is DioException && e.response != null) {
         throw Exception('Error code: ${e.response?.statusCode}');
       } else {
@@ -371,8 +361,8 @@ class AgestStorageService extends RemoteStorageService {
   @override
   Future<void> createFav(String locationId, String accessToken) async {
     const url = '/api/v1/user-favorite';
-    print("createUserFav api: $accessToken, $locationId");
-    print(uri + url);
+    log("createUserFav api: $accessToken, $locationId");
+    log(uri + url);
     try {
       final response = await _dio.post(uri + url,
           data: {
@@ -381,12 +371,12 @@ class AgestStorageService extends RemoteStorageService {
           options: Options(
             headers: {'Authorization': 'Bearer $accessToken'},
           ));
-      print("create response: $response");
+      log("create response: $response");
       if (response.statusCode != 201) {
         throw Exception('Error code: ${response.statusCode}');
       }
     } catch (e) {
-      print('Error: $e');
+      log('Error: $e');
       if (e is DioException && e.response != null) {
         throw Exception('Error code: ${e.response?.statusCode}');
       } else {
@@ -398,18 +388,18 @@ class AgestStorageService extends RemoteStorageService {
   @override
   Future<void> deleteFav(String favId, String accessToken) async {
     const url = '/api/v1/user-favorite';
-    print('test delete: $uri$url/$favId');
+    log('test delete: $uri$url/$favId');
     try {
       final response = await _dio.delete('$uri$url/$favId',
           options: Options(
             headers: {'Authorization': 'Bearer $accessToken'},
           ));
-      print("delete response: $response");
+      log("delete response: $response");
       if (response.statusCode != 200) {
         throw Exception('Error code: ${response.statusCode}');
       }
     } catch (e) {
-      print('Error: $e');
+      log('Error: $e');
       if (e is DioException && e.response != null) {
         throw Exception('Error code: ${e.response?.statusCode}');
       } else {
@@ -421,7 +411,6 @@ class AgestStorageService extends RemoteStorageService {
   @override
   Future<List<AmenityDataModel>> fetchAmenityData() async {
     const url = '/api/v1/amenities';
-    const mediaUrl = '/api/v1/media/';
     int currentPage = 1;
     bool hasMoreData = true;
     List<AmenityDataModel> allAmenities = [];
@@ -430,7 +419,7 @@ class AgestStorageService extends RemoteStorageService {
       final response = await _dio.get(
         uri + url,
       );
-      print("response fetch: $response");
+      log("response fetch: $response");
       if (response.statusCode == 200) {
         final data = response.data['founds'] as List;
         if (data.isEmpty) {
@@ -439,9 +428,8 @@ class AgestStorageService extends RemoteStorageService {
           final amenities = data.map((item) {
             final imageFileName = item['image_url'];
             if (item['image_url'] != null) {
-              item['image_url'] = "$uri/api/v1/media/$imageFileName";
+              item['image_url'] = "$uri$mediaUrl/$imageFileName";
             }
-            print(item['image_url']);
             return AmenityDataModel.fromJson(item);
           }).toList();
           allAmenities.addAll(amenities);
@@ -454,7 +442,7 @@ class AgestStorageService extends RemoteStorageService {
       // }
       return allAmenities;
     } catch (e) {
-      print('Error: $e');
+      log('Error: $e');
       if (e is DioException && e.response != null) {
         throw Exception('Error code: ${e.response?.statusCode}');
       } else {

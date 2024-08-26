@@ -22,8 +22,12 @@ class LocationDataModel with _$LocationDataModel {
     @JsonKey(name: 'pricing') String? pricing,
     @JsonKey(name: 'phone_number') String? phoneNumber,
     @JsonKey(name: 'parking_level') String? parkingLevel,
-    @Default([]) @JsonKey(name: 'ev_chargers') List<ChargerDataModel>? ev_chargers,
-    @Default([]) @JsonKey(name: 'location_amenities') List<LocationAmenityDataModel>? locationAmenities,
+    @Default([])
+    @JsonKey(name: 'ev_chargers')
+    List<ChargerDataModel>? ev_chargers,
+    @Default([])
+    @JsonKey(name: 'location_amenities')
+    List<LocationAmenityDataModel>? locationAmenities,
   }) = _LocationDataModel;
 
   factory LocationDataModel.fromJson(Map<String, dynamic> json) =>

@@ -3,6 +3,7 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ev_charger/shared/domain/providers/location/location_provider.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../../repositories/location_amenity/entities/location_amenity_entity.dart';
 import '../../../../../shared/core/localization/localization.dart';
@@ -57,7 +58,6 @@ class _InfoContentState extends ConsumerState<InfoContent> {
     }
   }
 
-
   Widget _buildAboutSection(String? longText) {
     if (longText == null || longText.isEmpty) {
       return const SizedBox.shrink();
@@ -98,7 +98,8 @@ class _InfoContentState extends ConsumerState<InfoContent> {
     );
   }
 
-  Widget _buildAmenitiesSection(List<LocationAmenityEntity> locationAmenitiesData) {
+  Widget _buildAmenitiesSection(
+      List<LocationAmenityEntity> locationAmenitiesData) {
     return Container(
       decoration: BoxDecoration(
         border: Border.all(
@@ -130,10 +131,16 @@ class _InfoContentState extends ConsumerState<InfoContent> {
               ),
               child: Padding(
                 padding:
-                const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
+                    SvgPicture.network(
+                      entry.amenities.imageUrl,
+                      width: 24,
+                      height: 24,
+                    ),
+                    const SizedBox(width: 12),
                     Text(
                       entry.amenities.amenity,
                       style: Theme.of(context).textTheme.titleMedium,
