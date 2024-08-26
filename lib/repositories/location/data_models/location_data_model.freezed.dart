@@ -50,6 +50,9 @@ mixin _$LocationDataModel {
   String? get parkingLevel => throw _privateConstructorUsedError;
   @JsonKey(name: 'ev_chargers')
   List<ChargerDataModel>? get ev_chargers => throw _privateConstructorUsedError;
+  @JsonKey(name: 'location_amenities')
+  List<LocationAmenityDataModel>? get locationAmenities =>
+      throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -78,7 +81,9 @@ abstract class $LocationDataModelCopyWith<$Res> {
       @JsonKey(name: 'pricing') String? pricing,
       @JsonKey(name: 'phone_number') String? phoneNumber,
       @JsonKey(name: 'parking_level') String? parkingLevel,
-      @JsonKey(name: 'ev_chargers') List<ChargerDataModel>? ev_chargers});
+      @JsonKey(name: 'ev_chargers') List<ChargerDataModel>? ev_chargers,
+      @JsonKey(name: 'location_amenities')
+      List<LocationAmenityDataModel>? locationAmenities});
 }
 
 /// @nodoc
@@ -109,6 +114,7 @@ class _$LocationDataModelCopyWithImpl<$Res, $Val extends LocationDataModel>
     Object? phoneNumber = freezed,
     Object? parkingLevel = freezed,
     Object? ev_chargers = freezed,
+    Object? locationAmenities = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -171,6 +177,10 @@ class _$LocationDataModelCopyWithImpl<$Res, $Val extends LocationDataModel>
           ? _value.ev_chargers
           : ev_chargers // ignore: cast_nullable_to_non_nullable
               as List<ChargerDataModel>?,
+      locationAmenities: freezed == locationAmenities
+          ? _value.locationAmenities
+          : locationAmenities // ignore: cast_nullable_to_non_nullable
+              as List<LocationAmenityDataModel>?,
     ) as $Val);
   }
 }
@@ -198,7 +208,9 @@ abstract class _$$LocationDataModelImplCopyWith<$Res>
       @JsonKey(name: 'pricing') String? pricing,
       @JsonKey(name: 'phone_number') String? phoneNumber,
       @JsonKey(name: 'parking_level') String? parkingLevel,
-      @JsonKey(name: 'ev_chargers') List<ChargerDataModel>? ev_chargers});
+      @JsonKey(name: 'ev_chargers') List<ChargerDataModel>? ev_chargers,
+      @JsonKey(name: 'location_amenities')
+      List<LocationAmenityDataModel>? locationAmenities});
 }
 
 /// @nodoc
@@ -227,6 +239,7 @@ class __$$LocationDataModelImplCopyWithImpl<$Res>
     Object? phoneNumber = freezed,
     Object? parkingLevel = freezed,
     Object? ev_chargers = freezed,
+    Object? locationAmenities = freezed,
   }) {
     return _then(_$LocationDataModelImpl(
       id: null == id
@@ -289,6 +302,10 @@ class __$$LocationDataModelImplCopyWithImpl<$Res>
           ? _value._ev_chargers
           : ev_chargers // ignore: cast_nullable_to_non_nullable
               as List<ChargerDataModel>?,
+      locationAmenities: freezed == locationAmenities
+          ? _value._locationAmenities
+          : locationAmenities // ignore: cast_nullable_to_non_nullable
+              as List<LocationAmenityDataModel>?,
     ));
   }
 }
@@ -313,9 +330,12 @@ class _$LocationDataModelImpl implements _LocationDataModel {
       @JsonKey(name: 'phone_number') this.phoneNumber,
       @JsonKey(name: 'parking_level') this.parkingLevel,
       @JsonKey(name: 'ev_chargers')
-      final List<ChargerDataModel>? ev_chargers = const []})
+      final List<ChargerDataModel>? ev_chargers = const [],
+      @JsonKey(name: 'location_amenities')
+      final List<LocationAmenityDataModel>? locationAmenities = const []})
       : _workingDays = workingDays,
-        _ev_chargers = ev_chargers;
+        _ev_chargers = ev_chargers,
+        _locationAmenities = locationAmenities;
 
   factory _$LocationDataModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$LocationDataModelImplFromJson(json);
@@ -381,9 +401,21 @@ class _$LocationDataModelImpl implements _LocationDataModel {
     return EqualUnmodifiableListView(value);
   }
 
+  final List<LocationAmenityDataModel>? _locationAmenities;
+  @override
+  @JsonKey(name: 'location_amenities')
+  List<LocationAmenityDataModel>? get locationAmenities {
+    final value = _locationAmenities;
+    if (value == null) return null;
+    if (_locationAmenities is EqualUnmodifiableListView)
+      return _locationAmenities;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   String toString() {
-    return 'LocationDataModel(id: $id, name: $name, street: $street, district: $district, city: $city, postal: $postal, country: $country, latitude: $latitude, longitude: $longitude, description: $description, workingDays: $workingDays, pricing: $pricing, phoneNumber: $phoneNumber, parkingLevel: $parkingLevel, ev_chargers: $ev_chargers)';
+    return 'LocationDataModel(id: $id, name: $name, street: $street, district: $district, city: $city, postal: $postal, country: $country, latitude: $latitude, longitude: $longitude, description: $description, workingDays: $workingDays, pricing: $pricing, phoneNumber: $phoneNumber, parkingLevel: $parkingLevel, ev_chargers: $ev_chargers, locationAmenities: $locationAmenities)';
   }
 
   @override
@@ -413,7 +445,9 @@ class _$LocationDataModelImpl implements _LocationDataModel {
             (identical(other.parkingLevel, parkingLevel) ||
                 other.parkingLevel == parkingLevel) &&
             const DeepCollectionEquality()
-                .equals(other._ev_chargers, _ev_chargers));
+                .equals(other._ev_chargers, _ev_chargers) &&
+            const DeepCollectionEquality()
+                .equals(other._locationAmenities, _locationAmenities));
   }
 
   @JsonKey(ignore: true)
@@ -434,7 +468,8 @@ class _$LocationDataModelImpl implements _LocationDataModel {
       pricing,
       phoneNumber,
       parkingLevel,
-      const DeepCollectionEquality().hash(_ev_chargers));
+      const DeepCollectionEquality().hash(_ev_chargers),
+      const DeepCollectionEquality().hash(_locationAmenities));
 
   @JsonKey(ignore: true)
   @override
@@ -467,8 +502,10 @@ abstract class _LocationDataModel implements LocationDataModel {
       @JsonKey(name: 'pricing') final String? pricing,
       @JsonKey(name: 'phone_number') final String? phoneNumber,
       @JsonKey(name: 'parking_level') final String? parkingLevel,
-      @JsonKey(name: 'ev_chargers')
-      final List<ChargerDataModel>? ev_chargers}) = _$LocationDataModelImpl;
+      @JsonKey(name: 'ev_chargers') final List<ChargerDataModel>? ev_chargers,
+      @JsonKey(name: 'location_amenities')
+      final List<LocationAmenityDataModel>?
+          locationAmenities}) = _$LocationDataModelImpl;
 
   factory _LocationDataModel.fromJson(Map<String, dynamic> json) =
       _$LocationDataModelImpl.fromJson;
@@ -518,6 +555,9 @@ abstract class _LocationDataModel implements LocationDataModel {
   @override
   @JsonKey(name: 'ev_chargers')
   List<ChargerDataModel>? get ev_chargers;
+  @override
+  @JsonKey(name: 'location_amenities')
+  List<LocationAmenityDataModel>? get locationAmenities;
   @override
   @JsonKey(ignore: true)
   _$$LocationDataModelImplCopyWith<_$LocationDataModelImpl> get copyWith =>

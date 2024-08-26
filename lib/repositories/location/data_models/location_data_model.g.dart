@@ -30,6 +30,11 @@ _$LocationDataModelImpl _$$LocationDataModelImplFromJson(
               ?.map((e) => ChargerDataModel.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
+      locationAmenities: (json['location_amenities'] as List<dynamic>?)
+              ?.map((e) =>
+                  LocationAmenityDataModel.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$$LocationDataModelImplToJson(
@@ -50,6 +55,7 @@ Map<String, dynamic> _$$LocationDataModelImplToJson(
       'phone_number': instance.phoneNumber,
       'parking_level': instance.parkingLevel,
       'ev_chargers': instance.ev_chargers,
+      'location_amenities': instance.locationAmenities,
     };
 
 _$WorkingDayImpl _$$WorkingDayImplFromJson(Map<String, dynamic> json) =>

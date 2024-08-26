@@ -1,6 +1,10 @@
+import 'package:ev_charger/repositories/amenity/data_models/amenity_data_model.dart';
 import 'package:ev_charger/repositories/charger/entities/charger_entity.dart';
+import 'package:ev_charger/repositories/location_amenity/data_models/location_amenity_data_model.dart';
+import 'package:ev_charger/repositories/location_amenity/entities/location_amenity_entity.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import '../../../shared/core/mixins/entity_convertible.mixin.dart';
+import '../../amenity/entities/amenity_entity.dart';
 import '../../charger/data_models/charger_data_model.dart';
 import '../../power_output/data_models/power_output_data_model.dart';
 import '../../power_output/entities/power_output_entity.dart';
@@ -28,6 +32,7 @@ class LocationEntity with _$LocationEntity {
     String? phoneNumber,
     String? parkingLevel,
     required List<ChargerEntity> ev_chargers,
+    required List<LocationAmenityEntity> locationAmenities,
   }) = _LocationEntity;
 }
 
@@ -86,6 +91,12 @@ class LocationMapper with EntityConvertible<LocationEntity, LocationDataModel> {
                     .toList(),
               ))
           .toList(),
+      locationAmenities: entityObject.locationAmenities.map((location_amenity) => LocationAmenityDataModel(
+        amenities: AmenityDataModel(
+          amenity: location_amenity.amenities.amenity,
+          imageUrl: location_amenity.amenities.imageUrl
+        ),
+      )).toList(),
     );
   }
 
@@ -138,6 +149,12 @@ class LocationMapper with EntityConvertible<LocationEntity, LocationDataModel> {
                   ))
               .toList() ??
           [],
+      locationAmenities: dataModelObject.locationAmenities?.map((location_amenity) => LocationAmenityEntity(
+        amenities: AmenityEntity(
+            amenity: location_amenity.amenities.amenity,
+            imageUrl:location_amenity.amenities.imageUrl,
+        ),
+      )).toList() ?? []
     );
   }
 }
