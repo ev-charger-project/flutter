@@ -71,12 +71,12 @@ class AuthAgestService extends AuthService {
   }
 
   @override
-  Future<bool> signOut(String refresh_token) async {
+  Future<bool> signOut(String refreshToken) async {
     const url = '/api/v1/auth/sign-out';
 
     try {
       final response = await _dio.delete(uri + url, queryParameters: {
-        'token': refresh_token,
+        'token': refreshToken,
       });
 
       if (response.statusCode == 200) {
@@ -94,12 +94,12 @@ class AuthAgestService extends AuthService {
   }
 
   @override
-  Future<TokenDataModel> refreshToken(String refresh_token) async {
+  Future<TokenDataModel> refreshToken(String refreshToken) async {
     const url = '/api/v1/auth/refresh-token';
 
     try {
       final response = await _dio.get(uri + url, queryParameters: {
-        'token': refresh_token,
+        'token': refreshToken,
       });
 
       if (response.statusCode == 200) {
@@ -122,12 +122,12 @@ class AuthAgestService extends AuthService {
   }
 
   @override
-  Future<UserDataModel> getMe(String access_token) async {
+  Future<UserDataModel> getMe(String accessToken) async {
     const url = '/api/v1/auth/me';
 
     try {
       final response = await _dio.get(uri + url,
-          options: Options(headers: {'Authorization': 'Bearer $access_token'}));
+          options: Options(headers: {'Authorization': 'Bearer $accessToken'}));
 
       if (response.statusCode == 200) {
         UserDataModel user = UserDataModel(

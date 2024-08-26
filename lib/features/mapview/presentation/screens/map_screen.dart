@@ -1,9 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:ev_charger/features/mapview/domain/providers/screen_center_provider.dart';
-import 'package:ev_charger/features/route/presentation/providers/start_provider.dart';
 import 'package:ev_charger/shared/presentation/widgets/bottom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -207,7 +205,7 @@ class _MapScreenState extends ConsumerState<MapScreen>
             right: screenSize.width * 0.05,
             child: GestureDetector(
               onTap: () {
-                context.router.push(SearchRoute());
+                context.router.push(const SearchRoute());
               },
               child: SearchBarAndFilter(
                 controller: _searchController,

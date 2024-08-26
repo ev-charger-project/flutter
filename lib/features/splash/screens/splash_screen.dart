@@ -8,7 +8,7 @@ import '../../../routes/app_route.dart';
 
 @RoutePage()
 class SplashScreen extends ConsumerStatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+  const SplashScreen({super.key});
 
   @override
   _SplashScreenState createState() => _SplashScreenState();

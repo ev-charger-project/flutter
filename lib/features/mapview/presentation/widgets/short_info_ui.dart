@@ -3,17 +3,12 @@ import 'dart:developer';
 import 'package:ev_charger/features/location/presentation/providers/selected_location_id_provider.dart';
 import 'package:ev_charger/features/location/presentation/widgets/location_name_address.dart';
 import 'package:ev_charger/features/mapview/presentation/widgets/view_route_direction.dart';
-import 'package:ev_charger/repositories/user/data_sources/user_info_data_source.dart';
-import 'package:ev_charger/repositories/user/data_sources/user_remote_data_source.dart';
-import 'package:ev_charger/repositories/user/user_info_repo_impl.dart';
-import 'package:ev_charger/shared/data/data_source/remote/remote_storage_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../repositories/user/user_info_repository_provider.dart';
 import '../../../../shared/domain/providers/auth/auth_provider.dart';
-import '../../../../shared/domain/providers/location/location_provider.dart';
 import '../../../../shared/domain/providers/secure_storage_service_provider.dart';
 import '../../../../shared/domain/providers/user/fav_provider.dart';
 import '../../../../shared/domain/providers/user/user_provider.dart';

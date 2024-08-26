@@ -3,8 +3,6 @@ import 'package:ev_charger/features/route/presentation/providers/start_provider.
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import '../../../location/presentation/providers/selected_location_id_provider.dart';
-import '../../../mapview/domain/providers/is_info_visible_provider.dart';
 import '../../../mapview/domain/providers/marker/marker_provider.dart';
 import '../../presentation/providers/end_provider.dart';
 

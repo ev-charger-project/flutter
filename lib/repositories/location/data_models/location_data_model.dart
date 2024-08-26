@@ -1,4 +1,3 @@
-import 'package:ev_charger/features/search/presentation/widgets/amenity.dart';
 import 'package:ev_charger/repositories/location_amenity/data_models/location_amenity_data_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import '../../charger/data_models/charger_data_model.dart';

@@ -1,7 +1,5 @@
-import 'dart:ui';
 
 import 'package:ev_charger/shared/presentation/theme/app_theme.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -11,9 +9,9 @@ class PortBox extends StatelessWidget {
   final Port port;
 
   const PortBox({
-    Key? key,
+    super.key,
     required this.port,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

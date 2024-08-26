@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:auto_route/auto_route.dart';
 import 'package:ev_charger/features/route/presentation/providers/end_provider.dart';
 import 'package:ev_charger/features/route/presentation/providers/from_search_provider.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -24,7 +23,7 @@ import '../../domain/providers/route_to_provider.dart';
 
 @RoutePage()
 class RouteSearchScreen extends ConsumerStatefulWidget {
-  const RouteSearchScreen({Key? key}) : super(key: key);
+  const RouteSearchScreen({super.key});
 
   @override
   _RouteSearchScreenState createState() => _RouteSearchScreenState();
@@ -431,7 +430,7 @@ class _RouteSearchScreenState extends ConsumerState<RouteSearchScreen> {
                                       BoxShadow(
                                         color: Colors.black.withOpacity(0.1),
                                         blurRadius: 2,
-                                        offset: Offset(0, 2),
+                                        offset: const Offset(0, 2),
                                       ),
                                     ],
                                   ),
@@ -492,7 +491,7 @@ class _RouteSearchScreenState extends ConsumerState<RouteSearchScreen> {
                                             color:
                                                 Colors.black.withOpacity(0.1),
                                             blurRadius: 2,
-                                            offset: Offset(0, 2),
+                                            offset: const Offset(0, 2),
                                           ),
                                         ],
                                       ),

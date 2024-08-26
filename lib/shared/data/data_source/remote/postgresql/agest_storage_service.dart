@@ -6,7 +6,6 @@ import 'package:ev_charger/repositories/location/data_models/location_data_model
 import 'package:ev_charger/repositories/suggestion/data_models/suggestion_data_model.dart';
 import 'package:ev_charger/shared/data/data_source/remote/remote_storage_service.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 // import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 
 import '../../../../../repositories/route/data_models/route_data_model.dart';
@@ -68,7 +67,7 @@ class AgestStorageService extends RemoteStorageService {
       if (value != null) {
         if (value is List) {
           for (var item in value) {
-            urlBuffer.write('$key=${item}&');
+            urlBuffer.write('$key=$item&');
           }
         } else {
           urlBuffer.write('$key=${value.toString()}&');
@@ -133,7 +132,7 @@ class AgestStorageService extends RemoteStorageService {
       if (value != null) {
         if (value is List) {
           for (var item in value) {
-            urlBuffer.write('$key=${item}&');
+            urlBuffer.write('$key=$item&');
           }
         } else {
           urlBuffer.write('$key=${value.toString()}&');
@@ -370,9 +369,9 @@ class AgestStorageService extends RemoteStorageService {
   }
 
   @override
-  Future<void> createFav(String locationId, String access_token) async {
+  Future<void> createFav(String locationId, String accessToken) async {
     const url = '/api/v1/user-favorite';
-    print("createUserFav api: $access_token, $locationId");
+    print("createUserFav api: $accessToken, $locationId");
     print(uri + url);
     try {
       final response = await _dio.post(uri + url,
@@ -380,7 +379,7 @@ class AgestStorageService extends RemoteStorageService {
             'location_id': locationId,
           },
           options: Options(
-            headers: {'Authorization': 'Bearer $access_token'},
+            headers: {'Authorization': 'Bearer $accessToken'},
           ));
       print("create response: $response");
       if (response.statusCode != 201) {
@@ -397,13 +396,13 @@ class AgestStorageService extends RemoteStorageService {
   }
 
   @override
-  Future<void> deleteFav(String favId, String access_token) async {
+  Future<void> deleteFav(String favId, String accessToken) async {
     const url = '/api/v1/user-favorite';
     print('test delete: $uri$url/$favId');
     try {
       final response = await _dio.delete('$uri$url/$favId',
           options: Options(
-            headers: {'Authorization': 'Bearer $access_token'},
+            headers: {'Authorization': 'Bearer $accessToken'},
           ));
       print("delete response: $response");
       if (response.statusCode != 200) {

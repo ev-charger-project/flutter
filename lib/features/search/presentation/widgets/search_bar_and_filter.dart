@@ -133,7 +133,7 @@ class _SearchBarAndFilterState extends ConsumerState<SearchBarAndFilter> {
                         width: 2,
                       ),
                     ),
-                    contentPadding: EdgeInsets.all(8.0),
+                    contentPadding: const EdgeInsets.all(8.0),
                   ),
                   style: Theme.of(context).textTheme.bodySmall,
                   onChanged: _onSearchChanged,

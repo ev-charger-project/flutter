@@ -91,10 +91,10 @@ class LocationMapper with EntityConvertible<LocationEntity, LocationDataModel> {
                     .toList(),
               ))
           .toList(),
-      locationAmenities: entityObject.locationAmenities.map((location_amenity) => LocationAmenityDataModel(
+      locationAmenities: entityObject.locationAmenities.map((locationAmenity) => LocationAmenityDataModel(
         amenities: AmenityDataModel(
-          amenity: location_amenity.amenities.amenity,
-          imageUrl: location_amenity.amenities.imageUrl
+          amenity: locationAmenity.amenities.amenity,
+          imageUrl: locationAmenity.amenities.imageUrl
         ),
       )).toList(),
     );
@@ -149,10 +149,10 @@ class LocationMapper with EntityConvertible<LocationEntity, LocationDataModel> {
                   ))
               .toList() ??
           [],
-      locationAmenities: dataModelObject.locationAmenities?.map((location_amenity) => LocationAmenityEntity(
+      locationAmenities: dataModelObject.locationAmenities?.map((locationAmenity) => LocationAmenityEntity(
         amenities: AmenityEntity(
-            amenity: location_amenity.amenities.amenity,
-            imageUrl:location_amenity.amenities.imageUrl,
+            amenity: locationAmenity.amenities.amenity,
+            imageUrl:locationAmenity.amenities.imageUrl,
         ),
       )).toList() ?? []
     );

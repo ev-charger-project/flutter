@@ -6,7 +6,7 @@ import '../providers/station_count/selected_station_count_provider.dart';
 import 'station_count_object.dart';
 
 class ContainerColorsNotifier extends StateNotifier<List<Color>> {
-  ContainerColorsNotifier() : super(List<Color>.filled(4, Color(0xFFBCDEC5)));
+  ContainerColorsNotifier() : super(List<Color>.filled(4, const Color(0xFFBCDEC5)));
 
   void updateColors(int? selectedIndex, BuildContext context) {
     state = List<Color>.filled(4, Theme.of(context).lightGreen);

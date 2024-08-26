@@ -1,6 +1,5 @@
 import 'package:ev_charger/features/route/presentation/providers/end_provider.dart';
 import 'package:ev_charger/features/route/presentation/providers/start_provider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';

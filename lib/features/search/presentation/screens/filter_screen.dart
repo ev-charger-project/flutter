@@ -181,7 +181,7 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
 
                         // Reset Power Output
                         ref.read(rangeValuesProvider.notifier).state =
-                            SfRangeValues(0, 360);
+                            const SfRangeValues(0, 360);
 
                         resetAmenities();
 
