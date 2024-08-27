@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:ev_charger/repositories/amenity/data_models/amenity_data_model.dart';
 import 'package:ev_charger/repositories/charge_type/data_models/charge_type_data_model.dart';
 import 'package:ev_charger/repositories/favourite/data_models/favourite_data_model.dart';
+import 'package:ev_charger/repositories/location_search_history/data_models/location_search_history_data_model.dart';
 import 'package:ev_charger/repositories/marker/data_models/charger_marker_data_model.dart';
 import 'package:ev_charger/repositories/location/data_models/location_data_model.dart';
 import 'package:ev_charger/repositories/suggestion/data_models/suggestion_data_model.dart';
@@ -441,6 +442,98 @@ class AgestStorageService extends RemoteStorageService {
       }
       // }
       return allAmenities;
+    } catch (e) {
+      log('Error: $e');
+      if (e is DioException && e.response != null) {
+        throw Exception('Error code: ${e.response?.statusCode}');
+      } else {
+        throw Exception('An unknown error occurred');
+      }
+    }
+  }
+
+  @override
+  Future<List<LocationSearchHistoryDataModel>> fetchLocationSearchHistoryData(
+      String token, String userId) async {
+    const url = '/api/v1/location-search-history/user';
+    List<LocationSearchHistoryDataModel> allHistory = [];
+    log("fetchLocationSearchHistoryData: $token, $userId");
+    try {
+      final response = await _dio.get(
+        uri + url,
+        queryParameters: {
+          'user_id': userId,
+          // 'page': currentPage,
+        },
+        options: Options(
+          headers: {'Authorization': 'Bearer $token'},
+        ),
+      );
+      log("response fetch: $response");
+      if (response.statusCode == 200) {
+        final data = response.data['founds'] as List;
+        if (data.isNotEmpty) {
+          final history = data
+              .map((item) => LocationSearchHistoryDataModel.fromJson(item))
+              .toList();
+          allHistory.addAll(history);
+        }
+      } else {
+        throw Exception('Error code: ${response.statusCode}');
+      }
+      return allHistory;
+    } catch (e) {
+      log('Error: $e');
+      if (e is DioException && e.response != null) {
+        throw Exception('Error code: ${e.response?.statusCode}');
+      } else {
+        throw Exception('An unknown error occurred');
+      }
+    }
+  }
+
+  @override
+  Future<void> createLocationSearchHistoryData(
+      String locationId, String accessToken) async {
+    const url = '/api/v1/location-search-history';
+    log("createUserSearchHistory api: $accessToken, $locationId");
+    log(uri + url);
+    try {
+      final response = await _dio.post(uri + url,
+          data: {
+            'location_id': locationId,
+          },
+          options: Options(
+            headers: {'Authorization': 'Bearer $accessToken'},
+          ));
+      log("create response: $response");
+      if (response.statusCode != 201) {
+        throw Exception('Error code: ${response.statusCode}');
+      }
+    } catch (e) {
+      log('Error: $e');
+      if (e is DioException && e.response != null) {
+        throw Exception('Error code: ${e.response?.statusCode}');
+      } else {
+        throw Exception('An unknown error occurred');
+      }
+    }
+  }
+
+  @override
+  Future<void> deleteLocationSearchHistoryData(
+      String historyId, String accessToken) async {
+    const url = '/api/v1/location-search-history';
+    log('test delete: $uri$url/$historyId');
+    try {
+      final response = await _dio.delete('$uri$url/$historyId',
+          options: Options(
+            headers: {'Authorization': 'Bearer $accessToken'},
+          ));
+      log("delete response: $response");
+      if (response.statusCode != 200) {
+        throw Exception('Error code: ${response.statusCode}');
+      }
     } catch (e) {
       log('Error: $e');
       if (e is DioException && e.response != null) {

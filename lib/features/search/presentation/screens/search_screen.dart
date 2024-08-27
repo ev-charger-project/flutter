@@ -4,8 +4,8 @@ import 'package:ev_charger/shared/presentation/widgets/bottom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../routes/app_route.dart';
-import '../../../../shared/core/localization/localization.dart';
 import '../../domain/providers/search_query_provider.dart';
+import '../widgets/history_list.dart';
 import '../widgets/suggestion_list.dart';
 
 @RoutePage()
@@ -74,13 +74,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                   right: screenSize.width * 0.03,
                 ),
                 child: searchQuery.isEmpty
-                    ? Center(
-                        child: Text(
-                          AppLocalizations.of(context)
-                              .translate('Enter search text to see results.'),
-                          style: Theme.of(context).textTheme.bodySmall,
-                        ),
-                      )
+                    ? const HistoryList()
                     : const SuggestionList(),
               ),
             ),
