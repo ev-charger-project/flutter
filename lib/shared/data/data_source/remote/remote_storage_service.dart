@@ -5,10 +5,18 @@ import 'package:ev_charger/repositories/suggestion/data_models/suggestion_data_m
 
 import '../../../../repositories/charge_type/data_models/charge_type_data_model.dart';
 import '../../../../repositories/favourite/data_models/favourite_data_model.dart';
+import '../../../../repositories/location_search_history/data_models/location_search_history_data_model.dart';
 import '../../../../repositories/route/data_models/route_data_model.dart';
 
 abstract class RemoteStorageService {
   Future<LocationDataModel> fetchLocationData(String locationId);
+
+  Future<List<LocationSearchHistoryDataModel>> fetchLocationSearchHistoryData(
+      String token, String userId);
+  Future<void> createLocationSearchHistoryData(
+      String locationId, String accessToken);
+  Future<void> deleteLocationSearchHistoryData(
+      String historyId, String accessToken);
 
   Future<RouteDataModel> fetchRoute(double userLat, double userLong,
       double destinationLat, double destinationLong);

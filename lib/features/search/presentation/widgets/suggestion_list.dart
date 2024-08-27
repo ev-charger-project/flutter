@@ -3,12 +3,16 @@ import 'package:auto_route/auto_route.dart';
 import 'package:ev_charger/features/location/presentation/providers/selected_location_id_provider.dart';
 import 'package:ev_charger/features/mapview/domain/providers/is_info_visible_provider.dart';
 import 'package:ev_charger/features/splash/widgets/dots_circular_progress_painter_widget.dart';
+import 'package:ev_charger/repositories/location_search_history/location_search_history_repository_provider.dart';
+import 'package:ev_charger/shared/domain/providers/location/location_search_history_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../routes/app_route.dart';
 import '../../../../shared/core/localization/localization.dart';
+import '../../../../shared/domain/providers/auth/auth_provider.dart';
+import '../../../../shared/domain/providers/secure_storage_service_provider.dart';
 import '../../../../shared/domain/providers/suggestion/suggestion_provider.dart';
 import '../../../../shared/domain/providers/location/user_location_provider.dart';
 
@@ -36,6 +40,7 @@ class SuggestionList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final isAuthenticated = ref.watch(authProvider).value;
     final suggestions = ref.watch(suggestionProvider);
     final userLocation = ref.read(userLocationProvider);
 
@@ -121,13 +126,27 @@ class SuggestionList extends ConsumerWidget {
                             const Icon(Icons.arrow_forward_ios),
                           ],
                         ),
-                        onTap: () {
+                        onTap: () async {
                           ref.read(selectedLocationIdProvider.notifier).state =
                               suggestion.locationId;
                           ref.read(isInfoVisibleProvider.notifier).state = true;
-                          context.router.push(MapRoute(
-                              longitude: suggestion.longitude,
-                              latitude: suggestion.latitude));
+                          if (isAuthenticated!) {
+                            final locationSearchHistoryRepository = ref
+                                .watch(locationSearchHistoryRepositoryProvider);
+                            final secureStorage =
+                                ref.watch(secureStorageServiceProvider);
+                            var tokenData = await secureStorage.getToken();
+                            await locationSearchHistoryRepository
+                                .createLocationSearchHistoryData(
+                                    suggestion.locationId,
+                                    tokenData!.access_token);
+                            ref.refresh(locationSearchHistoryProvider);
+                          }
+                          if (context.mounted) {
+                            context.router.push(MapRoute(
+                                longitude: suggestion.longitude,
+                                latitude: suggestion.latitude));
+                          }
                         },
                       ),
                       Divider(
