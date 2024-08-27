@@ -15,8 +15,8 @@ import '../../../../../repositories/route/data_models/route_data_model.dart';
 class AgestStorageService extends RemoteStorageService {
   final Dio _dio = Dio();
 
-  static const uri = 'http://10.0.2.2:8000'; // localhost
-  // static const uri = 'http://ev-charger.zapto.org:4000'; // my server
+  // static const uri = 'http://10.0.2.2:8000'; // localhost
+  static const uri = 'http://ev-charger.zapto.org:4000'; // my server
   // static const uri = 'http://172.16.11.139:14000'; // agest internal server
   static const mediaUrl = '/api/v1/media';
 

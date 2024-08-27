@@ -41,115 +41,161 @@ class HistoryList extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final isAuthenticated = ref.watch(authProvider).value;
     final histories = ref.watch(locationSearchHistoryProvider);
-    // final suggestions = ref.watch(suggestionProvider);
     final userLocation = ref.read(userLocationProvider);
 
     final screenSize = MediaQuery.of(context).size;
 
-    return histories.when(
-      data: (histories) {
-        return histories.isEmpty
-            ? Center(
-                child: Text(
-                  AppLocalizations.of(context)
-                      .translate('Enter search text to see results.'),
-                  style: Theme.of(context).textTheme.bodySmall,
-                ),
-              )
-            : Column(children: [
-                Text(
-                  "Recently Visited Locations",
-                  style: Theme.of(context).textTheme.headlineMedium,
-                ),
-                ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: histories.length,
-                  itemBuilder: (context, index) {
-                    final history = histories[index];
-                    String distanceText = '';
+    return !histories.hasError
+        ? histories.when(
+            data: (histories) {
+              return histories.isEmpty
+                  ? Center(
+                      child: Text(
+                        AppLocalizations.of(context)
+                            .translate('Enter search text to see results.'),
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                    )
+                  : Column(children: [
+                      Text(
+                        "Recently Visited Locations",
+                        style: Theme.of(context).textTheme.headlineMedium,
+                      ),
+                      ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: histories.length,
+                        itemBuilder: (context, index) {
+                          final history = histories[index];
+                          String distanceText = '';
 
-                    if (userLocation != null) {
-                      final distance = calculateDistance(
-                        userLocation.latitude,
-                        userLocation.longitude,
-                        history.location.latitude,
-                        history.location.longitude,
-                      );
-                      distanceText = '${distance.toStringAsFixed(2)} km';
-                    }
-                    return Column(
-                      children: [
-                        ListTile(
-                          leading: SvgPicture.asset(
-                            'assets/icons/station_marker.svg',
-                            height: screenSize.height * 0.08,
-                          ),
-                          title: Text(
-                            history.location.name,
-                            style: Theme.of(context).textTheme.headlineMedium,
-                            maxLines: 2,
-                          ),
-                          subtitle: Text(
-                            '${history.location.street}, ${history.location.district}',
-                            style: Theme.of(context).textTheme.bodySmall,
-                            maxLines: 2,
-                          ),
-                          trailing: Row(
-                            mainAxisSize: MainAxisSize.min,
+                          if (userLocation != null) {
+                            final distance = calculateDistance(
+                              userLocation.latitude,
+                              userLocation.longitude,
+                              history.location.latitude,
+                              history.location.longitude,
+                            );
+                            distanceText = '${distance.toStringAsFixed(2)} km';
+                          }
+                          return Column(
                             children: [
-                              if (distanceText.isNotEmpty)
-                                Text(
-                                  distanceText,
-                                  style: Theme.of(context).textTheme.bodySmall,
+                              Dismissible(
+                                key: Key(history.id),
+                                background: Container(color: Colors.red),
+                                onDismissed: (direction) async {
+                                  // Remove the item from the data source.
+                                  if (isAuthenticated!) {
+                                    final locationSearchHistoryRepository =
+                                        ref.watch(
+                                            locationSearchHistoryRepositoryProvider);
+                                    final secureStorage =
+                                        ref.watch(secureStorageServiceProvider);
+                                    var tokenData =
+                                        await secureStorage.getToken();
+                                    await locationSearchHistoryRepository
+                                        .deleteLocationSearchHistoryData(
+                                            history.id,
+                                            tokenData!.access_token);
+                                    ref.refresh(locationSearchHistoryProvider);
+                                  }
+
+                                  // Then show a snack bar.
+                                  if (context.mounted) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(
+                                            content: Text(
+                                                'Cleared ${history.location.name} from history')));
+                                  }
+                                },
+                                child: ListTile(
+                                  leading: SvgPicture.asset(
+                                    'assets/icons/station_marker.svg',
+                                    height: screenSize.height * 0.08,
+                                  ),
+                                  title: Text(
+                                    history.location.name,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineMedium,
+                                    maxLines: 2,
+                                  ),
+                                  subtitle: Text(
+                                    '${history.location.street}, ${history.location.district}',
+                                    style:
+                                        Theme.of(context).textTheme.bodySmall,
+                                    maxLines: 2,
+                                  ),
+                                  trailing: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      if (distanceText.isNotEmpty)
+                                        Text(
+                                          distanceText,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall,
+                                        ),
+                                      const Icon(Icons.arrow_forward_ios),
+                                    ],
+                                  ),
+                                  onTap: () async {
+                                    ref
+                                        .read(
+                                            selectedLocationIdProvider.notifier)
+                                        .state = history.location.id;
+                                    ref
+                                        .read(isInfoVisibleProvider.notifier)
+                                        .state = true;
+                                    if (isAuthenticated!) {
+                                      final locationSearchHistoryRepository =
+                                          ref.watch(
+                                              locationSearchHistoryRepositoryProvider);
+                                      final secureStorage = ref
+                                          .watch(secureStorageServiceProvider);
+                                      var tokenData =
+                                          await secureStorage.getToken();
+                                      await locationSearchHistoryRepository
+                                          .createLocationSearchHistoryData(
+                                              history.location.id,
+                                              tokenData!.access_token);
+                                      ref.refresh(
+                                          locationSearchHistoryProvider);
+                                    }
+                                    if (context.mounted) {
+                                      context.router.push(MapRoute(
+                                          longitude: history.location.longitude,
+                                          latitude: history.location.latitude));
+                                    }
+                                  },
                                 ),
-                              const Icon(Icons.arrow_forward_ios),
+                              ),
+                              Divider(
+                                color: Theme.of(context).dividerColor,
+                                thickness: 1,
+                              ),
                             ],
-                          ),
-                          onTap: () async {
-                            ref
-                                .read(selectedLocationIdProvider.notifier)
-                                .state = history.location.id;
-                            ref.read(isInfoVisibleProvider.notifier).state =
-                                true;
-                            if (isAuthenticated!) {
-                              final locationSearchHistoryRepository = ref.watch(
-                                  locationSearchHistoryRepositoryProvider);
-                              final secureStorage =
-                                  ref.watch(secureStorageServiceProvider);
-                              var tokenData = await secureStorage.getToken();
-                              await locationSearchHistoryRepository
-                                  .createLocationSearchHistoryData(
-                                      history.location.id,
-                                      tokenData!.access_token);
-                              ref.refresh(locationSearchHistoryProvider);
-                            }
-                            if (context.mounted) {
-                              context.router.push(MapRoute(
-                                  longitude: history.location.longitude,
-                                  latitude: history.location.latitude));
-                            }
-                          },
-                        ),
-                        Divider(
-                          color: Theme.of(context).dividerColor,
-                          thickness: 1,
-                        ),
-                      ],
-                    );
-                  },
-                )
-              ]);
-      },
-      loading: () => Center(
-        child: SizedBox(
-          height: 60,
-          child: DotsCircularProgressIndicator(
-            color: Theme.of(context).colorScheme.primary,
-            numberOfDots: 8,
-          ),
-        ),
-      ),
-      error: (error, stack) => Center(child: Text('Error: $error')),
-    );
+                          );
+                        },
+                      )
+                    ]);
+            },
+            loading: () => Center(
+              child: SizedBox(
+                height: 60,
+                child: DotsCircularProgressIndicator(
+                  color: Theme.of(context).colorScheme.primary,
+                  numberOfDots: 8,
+                ),
+              ),
+            ),
+            error: (error, stack) => Center(child: Text('Error: $error')),
+          )
+        : Center(
+            child: Text(
+              AppLocalizations.of(context)
+                  .translate('Enter search text to see results.'),
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
+          );
   }
 }
