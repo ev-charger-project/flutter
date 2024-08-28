@@ -152,6 +152,7 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                               return ChargeTypeObject(
                                 chargeType: plug.chargeType,
                                 chargePowerType: plug.chargePowerType,
+                                chargeImgPath: plug.chargeImgPath,
                                 isChecked: false,
                                 checkedPlugsProvider: plug.checkedPlugsProvider,
                               );

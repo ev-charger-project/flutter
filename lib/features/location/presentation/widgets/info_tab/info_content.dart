@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ev_charger/shared/domain/providers/location/location_provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:ev_charger/shared/core/constant/constants.dart' as constants;
+import 'package:path/path.dart' as p;
 
 import '../../../../../repositories/location_amenity/entities/location_amenity_entity.dart';
 import '../../../../../shared/core/localization/localization.dart';
@@ -135,11 +137,16 @@ class _InfoContentState extends ConsumerState<InfoContent> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    SvgPicture.network(
-                      entry.amenities.imageUrl,
-                      width: 24,
-                      height: 24,
-                    ),
+                    p.extension(entry.amenities.imageUrl) == ".svg"
+                        ? SvgPicture.network(
+                            '${constants.uri}${constants.mediaUrl}/${entry.amenities.imageUrl}',
+                            width: 24,
+                            height: 24,
+                          )
+                        : Image.network(
+                            '${constants.uri}${constants.mediaUrl}/${entry.amenities.imageUrl}',
+                            width: 24,
+                            height: 24),
                     const SizedBox(width: 12),
                     Text(
                       entry.amenities.amenity,

@@ -12,6 +12,7 @@ final visiblePlugsInitializerProvider =
       .map((plug) => ChargeTypeObject(
             chargeType: plug.chargeType,
             chargePowerType: plug.chargePowerType,
+            chargeImgPath: plug.chargeImgPath,
             isChecked: false,
             checkedPlugsProvider: checkedPlugsProvider,
           ))

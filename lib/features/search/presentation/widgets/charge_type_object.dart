@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:path/path.dart' as p;
+import 'package:ev_charger/shared/core/constant/constants.dart' as constants;
 
 import '../providers/charge_type/checked_plugs_provider.dart';
 
 class ChargeTypeObject extends ConsumerStatefulWidget {
   final String chargeType;
   final String chargePowerType;
+  final String chargeImgPath;
   bool isChecked;
   final StateNotifierProvider<CheckedPlugsNotifier, int> checkedPlugsProvider;
 
@@ -14,15 +17,20 @@ class ChargeTypeObject extends ConsumerStatefulWidget {
     super.key,
     required this.chargeType,
     required this.chargePowerType,
+    required this.chargeImgPath,
     required this.isChecked,
     required this.checkedPlugsProvider,
   });
 
   ChargeTypeObject copyWith(
-      {String? chargeType, String? chargePowerType, bool? isChecked}) {
+      {String? chargeType,
+      String? chargePowerType,
+      bool? isChecked,
+      String? chargeImgPath}) {
     return ChargeTypeObject(
       chargeType: chargeType ?? this.chargeType,
       chargePowerType: chargePowerType ?? this.chargePowerType,
+      chargeImgPath: chargeImgPath ?? this.chargeImgPath,
       isChecked: isChecked ?? this.isChecked,
       checkedPlugsProvider: checkedPlugsProvider,
     );
@@ -41,9 +49,18 @@ class _ChargeTypeObjectState extends ConsumerState<ChargeTypeObject> {
       children: [
         Row(
           children: [
-            SvgPicture.asset(
-              'assets/icons/charger_icon.svg',
-            ),
+            widget.chargeImgPath.isNotEmpty
+                ? (p.extension(widget.chargeImgPath) == ".svg"
+                    ? SvgPicture.network(
+                        '${constants.uri}${constants.mediaUrl}/${widget.chargeImgPath}',
+                        width: 24,
+                        height: 24)
+                    : Image.network(
+                        '${constants.uri}${constants.mediaUrl}/${widget.chargeImgPath}',
+                        width: 24,
+                        height: 24))
+                : SvgPicture.asset('assets/icons/charger_icon.svg',
+                    width: 24, height: 24),
             SizedBox(width: screenSize.width * 0.02),
             Text(
               "${widget.chargeType} • ${widget.chargePowerType}",

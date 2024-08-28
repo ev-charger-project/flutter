@@ -11,14 +11,14 @@ import 'package:ev_charger/shared/data/data_source/remote/remote_storage_service
 import 'package:dio/dio.dart';
 
 import '../../../../../repositories/route/data_models/route_data_model.dart';
+import 'package:ev_charger/shared/core/constant/constants.dart' as constants;
 
 class AgestStorageService extends RemoteStorageService {
   final Dio _dio = Dio();
 
-  // static const uri = 'http://10.0.2.2:8000'; // localhost
-  static const uri = 'http://ev-charger.zapto.org:4000'; // my server
-  // static const uri = 'http://172.16.11.139:14000'; // agest internal server
-  static const mediaUrl = '/api/v1/media';
+  static const uri = constants.uri;
+
+  static const mediaUrl = constants.mediaUrl;
 
   @override
   Future<LocationDataModel> fetchLocationData(String locationId) async {
@@ -28,15 +28,6 @@ class AgestStorageService extends RemoteStorageService {
       final response = await _dio.get('$uri$url/$locationId');
       if (response.statusCode == 200) {
         final dynamic responseData = response.data;
-        List<dynamic> locationAmenitiesData =
-            responseData['location_amenities'];
-        responseData['location_amenities'] = locationAmenitiesData.map((item) {
-          final String? imageFileName = item['amenities']['image_url'];
-          if (imageFileName != null) {
-            item['amenities']['image_url'] = "$uri$mediaUrl/$imageFileName";
-          }
-          return item;
-        }).toList();
         final result = LocationDataModel.fromJson(responseData);
         return result;
       } else {
