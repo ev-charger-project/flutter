@@ -10,6 +10,7 @@ final availablePlugsProvider =
       .map((i) => ChargeTypeObject(
             chargeType: i.plug_type,
             chargePowerType: i.power_model,
+            chargeImgPath: i.plug_image_url,
             isChecked: true,
             checkedPlugsProvider: checkedPlugsProvider,
           ))

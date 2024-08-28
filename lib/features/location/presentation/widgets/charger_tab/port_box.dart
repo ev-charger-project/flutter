@@ -1,6 +1,8 @@
 import 'package:ev_charger/shared/presentation/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:path/path.dart' as p;
+import 'package:ev_charger/shared/core/constant/constants.dart' as constants;
 
 import '../../../../../repositories/charger/entities/charger_entity.dart';
 
@@ -35,10 +37,16 @@ class PortBox extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             Expanded(
-              child: (port.power_plug_type.plugImage != null &&
-                      isValidUrl(port.power_plug_type.plugImage!))
-                  ? Image.network(
-                      ("http://172.16.11.139:14000/api/v1/media/${port.power_plug_type.plugImage!}"))
+              child: port.power_plug_type.plugImage != null
+                  ? (p.extension(port.power_plug_type.plugImage!) == ".svg"
+                      ? SvgPicture.network(
+                          "${constants.uri}${constants.mediaUrl}/${port.power_plug_type.plugImage!}",
+                          width: 48,
+                          height: 48)
+                      : Image.network(
+                          "${constants.uri}${constants.mediaUrl}/${port.power_plug_type.plugImage!}",
+                          width: 48,
+                          height: 48))
                   : SvgPicture.asset('assets/icons/plug_icon.svg'),
             ),
             Text(
