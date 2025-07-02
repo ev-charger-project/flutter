@@ -6,7 +6,7 @@ part 'charger_entity.freezed.dart';
 @freezed
 class ChargerEntity with _$ChargerEntity {
   const factory ChargerEntity({
-    required String station_name,
+    String? station_name,
     required String availability,
     required List<Port> ports,
   }) = _ChargerEntity;

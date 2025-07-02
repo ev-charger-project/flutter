@@ -22,7 +22,9 @@ mixin _$FilterEntity {
   int get output_max => throw _privateConstructorUsedError;
   List<String> get amenities => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of FilterEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $FilterEntityCopyWith<FilterEntity> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -51,6 +53,8 @@ class _$FilterEntityCopyWithImpl<$Res, $Val extends FilterEntity>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of FilterEntity
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -109,6 +113,8 @@ class __$$FilterEntityImplCopyWithImpl<$Res>
       _$FilterEntityImpl _value, $Res Function(_$FilterEntityImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of FilterEntity
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -208,7 +214,9 @@ class _$FilterEntityImpl implements _FilterEntity {
       output_max,
       const DeepCollectionEquality().hash(_amenities));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of FilterEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$FilterEntityImplCopyWith<_$FilterEntityImpl> get copyWith =>
@@ -233,8 +241,11 @@ abstract class _FilterEntity implements FilterEntity {
   int get output_max;
   @override
   List<String> get amenities;
+
+  /// Create a copy of FilterEntity
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$FilterEntityImplCopyWith<_$FilterEntityImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

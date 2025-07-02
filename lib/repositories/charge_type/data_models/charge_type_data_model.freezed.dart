@@ -27,8 +27,12 @@ mixin _$ChargeTypeDataModel {
   @JsonKey(name: 'plug_image_url')
   String get plug_image_url => throw _privateConstructorUsedError;
 
+  /// Serializes this ChargeTypeDataModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ChargeTypeDataModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ChargeTypeDataModelCopyWith<ChargeTypeDataModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -55,6 +59,8 @@ class _$ChargeTypeDataModelCopyWithImpl<$Res, $Val extends ChargeTypeDataModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ChargeTypeDataModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -101,6 +107,8 @@ class __$$ChargeTypeImplCopyWithImpl<$Res>
       _$ChargeTypeImpl _value, $Res Function(_$ChargeTypeImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ChargeTypeDataModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -164,12 +172,14 @@ class _$ChargeTypeImpl implements _ChargeType {
                 other.plug_image_url == plug_image_url));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
       Object.hash(runtimeType, plug_type, power_model, plug_image_url);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ChargeTypeDataModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ChargeTypeImplCopyWith<_$ChargeTypeImpl> get copyWith =>
@@ -202,8 +212,11 @@ abstract class _ChargeType implements ChargeTypeDataModel {
   @override
   @JsonKey(name: 'plug_image_url')
   String get plug_image_url;
+
+  /// Create a copy of ChargeTypeDataModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ChargeTypeImplCopyWith<_$ChargeTypeImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

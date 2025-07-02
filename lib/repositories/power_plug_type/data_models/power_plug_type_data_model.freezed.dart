@@ -21,19 +21,27 @@ PowerPlugTypeDataModel _$PowerPlugTypeDataModelFromJson(
 
 /// @nodoc
 mixin _$PowerPlugTypeDataModel {
+  @JsonKey(name: 'supplier_name')
+  String? get supplierName => throw _privateConstructorUsedError;
   @JsonKey(name: 'power_model')
   String get powerModel => throw _privateConstructorUsedError;
   @JsonKey(name: 'plug_type')
   String get plugType => throw _privateConstructorUsedError;
+  @JsonKey(name: 'fixed_plug')
+  bool? get fixedPlug => throw _privateConstructorUsedError;
   @JsonKey(name: 'plug_image_url')
-  String? get plugImage => throw _privateConstructorUsedError;
-  @JsonKey(name: 'used_in_regions')
-  List<String>? get usedInRegions => throw _privateConstructorUsedError;
-  @JsonKey(name: 'additional_notes')
-  String? get additionalNotes => throw _privateConstructorUsedError;
+  String? get plugImageUrl => throw _privateConstructorUsedError;
+  @JsonKey(name: 'power_plug_region')
+  String? get powerPlugRegion => throw _privateConstructorUsedError;
+  @JsonKey(name: 'additional_note')
+  String? get additionalNote => throw _privateConstructorUsedError;
 
+  /// Serializes this PowerPlugTypeDataModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PowerPlugTypeDataModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $PowerPlugTypeDataModelCopyWith<PowerPlugTypeDataModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -45,11 +53,13 @@ abstract class $PowerPlugTypeDataModelCopyWith<$Res> {
       _$PowerPlugTypeDataModelCopyWithImpl<$Res, PowerPlugTypeDataModel>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'power_model') String powerModel,
+      {@JsonKey(name: 'supplier_name') String? supplierName,
+      @JsonKey(name: 'power_model') String powerModel,
       @JsonKey(name: 'plug_type') String plugType,
-      @JsonKey(name: 'plug_image_url') String? plugImage,
-      @JsonKey(name: 'used_in_regions') List<String>? usedInRegions,
-      @JsonKey(name: 'additional_notes') String? additionalNotes});
+      @JsonKey(name: 'fixed_plug') bool? fixedPlug,
+      @JsonKey(name: 'plug_image_url') String? plugImageUrl,
+      @JsonKey(name: 'power_plug_region') String? powerPlugRegion,
+      @JsonKey(name: 'additional_note') String? additionalNote});
 }
 
 /// @nodoc
@@ -63,16 +73,24 @@ class _$PowerPlugTypeDataModelCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of PowerPlugTypeDataModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? supplierName = freezed,
     Object? powerModel = null,
     Object? plugType = null,
-    Object? plugImage = freezed,
-    Object? usedInRegions = freezed,
-    Object? additionalNotes = freezed,
+    Object? fixedPlug = freezed,
+    Object? plugImageUrl = freezed,
+    Object? powerPlugRegion = freezed,
+    Object? additionalNote = freezed,
   }) {
     return _then(_value.copyWith(
+      supplierName: freezed == supplierName
+          ? _value.supplierName
+          : supplierName // ignore: cast_nullable_to_non_nullable
+              as String?,
       powerModel: null == powerModel
           ? _value.powerModel
           : powerModel // ignore: cast_nullable_to_non_nullable
@@ -81,17 +99,21 @@ class _$PowerPlugTypeDataModelCopyWithImpl<$Res,
           ? _value.plugType
           : plugType // ignore: cast_nullable_to_non_nullable
               as String,
-      plugImage: freezed == plugImage
-          ? _value.plugImage
-          : plugImage // ignore: cast_nullable_to_non_nullable
+      fixedPlug: freezed == fixedPlug
+          ? _value.fixedPlug
+          : fixedPlug // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      plugImageUrl: freezed == plugImageUrl
+          ? _value.plugImageUrl
+          : plugImageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      usedInRegions: freezed == usedInRegions
-          ? _value.usedInRegions
-          : usedInRegions // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      additionalNotes: freezed == additionalNotes
-          ? _value.additionalNotes
-          : additionalNotes // ignore: cast_nullable_to_non_nullable
+      powerPlugRegion: freezed == powerPlugRegion
+          ? _value.powerPlugRegion
+          : powerPlugRegion // ignore: cast_nullable_to_non_nullable
+              as String?,
+      additionalNote: freezed == additionalNote
+          ? _value.additionalNote
+          : additionalNote // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
@@ -107,11 +129,13 @@ abstract class _$$PowerPlugTypeDataModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'power_model') String powerModel,
+      {@JsonKey(name: 'supplier_name') String? supplierName,
+      @JsonKey(name: 'power_model') String powerModel,
       @JsonKey(name: 'plug_type') String plugType,
-      @JsonKey(name: 'plug_image_url') String? plugImage,
-      @JsonKey(name: 'used_in_regions') List<String>? usedInRegions,
-      @JsonKey(name: 'additional_notes') String? additionalNotes});
+      @JsonKey(name: 'fixed_plug') bool? fixedPlug,
+      @JsonKey(name: 'plug_image_url') String? plugImageUrl,
+      @JsonKey(name: 'power_plug_region') String? powerPlugRegion,
+      @JsonKey(name: 'additional_note') String? additionalNote});
 }
 
 /// @nodoc
@@ -124,16 +148,24 @@ class __$$PowerPlugTypeDataModelImplCopyWithImpl<$Res>
       $Res Function(_$PowerPlugTypeDataModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PowerPlugTypeDataModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? supplierName = freezed,
     Object? powerModel = null,
     Object? plugType = null,
-    Object? plugImage = freezed,
-    Object? usedInRegions = freezed,
-    Object? additionalNotes = freezed,
+    Object? fixedPlug = freezed,
+    Object? plugImageUrl = freezed,
+    Object? powerPlugRegion = freezed,
+    Object? additionalNote = freezed,
   }) {
     return _then(_$PowerPlugTypeDataModelImpl(
+      supplierName: freezed == supplierName
+          ? _value.supplierName
+          : supplierName // ignore: cast_nullable_to_non_nullable
+              as String?,
       powerModel: null == powerModel
           ? _value.powerModel
           : powerModel // ignore: cast_nullable_to_non_nullable
@@ -142,17 +174,21 @@ class __$$PowerPlugTypeDataModelImplCopyWithImpl<$Res>
           ? _value.plugType
           : plugType // ignore: cast_nullable_to_non_nullable
               as String,
-      plugImage: freezed == plugImage
-          ? _value.plugImage
-          : plugImage // ignore: cast_nullable_to_non_nullable
+      fixedPlug: freezed == fixedPlug
+          ? _value.fixedPlug
+          : fixedPlug // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      plugImageUrl: freezed == plugImageUrl
+          ? _value.plugImageUrl
+          : plugImageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      usedInRegions: freezed == usedInRegions
-          ? _value._usedInRegions
-          : usedInRegions // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      additionalNotes: freezed == additionalNotes
-          ? _value.additionalNotes
-          : additionalNotes // ignore: cast_nullable_to_non_nullable
+      powerPlugRegion: freezed == powerPlugRegion
+          ? _value.powerPlugRegion
+          : powerPlugRegion // ignore: cast_nullable_to_non_nullable
+              as String?,
+      additionalNote: freezed == additionalNote
+          ? _value.additionalNote
+          : additionalNote // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -162,16 +198,20 @@ class __$$PowerPlugTypeDataModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$PowerPlugTypeDataModelImpl implements _PowerPlugTypeDataModel {
   const _$PowerPlugTypeDataModelImpl(
-      {@JsonKey(name: 'power_model') required this.powerModel,
+      {@JsonKey(name: 'supplier_name') this.supplierName,
+      @JsonKey(name: 'power_model') required this.powerModel,
       @JsonKey(name: 'plug_type') required this.plugType,
-      @JsonKey(name: 'plug_image_url') this.plugImage,
-      @JsonKey(name: 'used_in_regions') final List<String>? usedInRegions,
-      @JsonKey(name: 'additional_notes') this.additionalNotes})
-      : _usedInRegions = usedInRegions;
+      @JsonKey(name: 'fixed_plug') this.fixedPlug,
+      @JsonKey(name: 'plug_image_url') this.plugImageUrl,
+      @JsonKey(name: 'power_plug_region') this.powerPlugRegion,
+      @JsonKey(name: 'additional_note') this.additionalNote});
 
   factory _$PowerPlugTypeDataModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$PowerPlugTypeDataModelImplFromJson(json);
 
+  @override
+  @JsonKey(name: 'supplier_name')
+  final String? supplierName;
   @override
   @JsonKey(name: 'power_model')
   final String powerModel;
@@ -179,26 +219,21 @@ class _$PowerPlugTypeDataModelImpl implements _PowerPlugTypeDataModel {
   @JsonKey(name: 'plug_type')
   final String plugType;
   @override
+  @JsonKey(name: 'fixed_plug')
+  final bool? fixedPlug;
+  @override
   @JsonKey(name: 'plug_image_url')
-  final String? plugImage;
-  final List<String>? _usedInRegions;
+  final String? plugImageUrl;
   @override
-  @JsonKey(name: 'used_in_regions')
-  List<String>? get usedInRegions {
-    final value = _usedInRegions;
-    if (value == null) return null;
-    if (_usedInRegions is EqualUnmodifiableListView) return _usedInRegions;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
+  @JsonKey(name: 'power_plug_region')
+  final String? powerPlugRegion;
   @override
-  @JsonKey(name: 'additional_notes')
-  final String? additionalNotes;
+  @JsonKey(name: 'additional_note')
+  final String? additionalNote;
 
   @override
   String toString() {
-    return 'PowerPlugTypeDataModel(powerModel: $powerModel, plugType: $plugType, plugImage: $plugImage, usedInRegions: $usedInRegions, additionalNotes: $additionalNotes)';
+    return 'PowerPlugTypeDataModel(supplierName: $supplierName, powerModel: $powerModel, plugType: $plugType, fixedPlug: $fixedPlug, plugImageUrl: $plugImageUrl, powerPlugRegion: $powerPlugRegion, additionalNote: $additionalNote)';
   }
 
   @override
@@ -206,24 +241,30 @@ class _$PowerPlugTypeDataModelImpl implements _PowerPlugTypeDataModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PowerPlugTypeDataModelImpl &&
+            (identical(other.supplierName, supplierName) ||
+                other.supplierName == supplierName) &&
             (identical(other.powerModel, powerModel) ||
                 other.powerModel == powerModel) &&
             (identical(other.plugType, plugType) ||
                 other.plugType == plugType) &&
-            (identical(other.plugImage, plugImage) ||
-                other.plugImage == plugImage) &&
-            const DeepCollectionEquality()
-                .equals(other._usedInRegions, _usedInRegions) &&
-            (identical(other.additionalNotes, additionalNotes) ||
-                other.additionalNotes == additionalNotes));
+            (identical(other.fixedPlug, fixedPlug) ||
+                other.fixedPlug == fixedPlug) &&
+            (identical(other.plugImageUrl, plugImageUrl) ||
+                other.plugImageUrl == plugImageUrl) &&
+            (identical(other.powerPlugRegion, powerPlugRegion) ||
+                other.powerPlugRegion == powerPlugRegion) &&
+            (identical(other.additionalNote, additionalNote) ||
+                other.additionalNote == additionalNote));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, powerModel, plugType, plugImage,
-      const DeepCollectionEquality().hash(_usedInRegions), additionalNotes);
+  int get hashCode => Object.hash(runtimeType, supplierName, powerModel,
+      plugType, fixedPlug, plugImageUrl, powerPlugRegion, additionalNote);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PowerPlugTypeDataModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PowerPlugTypeDataModelImplCopyWith<_$PowerPlugTypeDataModelImpl>
@@ -240,16 +281,21 @@ class _$PowerPlugTypeDataModelImpl implements _PowerPlugTypeDataModel {
 
 abstract class _PowerPlugTypeDataModel implements PowerPlugTypeDataModel {
   const factory _PowerPlugTypeDataModel(
-          {@JsonKey(name: 'power_model') required final String powerModel,
+          {@JsonKey(name: 'supplier_name') final String? supplierName,
+          @JsonKey(name: 'power_model') required final String powerModel,
           @JsonKey(name: 'plug_type') required final String plugType,
-          @JsonKey(name: 'plug_image_url') final String? plugImage,
-          @JsonKey(name: 'used_in_regions') final List<String>? usedInRegions,
-          @JsonKey(name: 'additional_notes') final String? additionalNotes}) =
+          @JsonKey(name: 'fixed_plug') final bool? fixedPlug,
+          @JsonKey(name: 'plug_image_url') final String? plugImageUrl,
+          @JsonKey(name: 'power_plug_region') final String? powerPlugRegion,
+          @JsonKey(name: 'additional_note') final String? additionalNote}) =
       _$PowerPlugTypeDataModelImpl;
 
   factory _PowerPlugTypeDataModel.fromJson(Map<String, dynamic> json) =
       _$PowerPlugTypeDataModelImpl.fromJson;
 
+  @override
+  @JsonKey(name: 'supplier_name')
+  String? get supplierName;
   @override
   @JsonKey(name: 'power_model')
   String get powerModel;
@@ -257,16 +303,22 @@ abstract class _PowerPlugTypeDataModel implements PowerPlugTypeDataModel {
   @JsonKey(name: 'plug_type')
   String get plugType;
   @override
+  @JsonKey(name: 'fixed_plug')
+  bool? get fixedPlug;
+  @override
   @JsonKey(name: 'plug_image_url')
-  String? get plugImage;
+  String? get plugImageUrl;
   @override
-  @JsonKey(name: 'used_in_regions')
-  List<String>? get usedInRegions;
+  @JsonKey(name: 'power_plug_region')
+  String? get powerPlugRegion;
   @override
-  @JsonKey(name: 'additional_notes')
-  String? get additionalNotes;
+  @JsonKey(name: 'additional_note')
+  String? get additionalNote;
+
+  /// Create a copy of PowerPlugTypeDataModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PowerPlugTypeDataModelImplCopyWith<_$PowerPlugTypeDataModelImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

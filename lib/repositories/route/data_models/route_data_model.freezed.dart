@@ -27,8 +27,12 @@ mixin _$RouteDataModel {
   @JsonKey(name: 'overview_polyline')
   String get hashcode => throw _privateConstructorUsedError;
 
+  /// Serializes this RouteDataModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of RouteDataModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $RouteDataModelCopyWith<RouteDataModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -55,6 +59,8 @@ class _$RouteDataModelCopyWithImpl<$Res, $Val extends RouteDataModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of RouteDataModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -101,6 +107,8 @@ class __$$RouteDataModelImplCopyWithImpl<$Res>
       _$RouteDataModelImpl _value, $Res Function(_$RouteDataModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of RouteDataModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -176,7 +184,7 @@ class _$RouteDataModelImpl implements _RouteDataModel {
                 other.hashcode == hashcode));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -184,7 +192,9 @@ class _$RouteDataModelImpl implements _RouteDataModel {
       const DeepCollectionEquality().hash(_chargers),
       hashcode);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of RouteDataModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$RouteDataModelImplCopyWith<_$RouteDataModelImpl> get copyWith =>
@@ -218,8 +228,11 @@ abstract class _RouteDataModel implements RouteDataModel {
   @override
   @JsonKey(name: 'overview_polyline')
   String get hashcode;
+
+  /// Create a copy of RouteDataModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$RouteDataModelImplCopyWith<_$RouteDataModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -235,8 +248,12 @@ mixin _$RoutePoint {
   @JsonKey(name: 'lng')
   double get long => throw _privateConstructorUsedError;
 
+  /// Serializes this RoutePoint to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of RoutePoint
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $RoutePointCopyWith<RoutePoint> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -261,6 +278,8 @@ class _$RoutePointCopyWithImpl<$Res, $Val extends RoutePoint>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of RoutePoint
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -300,6 +319,8 @@ class __$$RoutePointImplCopyWithImpl<$Res>
       _$RoutePointImpl _value, $Res Function(_$RoutePointImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of RoutePoint
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -350,11 +371,13 @@ class _$RoutePointImpl implements _RoutePoint {
             (identical(other.long, long) || other.long == long));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, lat, long);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of RoutePoint
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$RoutePointImplCopyWith<_$RoutePointImpl> get copyWith =>
@@ -382,8 +405,11 @@ abstract class _RoutePoint implements RoutePoint {
   @override
   @JsonKey(name: 'lng')
   double get long;
+
+  /// Create a copy of RoutePoint
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$RoutePointImplCopyWith<_$RoutePointImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -400,8 +426,12 @@ mixin _$Charger {
   @JsonKey(name: 'longitude')
   double get long => throw _privateConstructorUsedError;
 
+  /// Serializes this Charger to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Charger
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ChargerCopyWith<Charger> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -426,6 +456,8 @@ class _$ChargerCopyWithImpl<$Res, $Val extends Charger>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Charger
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -471,6 +503,8 @@ class __$$ChargerImplCopyWithImpl<$Res>
       _$ChargerImpl _value, $Res Function(_$ChargerImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Charger
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -530,11 +564,13 @@ class _$ChargerImpl implements _Charger {
             (identical(other.long, long) || other.long == long));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, lat, long);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Charger
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ChargerImplCopyWith<_$ChargerImpl> get copyWith =>
@@ -564,8 +600,11 @@ abstract class _Charger implements Charger {
   @override
   @JsonKey(name: 'longitude')
   double get long;
+
+  /// Create a copy of Charger
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ChargerImplCopyWith<_$ChargerImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

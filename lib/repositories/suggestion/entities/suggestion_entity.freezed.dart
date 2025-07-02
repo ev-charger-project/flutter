@@ -18,15 +18,21 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$SuggestionEntity {
   String get locationId => throw _privateConstructorUsedError;
   String get locationName => throw _privateConstructorUsedError;
-  String get street => throw _privateConstructorUsedError;
-  String get district => throw _privateConstructorUsedError;
+  String? get street => throw _privateConstructorUsedError;
+  String? get district => throw _privateConstructorUsedError;
+  String? get houseNumber => throw _privateConstructorUsedError;
+  String? get state => throw _privateConstructorUsedError;
+  String? get county => throw _privateConstructorUsedError;
   double get latitude => throw _privateConstructorUsedError;
   double get longitude => throw _privateConstructorUsedError;
   String get city => throw _privateConstructorUsedError;
   String get country => throw _privateConstructorUsedError;
   String? get postalCode => throw _privateConstructorUsedError;
+  String? get description => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SuggestionEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $SuggestionEntityCopyWith<SuggestionEntity> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -40,13 +46,17 @@ abstract class $SuggestionEntityCopyWith<$Res> {
   $Res call(
       {String locationId,
       String locationName,
-      String street,
-      String district,
+      String? street,
+      String? district,
+      String? houseNumber,
+      String? state,
+      String? county,
       double latitude,
       double longitude,
       String city,
       String country,
-      String? postalCode});
+      String? postalCode,
+      String? description});
 }
 
 /// @nodoc
@@ -59,18 +69,24 @@ class _$SuggestionEntityCopyWithImpl<$Res, $Val extends SuggestionEntity>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of SuggestionEntity
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? locationId = null,
     Object? locationName = null,
-    Object? street = null,
-    Object? district = null,
+    Object? street = freezed,
+    Object? district = freezed,
+    Object? houseNumber = freezed,
+    Object? state = freezed,
+    Object? county = freezed,
     Object? latitude = null,
     Object? longitude = null,
     Object? city = null,
     Object? country = null,
     Object? postalCode = freezed,
+    Object? description = freezed,
   }) {
     return _then(_value.copyWith(
       locationId: null == locationId
@@ -81,14 +97,26 @@ class _$SuggestionEntityCopyWithImpl<$Res, $Val extends SuggestionEntity>
           ? _value.locationName
           : locationName // ignore: cast_nullable_to_non_nullable
               as String,
-      street: null == street
+      street: freezed == street
           ? _value.street
           : street // ignore: cast_nullable_to_non_nullable
-              as String,
-      district: null == district
+              as String?,
+      district: freezed == district
           ? _value.district
           : district // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
+      houseNumber: freezed == houseNumber
+          ? _value.houseNumber
+          : houseNumber // ignore: cast_nullable_to_non_nullable
+              as String?,
+      state: freezed == state
+          ? _value.state
+          : state // ignore: cast_nullable_to_non_nullable
+              as String?,
+      county: freezed == county
+          ? _value.county
+          : county // ignore: cast_nullable_to_non_nullable
+              as String?,
       latitude: null == latitude
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
@@ -108,6 +136,10 @@ class _$SuggestionEntityCopyWithImpl<$Res, $Val extends SuggestionEntity>
       postalCode: freezed == postalCode
           ? _value.postalCode
           : postalCode // ignore: cast_nullable_to_non_nullable
+              as String?,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
@@ -124,13 +156,17 @@ abstract class _$$SuggestionEntityImplCopyWith<$Res>
   $Res call(
       {String locationId,
       String locationName,
-      String street,
-      String district,
+      String? street,
+      String? district,
+      String? houseNumber,
+      String? state,
+      String? county,
       double latitude,
       double longitude,
       String city,
       String country,
-      String? postalCode});
+      String? postalCode,
+      String? description});
 }
 
 /// @nodoc
@@ -141,18 +177,24 @@ class __$$SuggestionEntityImplCopyWithImpl<$Res>
       $Res Function(_$SuggestionEntityImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SuggestionEntity
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? locationId = null,
     Object? locationName = null,
-    Object? street = null,
-    Object? district = null,
+    Object? street = freezed,
+    Object? district = freezed,
+    Object? houseNumber = freezed,
+    Object? state = freezed,
+    Object? county = freezed,
     Object? latitude = null,
     Object? longitude = null,
     Object? city = null,
     Object? country = null,
     Object? postalCode = freezed,
+    Object? description = freezed,
   }) {
     return _then(_$SuggestionEntityImpl(
       locationId: null == locationId
@@ -163,14 +205,26 @@ class __$$SuggestionEntityImplCopyWithImpl<$Res>
           ? _value.locationName
           : locationName // ignore: cast_nullable_to_non_nullable
               as String,
-      street: null == street
+      street: freezed == street
           ? _value.street
           : street // ignore: cast_nullable_to_non_nullable
-              as String,
-      district: null == district
+              as String?,
+      district: freezed == district
           ? _value.district
           : district // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
+      houseNumber: freezed == houseNumber
+          ? _value.houseNumber
+          : houseNumber // ignore: cast_nullable_to_non_nullable
+              as String?,
+      state: freezed == state
+          ? _value.state
+          : state // ignore: cast_nullable_to_non_nullable
+              as String?,
+      county: freezed == county
+          ? _value.county
+          : county // ignore: cast_nullable_to_non_nullable
+              as String?,
       latitude: null == latitude
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
@@ -191,6 +245,10 @@ class __$$SuggestionEntityImplCopyWithImpl<$Res>
           ? _value.postalCode
           : postalCode // ignore: cast_nullable_to_non_nullable
               as String?,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -201,22 +259,32 @@ class _$SuggestionEntityImpl implements _SuggestionEntity {
   const _$SuggestionEntityImpl(
       {required this.locationId,
       required this.locationName,
-      required this.street,
-      required this.district,
+      this.street,
+      this.district,
+      this.houseNumber,
+      this.state,
+      this.county,
       required this.latitude,
       required this.longitude,
       required this.city,
       required this.country,
-      this.postalCode});
+      this.postalCode,
+      this.description});
 
   @override
   final String locationId;
   @override
   final String locationName;
   @override
-  final String street;
+  final String? street;
   @override
-  final String district;
+  final String? district;
+  @override
+  final String? houseNumber;
+  @override
+  final String? state;
+  @override
+  final String? county;
   @override
   final double latitude;
   @override
@@ -227,10 +295,12 @@ class _$SuggestionEntityImpl implements _SuggestionEntity {
   final String country;
   @override
   final String? postalCode;
+  @override
+  final String? description;
 
   @override
   String toString() {
-    return 'SuggestionEntity(locationId: $locationId, locationName: $locationName, street: $street, district: $district, latitude: $latitude, longitude: $longitude, city: $city, country: $country, postalCode: $postalCode)';
+    return 'SuggestionEntity(locationId: $locationId, locationName: $locationName, street: $street, district: $district, houseNumber: $houseNumber, state: $state, county: $county, latitude: $latitude, longitude: $longitude, city: $city, country: $country, postalCode: $postalCode, description: $description)';
   }
 
   @override
@@ -245,6 +315,10 @@ class _$SuggestionEntityImpl implements _SuggestionEntity {
             (identical(other.street, street) || other.street == street) &&
             (identical(other.district, district) ||
                 other.district == district) &&
+            (identical(other.houseNumber, houseNumber) ||
+                other.houseNumber == houseNumber) &&
+            (identical(other.state, state) || other.state == state) &&
+            (identical(other.county, county) || other.county == county) &&
             (identical(other.latitude, latitude) ||
                 other.latitude == latitude) &&
             (identical(other.longitude, longitude) ||
@@ -252,14 +326,31 @@ class _$SuggestionEntityImpl implements _SuggestionEntity {
             (identical(other.city, city) || other.city == city) &&
             (identical(other.country, country) || other.country == country) &&
             (identical(other.postalCode, postalCode) ||
-                other.postalCode == postalCode));
+                other.postalCode == postalCode) &&
+            (identical(other.description, description) ||
+                other.description == description));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, locationId, locationName, street,
-      district, latitude, longitude, city, country, postalCode);
+  int get hashCode => Object.hash(
+      runtimeType,
+      locationId,
+      locationName,
+      street,
+      district,
+      houseNumber,
+      state,
+      county,
+      latitude,
+      longitude,
+      city,
+      country,
+      postalCode,
+      description);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SuggestionEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SuggestionEntityImplCopyWith<_$SuggestionEntityImpl> get copyWith =>
@@ -271,22 +362,32 @@ abstract class _SuggestionEntity implements SuggestionEntity {
   const factory _SuggestionEntity(
       {required final String locationId,
       required final String locationName,
-      required final String street,
-      required final String district,
+      final String? street,
+      final String? district,
+      final String? houseNumber,
+      final String? state,
+      final String? county,
       required final double latitude,
       required final double longitude,
       required final String city,
       required final String country,
-      final String? postalCode}) = _$SuggestionEntityImpl;
+      final String? postalCode,
+      final String? description}) = _$SuggestionEntityImpl;
 
   @override
   String get locationId;
   @override
   String get locationName;
   @override
-  String get street;
+  String? get street;
   @override
-  String get district;
+  String? get district;
+  @override
+  String? get houseNumber;
+  @override
+  String? get state;
+  @override
+  String? get county;
   @override
   double get latitude;
   @override
@@ -298,7 +399,12 @@ abstract class _SuggestionEntity implements SuggestionEntity {
   @override
   String? get postalCode;
   @override
-  @JsonKey(ignore: true)
+  String? get description;
+
+  /// Create a copy of SuggestionEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SuggestionEntityImplCopyWith<_$SuggestionEntityImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -19,18 +19,26 @@ class LocationEntity with _$LocationEntity {
   const factory LocationEntity({
     String? id,
     required String name,
-    required String street,
+    String? houseNumber,
+    String? street,
     String? district,
+    String? state,
     required String city,
-    String? postalCode,
+    String? county,
     required String country,
     required double latitude,
     required double longitude,
+    String? postalCode,
     String? description,
     required List<WorkingDay> workingDays,
     String? pricing,
     String? phoneNumber,
     String? parkingLevel,
+    String? websiteUrl,
+    String? imageUrl,
+    int? totalChargingPorts,
+    String? access,
+    String? paymentMethods,
     required List<ChargerEntity> ev_chargers,
     required List<LocationAmenityEntity> locationAmenities,
   }) = _LocationEntity;
@@ -50,9 +58,12 @@ class LocationMapper with EntityConvertible<LocationEntity, LocationDataModel> {
     return LocationDataModel(
       id: entityObject.id ?? 'blank',
       name: entityObject.name,
+      houseNumber: entityObject.houseNumber,
       street: entityObject.street,
       district: entityObject.district,
+      state: entityObject.state,
       city: entityObject.city,
+      county: entityObject.county,
       country: entityObject.country,
       postal: entityObject.postalCode,
       latitude: entityObject.latitude,
@@ -68,6 +79,11 @@ class LocationMapper with EntityConvertible<LocationEntity, LocationDataModel> {
       pricing: entityObject.pricing,
       phoneNumber: entityObject.phoneNumber,
       parkingLevel: entityObject.parkingLevel,
+      websiteUrl: entityObject.websiteUrl,
+      imageUrl: entityObject.imageUrl,
+      totalChargingPorts: entityObject.totalChargingPorts,
+      access: entityObject.access,
+      paymentMethods: entityObject.paymentMethods,
       ev_chargers: entityObject.ev_chargers
           .map((charger) => ChargerDataModel(
                 station_name: charger.station_name,
@@ -75,17 +91,19 @@ class LocationMapper with EntityConvertible<LocationEntity, LocationDataModel> {
                 ports: charger.ports
                     .map((port) => PortDataModel(
                           power_plug_type: PowerPlugTypeDataModel(
+                            supplierName: port.power_plug_type.supplierName,
                             powerModel: port.power_plug_type.powerModel,
                             plugType: port.power_plug_type.plugType,
-                            plugImage: port.power_plug_type.plugImage,
-                            usedInRegions: port.power_plug_type.usedInRegions,
-                            additionalNotes:
-                                port.power_plug_type.additionalNotes,
+                            fixedPlug: port.power_plug_type.fixedPlug,
+                            plugImageUrl: port.power_plug_type.plugImageUrl,
+                            powerPlugRegion: port.power_plug_type.powerPlugRegion,
+                            additionalNote: port.power_plug_type.additionalNote,
                           ),
                           power_model: PowerOutputDataModel(
                             outputValue: port.power_model.outputValue,
-                            chargingSpeed: port.power_model.chargingSpeed,
                             voltage: port.power_model.voltage,
+                            amperage: port.power_model.amperage,
+                            chargingSpeed: port.power_model.chargingSpeed,
                           ),
                         ))
                     .toList(),
@@ -106,9 +124,12 @@ class LocationMapper with EntityConvertible<LocationEntity, LocationDataModel> {
     return LocationEntity(
         id: dataModelObject.id,
         name: dataModelObject.name,
+        houseNumber: dataModelObject.houseNumber,
         street: dataModelObject.street,
         district: dataModelObject.district,
+        state: dataModelObject.state,
         city: dataModelObject.city,
+        county: dataModelObject.county,
         country: dataModelObject.country,
         postalCode: dataModelObject.postal,
         latitude: dataModelObject.latitude,
@@ -125,6 +146,11 @@ class LocationMapper with EntityConvertible<LocationEntity, LocationDataModel> {
         pricing: dataModelObject.pricing,
         phoneNumber: dataModelObject.phoneNumber,
         parkingLevel: dataModelObject.parkingLevel,
+        websiteUrl: dataModelObject.websiteUrl,
+        imageUrl: dataModelObject.imageUrl,
+        totalChargingPorts: dataModelObject.totalChargingPorts,
+        access: dataModelObject.access,
+        paymentMethods: dataModelObject.paymentMethods,
         ev_chargers: dataModelObject.ev_chargers
                 ?.map((charger) => ChargerEntity(
                       station_name: charger.station_name,
@@ -132,18 +158,22 @@ class LocationMapper with EntityConvertible<LocationEntity, LocationDataModel> {
                       ports: charger.ports
                           .map((port) => Port(
                                 power_plug_type: PowerPlugTypeEntity(
+                                  supplierName: port.power_plug_type.supplierName,
                                   powerModel: port.power_plug_type.powerModel,
                                   plugType: port.power_plug_type.plugType,
-                                  plugImage: port.power_plug_type.plugImage,
-                                  usedInRegions:
-                                      port.power_plug_type.usedInRegions,
-                                  additionalNotes:
-                                      port.power_plug_type.additionalNotes,
+                                  fixedPlug: port.power_plug_type.fixedPlug,
+                                  plugImageUrl: port.power_plug_type.plugImageUrl,
+                                  powerPlugRegion:
+                                      port.power_plug_type.powerPlugRegion,
+                                  additionalNote:
+                                      port.power_plug_type.additionalNote,
                                 ),
                                 power_model: PowerOutputEntity(
                                   outputValue: port.power_model.outputValue,
-                                  chargingSpeed: port.power_model.chargingSpeed,
                                   voltage: port.power_model.voltage,
+                                  amperage: port.power_model.amperage,
+                                  chargingSpeed: port.power_model.chargingSpeed,
+                                  description: port.power_model.description,
                                 ),
                               ))
                           .toList(),

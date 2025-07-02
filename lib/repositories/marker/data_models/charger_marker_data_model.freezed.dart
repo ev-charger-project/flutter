@@ -26,8 +26,12 @@ mixin _$ChargerMarkerDataModel {
   double get latitude => throw _privateConstructorUsedError;
   double get longitude => throw _privateConstructorUsedError;
 
+  /// Serializes this ChargerMarkerDataModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ChargerMarkerDataModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ChargerMarkerDataModelCopyWith<ChargerMarkerDataModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -53,6 +57,8 @@ class _$ChargerMarkerDataModelCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ChargerMarkerDataModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -100,6 +106,8 @@ class __$$ChargerMarkerDataModelImplCopyWithImpl<$Res>
       $Res Function(_$ChargerMarkerDataModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ChargerMarkerDataModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -160,11 +168,13 @@ class _$ChargerMarkerDataModelImpl implements _ChargerMarkerDataModel {
                 other.longitude == longitude));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, latitude, longitude);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ChargerMarkerDataModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ChargerMarkerDataModelImplCopyWith<_$ChargerMarkerDataModelImpl>
@@ -195,8 +205,11 @@ abstract class _ChargerMarkerDataModel implements ChargerMarkerDataModel {
   double get latitude;
   @override
   double get longitude;
+
+  /// Create a copy of ChargerMarkerDataModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ChargerMarkerDataModelImplCopyWith<_$ChargerMarkerDataModelImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

@@ -20,7 +20,9 @@ mixin _$LocationSearchHistoryEntity {
   String get updatedAt => throw _privateConstructorUsedError;
   LocationDataModel get location => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of LocationSearchHistoryEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $LocationSearchHistoryEntityCopyWith<LocationSearchHistoryEntity>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -49,6 +51,8 @@ class _$LocationSearchHistoryEntityCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of LocationSearchHistoryEntity
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -72,6 +76,8 @@ class _$LocationSearchHistoryEntityCopyWithImpl<$Res,
     ) as $Val);
   }
 
+  /// Create a copy of LocationSearchHistoryEntity
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $LocationDataModelCopyWith<$Res> get location {
@@ -106,6 +112,8 @@ class __$$LocationSearchHistoryEntityImplCopyWithImpl<$Res>
       $Res Function(_$LocationSearchHistoryEntityImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of LocationSearchHistoryEntity
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -164,7 +172,9 @@ class _$LocationSearchHistoryEntityImpl
   @override
   int get hashCode => Object.hash(runtimeType, id, updatedAt, location);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of LocationSearchHistoryEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$LocationSearchHistoryEntityImplCopyWith<_$LocationSearchHistoryEntityImpl>
@@ -186,8 +196,11 @@ abstract class _LocationSearchHistoryEntity
   String get updatedAt;
   @override
   LocationDataModel get location;
+
+  /// Create a copy of LocationSearchHistoryEntity
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$LocationSearchHistoryEntityImplCopyWith<_$LocationSearchHistoryEntityImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

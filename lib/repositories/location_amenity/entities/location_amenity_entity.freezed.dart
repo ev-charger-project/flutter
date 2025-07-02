@@ -18,7 +18,9 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$LocationAmenityEntity {
   AmenityEntity get amenities => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of LocationAmenityEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $LocationAmenityEntityCopyWith<LocationAmenityEntity> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -45,6 +47,8 @@ class _$LocationAmenityEntityCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of LocationAmenityEntity
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -58,6 +62,8 @@ class _$LocationAmenityEntityCopyWithImpl<$Res,
     ) as $Val);
   }
 
+  /// Create a copy of LocationAmenityEntity
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $AmenityEntityCopyWith<$Res> get amenities {
@@ -91,6 +97,8 @@ class __$$LocationAmenityEntityImplCopyWithImpl<$Res>
       $Res Function(_$LocationAmenityEntityImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of LocationAmenityEntity
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -130,7 +138,9 @@ class _$LocationAmenityEntityImpl implements _LocationAmenityEntity {
   @override
   int get hashCode => Object.hash(runtimeType, amenities);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of LocationAmenityEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$LocationAmenityEntityImplCopyWith<_$LocationAmenityEntityImpl>
@@ -144,8 +154,11 @@ abstract class _LocationAmenityEntity implements LocationAmenityEntity {
 
   @override
   AmenityEntity get amenities;
+
+  /// Create a copy of LocationAmenityEntity
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$LocationAmenityEntityImplCopyWith<_$LocationAmenityEntityImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

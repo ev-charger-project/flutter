@@ -18,23 +18,33 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$LocationEntity {
   String? get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  String get street => throw _privateConstructorUsedError;
+  String? get houseNumber => throw _privateConstructorUsedError;
+  String? get street => throw _privateConstructorUsedError;
   String? get district => throw _privateConstructorUsedError;
+  String? get state => throw _privateConstructorUsedError;
   String get city => throw _privateConstructorUsedError;
-  String? get postalCode => throw _privateConstructorUsedError;
+  String? get county => throw _privateConstructorUsedError;
   String get country => throw _privateConstructorUsedError;
   double get latitude => throw _privateConstructorUsedError;
   double get longitude => throw _privateConstructorUsedError;
+  String? get postalCode => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
   List<WorkingDay> get workingDays => throw _privateConstructorUsedError;
   String? get pricing => throw _privateConstructorUsedError;
   String? get phoneNumber => throw _privateConstructorUsedError;
   String? get parkingLevel => throw _privateConstructorUsedError;
+  String? get websiteUrl => throw _privateConstructorUsedError;
+  String? get imageUrl => throw _privateConstructorUsedError;
+  int? get totalChargingPorts => throw _privateConstructorUsedError;
+  String? get access => throw _privateConstructorUsedError;
+  String? get paymentMethods => throw _privateConstructorUsedError;
   List<ChargerEntity> get ev_chargers => throw _privateConstructorUsedError;
   List<LocationAmenityEntity> get locationAmenities =>
       throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of LocationEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $LocationEntityCopyWith<LocationEntity> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -48,18 +58,26 @@ abstract class $LocationEntityCopyWith<$Res> {
   $Res call(
       {String? id,
       String name,
-      String street,
+      String? houseNumber,
+      String? street,
       String? district,
+      String? state,
       String city,
-      String? postalCode,
+      String? county,
       String country,
       double latitude,
       double longitude,
+      String? postalCode,
       String? description,
       List<WorkingDay> workingDays,
       String? pricing,
       String? phoneNumber,
       String? parkingLevel,
+      String? websiteUrl,
+      String? imageUrl,
+      int? totalChargingPorts,
+      String? access,
+      String? paymentMethods,
       List<ChargerEntity> ev_chargers,
       List<LocationAmenityEntity> locationAmenities});
 }
@@ -74,23 +92,33 @@ class _$LocationEntityCopyWithImpl<$Res, $Val extends LocationEntity>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of LocationEntity
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? id = freezed,
     Object? name = null,
-    Object? street = null,
+    Object? houseNumber = freezed,
+    Object? street = freezed,
     Object? district = freezed,
+    Object? state = freezed,
     Object? city = null,
-    Object? postalCode = freezed,
+    Object? county = freezed,
     Object? country = null,
     Object? latitude = null,
     Object? longitude = null,
+    Object? postalCode = freezed,
     Object? description = freezed,
     Object? workingDays = null,
     Object? pricing = freezed,
     Object? phoneNumber = freezed,
     Object? parkingLevel = freezed,
+    Object? websiteUrl = freezed,
+    Object? imageUrl = freezed,
+    Object? totalChargingPorts = freezed,
+    Object? access = freezed,
+    Object? paymentMethods = freezed,
     Object? ev_chargers = null,
     Object? locationAmenities = null,
   }) {
@@ -103,21 +131,29 @@ class _$LocationEntityCopyWithImpl<$Res, $Val extends LocationEntity>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      street: null == street
+      houseNumber: freezed == houseNumber
+          ? _value.houseNumber
+          : houseNumber // ignore: cast_nullable_to_non_nullable
+              as String?,
+      street: freezed == street
           ? _value.street
           : street // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       district: freezed == district
           ? _value.district
           : district // ignore: cast_nullable_to_non_nullable
+              as String?,
+      state: freezed == state
+          ? _value.state
+          : state // ignore: cast_nullable_to_non_nullable
               as String?,
       city: null == city
           ? _value.city
           : city // ignore: cast_nullable_to_non_nullable
               as String,
-      postalCode: freezed == postalCode
-          ? _value.postalCode
-          : postalCode // ignore: cast_nullable_to_non_nullable
+      county: freezed == county
+          ? _value.county
+          : county // ignore: cast_nullable_to_non_nullable
               as String?,
       country: null == country
           ? _value.country
@@ -131,6 +167,10 @@ class _$LocationEntityCopyWithImpl<$Res, $Val extends LocationEntity>
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
               as double,
+      postalCode: freezed == postalCode
+          ? _value.postalCode
+          : postalCode // ignore: cast_nullable_to_non_nullable
+              as String?,
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -150,6 +190,26 @@ class _$LocationEntityCopyWithImpl<$Res, $Val extends LocationEntity>
       parkingLevel: freezed == parkingLevel
           ? _value.parkingLevel
           : parkingLevel // ignore: cast_nullable_to_non_nullable
+              as String?,
+      websiteUrl: freezed == websiteUrl
+          ? _value.websiteUrl
+          : websiteUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      imageUrl: freezed == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      totalChargingPorts: freezed == totalChargingPorts
+          ? _value.totalChargingPorts
+          : totalChargingPorts // ignore: cast_nullable_to_non_nullable
+              as int?,
+      access: freezed == access
+          ? _value.access
+          : access // ignore: cast_nullable_to_non_nullable
+              as String?,
+      paymentMethods: freezed == paymentMethods
+          ? _value.paymentMethods
+          : paymentMethods // ignore: cast_nullable_to_non_nullable
               as String?,
       ev_chargers: null == ev_chargers
           ? _value.ev_chargers
@@ -174,18 +234,26 @@ abstract class _$$LocationEntityImplCopyWith<$Res>
   $Res call(
       {String? id,
       String name,
-      String street,
+      String? houseNumber,
+      String? street,
       String? district,
+      String? state,
       String city,
-      String? postalCode,
+      String? county,
       String country,
       double latitude,
       double longitude,
+      String? postalCode,
       String? description,
       List<WorkingDay> workingDays,
       String? pricing,
       String? phoneNumber,
       String? parkingLevel,
+      String? websiteUrl,
+      String? imageUrl,
+      int? totalChargingPorts,
+      String? access,
+      String? paymentMethods,
       List<ChargerEntity> ev_chargers,
       List<LocationAmenityEntity> locationAmenities});
 }
@@ -198,23 +266,33 @@ class __$$LocationEntityImplCopyWithImpl<$Res>
       _$LocationEntityImpl _value, $Res Function(_$LocationEntityImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of LocationEntity
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? id = freezed,
     Object? name = null,
-    Object? street = null,
+    Object? houseNumber = freezed,
+    Object? street = freezed,
     Object? district = freezed,
+    Object? state = freezed,
     Object? city = null,
-    Object? postalCode = freezed,
+    Object? county = freezed,
     Object? country = null,
     Object? latitude = null,
     Object? longitude = null,
+    Object? postalCode = freezed,
     Object? description = freezed,
     Object? workingDays = null,
     Object? pricing = freezed,
     Object? phoneNumber = freezed,
     Object? parkingLevel = freezed,
+    Object? websiteUrl = freezed,
+    Object? imageUrl = freezed,
+    Object? totalChargingPorts = freezed,
+    Object? access = freezed,
+    Object? paymentMethods = freezed,
     Object? ev_chargers = null,
     Object? locationAmenities = null,
   }) {
@@ -227,21 +305,29 @@ class __$$LocationEntityImplCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      street: null == street
+      houseNumber: freezed == houseNumber
+          ? _value.houseNumber
+          : houseNumber // ignore: cast_nullable_to_non_nullable
+              as String?,
+      street: freezed == street
           ? _value.street
           : street // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       district: freezed == district
           ? _value.district
           : district // ignore: cast_nullable_to_non_nullable
+              as String?,
+      state: freezed == state
+          ? _value.state
+          : state // ignore: cast_nullable_to_non_nullable
               as String?,
       city: null == city
           ? _value.city
           : city // ignore: cast_nullable_to_non_nullable
               as String,
-      postalCode: freezed == postalCode
-          ? _value.postalCode
-          : postalCode // ignore: cast_nullable_to_non_nullable
+      county: freezed == county
+          ? _value.county
+          : county // ignore: cast_nullable_to_non_nullable
               as String?,
       country: null == country
           ? _value.country
@@ -255,6 +341,10 @@ class __$$LocationEntityImplCopyWithImpl<$Res>
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
               as double,
+      postalCode: freezed == postalCode
+          ? _value.postalCode
+          : postalCode // ignore: cast_nullable_to_non_nullable
+              as String?,
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -275,6 +365,26 @@ class __$$LocationEntityImplCopyWithImpl<$Res>
           ? _value.parkingLevel
           : parkingLevel // ignore: cast_nullable_to_non_nullable
               as String?,
+      websiteUrl: freezed == websiteUrl
+          ? _value.websiteUrl
+          : websiteUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      imageUrl: freezed == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      totalChargingPorts: freezed == totalChargingPorts
+          ? _value.totalChargingPorts
+          : totalChargingPorts // ignore: cast_nullable_to_non_nullable
+              as int?,
+      access: freezed == access
+          ? _value.access
+          : access // ignore: cast_nullable_to_non_nullable
+              as String?,
+      paymentMethods: freezed == paymentMethods
+          ? _value.paymentMethods
+          : paymentMethods // ignore: cast_nullable_to_non_nullable
+              as String?,
       ev_chargers: null == ev_chargers
           ? _value._ev_chargers
           : ev_chargers // ignore: cast_nullable_to_non_nullable
@@ -293,18 +403,26 @@ class _$LocationEntityImpl implements _LocationEntity {
   const _$LocationEntityImpl(
       {this.id,
       required this.name,
-      required this.street,
+      this.houseNumber,
+      this.street,
       this.district,
+      this.state,
       required this.city,
-      this.postalCode,
+      this.county,
       required this.country,
       required this.latitude,
       required this.longitude,
+      this.postalCode,
       this.description,
       required final List<WorkingDay> workingDays,
       this.pricing,
       this.phoneNumber,
       this.parkingLevel,
+      this.websiteUrl,
+      this.imageUrl,
+      this.totalChargingPorts,
+      this.access,
+      this.paymentMethods,
       required final List<ChargerEntity> ev_chargers,
       required final List<LocationAmenityEntity> locationAmenities})
       : _workingDays = workingDays,
@@ -316,19 +434,25 @@ class _$LocationEntityImpl implements _LocationEntity {
   @override
   final String name;
   @override
-  final String street;
+  final String? houseNumber;
+  @override
+  final String? street;
   @override
   final String? district;
   @override
+  final String? state;
+  @override
   final String city;
   @override
-  final String? postalCode;
+  final String? county;
   @override
   final String country;
   @override
   final double latitude;
   @override
   final double longitude;
+  @override
+  final String? postalCode;
   @override
   final String? description;
   final List<WorkingDay> _workingDays;
@@ -345,6 +469,16 @@ class _$LocationEntityImpl implements _LocationEntity {
   final String? phoneNumber;
   @override
   final String? parkingLevel;
+  @override
+  final String? websiteUrl;
+  @override
+  final String? imageUrl;
+  @override
+  final int? totalChargingPorts;
+  @override
+  final String? access;
+  @override
+  final String? paymentMethods;
   final List<ChargerEntity> _ev_chargers;
   @override
   List<ChargerEntity> get ev_chargers {
@@ -364,7 +498,7 @@ class _$LocationEntityImpl implements _LocationEntity {
 
   @override
   String toString() {
-    return 'LocationEntity(id: $id, name: $name, street: $street, district: $district, city: $city, postalCode: $postalCode, country: $country, latitude: $latitude, longitude: $longitude, description: $description, workingDays: $workingDays, pricing: $pricing, phoneNumber: $phoneNumber, parkingLevel: $parkingLevel, ev_chargers: $ev_chargers, locationAmenities: $locationAmenities)';
+    return 'LocationEntity(id: $id, name: $name, houseNumber: $houseNumber, street: $street, district: $district, state: $state, city: $city, county: $county, country: $country, latitude: $latitude, longitude: $longitude, postalCode: $postalCode, description: $description, workingDays: $workingDays, pricing: $pricing, phoneNumber: $phoneNumber, parkingLevel: $parkingLevel, websiteUrl: $websiteUrl, imageUrl: $imageUrl, totalChargingPorts: $totalChargingPorts, access: $access, paymentMethods: $paymentMethods, ev_chargers: $ev_chargers, locationAmenities: $locationAmenities)';
   }
 
   @override
@@ -374,17 +508,21 @@ class _$LocationEntityImpl implements _LocationEntity {
             other is _$LocationEntityImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
+            (identical(other.houseNumber, houseNumber) ||
+                other.houseNumber == houseNumber) &&
             (identical(other.street, street) || other.street == street) &&
             (identical(other.district, district) ||
                 other.district == district) &&
+            (identical(other.state, state) || other.state == state) &&
             (identical(other.city, city) || other.city == city) &&
-            (identical(other.postalCode, postalCode) ||
-                other.postalCode == postalCode) &&
+            (identical(other.county, county) || other.county == county) &&
             (identical(other.country, country) || other.country == country) &&
             (identical(other.latitude, latitude) ||
                 other.latitude == latitude) &&
             (identical(other.longitude, longitude) ||
                 other.longitude == longitude) &&
+            (identical(other.postalCode, postalCode) ||
+                other.postalCode == postalCode) &&
             (identical(other.description, description) ||
                 other.description == description) &&
             const DeepCollectionEquality()
@@ -394,6 +532,15 @@ class _$LocationEntityImpl implements _LocationEntity {
                 other.phoneNumber == phoneNumber) &&
             (identical(other.parkingLevel, parkingLevel) ||
                 other.parkingLevel == parkingLevel) &&
+            (identical(other.websiteUrl, websiteUrl) ||
+                other.websiteUrl == websiteUrl) &&
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl) &&
+            (identical(other.totalChargingPorts, totalChargingPorts) ||
+                other.totalChargingPorts == totalChargingPorts) &&
+            (identical(other.access, access) || other.access == access) &&
+            (identical(other.paymentMethods, paymentMethods) ||
+                other.paymentMethods == paymentMethods) &&
             const DeepCollectionEquality()
                 .equals(other._ev_chargers, _ev_chargers) &&
             const DeepCollectionEquality()
@@ -401,26 +548,37 @@ class _$LocationEntityImpl implements _LocationEntity {
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      name,
-      street,
-      district,
-      city,
-      postalCode,
-      country,
-      latitude,
-      longitude,
-      description,
-      const DeepCollectionEquality().hash(_workingDays),
-      pricing,
-      phoneNumber,
-      parkingLevel,
-      const DeepCollectionEquality().hash(_ev_chargers),
-      const DeepCollectionEquality().hash(_locationAmenities));
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        id,
+        name,
+        houseNumber,
+        street,
+        district,
+        state,
+        city,
+        county,
+        country,
+        latitude,
+        longitude,
+        postalCode,
+        description,
+        const DeepCollectionEquality().hash(_workingDays),
+        pricing,
+        phoneNumber,
+        parkingLevel,
+        websiteUrl,
+        imageUrl,
+        totalChargingPorts,
+        access,
+        paymentMethods,
+        const DeepCollectionEquality().hash(_ev_chargers),
+        const DeepCollectionEquality().hash(_locationAmenities)
+      ]);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of LocationEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$LocationEntityImplCopyWith<_$LocationEntityImpl> get copyWith =>
@@ -432,18 +590,26 @@ abstract class _LocationEntity implements LocationEntity {
   const factory _LocationEntity(
           {final String? id,
           required final String name,
-          required final String street,
+          final String? houseNumber,
+          final String? street,
           final String? district,
+          final String? state,
           required final String city,
-          final String? postalCode,
+          final String? county,
           required final String country,
           required final double latitude,
           required final double longitude,
+          final String? postalCode,
           final String? description,
           required final List<WorkingDay> workingDays,
           final String? pricing,
           final String? phoneNumber,
           final String? parkingLevel,
+          final String? websiteUrl,
+          final String? imageUrl,
+          final int? totalChargingPorts,
+          final String? access,
+          final String? paymentMethods,
           required final List<ChargerEntity> ev_chargers,
           required final List<LocationAmenityEntity> locationAmenities}) =
       _$LocationEntityImpl;
@@ -453,19 +619,25 @@ abstract class _LocationEntity implements LocationEntity {
   @override
   String get name;
   @override
-  String get street;
+  String? get houseNumber;
+  @override
+  String? get street;
   @override
   String? get district;
   @override
+  String? get state;
+  @override
   String get city;
   @override
-  String? get postalCode;
+  String? get county;
   @override
   String get country;
   @override
   double get latitude;
   @override
   double get longitude;
+  @override
+  String? get postalCode;
   @override
   String? get description;
   @override
@@ -477,11 +649,24 @@ abstract class _LocationEntity implements LocationEntity {
   @override
   String? get parkingLevel;
   @override
+  String? get websiteUrl;
+  @override
+  String? get imageUrl;
+  @override
+  int? get totalChargingPorts;
+  @override
+  String? get access;
+  @override
+  String? get paymentMethods;
+  @override
   List<ChargerEntity> get ev_chargers;
   @override
   List<LocationAmenityEntity> get locationAmenities;
+
+  /// Create a copy of LocationEntity
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$LocationEntityImplCopyWith<_$LocationEntityImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -25,8 +25,12 @@ mixin _$AmenityDataModel {
   @JsonKey(name: 'image_url')
   String get imageUrl => throw _privateConstructorUsedError;
 
+  /// Serializes this AmenityDataModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of AmenityDataModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $AmenityDataModelCopyWith<AmenityDataModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -52,6 +56,8 @@ class _$AmenityDataModelCopyWithImpl<$Res, $Val extends AmenityDataModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of AmenityDataModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -92,6 +98,8 @@ class __$$AmenityImplCopyWithImpl<$Res>
       _$AmenityImpl _value, $Res Function(_$AmenityImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of AmenityDataModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -143,11 +151,13 @@ class _$AmenityImpl implements _Amenity {
                 other.imageUrl == imageUrl));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, amenity, imageUrl);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of AmenityDataModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AmenityImplCopyWith<_$AmenityImpl> get copyWith =>
@@ -174,8 +184,11 @@ abstract class _Amenity implements AmenityDataModel {
   @override
   @JsonKey(name: 'image_url')
   String get imageUrl;
+
+  /// Create a copy of AmenityDataModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AmenityImplCopyWith<_$AmenityImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

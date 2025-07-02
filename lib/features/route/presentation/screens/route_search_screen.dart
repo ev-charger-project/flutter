@@ -139,9 +139,9 @@ class _RouteSearchScreenState extends ConsumerState<RouteSearchScreen> {
   }
 
   void _onSuggestionSelectedFrom(
-      String locationName, String street, String district, String city) {
+      String locationName, String? street, String? district, String city) {
     ref.read(FromSearchProvider.notifier).state =
-        '$locationName, $street, $district, $city';
+        '$locationName, ${street ?? ''}, ${district ?? ''}, $city';
     setState(() {
       _fromSearchController.text = '$locationName, $street, $district, $city';
     });
@@ -150,9 +150,9 @@ class _RouteSearchScreenState extends ConsumerState<RouteSearchScreen> {
   }
 
   void _onSuggestionSelectedTo(
-      String locationName, String street, String district, String city) {
+      String locationName, String? street, String? district, String city) {
     ref.read(ToSearchProvider.notifier).state =
-        '$locationName, $street, $district, $city';
+        '$locationName, ${street ?? ''}, ${district ?? ''}, $city';
     setState(() {
       _toSearchController.text = '$locationName, $street, $district, $city';
     });
@@ -209,8 +209,8 @@ class _RouteSearchScreenState extends ConsumerState<RouteSearchScreen> {
           ref.read(startProvider.notifier).updateStartLocation(
                 ChargerMarkerEntity(
                   id: firstSuggestion.locationName +
-                      firstSuggestion.street +
-                      firstSuggestion.district +
+                      (firstSuggestion.street ?? '') +
+                      (firstSuggestion.district ?? '') +
                       firstSuggestion.city,
                   latitude: firstSuggestion.latitude,
                   longitude: firstSuggestion.longitude,
@@ -250,8 +250,8 @@ class _RouteSearchScreenState extends ConsumerState<RouteSearchScreen> {
           ref.read(endProvider.notifier).updateEndLocation(
                 ChargerMarkerEntity(
                   id: firstSuggestion.locationName +
-                      firstSuggestion.street +
-                      firstSuggestion.district +
+                      (firstSuggestion.street ?? '') +
+                      (firstSuggestion.district ?? '') +
                       firstSuggestion.city,
                   latitude: firstSuggestion.latitude,
                   longitude: firstSuggestion.longitude,

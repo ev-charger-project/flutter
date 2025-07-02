@@ -20,7 +20,9 @@ mixin _$ChargeTypeEntity {
   String get power_model => throw _privateConstructorUsedError;
   String get plug_image_url => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ChargeTypeEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ChargeTypeEntityCopyWith<ChargeTypeEntity> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -44,6 +46,8 @@ class _$ChargeTypeEntityCopyWithImpl<$Res, $Val extends ChargeTypeEntity>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ChargeTypeEntity
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -87,6 +91,8 @@ class __$$ChargeTypeEntityImplCopyWithImpl<$Res>
       $Res Function(_$ChargeTypeEntityImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ChargeTypeEntity
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -148,7 +154,9 @@ class _$ChargeTypeEntityImpl implements _ChargeTypeEntity {
   int get hashCode =>
       Object.hash(runtimeType, plug_type, power_model, plug_image_url);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ChargeTypeEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ChargeTypeEntityImplCopyWith<_$ChargeTypeEntityImpl> get copyWith =>
@@ -168,8 +176,11 @@ abstract class _ChargeTypeEntity implements ChargeTypeEntity {
   String get power_model;
   @override
   String get plug_image_url;
+
+  /// Create a copy of ChargeTypeEntity
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ChargeTypeEntityImplCopyWith<_$ChargeTypeEntityImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

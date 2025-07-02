@@ -8,7 +8,7 @@ part 'charger_data_model.g.dart';
 @freezed
 class ChargerDataModel with _$ChargerDataModel {
   const factory ChargerDataModel({
-    @JsonKey(name: 'station_name') required String station_name,
+    @JsonKey(name: 'station_name') String? station_name,
     @JsonKey(name: 'availability') required String availability,
     @JsonKey(name: 'ev_charger_ports') required List<PortDataModel> ports,
   }) = _Charger;

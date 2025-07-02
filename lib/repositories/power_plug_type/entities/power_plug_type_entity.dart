@@ -7,11 +7,13 @@ part 'power_plug_type_entity.freezed.dart';
 @freezed
 class PowerPlugTypeEntity with _$PowerPlugTypeEntity {
   const factory PowerPlugTypeEntity({
+    String? supplierName,
     required String powerModel,
     required String plugType,
-    String? plugImage,
-    List<String>? usedInRegions,
-    String? additionalNotes,
+    bool? fixedPlug,
+    String? plugImageUrl,
+    String? powerPlugRegion,
+    String? additionalNote,
   }) = _PowerPlugTypeEntity;
 }
 
@@ -20,22 +22,26 @@ class PowerPlugTypeMapper
   @override
   PowerPlugTypeDataModel fromEntity(PowerPlugTypeEntity entityObject) {
     return PowerPlugTypeDataModel(
+      supplierName: entityObject.supplierName,
       powerModel: entityObject.powerModel,
       plugType: entityObject.plugType,
-      plugImage: entityObject.plugImage,
-      usedInRegions: entityObject.usedInRegions,
-      additionalNotes: entityObject.additionalNotes,
+      fixedPlug: entityObject.fixedPlug,
+      plugImageUrl: entityObject.plugImageUrl,
+      powerPlugRegion: entityObject.powerPlugRegion,
+      additionalNote: entityObject.additionalNote,
     );
   }
 
   @override
   PowerPlugTypeEntity toEntity(PowerPlugTypeDataModel dataModelObject) {
     return PowerPlugTypeEntity(
+      supplierName: dataModelObject.supplierName,
       powerModel: dataModelObject.powerModel,
       plugType: dataModelObject.plugType,
-      plugImage: dataModelObject.plugImage,
-      usedInRegions: dataModelObject.usedInRegions,
-      additionalNotes: dataModelObject.additionalNotes,
+      fixedPlug: dataModelObject.fixedPlug,
+      plugImageUrl: dataModelObject.plugImageUrl,
+      powerPlugRegion: dataModelObject.powerPlugRegion,
+      additionalNote: dataModelObject.additionalNote,
     );
   }
 }

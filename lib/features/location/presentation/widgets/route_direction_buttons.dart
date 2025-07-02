@@ -144,8 +144,8 @@ String _buildLocationName(LocationEntity location) {
   if (location.name.isNotEmpty) {
     parts.add(location.name);
   }
-  if (location.street.isNotEmpty) {
-    parts.add(location.street);
+  if (location.street != null && location.street!.isNotEmpty) {
+    parts.add(location.street!);
   }
   if (location.district != null && location.district!.isNotEmpty) {
     parts.add(location.district!);

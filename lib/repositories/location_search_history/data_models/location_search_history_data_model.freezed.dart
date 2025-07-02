@@ -28,8 +28,12 @@ mixin _$LocationSearchHistoryDataModel {
   @JsonKey(name: 'location')
   LocationDataModel get location => throw _privateConstructorUsedError;
 
+  /// Serializes this LocationSearchHistoryDataModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of LocationSearchHistoryDataModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $LocationSearchHistoryDataModelCopyWith<LocationSearchHistoryDataModel>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -61,6 +65,8 @@ class _$LocationSearchHistoryDataModelCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of LocationSearchHistoryDataModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -84,6 +90,8 @@ class _$LocationSearchHistoryDataModelCopyWithImpl<$Res,
     ) as $Val);
   }
 
+  /// Create a copy of LocationSearchHistoryDataModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $LocationDataModelCopyWith<$Res> get location {
@@ -121,6 +129,8 @@ class __$$LocationSearchHistoryDataModelImplCopyWithImpl<$Res>
       $Res Function(_$LocationSearchHistoryDataModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of LocationSearchHistoryDataModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -185,11 +195,13 @@ class _$LocationSearchHistoryDataModelImpl
                 other.location == location));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, updatedAt, location);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of LocationSearchHistoryDataModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$LocationSearchHistoryDataModelImplCopyWith<
@@ -226,8 +238,11 @@ abstract class _LocationSearchHistoryDataModel
   @override
   @JsonKey(name: 'location')
   LocationDataModel get location;
+
+  /// Create a copy of LocationSearchHistoryDataModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$LocationSearchHistoryDataModelImplCopyWith<
           _$LocationSearchHistoryDataModelImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -257,8 +272,12 @@ mixin _$LocationSummaryDataModel {
   @JsonKey(name: 'longitude')
   double get longitude => throw _privateConstructorUsedError;
 
+  /// Serializes this LocationSummaryDataModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of LocationSummaryDataModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $LocationSummaryDataModelCopyWith<LocationSummaryDataModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -291,6 +310,8 @@ class _$LocationSummaryDataModelCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of LocationSummaryDataModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -370,6 +391,8 @@ class __$$LocationSummaryDataModelImplCopyWithImpl<$Res>
       $Res Function(_$LocationSummaryDataModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of LocationSummaryDataModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -484,12 +507,14 @@ class _$LocationSummaryDataModelImpl implements _LocationSummaryDataModel {
                 other.longitude == longitude));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, locationName, street, district,
       city, postal, country, latitude, longitude);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of LocationSummaryDataModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$LocationSummaryDataModelImplCopyWith<_$LocationSummaryDataModelImpl>
@@ -543,8 +568,11 @@ abstract class _LocationSummaryDataModel implements LocationSummaryDataModel {
   @override
   @JsonKey(name: 'longitude')
   double get longitude;
+
+  /// Create a copy of LocationSummaryDataModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$LocationSummaryDataModelImplCopyWith<_$LocationSummaryDataModelImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

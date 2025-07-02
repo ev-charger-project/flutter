@@ -21,14 +21,18 @@ ChargerDataModel _$ChargerDataModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ChargerDataModel {
   @JsonKey(name: 'station_name')
-  String get station_name => throw _privateConstructorUsedError;
+  String? get station_name => throw _privateConstructorUsedError;
   @JsonKey(name: 'availability')
   String get availability => throw _privateConstructorUsedError;
   @JsonKey(name: 'ev_charger_ports')
   List<PortDataModel> get ports => throw _privateConstructorUsedError;
 
+  /// Serializes this ChargerDataModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ChargerDataModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ChargerDataModelCopyWith<ChargerDataModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -40,7 +44,7 @@ abstract class $ChargerDataModelCopyWith<$Res> {
       _$ChargerDataModelCopyWithImpl<$Res, ChargerDataModel>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'station_name') String station_name,
+      {@JsonKey(name: 'station_name') String? station_name,
       @JsonKey(name: 'availability') String availability,
       @JsonKey(name: 'ev_charger_ports') List<PortDataModel> ports});
 }
@@ -55,18 +59,20 @@ class _$ChargerDataModelCopyWithImpl<$Res, $Val extends ChargerDataModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ChargerDataModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? station_name = null,
+    Object? station_name = freezed,
     Object? availability = null,
     Object? ports = null,
   }) {
     return _then(_value.copyWith(
-      station_name: null == station_name
+      station_name: freezed == station_name
           ? _value.station_name
           : station_name // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       availability: null == availability
           ? _value.availability
           : availability // ignore: cast_nullable_to_non_nullable
@@ -88,7 +94,7 @@ abstract class _$$ChargerImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'station_name') String station_name,
+      {@JsonKey(name: 'station_name') String? station_name,
       @JsonKey(name: 'availability') String availability,
       @JsonKey(name: 'ev_charger_ports') List<PortDataModel> ports});
 }
@@ -101,18 +107,20 @@ class __$$ChargerImplCopyWithImpl<$Res>
       _$ChargerImpl _value, $Res Function(_$ChargerImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ChargerDataModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? station_name = null,
+    Object? station_name = freezed,
     Object? availability = null,
     Object? ports = null,
   }) {
     return _then(_$ChargerImpl(
-      station_name: null == station_name
+      station_name: freezed == station_name
           ? _value.station_name
           : station_name // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       availability: null == availability
           ? _value.availability
           : availability // ignore: cast_nullable_to_non_nullable
@@ -129,7 +137,7 @@ class __$$ChargerImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$ChargerImpl implements _Charger {
   const _$ChargerImpl(
-      {@JsonKey(name: 'station_name') required this.station_name,
+      {@JsonKey(name: 'station_name') this.station_name,
       @JsonKey(name: 'availability') required this.availability,
       @JsonKey(name: 'ev_charger_ports')
       required final List<PortDataModel> ports})
@@ -140,7 +148,7 @@ class _$ChargerImpl implements _Charger {
 
   @override
   @JsonKey(name: 'station_name')
-  final String station_name;
+  final String? station_name;
   @override
   @JsonKey(name: 'availability')
   final String availability;
@@ -170,12 +178,14 @@ class _$ChargerImpl implements _Charger {
             const DeepCollectionEquality().equals(other._ports, _ports));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, station_name, availability,
       const DeepCollectionEquality().hash(_ports));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ChargerDataModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ChargerImplCopyWith<_$ChargerImpl> get copyWith =>
@@ -191,7 +201,7 @@ class _$ChargerImpl implements _Charger {
 
 abstract class _Charger implements ChargerDataModel {
   const factory _Charger(
-      {@JsonKey(name: 'station_name') required final String station_name,
+      {@JsonKey(name: 'station_name') final String? station_name,
       @JsonKey(name: 'availability') required final String availability,
       @JsonKey(name: 'ev_charger_ports')
       required final List<PortDataModel> ports}) = _$ChargerImpl;
@@ -200,15 +210,18 @@ abstract class _Charger implements ChargerDataModel {
 
   @override
   @JsonKey(name: 'station_name')
-  String get station_name;
+  String? get station_name;
   @override
   @JsonKey(name: 'availability')
   String get availability;
   @override
   @JsonKey(name: 'ev_charger_ports')
   List<PortDataModel> get ports;
+
+  /// Create a copy of ChargerDataModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ChargerImplCopyWith<_$ChargerImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -225,8 +238,12 @@ mixin _$PortDataModel {
   @JsonKey(name: 'power_output')
   PowerOutputDataModel get power_model => throw _privateConstructorUsedError;
 
+  /// Serializes this PortDataModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PortDataModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $PortDataModelCopyWith<PortDataModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -255,6 +272,8 @@ class _$PortDataModelCopyWithImpl<$Res, $Val extends PortDataModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of PortDataModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -273,6 +292,8 @@ class _$PortDataModelCopyWithImpl<$Res, $Val extends PortDataModel>
     ) as $Val);
   }
 
+  /// Create a copy of PortDataModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $PowerPlugTypeDataModelCopyWith<$Res> get power_plug_type {
@@ -282,6 +303,8 @@ class _$PortDataModelCopyWithImpl<$Res, $Val extends PortDataModel>
     });
   }
 
+  /// Create a copy of PortDataModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $PowerOutputDataModelCopyWith<$Res> get power_model {
@@ -317,6 +340,8 @@ class __$$PortDataModelImplCopyWithImpl<$Res>
       _$PortDataModelImpl _value, $Res Function(_$PortDataModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PortDataModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -369,11 +394,13 @@ class _$PortDataModelImpl implements _PortDataModel {
                 other.power_model == power_model));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, power_plug_type, power_model);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PortDataModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PortDataModelImplCopyWith<_$PortDataModelImpl> get copyWith =>
@@ -403,8 +430,11 @@ abstract class _PortDataModel implements PortDataModel {
   @override
   @JsonKey(name: 'power_output')
   PowerOutputDataModel get power_model;
+
+  /// Create a copy of PortDataModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PortDataModelImplCopyWith<_$PortDataModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -20,7 +20,9 @@ mixin _$ChargerMarkerEntity {
   double get latitude => throw _privateConstructorUsedError;
   double get longitude => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ChargerMarkerEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ChargerMarkerEntityCopyWith<ChargerMarkerEntity> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -44,6 +46,8 @@ class _$ChargerMarkerEntityCopyWithImpl<$Res, $Val extends ChargerMarkerEntity>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ChargerMarkerEntity
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -87,6 +91,8 @@ class __$$ChargerMarkerEntityImplCopyWithImpl<$Res>
       $Res Function(_$ChargerMarkerEntityImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ChargerMarkerEntity
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -144,7 +150,9 @@ class _$ChargerMarkerEntityImpl implements _ChargerMarkerEntity {
   @override
   int get hashCode => Object.hash(runtimeType, id, latitude, longitude);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ChargerMarkerEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ChargerMarkerEntityImplCopyWith<_$ChargerMarkerEntityImpl> get copyWith =>
@@ -164,8 +172,11 @@ abstract class _ChargerMarkerEntity implements ChargerMarkerEntity {
   double get latitude;
   @override
   double get longitude;
+
+  /// Create a copy of ChargerMarkerEntity
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ChargerMarkerEntityImplCopyWith<_$ChargerMarkerEntityImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

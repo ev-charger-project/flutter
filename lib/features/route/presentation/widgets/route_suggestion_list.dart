@@ -11,7 +11,7 @@ import '../providers/end_provider.dart';
 import '../providers/start_provider.dart';
 
 class RouteSuggestionList extends ConsumerWidget {
-  final Function(String, String, String, String) onSuggestionSelected;
+  final Function(String, String?, String?, String) onSuggestionSelected;
   final bool isStart;
 
   const RouteSuggestionList({
@@ -77,7 +77,7 @@ class RouteSuggestionList extends ConsumerWidget {
                           maxLines: 2,
                         ),
                         subtitle: Text(
-                          '${suggestion.street}, ${suggestion.district}, ${suggestion.city}',
+                          '${suggestion.street ?? ''}, ${suggestion.district ?? ''}, ${suggestion.city}',
                           style: Theme.of(context).textTheme.bodySmall,
                           maxLines: 2,
                         ),
@@ -89,8 +89,8 @@ class RouteSuggestionList extends ConsumerWidget {
                                 .updateStartLocation(
                                   ChargerMarkerEntity(
                                     id: suggestion.locationName +
-                                        suggestion.street +
-                                        suggestion.district +
+                                        (suggestion.street ?? '') +
+                                        (suggestion.district ?? '') +
                                         suggestion.city,
                                     latitude: suggestion.latitude,
                                     longitude: suggestion.longitude,
@@ -100,8 +100,8 @@ class RouteSuggestionList extends ConsumerWidget {
                             ref.read(endProvider.notifier).updateEndLocation(
                                   ChargerMarkerEntity(
                                     id: suggestion.locationName +
-                                        suggestion.street +
-                                        suggestion.district +
+                                        (suggestion.street ?? '') +
+                                        (suggestion.district ?? '') +
                                         suggestion.city,
                                     latitude: suggestion.latitude,
                                     longitude: suggestion.longitude,

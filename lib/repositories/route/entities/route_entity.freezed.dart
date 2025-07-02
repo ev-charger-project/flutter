@@ -20,7 +20,9 @@ mixin _$RouteEntity {
   List<ChargerEntity> get chargers => throw _privateConstructorUsedError;
   String get hashcode => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of RouteEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $RouteEntityCopyWith<RouteEntity> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -47,6 +49,8 @@ class _$RouteEntityCopyWithImpl<$Res, $Val extends RouteEntity>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of RouteEntity
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -93,6 +97,8 @@ class __$$RouteEntityImplCopyWithImpl<$Res>
       _$RouteEntityImpl _value, $Res Function(_$RouteEntityImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of RouteEntity
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -169,7 +175,9 @@ class _$RouteEntityImpl implements _RouteEntity {
       const DeepCollectionEquality().hash(_chargers),
       hashcode);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of RouteEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$RouteEntityImplCopyWith<_$RouteEntityImpl> get copyWith =>
@@ -188,8 +196,11 @@ abstract class _RouteEntity implements RouteEntity {
   List<ChargerEntity> get chargers;
   @override
   String get hashcode;
+
+  /// Create a copy of RouteEntity
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$RouteEntityImplCopyWith<_$RouteEntityImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -199,7 +210,9 @@ mixin _$RoutePointEntity {
   double get lat => throw _privateConstructorUsedError;
   double get long => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of RoutePointEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $RoutePointEntityCopyWith<RoutePointEntity> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -223,6 +236,8 @@ class _$RoutePointEntityCopyWithImpl<$Res, $Val extends RoutePointEntity>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of RoutePointEntity
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -261,6 +276,8 @@ class __$$RoutePointEntityImplCopyWithImpl<$Res>
       $Res Function(_$RoutePointEntityImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of RoutePointEntity
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -307,7 +324,9 @@ class _$RoutePointEntityImpl implements _RoutePointEntity {
   @override
   int get hashCode => Object.hash(runtimeType, lat, long);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of RoutePointEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$RoutePointEntityImplCopyWith<_$RoutePointEntityImpl> get copyWith =>
@@ -324,8 +343,11 @@ abstract class _RoutePointEntity implements RoutePointEntity {
   double get lat;
   @override
   double get long;
+
+  /// Create a copy of RoutePointEntity
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$RoutePointEntityImplCopyWith<_$RoutePointEntityImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -336,7 +358,9 @@ mixin _$ChargerEntity {
   double get lat => throw _privateConstructorUsedError;
   double get long => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ChargerEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ChargerEntityCopyWith<ChargerEntity> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -360,6 +384,8 @@ class _$ChargerEntityCopyWithImpl<$Res, $Val extends ChargerEntity>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ChargerEntity
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -403,6 +429,8 @@ class __$$ChargerEntityImplCopyWithImpl<$Res>
       _$ChargerEntityImpl _value, $Res Function(_$ChargerEntityImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ChargerEntity
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -458,7 +486,9 @@ class _$ChargerEntityImpl implements _ChargerEntity {
   @override
   int get hashCode => Object.hash(runtimeType, id, lat, long);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ChargerEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ChargerEntityImplCopyWith<_$ChargerEntityImpl> get copyWith =>
@@ -477,8 +507,11 @@ abstract class _ChargerEntity implements ChargerEntity {
   double get lat;
   @override
   double get long;
+
+  /// Create a copy of ChargerEntity
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ChargerEntityImplCopyWith<_$ChargerEntityImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

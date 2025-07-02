@@ -25,10 +25,14 @@ class AgestStorageService extends RemoteStorageService {
     const url = '/api/v1/locations';
 
     try {
+      // print('Fetching location data for ID: $locationId');
+      print('Fetching location data for ID: $locationId');
       final response = await _dio.get('$uri$url/$locationId');
       if (response.statusCode == 200) {
         final dynamic responseData = response.data;
+        print('Response data: $responseData');
         final result = LocationDataModel.fromJson(responseData);
+        print('Location data fetched successfully: $result');
         return result;
       } else {
         throw Exception('Error code: ${response.statusCode}');
@@ -84,6 +88,7 @@ class AgestStorageService extends RemoteStorageService {
     try {
       final response = await _dio.get(fullUrl);
       log('Full fetchMarker URL: $fullUrl');
+      print("Full fetchMarker URL: $fullUrl");
 
       if (response.statusCode == 200) {
         return (response.data as List)
@@ -148,6 +153,7 @@ class AgestStorageService extends RemoteStorageService {
 
     try {
       final response = await _dio.get(fullUrl);
+      print("Full fetchSuggestion URL: $fullUrl");
 
       if (response.statusCode == 200) {
         return (response.data as List)

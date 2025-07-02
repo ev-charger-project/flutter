@@ -24,8 +24,12 @@ mixin _$LocationAmenityDataModel {
   @JsonKey(name: 'amenities')
   AmenityDataModel get amenities => throw _privateConstructorUsedError;
 
+  /// Serializes this LocationAmenityDataModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of LocationAmenityDataModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $LocationAmenityDataModelCopyWith<LocationAmenityDataModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -52,6 +56,8 @@ class _$LocationAmenityDataModelCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of LocationAmenityDataModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -65,6 +71,8 @@ class _$LocationAmenityDataModelCopyWithImpl<$Res,
     ) as $Val);
   }
 
+  /// Create a copy of LocationAmenityDataModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $AmenityDataModelCopyWith<$Res> get amenities {
@@ -99,6 +107,8 @@ class __$$LocationAmenityDataModelImplCopyWithImpl<$Res>
       $Res Function(_$LocationAmenityDataModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of LocationAmenityDataModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -140,11 +150,13 @@ class _$LocationAmenityDataModelImpl implements _LocationAmenityDataModel {
                 other.amenities == amenities));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, amenities);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of LocationAmenityDataModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$LocationAmenityDataModelImplCopyWith<_$LocationAmenityDataModelImpl>
@@ -171,8 +183,11 @@ abstract class _LocationAmenityDataModel implements LocationAmenityDataModel {
   @override
   @JsonKey(name: 'amenities')
   AmenityDataModel get amenities;
+
+  /// Create a copy of LocationAmenityDataModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$LocationAmenityDataModelImplCopyWith<_$LocationAmenityDataModelImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
