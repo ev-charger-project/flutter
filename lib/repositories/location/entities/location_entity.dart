@@ -38,7 +38,7 @@ class LocationEntity with _$LocationEntity {
     String? imageUrl,
     int? totalChargingPorts,
     String? access,
-    String? paymentMethods,
+    List? paymentMethods,
     required List<ChargerEntity> ev_chargers,
     required List<LocationAmenityEntity> locationAmenities,
   }) = _LocationEntity;

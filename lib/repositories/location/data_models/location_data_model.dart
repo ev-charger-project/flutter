@@ -29,7 +29,7 @@ class LocationDataModel with _$LocationDataModel {
     @JsonKey(name: 'image_url') String? imageUrl,
     @JsonKey(name: 'total_charging_ports') int? totalChargingPorts,
     @JsonKey(name: 'access') String? access,
-    @JsonKey(name: 'payment_methods') String? paymentMethods,
+    @JsonKey(name: 'payment_methods') List? paymentMethods,
     @Default([])
     @JsonKey(name: 'ev_chargers')
     List<ChargerDataModel>? ev_chargers,

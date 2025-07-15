@@ -121,7 +121,7 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
               const PowerOutput(),
 
               // Amenities
-              const Amenity(),
+              // const Amenity(),
 
               // buttons "reset" and "apply filter"
               Padding(

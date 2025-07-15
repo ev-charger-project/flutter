@@ -30,7 +30,6 @@ class AgestStorageService extends RemoteStorageService {
       final response = await _dio.get('$uri$url/$locationId');
       if (response.statusCode == 200) {
         final dynamic responseData = response.data;
-        print('Response data: $responseData');
         final result = LocationDataModel.fromJson(responseData);
         print('Location data fetched successfully: $result');
         return result;
@@ -87,8 +86,6 @@ class AgestStorageService extends RemoteStorageService {
 
     try {
       final response = await _dio.get(fullUrl);
-      log('Full fetchMarker URL: $fullUrl');
-      print("Full fetchMarker URL: $fullUrl");
 
       if (response.statusCode == 200) {
         return (response.data as List)
@@ -173,35 +170,35 @@ class AgestStorageService extends RemoteStorageService {
     }
   }
 
-  @override
-  Future<List<String>> fetchDistanceAndDuration(
-      double userLat, double userLong, double desLat, double desLong) async {
-    const apiKey = 'AIzaSyAGYJacplt2I8syt0aY4GXfSNXhKdsXUgM';
-    const url =
-        'https://maps.googleapis.com/maps/api/distancematrix/json?departure_time=now&key=$apiKey';
-    try {
-      final response = await _dio.get(uri + url, queryParameters: {
-        'origins': '$userLat,$userLong',
-        'destinations': '$desLat,$desLong',
-      });
-      if (response.statusCode == 200) {
-        List<String> result = [
-          response.data['rows'][0]['elements'][0]['distance']['text'],
-          '${response.data['rows'][0]['elements'][0]['duration_in_traffic']['value'] ~/ 60} mins',
-        ];
-        return result;
-      } else {
-        throw Exception('Error code: ${response.statusCode}');
-      }
-    } catch (e) {
-      log('Error: $e');
-      if (e is DioException && e.response != null) {
-        throw Exception('Error code: ${e.response?.statusCode}');
-      } else {
-        throw Exception('An unknown error occurred');
-      }
-    }
-  }
+  // @override
+  // Future<List<String>> fetchDistanceAndDuration(
+  //     double userLat, double userLong, double desLat, double desLong) async {
+  //   const apiKey = 'null';
+  //   const url =
+  //       'https://maps.googleapis.com/maps/api/distancematrix/json?departure_time=now&key=$apiKey';
+  //   try {
+  //     final response = await _dio.get(uri + url, queryParameters: {
+  //       'origins': '$userLat,$userLong',
+  //       'destinations': '$desLat,$desLong',
+  //     });
+  //     if (response.statusCode == 200) {
+  //       List<String> result = [
+  //         response.data['rows'][0]['elements'][0]['distance']['text'],
+  //         '${response.data['rows'][0]['elements'][0]['duration_in_traffic']['value'] ~/ 60} mins',
+  //       ];
+  //       return result;
+  //     } else {
+  //       throw Exception('Error code: ${response.statusCode}');
+  //     }
+  //   } catch (e) {
+  //     log('Error: $e');
+  //     if (e is DioException && e.response != null) {
+  //       throw Exception('Error code: ${e.response?.statusCode}');
+  //     } else {
+  //       throw Exception('An unknown error occurred');
+  //     }
+  //   }
+  // }
 
   @override
   Future<List<ChargeTypeDataModel>> fetchChargeTypeData() async {

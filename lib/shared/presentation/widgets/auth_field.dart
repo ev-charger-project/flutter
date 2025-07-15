@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ev_charger/shared/presentation/theme/app_colors.dart';
 
 class AuthField extends StatelessWidget {
   const AuthField({
@@ -28,23 +29,23 @@ class AuthField extends StatelessWidget {
         decoration: InputDecoration(
           hintText: hintText,
           prefixIcon:
-              prefixIcon != null ? Icon(prefixIcon, color: Colors.black) : null,
+              prefixIcon != null ? Icon(prefixIcon, color: AppColors.primary) : null,
           border: const OutlineInputBorder(
             borderSide: BorderSide(
-              color: Colors.black,
+              color: AppColors.primary,
               width: 2.0,
             ),
             borderRadius: BorderRadius.all(
-              Radius.circular(0.0),
+              Radius.circular(12.0),
             ),
           ),
           enabledBorder: const OutlineInputBorder(
             borderSide: BorderSide(
-              color: Colors.black,
+              color: AppColors.primary,
               width: 2.0,
             ),
             borderRadius: BorderRadius.all(
-              Radius.circular(0.0),
+              Radius.circular(12.0),
             ),
           ),
         ),

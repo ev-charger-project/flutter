@@ -45,6 +45,7 @@ class AccountScreen extends ConsumerWidget {
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: width * 0.05),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               if (isAuthenticated == true) ...[
                 const UserProfile(),
@@ -55,6 +56,14 @@ class AccountScreen extends ConsumerWidget {
                     child: Favorite(),
                   ),
                 ),
+              ] else ...[
+                Center(
+                  child: Text(
+                    'Please sign in to view your account details and favorites.',
+                    style: Theme.of(context).textTheme.bodyMedium,
+                    textAlign: TextAlign.center,
+                  ),
+                )
               ],
               Align(
                 alignment: isAuthenticated == true

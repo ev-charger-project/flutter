@@ -19,9 +19,12 @@ final userProvider = FutureProvider.autoDispose<UserEntity>((ref) async {
   if (expiryDate.isBefore(now)) {
     final newToken = await authRepository.refreshToken(tokenData.refresh_token);
     final data = await userRepository.fetchUser(newToken.access_token);
+    print('Token expired, refreshed token: ${newToken.access_token}');
+    print('User data fetched: ${data.username}, ${data.email}');
     return data;
   }
 
   final data = await userRepository.fetchUser(tokenData.access_token);
+  print('User data fetched: ${data.username}, ${data.email}');
   return data;
 });

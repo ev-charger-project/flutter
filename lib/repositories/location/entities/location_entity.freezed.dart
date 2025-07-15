@@ -37,7 +37,7 @@ mixin _$LocationEntity {
   String? get imageUrl => throw _privateConstructorUsedError;
   int? get totalChargingPorts => throw _privateConstructorUsedError;
   String? get access => throw _privateConstructorUsedError;
-  String? get paymentMethods => throw _privateConstructorUsedError;
+  List<dynamic>? get paymentMethods => throw _privateConstructorUsedError;
   List<ChargerEntity> get ev_chargers => throw _privateConstructorUsedError;
   List<LocationAmenityEntity> get locationAmenities =>
       throw _privateConstructorUsedError;
@@ -77,7 +77,7 @@ abstract class $LocationEntityCopyWith<$Res> {
       String? imageUrl,
       int? totalChargingPorts,
       String? access,
-      String? paymentMethods,
+      List<dynamic>? paymentMethods,
       List<ChargerEntity> ev_chargers,
       List<LocationAmenityEntity> locationAmenities});
 }
@@ -210,7 +210,7 @@ class _$LocationEntityCopyWithImpl<$Res, $Val extends LocationEntity>
       paymentMethods: freezed == paymentMethods
           ? _value.paymentMethods
           : paymentMethods // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as List<dynamic>?,
       ev_chargers: null == ev_chargers
           ? _value.ev_chargers
           : ev_chargers // ignore: cast_nullable_to_non_nullable
@@ -253,7 +253,7 @@ abstract class _$$LocationEntityImplCopyWith<$Res>
       String? imageUrl,
       int? totalChargingPorts,
       String? access,
-      String? paymentMethods,
+      List<dynamic>? paymentMethods,
       List<ChargerEntity> ev_chargers,
       List<LocationAmenityEntity> locationAmenities});
 }
@@ -382,9 +382,9 @@ class __$$LocationEntityImplCopyWithImpl<$Res>
           : access // ignore: cast_nullable_to_non_nullable
               as String?,
       paymentMethods: freezed == paymentMethods
-          ? _value.paymentMethods
+          ? _value._paymentMethods
           : paymentMethods // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as List<dynamic>?,
       ev_chargers: null == ev_chargers
           ? _value._ev_chargers
           : ev_chargers // ignore: cast_nullable_to_non_nullable
@@ -422,10 +422,11 @@ class _$LocationEntityImpl implements _LocationEntity {
       this.imageUrl,
       this.totalChargingPorts,
       this.access,
-      this.paymentMethods,
+      final List<dynamic>? paymentMethods,
       required final List<ChargerEntity> ev_chargers,
       required final List<LocationAmenityEntity> locationAmenities})
       : _workingDays = workingDays,
+        _paymentMethods = paymentMethods,
         _ev_chargers = ev_chargers,
         _locationAmenities = locationAmenities;
 
@@ -477,8 +478,16 @@ class _$LocationEntityImpl implements _LocationEntity {
   final int? totalChargingPorts;
   @override
   final String? access;
+  final List<dynamic>? _paymentMethods;
   @override
-  final String? paymentMethods;
+  List<dynamic>? get paymentMethods {
+    final value = _paymentMethods;
+    if (value == null) return null;
+    if (_paymentMethods is EqualUnmodifiableListView) return _paymentMethods;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   final List<ChargerEntity> _ev_chargers;
   @override
   List<ChargerEntity> get ev_chargers {
@@ -539,8 +548,8 @@ class _$LocationEntityImpl implements _LocationEntity {
             (identical(other.totalChargingPorts, totalChargingPorts) ||
                 other.totalChargingPorts == totalChargingPorts) &&
             (identical(other.access, access) || other.access == access) &&
-            (identical(other.paymentMethods, paymentMethods) ||
-                other.paymentMethods == paymentMethods) &&
+            const DeepCollectionEquality()
+                .equals(other._paymentMethods, _paymentMethods) &&
             const DeepCollectionEquality()
                 .equals(other._ev_chargers, _ev_chargers) &&
             const DeepCollectionEquality()
@@ -571,7 +580,7 @@ class _$LocationEntityImpl implements _LocationEntity {
         imageUrl,
         totalChargingPorts,
         access,
-        paymentMethods,
+        const DeepCollectionEquality().hash(_paymentMethods),
         const DeepCollectionEquality().hash(_ev_chargers),
         const DeepCollectionEquality().hash(_locationAmenities)
       ]);
@@ -609,7 +618,7 @@ abstract class _LocationEntity implements LocationEntity {
           final String? imageUrl,
           final int? totalChargingPorts,
           final String? access,
-          final String? paymentMethods,
+          final List<dynamic>? paymentMethods,
           required final List<ChargerEntity> ev_chargers,
           required final List<LocationAmenityEntity> locationAmenities}) =
       _$LocationEntityImpl;
@@ -657,7 +666,7 @@ abstract class _LocationEntity implements LocationEntity {
   @override
   String? get access;
   @override
-  String? get paymentMethods;
+  List<dynamic>? get paymentMethods;
   @override
   List<ChargerEntity> get ev_chargers;
   @override

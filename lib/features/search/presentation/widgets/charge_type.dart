@@ -54,9 +54,9 @@ class _ChargeTypeState extends ConsumerState<ChargeType> {
     log('totalPlugs: $totalPlugs');
 
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: screenSize.height * 0.016),
+      padding: EdgeInsets.symmetric(vertical: screenSize.height * 0.014),
       child: Container(
-        padding: EdgeInsets.all(screenSize.height * 0.016),
+        padding: EdgeInsets.all(screenSize.height * 0.014),
         decoration: BoxDecoration(
           color: Theme.of(context).moreGrey,
           borderRadius: BorderRadius.circular(8),

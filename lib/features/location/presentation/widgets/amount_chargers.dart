@@ -50,13 +50,13 @@ class ChargerNum extends ConsumerWidget {
                       child: Column(
                         children: [
                           // Text('${uniquePorts[index].power_model.outputValue.floor()} kW', style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 10),),
-                          (uniquePorts[index].power_plug_type.plugImage !=
+                          (uniquePorts[index].power_plug_type.plugImageUrl !=
                                       null &&
                                   isValidUrl(uniquePorts[index]
                                       .power_plug_type
-                                      .plugImage!))
+                                      .plugImageUrl!))
                               ? Image.network(
-                                  "http://172.16.11.139:14000/api/v1/media/${uniquePorts[index].power_plug_type.plugImage!}")
+                                  "http://172.16.11.139:14000/api/v1/media/${uniquePorts[index].power_plug_type.plugImageUrl!}")
                               : SvgPicture.asset('assets/icons/plug_icon.svg')
                         ],
                       ),

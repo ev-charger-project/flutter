@@ -62,7 +62,7 @@ class ChargerBox extends StatelessWidget {
               color: Theme.of(context).stationGrey,
             ),
             child: Text(
-              charger.station_name,
+              charger.availability,
               style: Theme.of(context).textTheme.headlineMedium,
             ),
           ),

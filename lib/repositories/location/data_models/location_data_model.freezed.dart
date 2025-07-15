@@ -63,7 +63,7 @@ mixin _$LocationDataModel {
   @JsonKey(name: 'access')
   String? get access => throw _privateConstructorUsedError;
   @JsonKey(name: 'payment_methods')
-  String? get paymentMethods => throw _privateConstructorUsedError;
+  List<dynamic>? get paymentMethods => throw _privateConstructorUsedError;
   @JsonKey(name: 'ev_chargers')
   List<ChargerDataModel>? get ev_chargers => throw _privateConstructorUsedError;
   @JsonKey(name: 'location_amenities')
@@ -108,7 +108,7 @@ abstract class $LocationDataModelCopyWith<$Res> {
       @JsonKey(name: 'image_url') String? imageUrl,
       @JsonKey(name: 'total_charging_ports') int? totalChargingPorts,
       @JsonKey(name: 'access') String? access,
-      @JsonKey(name: 'payment_methods') String? paymentMethods,
+      @JsonKey(name: 'payment_methods') List<dynamic>? paymentMethods,
       @JsonKey(name: 'ev_chargers') List<ChargerDataModel>? ev_chargers,
       @JsonKey(name: 'location_amenities')
       List<LocationAmenityDataModel>? locationAmenities});
@@ -242,7 +242,7 @@ class _$LocationDataModelCopyWithImpl<$Res, $Val extends LocationDataModel>
       paymentMethods: freezed == paymentMethods
           ? _value.paymentMethods
           : paymentMethods // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as List<dynamic>?,
       ev_chargers: freezed == ev_chargers
           ? _value.ev_chargers
           : ev_chargers // ignore: cast_nullable_to_non_nullable
@@ -285,7 +285,7 @@ abstract class _$$LocationDataModelImplCopyWith<$Res>
       @JsonKey(name: 'image_url') String? imageUrl,
       @JsonKey(name: 'total_charging_ports') int? totalChargingPorts,
       @JsonKey(name: 'access') String? access,
-      @JsonKey(name: 'payment_methods') String? paymentMethods,
+      @JsonKey(name: 'payment_methods') List<dynamic>? paymentMethods,
       @JsonKey(name: 'ev_chargers') List<ChargerDataModel>? ev_chargers,
       @JsonKey(name: 'location_amenities')
       List<LocationAmenityDataModel>? locationAmenities});
@@ -415,9 +415,9 @@ class __$$LocationDataModelImplCopyWithImpl<$Res>
           : access // ignore: cast_nullable_to_non_nullable
               as String?,
       paymentMethods: freezed == paymentMethods
-          ? _value.paymentMethods
+          ? _value._paymentMethods
           : paymentMethods // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as List<dynamic>?,
       ev_chargers: freezed == ev_chargers
           ? _value._ev_chargers
           : ev_chargers // ignore: cast_nullable_to_non_nullable
@@ -456,12 +456,13 @@ class _$LocationDataModelImpl implements _LocationDataModel {
       @JsonKey(name: 'image_url') this.imageUrl,
       @JsonKey(name: 'total_charging_ports') this.totalChargingPorts,
       @JsonKey(name: 'access') this.access,
-      @JsonKey(name: 'payment_methods') this.paymentMethods,
+      @JsonKey(name: 'payment_methods') final List<dynamic>? paymentMethods,
       @JsonKey(name: 'ev_chargers')
       final List<ChargerDataModel>? ev_chargers = const [],
       @JsonKey(name: 'location_amenities')
       final List<LocationAmenityDataModel>? locationAmenities = const []})
       : _workingDays = workingDays,
+        _paymentMethods = paymentMethods,
         _ev_chargers = ev_chargers,
         _locationAmenities = locationAmenities;
 
@@ -539,9 +540,17 @@ class _$LocationDataModelImpl implements _LocationDataModel {
   @override
   @JsonKey(name: 'access')
   final String? access;
+  final List<dynamic>? _paymentMethods;
   @override
   @JsonKey(name: 'payment_methods')
-  final String? paymentMethods;
+  List<dynamic>? get paymentMethods {
+    final value = _paymentMethods;
+    if (value == null) return null;
+    if (_paymentMethods is EqualUnmodifiableListView) return _paymentMethods;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   final List<ChargerDataModel>? _ev_chargers;
   @override
   @JsonKey(name: 'ev_chargers')
@@ -607,8 +616,8 @@ class _$LocationDataModelImpl implements _LocationDataModel {
             (identical(other.totalChargingPorts, totalChargingPorts) ||
                 other.totalChargingPorts == totalChargingPorts) &&
             (identical(other.access, access) || other.access == access) &&
-            (identical(other.paymentMethods, paymentMethods) ||
-                other.paymentMethods == paymentMethods) &&
+            const DeepCollectionEquality()
+                .equals(other._paymentMethods, _paymentMethods) &&
             const DeepCollectionEquality()
                 .equals(other._ev_chargers, _ev_chargers) &&
             const DeepCollectionEquality()
@@ -640,7 +649,7 @@ class _$LocationDataModelImpl implements _LocationDataModel {
         imageUrl,
         totalChargingPorts,
         access,
-        paymentMethods,
+        const DeepCollectionEquality().hash(_paymentMethods),
         const DeepCollectionEquality().hash(_ev_chargers),
         const DeepCollectionEquality().hash(_locationAmenities)
       ]);
@@ -685,7 +694,7 @@ abstract class _LocationDataModel implements LocationDataModel {
       @JsonKey(name: 'image_url') final String? imageUrl,
       @JsonKey(name: 'total_charging_ports') final int? totalChargingPorts,
       @JsonKey(name: 'access') final String? access,
-      @JsonKey(name: 'payment_methods') final String? paymentMethods,
+      @JsonKey(name: 'payment_methods') final List<dynamic>? paymentMethods,
       @JsonKey(name: 'ev_chargers') final List<ChargerDataModel>? ev_chargers,
       @JsonKey(name: 'location_amenities')
       final List<LocationAmenityDataModel>?
@@ -759,7 +768,7 @@ abstract class _LocationDataModel implements LocationDataModel {
   String? get access;
   @override
   @JsonKey(name: 'payment_methods')
-  String? get paymentMethods;
+  List<dynamic>? get paymentMethods;
   @override
   @JsonKey(name: 'ev_chargers')
   List<ChargerDataModel>? get ev_chargers;

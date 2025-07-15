@@ -37,14 +37,14 @@ class PortBox extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             Expanded(
-              child: port.power_plug_type.plugImage != null
-                  ? (p.extension(port.power_plug_type.plugImage!) == ".svg"
+              child: port.power_plug_type.plugImageUrl != null
+                  ? (p.extension(port.power_plug_type.plugImageUrl!) == ".svg"
                       ? SvgPicture.network(
-                          "${constants.uri}${constants.mediaUrl}/${port.power_plug_type.plugImage!}",
+                          "${constants.uri}${constants.mediaUrl}/${port.power_plug_type.plugImageUrl!}",
                           width: 48,
                           height: 48)
                       : Image.network(
-                          "${constants.uri}${constants.mediaUrl}/${port.power_plug_type.plugImage!}",
+                          "${constants.uri}${constants.mediaUrl}/${port.power_plug_type.plugImageUrl!}",
                           width: 48,
                           height: 48))
                   : SvgPicture.asset('assets/icons/plug_icon.svg'),

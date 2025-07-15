@@ -43,7 +43,7 @@ class FlutterSecureStorageService extends SecureStorageService {
   Future<TokenAdapterObject?> getToken() async {
     final accessToken = await _storage.read(key: 'access_token');
     final refreshToken = await _storage.read(key: 'refresh_token');
-
+    print('accessToken: $accessToken, refreshToken: $refreshToken');
     return accessToken != null && refreshToken != null
         ? TokenAdapterObject(
             access_token: accessToken, refresh_token: refreshToken)

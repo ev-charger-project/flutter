@@ -100,72 +100,72 @@ class _InfoContentState extends ConsumerState<InfoContent> {
     );
   }
 
-  Widget _buildAmenitiesSection(
-      List<LocationAmenityEntity> locationAmenitiesData) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: Colors.white,
-          width: 1.0,
-        ),
-        color: Theme.of(context).stationGrey,
-      ),
-      child: ExpandablePanel(
-        header: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Text(
-            'Amenities',
-            style: Theme.of(context).textTheme.bodySmall,
-          ),
-        ),
-        collapsed: Container(), // Nothing to show when collapsed
-        expanded: Column(
-          children: locationAmenitiesData.map((entry) {
-            return Container(
-              decoration: BoxDecoration(
-                border: const Border(
-                  top: BorderSide(
-                    color: Colors.white,
-                    width: 2.0,
-                  ),
-                ),
-                color: Theme.of(context).stationGrey,
-              ),
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    p.extension(entry.amenities.imageUrl) == ".svg"
-                        ? SvgPicture.network(
-                            '${constants.uri}${constants.mediaUrl}/${entry.amenities.imageUrl}',
-                            width: 24,
-                            height: 24,
-                          )
-                        : Image.network(
-                            '${constants.uri}${constants.mediaUrl}/${entry.amenities.imageUrl}',
-                            width: 24,
-                            height: 24),
-                    const SizedBox(width: 12),
-                    Text(
-                      entry.amenities.amenity,
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                  ],
-                ),
-              ),
-            );
-          }).toList(),
-        ),
-        theme: const ExpandableThemeData(
-          tapHeaderToExpand: true,
-          hasIcon: true,
-          headerAlignment: ExpandablePanelHeaderAlignment.center,
-        ),
-      ),
-    );
-  }
+  // Widget _buildAmenitiesSection(
+  //     List<LocationAmenityEntity> locationAmenitiesData) {
+  //   return Container(
+  //     decoration: BoxDecoration(
+  //       border: Border.all(
+  //         color: Colors.white,
+  //         width: 1.0,
+  //       ),
+  //       color: Theme.of(context).stationGrey,
+  //     ),
+  //     child: ExpandablePanel(
+  //       header: Container(
+  //         padding: const EdgeInsets.symmetric(horizontal: 16.0),
+  //         child: Text(
+  //           'Amenities',
+  //           style: Theme.of(context).textTheme.bodySmall,
+  //         ),
+  //       ),
+  //       collapsed: Container(), // Nothing to show when collapsed
+  //       expanded: Column(
+  //         children: locationAmenitiesData.map((entry) {
+  //           return Container(
+  //             decoration: BoxDecoration(
+  //               border: const Border(
+  //                 top: BorderSide(
+  //                   color: Colors.white,
+  //                   width: 2.0,
+  //                 ),
+  //               ),
+  //               color: Theme.of(context).stationGrey,
+  //             ),
+  //             child: Padding(
+  //               padding:
+  //                   const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+  //               child: Row(
+  //                 mainAxisAlignment: MainAxisAlignment.start,
+  //                 children: [
+  //                   p.extension(entry.amenities.imageUrl) == ".svg"
+  //                       ? SvgPicture.network(
+  //                           '${constants.uri}${constants.mediaUrl}/${entry.amenities.imageUrl}',
+  //                           width: 24,
+  //                           height: 24,
+  //                         )
+  //                       : Image.network(
+  //                           '${constants.uri}${constants.mediaUrl}/${entry.amenities.imageUrl}',
+  //                           width: 24,
+  //                           height: 24),
+  //                   const SizedBox(width: 12),
+  //                   Text(
+  //                     entry.amenities.amenity,
+  //                     style: Theme.of(context).textTheme.titleMedium,
+  //                   ),
+  //                 ],
+  //               ),
+  //             ),
+  //           );
+  //         }).toList(),
+  //       ),
+  //       theme: const ExpandableThemeData(
+  //         tapHeaderToExpand: true,
+  //         hasIcon: true,
+  //         headerAlignment: ExpandablePanelHeaderAlignment.center,
+  //       ),
+  //     ),
+  //   );
+  // }
 
   Widget _buildWorkingHoursList(List<Map<String, String>> workingHours) {
     return Container(
@@ -267,7 +267,7 @@ class _InfoContentState extends ConsumerState<InfoContent> {
           final String? longText = location.description;
           final List<Map<String, String>> data = [];
           final List<Map<String, String>> workingHours = [];
-          final List<Map<String, String>> locationAmenities = [];
+          // final List<Map<String, String>> locationAmenities = [];
           if (location.pricing != null && location.pricing!.isNotEmpty) {
             data.add({
               AppLocalizations.of(context).translate('Fee'): location.pricing!
@@ -311,7 +311,7 @@ class _InfoContentState extends ConsumerState<InfoContent> {
               _buildAboutSection(longText),
               _buildDataList(data),
               _buildWorkingHoursList(workingHours),
-              _buildAmenitiesSection(location.locationAmenities),
+              // _buildAmenitiesSection(location.locationAmenities),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10.0),
                 child: Divider(

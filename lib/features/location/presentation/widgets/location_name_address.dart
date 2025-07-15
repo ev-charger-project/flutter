@@ -33,7 +33,7 @@ class LocationNameAddress extends ConsumerWidget {
             ),
             const SizedBox(height: 10),
             Text(
-              '${location.street}, ${location.district}, ${location.city}',
+              '${location.houseNumber != null ? '${location.houseNumber}, ' : ''}${location.street}, ${location.district != null ? '${location.street}, ' : ''}${location.city}',
               style: Theme.of(context).textTheme.bodyMedium,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,

@@ -33,7 +33,7 @@ _$LocationDataModelImpl _$$LocationDataModelImplFromJson(
       imageUrl: json['image_url'] as String?,
       totalChargingPorts: (json['total_charging_ports'] as num?)?.toInt(),
       access: json['access'] as String?,
-      paymentMethods: json['payment_methods'] as String?,
+      paymentMethods: json['payment_methods'] as List<dynamic>?,
       ev_chargers: (json['ev_chargers'] as List<dynamic>?)
               ?.map((e) => ChargerDataModel.fromJson(e as Map<String, dynamic>))
               .toList() ??
