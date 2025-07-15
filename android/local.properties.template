@@ -1,0 +1,42 @@
+# EV Charger App - Local Configuration Template
+# Copy this file to local.properties and fill in your actual values
+
+# Android SDK Configuration
+sdk.dir=C:\\Users\\YourUser\\AppData\\Local\\Android\\Sdk
+flutter.sdk=C:\\flutter\\flutter
+flutter.buildMode=debug
+flutter.versionName=1.0.0
+flutter.versionCode=1
+
+# ========================================
+# API KEYS - SECURE CONFIGURATION
+# ========================================
+# Google Maps API Key
+# Get your API key from: https://console.cloud.google.com/
+# Enable these APIs: Maps SDK for Android, Places API, Geocoding API
+GOOGLE_MAPS_API_KEY=YOUR_GOOGLE_MAPS_API_KEY_HERE
+
+# ========================================
+# INSTRUCTIONS FOR SETUP
+# ========================================
+# 1. Go to Google Cloud Console (https://console.cloud.google.com/)
+# 2. Create a new project or select existing one
+# 3. Enable the following APIs:
+#    - Maps SDK for Android
+#    - Places API
+#    - Geocoding API
+#    - Directions API
+# 4. Create credentials (API Key)
+# 5. Restrict the API key to Android apps
+# 6. Add your app's package name: com.ev_charger
+# 7. Add your SHA-1 certificate fingerprint
+# 8. Replace YOUR_GOOGLE_MAPS_API_KEY_HERE with your actual key
+
+# ========================================
+# SECURITY NOTES
+# ========================================
+# - Never commit this file to version control
+# - Keep your API keys secure and private
+# - Use different keys for development and production
+# - Enable API key restrictions in Google Cloud Console
+# - Monitor API usage regularly

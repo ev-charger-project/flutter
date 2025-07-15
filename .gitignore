@@ -1,3 +1,6 @@
+# ===============================================
+# FLUTTER CORE FILES
+# ===============================================
 .dart_tool/
 .idea/
 .vscode/
@@ -7,7 +10,6 @@ android/local.properties
 .flutter-plugins
 .flutter-plugins-dependencies
 .gradle/
-build/
 !gradle/wrapper/gradle-wrapper.jar
 !gradle/wrapper/gradle-wrapper.properties
 ios/Flutter/Generated.xcconfig
@@ -15,4 +17,202 @@ ios/Flutter/flutter_export_environment.sh
 ios/Runner/GeneratedPluginRegistrant.h
 ios/Runner/GeneratedPluginRegistrant.m
 android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java
+
+# ===============================================
+# SECURITY SENSITIVE FILES & API KEYS
+# ===============================================
+# Environment variables and configuration
+.env
+.env.local
+.env.production
+.env.staging
+.env.development
+.env.test
+config.json
+secrets.json
+app_config.json
+
+# API Keys and Authentication
+**/google-services.json
+**/GoogleService-Info.plist
+android/app/google-services.json
+ios/Runner/GoogleService-Info.plist
+android/key.properties
+android/app/src/main/res/values/strings.xml
+firebase_options.dart
+lib/core/config/api_keys.dart
+lib/config/secrets.dart
+
+# Certificates and Keystores
+*.keystore
+*.jks
+*.p12
+*.pfx
+*.cer
+*.crt
+*.pem
+android/app/upload-keystore.jks
+android/app/debug.keystore
+android/app/release.keystore
+key.properties
+
+# ===============================================
+# FLUTTER ARCHITECTURE SPECIFIC
+# ===============================================
+# Generated files
+*.g.dart
+*.freezed.dart
+*.config.dart
+*.chopper.dart
+*.mocks.dart
+lib/generated/
+lib/l10n/generated/
+
+# Build and cache
+.flutter-plugins-dependencies
+.packages
+pubspec.lock.backup
+coverage/
+test_coverage/
+
+# ===============================================
+# DEVELOPMENT & DEBUGGING
+# ===============================================
+# Logs
 *.log
+logs/
+crash_reports/
+debug_logs/
+flutter_logs/
+
+# Testing
+coverage/
+test_coverage/
+test_driver/
+integration_test/reports/
+screenshots/
+
+# ===============================================
+# PLATFORM SPECIFIC
+# ===============================================
+# Android
+android/app/release/
+android/app/debug/
+android/app/profile/
+android/app/build/
+android/gradle/
+android/.gradle/
+android/local.properties
+android/app/src/main/res/drawable-*/ic_launcher.png
+android/app/src/debug/
+android/app/src/profile/
+android/app/src/release/
+
+# iOS
+ios/Runner.xcworkspace/xcuserdata/
+ios/Runner.xcodeproj/xcuserdata/
+ios/Runner.xcodeproj/project.xcworkspace/xcuserdata/
+ios/Flutter/flutter_export_environment.sh
+ios/ServiceDefinitions.json
+ios/Runner/GeneratedPluginRegistrant.*
+
+# ===============================================
+# THIRD PARTY SERVICES
+# ===============================================
+# Firebase
+firebase_app_id_file.json
+firebase-debug.log
+firebase-debug.*.log
+
+# Crashlytics
+crashlytics-mapping.txt
+
+# Google Maps
+google_maps_api_key.txt
+
+# ===============================================
+# SENSITIVE USER DATA
+# ===============================================
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+*.realm
+app.db
+data/
+
+# Cache and temporary files
+tmp/
+temp/
+cache/
+.tmp/
+.cache/
+
+# ===============================================
+# DEVELOPMENT TOOLS
+# ===============================================
+# IDEs and editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Code generation
+*.generated.dart
+
+# ===============================================
+# DEPLOYMENT & CI/CD
+# ===============================================
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/
+fastlane/test_output/
+
+# GitHub Actions secrets
+.github/workflows/secrets/
+
+# ===============================================
+# BACKUP & TEMPORARY FILES
+# ===============================================
+# System files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Backup files
+*.backup
+*.bak
+*.tmp
+
+# ===============================================
+# ANALYSIS & REPORTING
+# ===============================================
+# Code analysis
+analysis_options.local.yaml
+.flutter_tool_state
+.metadata
+
+# Performance profiling
+profile_reports/
+memory_usage.txt
+
+# ===============================================
+# CUSTOM PROJECT FILES
+# ===============================================
+# Documentation drafts
+docs/drafts/
+TODO.md
+NOTES.md
+
+# Local scripts
+scripts/local/
+run_local.sh
+test_local.sh
