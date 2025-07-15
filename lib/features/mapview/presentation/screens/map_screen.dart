@@ -34,6 +34,7 @@ class MapScreen extends ConsumerStatefulWidget {
 class _MapScreenState extends ConsumerState<MapScreen>
     with WidgetsBindingObserver {
   final GlobalKey _shortInfoKey = GlobalKey();
+  LatLng center = _fixedLocation;
   double _dragOffset = 0;
 
   double getShortInfoHeight() {
@@ -44,7 +45,6 @@ class _MapScreenState extends ConsumerState<MapScreen>
 
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
-  GoogleMapController? _mapController;
   final List<Marker> _markers = <Marker>[];
   static const LatLng _fixedLocation = LatLng(10.8023163, 106.6645121);
 
@@ -71,22 +71,16 @@ class _MapScreenState extends ConsumerState<MapScreen>
   @override
   void initState() {
     super.initState();
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: Color(0x9B606060),
+      statusBarIconBrightness: Brightness.light,
+    ));
     _searchController = TextEditingController();
 
     WidgetsBinding.instance.addObserver(this);
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await ref.read(permissionProvider.notifier).reCheckPermission();
-      final permissionState = ref.read(permissionProvider);
-      final openAppState = ref.read(openAppProvider.notifier).state;
-
-      if (!permissionState.hasPermission && openAppState) {
-        ref.read(openAppProvider.notifier).state = false;
-        showDialog(
-          context: context,
-          builder: (context) => const PermissionScreen(),
-        );
-      }
     });
   }
 
@@ -185,13 +179,12 @@ class _MapScreenState extends ConsumerState<MapScreen>
             onMapCreated: (GoogleMapController controller) {
               if (!_controller.isCompleted) {
                 _controller.complete(controller);
-                _mapController = controller;
               }
             },
             onCameraIdle: () async {
               final GoogleMapController controller = await _controller.future;
               LatLngBounds visibleRegion = await controller.getVisibleRegion();
-              LatLng center = LatLng(
+              center = LatLng(
                 (visibleRegion.northeast.latitude +
                         visibleRegion.southwest.latitude) /
                     2,
@@ -203,7 +196,7 @@ class _MapScreenState extends ConsumerState<MapScreen>
             },
             onTap: (LatLng position) async {
               ref.read(isInfoVisibleProvider.notifier).state = false;
-              await _animateCameraToPosition(position, zoom: 16.0);
+              await _animateCameraToPosition(position, zoom: currentZoom);
             },
           ),
           Positioned(
@@ -228,7 +221,7 @@ class _MapScreenState extends ConsumerState<MapScreen>
           AnimatedPositioned(
             key: _shortInfoKey,
             duration: const Duration(milliseconds: 300),
-            bottom: isInfoVisible ? _dragOffset : -300,
+            bottom: isInfoVisible ? _dragOffset : -800,
             left: 0,
             right: 0,
             child: ShortInfoUI(
@@ -240,9 +233,10 @@ class _MapScreenState extends ConsumerState<MapScreen>
                   }
                 });
               },
-              onDragEnd: () {
+              onDragEnd: () async {
                 if (_dragOffset < -100) {
                   ref.read(isInfoVisibleProvider.notifier).state = false;
+                  await _animateCameraToPosition(center, zoom: currentZoom);
                   _dragOffset = 0;
                 } else {
                   setState(() {
@@ -259,6 +253,7 @@ class _MapScreenState extends ConsumerState<MapScreen>
             child: FloatingActionButton(
               shape: const CircleBorder(),
               onPressed: () async {
+                ref.read(isInfoVisibleProvider.notifier).state = false;
                 await _checkLocationPermission();
               },
               child: SizedBox(

@@ -5,6 +5,8 @@ import '../features/location/presentation/screens/location_screen.dart';
 import '../features/signin/presentation/screens/sign_in_screen.dart';
 import '../features/signup/presentation/screens/sign_up_screen.dart';
 import '../features/mapview/presentation/screens/map_screen.dart';
+import '../features/route/presentation/screens/route_screen.dart';
+import '../features/route/presentation/screens/route_search_screen.dart';
 import '../features/search/presentation/screens/filter_screen.dart';
 import '../features/splash/screens/splash_screen.dart';
 import '../features/account/presentation/screens/account_screen.dart';
@@ -41,8 +43,20 @@ class AppRouter extends _$AppRouter {
             initial: false),
         CustomRoute(
           page: FilterRoute.page,
-          transitionsBuilder: TransitionsBuilders.slideLeft,
-          durationInMilliseconds: 800,
+          transitionsBuilder: TransitionsBuilders.slideLeftWithFade,
+          durationInMilliseconds: 400,
+          initial: false,
+        ),
+        CustomRoute(
+          page: RouteSearchRoute.page,
+          transitionsBuilder: TransitionsBuilders.fadeIn,
+          durationInMilliseconds: 400,
+          initial: false,
+        ),
+        CustomRoute(
+          page: RouteRoute.page,
+          transitionsBuilder: TransitionsBuilders.fadeIn,
+          durationInMilliseconds: 400,
           initial: false,
         ),
         CustomRoute(

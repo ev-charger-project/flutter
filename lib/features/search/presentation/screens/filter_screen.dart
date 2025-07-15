@@ -12,7 +12,6 @@ import 'package:ev_charger/shared/presentation/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:hive/hive.dart';
 
 import '../../../../shared/presentation/widgets/button.dart';
 import 'package:ev_charger/features/search/presentation/widgets/widgets.dart';
@@ -113,7 +112,7 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
           child: Column(
             children: [
               // station count
-              StationCount(),
+              const StationCount(),
 
               // charge type
               const ChargeType(),
@@ -126,7 +125,8 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
 
               // buttons "reset" and "apply filter"
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 12),
+                padding:
+                    EdgeInsets.symmetric(vertical: screenSize.height * 0.016),
                 child: Row(
                   children: [
                     // Reset button
@@ -220,19 +220,22 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                         print("Reset pressed");
                         Navigator.pop(context);
                       },
-                      fillColor: Color(0xFFBCDEC5),
+                      fillColor: Theme.of(context).lightGreen,
                       border: false,
                       shadow: true,
-                      shadowOpacity: 0.25,
-                      child: const Text(
+                      shadowOpacity: 0.24,
+                      child: Text(
                         "Reset",
-                        style:
-                            TextStyle(color: Color(0xFF34A853), fontSize: 17),
+                        style: TextStyle(
+                          color: Theme.of(context).primaryColor,
+                          fontSize: 18,
+                          fontFamily: 'Exo',
+                        ),
                       ),
                     ),
 
-                    const SizedBox(
-                      width: 20,
+                    SizedBox(
+                      width: screenSize.width * 0.04,
                     ),
 
                     // Apply Filter button
@@ -334,14 +337,19 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                         ref.refresh(markerProvider);
                         print("Updated Filter: ${ref.read(filterProvider)}");
                         print("Apply pressed");
+                        Navigator.pop(context);
                       },
-                      fillColor: Color(0xFF34A853),
+                      fillColor: Theme.of(context).primaryColor,
                       border: false,
                       shadow: true,
-                      shadowOpacity: 0.35,
-                      child: const Text(
+                      shadowOpacity: 0.34,
+                      child: Text(
                         "Apply Filter",
-                        style: TextStyle(color: Colors.white, fontSize: 17),
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.secondary,
+                          fontSize: 18,
+                          fontFamily: 'Exo',
+                        ),
                       ),
                     ),
                   ],

@@ -235,7 +235,7 @@ class _InfoContentState extends ConsumerState<InfoContent> {
         (index) => Padding(
           padding: const EdgeInsets.all(1),
           child: Container(
-            color: const Color(0x99e8e8e8),
+            color: Theme.of(context).stationGrey,
             padding:
                 const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
             child: Row(
@@ -303,7 +303,7 @@ class _InfoContentState extends ConsumerState<InfoContent> {
           // }
 
           WidgetsBinding.instance
-              ?.addPostFrameCallback((_) => _checkTextOverflow());
+              .addPostFrameCallback((_) => _checkTextOverflow());
 
           return Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,

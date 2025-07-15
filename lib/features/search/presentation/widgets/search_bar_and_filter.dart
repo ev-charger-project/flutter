@@ -78,8 +78,6 @@ class _SearchBarAndFilterState extends ConsumerState<SearchBarAndFilter> {
     final iconColor = ref.watch(SearchIconColorProvider);
     final borderColor = ref.watch(FilterBorderColorProvider);
     final screenSize = MediaQuery.of(context).size;
-    final isPortrait =
-        MediaQuery.of(context).orientation == Orientation.portrait;
 
     // Define responsive values
     final EdgeInsets padding = EdgeInsets.symmetric(
@@ -130,8 +128,8 @@ class _SearchBarAndFilterState extends ConsumerState<SearchBarAndFilter> {
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(
-                        color: Color(0xFFA8CAB1),
+                      borderSide: BorderSide(
+                        color: Theme.of(context).darkerLightGreen,
                         width: 2,
                       ),
                     ),
@@ -146,7 +144,7 @@ class _SearchBarAndFilterState extends ConsumerState<SearchBarAndFilter> {
           SizedBox(width: screenSize.width * 0.015),
           Container(
             decoration: BoxDecoration(
-              color: const Color(0xFFECE6F0),
+              color: Theme.of(context).lightGrey,
               borderRadius: BorderRadius.circular(10),
               border: borderColor != null
                   ? Border.all(

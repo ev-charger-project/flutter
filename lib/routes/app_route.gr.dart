@@ -45,6 +45,18 @@ abstract class _$AppRouter extends RootStackRouter {
         ),
       );
     },
+    RouteRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const RouteScreen(),
+      );
+    },
+    RouteSearchRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const RouteSearchScreen(),
+      );
+    },
     SearchRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -154,6 +166,34 @@ class MapRouteArgs {
   String toString() {
     return 'MapRouteArgs{key: $key, latitude: $latitude, longitude: $longitude}';
   }
+}
+
+/// generated route for
+/// [RouteScreen]
+class RouteRoute extends PageRouteInfo<void> {
+  const RouteRoute({List<PageRouteInfo>? children})
+      : super(
+          RouteRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'RouteRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [RouteSearchScreen]
+class RouteSearchRoute extends PageRouteInfo<void> {
+  const RouteSearchRoute({List<PageRouteInfo>? children})
+      : super(
+          RouteSearchRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'RouteSearchRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for

@@ -50,7 +50,7 @@ class SimpleBottomAppBar extends StatelessWidget {
             context.router.push(const RouteSearchRoute());
           }
         };
-        isSelected = _isCurrentRoute(context, LocationRoute.name);
+        isSelected = _isCurrentRoute(context, RouteSearchRoute.name);
         break;
       case BottomAppBarButton.account:
         assetName = 'assets/icons/account_icon.svg';

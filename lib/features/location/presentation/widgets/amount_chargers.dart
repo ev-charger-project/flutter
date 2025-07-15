@@ -65,7 +65,7 @@ class ChargerNum extends ConsumerWidget {
                 ),
               ),
               Text(
-                '$chargers chargers',
+                '$chargers ${AppLocalizations.of(context).translate('Chargers')}',
                 style: Theme.of(context).primaryTextTheme.bodyLarge?.copyWith(),
                 textAlign: TextAlign.left,
               ),

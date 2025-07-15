@@ -4,6 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 
+import '../providers/power_output/power_output_values_provider.dart';
+import '../../../../shared/core/localization/localization.dart';
+
 class PowerOutput extends ConsumerStatefulWidget {
   const PowerOutput({super.key});
 
@@ -12,9 +15,6 @@ class PowerOutput extends ConsumerStatefulWidget {
 }
 
 class _PowerOutputState extends ConsumerState<PowerOutput> {
-  // Define Sf Range Slider values
-  SfRangeValues _currentRangeValues = const SfRangeValues(0, 120);
-
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
@@ -22,11 +22,11 @@ class _PowerOutputState extends ConsumerState<PowerOutput> {
     var currentRangeValues = ref.watch(rangeValuesProvider);
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 12),
+      padding: EdgeInsets.symmetric(vertical: screenSize.height * 0.016),
       child: Container(
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.all(screenSize.height * 0.016),
         decoration: BoxDecoration(
-          color: Theme.of(context).powerOutputGrey,
+          color: Theme.of(context).moreGrey,
           borderRadius: BorderRadius.circular(8),
         ),
         child: Column(
@@ -48,20 +48,15 @@ class _PowerOutputState extends ConsumerState<PowerOutput> {
             ),
             SfRangeSliderTheme(
               data: SfRangeSliderThemeData(
-                activeTrackColor: Color(0xFF34A853),
-                inactiveTrackColor: Color(0xFFE1F7C5),
-                thumbColor: Colors.white,
-                thumbStrokeColor: Color(0xFF34A853),
-                thumbStrokeWidth: 2,
-                tooltipBackgroundColor: Color(0xFF34A853),
-                tooltipTextStyle: TextStyle(
-                  color: Colors.white,
-                ),
-                activeLabelStyle: TextStyle(
-                  color: Colors.black,
-                  fontSize: 14,
-                ),
-              ),
+                  activeTrackColor: Theme.of(context).primaryColor,
+                  inactiveTrackColor: Theme.of(context).lightLimeGreen,
+                  thumbColor: Theme.of(context).colorScheme.secondary,
+                  thumbStrokeColor: Theme.of(context).primaryColor,
+                  thumbStrokeWidth: 2,
+                  tooltipBackgroundColor: Theme.of(context).primaryColor,
+                  tooltipTextStyle:
+                      TextStyle(color: Theme.of(context).colorScheme.secondary),
+                  activeLabelStyle: Theme.of(context).textTheme.bodySmall),
               child: SfRangeSlider(
                 min: 0,
                 max: 360,
@@ -79,6 +74,8 @@ class _PowerOutputState extends ConsumerState<PowerOutput> {
                         values.start.roundToDouble(),
                         values.end.roundToDouble());
                   });
+                  ref.read(rangeValuesProvider.notifier).state = SfRangeValues(
+                      values.start.roundToDouble(), values.end.roundToDouble());
                 },
               ),
             ),

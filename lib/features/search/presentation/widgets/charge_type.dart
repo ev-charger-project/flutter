@@ -15,7 +15,7 @@ class ChargeType extends ConsumerStatefulWidget {
   const ChargeType({super.key});
 
   @override
-  ConsumerState createState() => _ChargeTypeState();
+  ConsumerState<ChargeType> createState() => _ChargeTypeState();
 }
 
 class _ChargeTypeState extends ConsumerState<ChargeType> {
@@ -58,7 +58,7 @@ class _ChargeTypeState extends ConsumerState<ChargeType> {
       child: Container(
         padding: EdgeInsets.all(screenSize.height * 0.014),
         decoration: BoxDecoration(
-          color: Color(0xFFE9E9E9),
+          color: Theme.of(context).moreGrey,
           borderRadius: BorderRadius.circular(8),
         ),
         child: Column(
@@ -101,154 +101,46 @@ class _ChargeTypeState extends ConsumerState<ChargeType> {
                 ),
               ],
             ),
-            const Divider(
-              color: Color(0xFFCBCBCB),
+            Divider(
+              color: Theme.of(context).dividerColor,
             ),
             Container(
-              padding: const EdgeInsets.only(left: 12),
-              child: Column(
-                children: List.generate(6, (index) {
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          SvgPicture.asset('assets/icons/charger_icon.svg'),
-                          SizedBox(width: 8),
-                          Text(
-                              "CCS${(index + 1) % 2 == 0 ? ((index + 1) ~/ 2) : ((index + 1) ~/ 2 + 1)} • ${index % 2 == 0 ? 'AC' : 'DC'}"),
-                        ],
-                      ),
-                      Checkbox(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(4.0),
-                        ),
-                        side: BorderSide(
-                          width: 2,
-                          style: BorderStyle.solid,
-                          color: Color(0xFF34A853),
-                        ),
-                        activeColor: Color(0xFF34A853),
-                        checkColor: Colors.white,
-                        value: isCheckedList[index],
-                        onChanged: (bool? value) {
-                          setState(() {
-                            isCheckedList[index] = value!;
-                          });
-                        },
-                      ),
-                    ],
-                  );
-                }),
-                /*children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  children: [
-                                    SvgPicture.asset(
-                                        'assets/icons/charger_icon.svg'),
-                                    SizedBox(width: 8),
-                                    Text("CCS1 • AC"),
-                                  ],
-                                ),
-                                Checkbox(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(4.0),
-                                  ),
-                                  side: BorderSide(
-                                    width: 2,
-                                    style: BorderStyle.solid,
-                                    color: Color(0xFF34A853),
-                                  ),
-                                  activeColor: Color(0xFF34A853),
-                                  checkColor: Colors.white,
-                                  value: isChecked,
-                                  onChanged: (bool? value) {
-                                    setState(() {
-                                      isChecked = value;
-                                    });
-                                  },
-                                ),
-                              ],
-                            ),
-
-                          ],*/
-              ),
+              padding: EdgeInsets.only(left: screenSize.width * 0.022),
+              child: Column(children: visiblePlugs),
             ),
-            const Divider(
-              color: Color(0xFFCBCBCB),
+            Divider(
+              color: Theme.of(context).dividerColor,
             ),
             GestureDetector(
               onTap: () {
                 setState(() {
-                  // Toggle State on Tap
-                  showIncompatiblePlugs = !showIncompatiblePlugs;
+                  final currentState =
+                      ref.read(showIncompatiblePlugsProvider.notifier).state;
+                  ref.read(showIncompatiblePlugsProvider.notifier).state =
+                      !currentState;
                 });
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text(
+                  Text(
                     "Show incompatible Plugs",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 12,
-                    ),
+                    style: Theme.of(context).textTheme.titleSmall,
                   ),
                   Icon(
                     showIncompatiblePlugs
                         ? Icons.keyboard_arrow_up_outlined
                         : Icons.keyboard_arrow_down_outlined,
-                    size: 30,
+                    size: 24,
                   ),
                 ],
               ),
             ),
-
             // Conditional Rendering
             if (showIncompatiblePlugs)
               Container(
-                padding: const EdgeInsets.only(left: 12),
-                height: 300,
-                // Set a fixed height for the scrollable area
-                child: ListView.builder(
-                  itemCount: 6,
-                  itemBuilder: (context, index) {
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            SvgPicture.asset('assets/icons/charger_icon.svg'),
-                            SizedBox(width: 8),
-                            Text(
-                                "CCS${(index + 1) % 2 == 0 ? ((index + 1) ~/ 2) : ((index + 1) ~/ 2 + 1)} • ${index % 2 == 0 ? 'AC' : 'DC'}"),
-                          ],
-                        ),
-                        Checkbox(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(4.0),
-                          ),
-                          side: BorderSide(
-                            width: 2,
-                            style: BorderStyle.solid,
-                            color: Color(0xFF34A853),
-                          ),
-                          activeColor: Color(0xFF34A853),
-                          checkColor: Colors.white,
-                          value: isCheckedList[index + 6],
-                          onChanged: (bool? value) {
-                            setState(() {
-                              isCheckedList[index + 6] = value!;
-                            });
-                          },
-                        ),
-                      ],
-                    );
-                  },
-                ),
-              ),
+                  padding: EdgeInsets.only(left: screenSize.width * 0.022),
+                  child: Column(children: hiddenPlugs)),
           ],
         ),
       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../../shared/core/localization/localization.dart';
 import '../providers/page_state_provider.dart';
 
 class InfoChargersButtons extends ConsumerWidget {
@@ -57,7 +58,7 @@ class InfoChargersButtons extends ConsumerWidget {
                 ),
               ),
               child: Center(
-                child: Text('Chargers',
+                child: Text(AppLocalizations.of(context).translate('Chargers'),
                     style: Theme.of(context).textTheme.bodyMedium),
               ),
             ),

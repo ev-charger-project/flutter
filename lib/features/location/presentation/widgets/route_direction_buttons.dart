@@ -74,7 +74,7 @@ class RouteDirectionButtons extends ConsumerWidget {
         Expanded(
           child: SizedBox(
             child: OutlinedButton(
-              onPressed: handleButtonPress,
+              onPressed: handleButtonPress2,
               style: OutlinedButton.styleFrom(
                 padding: const EdgeInsets.all(0),
                 side: BorderSide(color: Theme.of(context).colorScheme.primary),
@@ -83,7 +83,7 @@ class RouteDirectionButtons extends ConsumerWidget {
                 ),
               ),
               child: Text(
-                'Route Plan',
+                AppLocalizations.of(context).translate('Route Plan'),
                 style: Theme.of(context).primaryTextTheme.bodyMedium,
               ),
             ),
@@ -101,7 +101,7 @@ class RouteDirectionButtons extends ConsumerWidget {
                 ),
               ),
               child: Text(
-                'Direction',
+                AppLocalizations.of(context).translate('Direction'),
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: Theme.of(context).colorScheme.onPrimary,
                       fontSize: height * 0.02,

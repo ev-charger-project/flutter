@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../shared/domain/providers/location/location_provider.dart';
 import '../../../../shared/domain/providers/location/user_location_provider.dart';
@@ -18,14 +19,14 @@ final distanceAndDurationProvider =
   }
 
   try {
-    final storageService = AgestStorageService();
-    final results = await storageService.fetchDistanceAndDuration(
+    final distance = calculateHaversineDistance(
       userLocation.latitude,
       userLocation.longitude,
       location.latitude,
       location.longitude,
     );
-    return results;
+    final duration = calculateEstimatedDuration(distance);
+    return ['${distance.toStringAsFixed(2)} km', duration];
   } catch (e) {
     return ['X km', 'X mins'];
   }

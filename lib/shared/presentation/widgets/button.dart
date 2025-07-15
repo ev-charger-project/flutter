@@ -68,18 +68,20 @@ class _ButtonState extends State<Button> {
 
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
     return Expanded(
       child: GestureDetector(
         onTapDown: _handleTapDown,
         onTapUp: _handleTapUp,
         onTapCancel: _handleTapCancel,
         child: Container(
-          padding: widget.padding ?? EdgeInsets.symmetric(vertical: 12),
+          padding: widget.padding ??
+              EdgeInsets.symmetric(vertical: screenSize.height * 0.012),
           decoration: BoxDecoration(
             color: _isPressed
-                ? widget.fillColor.withOpacity(0.8)
+                ? widget.fillColor.withOpacity(0.6)
                 : widget.fillColor,
-            borderRadius: widget.borderRadius ?? BorderRadius.circular(40),
+            borderRadius: widget.borderRadius ?? BorderRadius.circular(30),
             border: widget.border
                 ? Border.all(
                     color: widget.borderColor ?? Colors.transparent,

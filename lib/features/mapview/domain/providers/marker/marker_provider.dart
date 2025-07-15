@@ -11,6 +11,7 @@ import '../is_info_visible_provider.dart';
 import '../screen_center_provider.dart';
 import 'marker_repository_provider.dart';
 import 'dart:ui' as ui;
+import 'dart:math' as math;
 
 class BitmapDescriptorHelper {
   static final Map<String, BitmapDescriptor> _cache = {};
@@ -44,7 +45,9 @@ class BitmapDescriptorHelper {
     final rasterPicture = recorder.endRecording();
 
     final image = rasterPicture.toImageSync(width, height);
-    final bytes = (await image.toByteData(format: ui.ImageByteFormat.png))!;
+    final bytes = (await image.toByteData(format: ui.ImageByteFormat.png))!
+        .buffer
+        .asUint8List();
 
     final bitmapDescriptor = BitmapDescriptor.bytes(bytes);
     _cache[cacheKey] = bitmapDescriptor;

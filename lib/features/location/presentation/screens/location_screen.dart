@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter/services.dart';
 import '../widgets/widgets.dart';
 import 'package:ev_charger/features/location/presentation/providers/page_state_provider.dart';
 
@@ -14,7 +15,20 @@ class LocationScreen extends ConsumerStatefulWidget {
 
 class _LocationScreenState extends ConsumerState<LocationScreen> {
   @override
+  void initState() {
+    super.initState();
+  }
+
+  void _setSystemUIOverlayStyle() {
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: Color(0x9B606060),
+      statusBarIconBrightness: Brightness.light,
+    ));
+  }
+
+  @override
   Widget build(BuildContext context) {
+    _setSystemUIOverlayStyle();
     return Scaffold(
       backgroundColor: Colors.white,
       extendBodyBehindAppBar: true,
@@ -39,7 +53,7 @@ class _LocationScreenState extends ConsumerState<LocationScreen> {
                     padding: EdgeInsets.only(
                         top: 20.0,
                         left: MediaQuery.of(context).size.width * 0.015,
-                        right: 70),
+                        right: MediaQuery.of(context).size.width * 0.015),
                     child: const LocationNameAddress(),
                   ),
                   Divider(

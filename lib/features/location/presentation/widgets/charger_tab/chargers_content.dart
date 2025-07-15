@@ -14,6 +14,7 @@ class ChargersContent extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final screenSize = MediaQuery.of(context).size;
     final currentLocation = ref.watch(locationProvider);
 
     return currentLocation.when(
@@ -45,6 +46,7 @@ class ChargerBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
     return Container(
       decoration: BoxDecoration(
         border: Border.all(color: Theme.of(context).stationGrey),
