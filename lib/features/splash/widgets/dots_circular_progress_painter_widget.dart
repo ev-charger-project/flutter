@@ -7,8 +7,7 @@ class DotsCircularProgressIndicator extends StatefulWidget {
   final int numberOfDots;
 
   const DotsCircularProgressIndicator(
-      {Key? key, this.color = Colors.blue, this.numberOfDots = 12})
-      : super(key: key);
+      {super.key, this.color = Colors.blue, this.numberOfDots = 12});
 
   @override
   _DotsCircularProgressIndicatorState createState() =>
@@ -24,7 +23,7 @@ class _DotsCircularProgressIndicatorState
   void initState() {
     super.initState();
     _controller =
-        AnimationController(vsync: this, duration: Duration(seconds: 2))
+        AnimationController(vsync: this, duration: const Duration(seconds: 2))
           ..repeat();
   }
 
@@ -45,7 +44,7 @@ class _DotsCircularProgressIndicatorState
             numberOfDots: widget.numberOfDots,
             color: widget.color,
           ),
-          size: Size(100, 100),
+          size: const Size(100, 100),
         );
       },
     );

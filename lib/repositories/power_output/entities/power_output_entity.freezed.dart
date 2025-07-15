@@ -17,10 +17,14 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$PowerOutputEntity {
   double get outputValue => throw _privateConstructorUsedError;
-  String get chargingSpeed => throw _privateConstructorUsedError;
   double get voltage => throw _privateConstructorUsedError;
+  double get amperage => throw _privateConstructorUsedError;
+  String? get chargingSpeed => throw _privateConstructorUsedError;
+  String? get description => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PowerOutputEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $PowerOutputEntityCopyWith<PowerOutputEntity> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -31,7 +35,12 @@ abstract class $PowerOutputEntityCopyWith<$Res> {
           PowerOutputEntity value, $Res Function(PowerOutputEntity) then) =
       _$PowerOutputEntityCopyWithImpl<$Res, PowerOutputEntity>;
   @useResult
-  $Res call({double outputValue, String chargingSpeed, double voltage});
+  $Res call(
+      {double outputValue,
+      double voltage,
+      double amperage,
+      String? chargingSpeed,
+      String? description});
 }
 
 /// @nodoc
@@ -44,26 +53,38 @@ class _$PowerOutputEntityCopyWithImpl<$Res, $Val extends PowerOutputEntity>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of PowerOutputEntity
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? outputValue = null,
-    Object? chargingSpeed = null,
     Object? voltage = null,
+    Object? amperage = null,
+    Object? chargingSpeed = freezed,
+    Object? description = freezed,
   }) {
     return _then(_value.copyWith(
       outputValue: null == outputValue
           ? _value.outputValue
           : outputValue // ignore: cast_nullable_to_non_nullable
               as double,
-      chargingSpeed: null == chargingSpeed
-          ? _value.chargingSpeed
-          : chargingSpeed // ignore: cast_nullable_to_non_nullable
-              as String,
       voltage: null == voltage
           ? _value.voltage
           : voltage // ignore: cast_nullable_to_non_nullable
               as double,
+      amperage: null == amperage
+          ? _value.amperage
+          : amperage // ignore: cast_nullable_to_non_nullable
+              as double,
+      chargingSpeed: freezed == chargingSpeed
+          ? _value.chargingSpeed
+          : chargingSpeed // ignore: cast_nullable_to_non_nullable
+              as String?,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -76,7 +97,12 @@ abstract class _$$PowerOutputEntityImplCopyWith<$Res>
       __$$PowerOutputEntityImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({double outputValue, String chargingSpeed, double voltage});
+  $Res call(
+      {double outputValue,
+      double voltage,
+      double amperage,
+      String? chargingSpeed,
+      String? description});
 }
 
 /// @nodoc
@@ -87,26 +113,38 @@ class __$$PowerOutputEntityImplCopyWithImpl<$Res>
       $Res Function(_$PowerOutputEntityImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PowerOutputEntity
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? outputValue = null,
-    Object? chargingSpeed = null,
     Object? voltage = null,
+    Object? amperage = null,
+    Object? chargingSpeed = freezed,
+    Object? description = freezed,
   }) {
     return _then(_$PowerOutputEntityImpl(
       outputValue: null == outputValue
           ? _value.outputValue
           : outputValue // ignore: cast_nullable_to_non_nullable
               as double,
-      chargingSpeed: null == chargingSpeed
-          ? _value.chargingSpeed
-          : chargingSpeed // ignore: cast_nullable_to_non_nullable
-              as String,
       voltage: null == voltage
           ? _value.voltage
           : voltage // ignore: cast_nullable_to_non_nullable
               as double,
+      amperage: null == amperage
+          ? _value.amperage
+          : amperage // ignore: cast_nullable_to_non_nullable
+              as double,
+      chargingSpeed: freezed == chargingSpeed
+          ? _value.chargingSpeed
+          : chargingSpeed // ignore: cast_nullable_to_non_nullable
+              as String?,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -116,19 +154,25 @@ class __$$PowerOutputEntityImplCopyWithImpl<$Res>
 class _$PowerOutputEntityImpl implements _PowerOutputEntity {
   const _$PowerOutputEntityImpl(
       {required this.outputValue,
-      required this.chargingSpeed,
-      required this.voltage});
+      required this.voltage,
+      required this.amperage,
+      this.chargingSpeed,
+      this.description});
 
   @override
   final double outputValue;
   @override
-  final String chargingSpeed;
-  @override
   final double voltage;
+  @override
+  final double amperage;
+  @override
+  final String? chargingSpeed;
+  @override
+  final String? description;
 
   @override
   String toString() {
-    return 'PowerOutputEntity(outputValue: $outputValue, chargingSpeed: $chargingSpeed, voltage: $voltage)';
+    return 'PowerOutputEntity(outputValue: $outputValue, voltage: $voltage, amperage: $amperage, chargingSpeed: $chargingSpeed, description: $description)';
   }
 
   @override
@@ -138,16 +182,22 @@ class _$PowerOutputEntityImpl implements _PowerOutputEntity {
             other is _$PowerOutputEntityImpl &&
             (identical(other.outputValue, outputValue) ||
                 other.outputValue == outputValue) &&
+            (identical(other.voltage, voltage) || other.voltage == voltage) &&
+            (identical(other.amperage, amperage) ||
+                other.amperage == amperage) &&
             (identical(other.chargingSpeed, chargingSpeed) ||
                 other.chargingSpeed == chargingSpeed) &&
-            (identical(other.voltage, voltage) || other.voltage == voltage));
+            (identical(other.description, description) ||
+                other.description == description));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, outputValue, chargingSpeed, voltage);
+  int get hashCode => Object.hash(
+      runtimeType, outputValue, voltage, amperage, chargingSpeed, description);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PowerOutputEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PowerOutputEntityImplCopyWith<_$PowerOutputEntityImpl> get copyWith =>
@@ -158,17 +208,26 @@ class _$PowerOutputEntityImpl implements _PowerOutputEntity {
 abstract class _PowerOutputEntity implements PowerOutputEntity {
   const factory _PowerOutputEntity(
       {required final double outputValue,
-      required final String chargingSpeed,
-      required final double voltage}) = _$PowerOutputEntityImpl;
+      required final double voltage,
+      required final double amperage,
+      final String? chargingSpeed,
+      final String? description}) = _$PowerOutputEntityImpl;
 
   @override
   double get outputValue;
   @override
-  String get chargingSpeed;
-  @override
   double get voltage;
   @override
-  @JsonKey(ignore: true)
+  double get amperage;
+  @override
+  String? get chargingSpeed;
+  @override
+  String? get description;
+
+  /// Create a copy of PowerOutputEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PowerOutputEntityImplCopyWith<_$PowerOutputEntityImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

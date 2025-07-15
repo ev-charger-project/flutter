@@ -8,7 +8,7 @@ part of 'charger_data_model.dart';
 
 _$ChargerImpl _$$ChargerImplFromJson(Map<String, dynamic> json) =>
     _$ChargerImpl(
-      station_name: json['station_name'] as String,
+      station_name: json['station_name'] as String?,
       availability: json['availability'] as String,
       ports: (json['ev_charger_ports'] as List<dynamic>)
           .map((e) => PortDataModel.fromJson(e as Map<String, dynamic>))

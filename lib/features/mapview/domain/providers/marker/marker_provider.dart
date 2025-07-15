@@ -1,10 +1,12 @@
-import 'dart:math' as math;
+import 'dart:developer';
+
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../../../../shared/domain/providers/location/user_location_provider.dart';
 import '../../../../location/presentation/providers/selected_location_id_provider.dart';
+import '../../../../search/presentation/providers/filter_provider.dart';
 import '../is_info_visible_provider.dart';
 import '../screen_center_provider.dart';
 import 'marker_repository_provider.dart';
@@ -14,9 +16,9 @@ class BitmapDescriptorHelper {
   static final Map<String, BitmapDescriptor> _cache = {};
 
   static Future<BitmapDescriptor> getBitmapDescriptorFromSvgAsset(
-      String assetName,
-      double iconSize,
-      ) async {
+    String assetName,
+    double iconSize,
+  ) async {
     final cacheKey = '${assetName}_$iconSize';
     if (_cache.containsKey(cacheKey)) {
       return _cache[cacheKey]!;
@@ -44,26 +46,64 @@ class BitmapDescriptorHelper {
     final image = rasterPicture.toImageSync(width, height);
     final bytes = (await image.toByteData(format: ui.ImageByteFormat.png))!;
 
-    final bitmapDescriptor = BitmapDescriptor.bytes(bytes.buffer.asUint8List());
+    final bitmapDescriptor = BitmapDescriptor.bytes(bytes);
+    _cache[cacheKey] = bitmapDescriptor;
+    return bitmapDescriptor;
+  }
+
+  static Future<BitmapDescriptor> getBitmapDescriptorFromPngAsset(
+    String assetName,
+    int width,
+  ) async {
+    final cacheKey = '${assetName}_$width';
+    if (_cache.containsKey(cacheKey)) {
+      return _cache[cacheKey]!;
+    }
+
+    ByteData data = await rootBundle.load(assetName);
+    ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(),
+        targetWidth: width);
+    ui.FrameInfo fi = await codec.getNextFrame();
+    final bytes = (await fi.image.toByteData(format: ui.ImageByteFormat.png))!
+        .buffer
+        .asUint8List();
+
+    final bitmapDescriptor = BitmapDescriptor.bytes(bytes);
     _cache[cacheKey] = bitmapDescriptor;
     return bitmapDescriptor;
   }
 }
 
 final markerProvider = FutureProvider.autoDispose<List<Marker>>((ref) async {
-  final userLatLng = ref.watch(screenCenterProvider);
-  final userLat = userLatLng.latitude;
-  final userLong = userLatLng.longitude;
+  final screenCenterLatLng = ref.watch(screenCenterProvider);
+  final screenCenterLat = screenCenterLatLng.latitude;
+  final screenCenterLong = screenCenterLatLng.longitude;
   final markerRepository = ref.read(markerRepositoryProvider);
-  final markersData =
-  await markerRepository.fetchMarkers(userLat, userLong, 15);
+
+  final filter = ref.watch(filterProvider);
+  final stationCount = filter.station_count;
+  final chargeType = filter.charge_type;
+  final outputMin = filter.output_min;
+  final outputMax = filter.output_max;
+  final amenities = filter.amenities;
+
+  final markersData = await markerRepository.fetchMarkers(
+    screenCenterLat,
+    screenCenterLong,
+    15,
+    stationCount,
+    chargeType,
+    outputMin,
+    outputMax,
+    amenities,
+  );
 
   final BitmapDescriptor stationIcon =
-  await BitmapDescriptorHelper.getBitmapDescriptorFromSvgAsset(
-      'assets/icons/station_marker.svg', 17);
+      await BitmapDescriptorHelper.getBitmapDescriptorFromSvgAsset(
+          'assets/icons/station_marker.svg', 15);
   final BitmapDescriptor userIcon =
-  await BitmapDescriptorHelper.getBitmapDescriptorFromSvgAsset(
-      'assets/icons/user_icon.svg', 35);
+      await BitmapDescriptorHelper.getBitmapDescriptorFromSvgAsset(
+          'assets/icons/user_icon.svg', 35);
 
   List<Marker> markers = [];
 
@@ -79,6 +119,7 @@ final markerProvider = FutureProvider.autoDispose<List<Marker>>((ref) async {
         },
       ),
     );
+    log('Marker added: ${markerData.id}, ${markerData.latitude}, ${markerData.longitude}');
   }
 
   final currentLocation = ref.watch(userLocationProvider);
@@ -91,7 +132,9 @@ final markerProvider = FutureProvider.autoDispose<List<Marker>>((ref) async {
         anchor: const Offset(0.5, 0.5),
       ),
     );
+    log('Current location marker added: ${currentLocation.latitude}, ${currentLocation.longitude}');
   }
 
+  log('Markers: $markers');
   return markers;
 });

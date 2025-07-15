@@ -1,8 +1,12 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
+import '../../../../repositories/charger/entities/charger_entity.dart';
+import '../../../../shared/core/localization/localization.dart';
 import '../../../../shared/domain/providers/location/location_provider.dart';
+import 'charger_tab/port_box.dart';
 
 class ChargerNum extends ConsumerWidget {
   const ChargerNum({
@@ -16,14 +20,19 @@ class ChargerNum extends ConsumerWidget {
     return chargersAsyncValue.when(
       data: (locationEntity) {
         final chargers = locationEntity.ev_chargers.length;
-        final Set<String> uniquePorts = {};
+        final Set<String> uniquePortIdentifiers = {};
+        final List<Port> uniquePorts = [];
+
         for (var charger in locationEntity.ev_chargers) {
           for (var port in charger.ports) {
-            uniquePorts.add(
-                '${port.power_plug_type.plugType}-${port.power_plug_type.powerModel}');
+            final identifier =
+                '${port.power_plug_type.powerModel}-${port.power_plug_type.plugType}';
+            if (!uniquePortIdentifiers.contains(identifier)) {
+              uniquePortIdentifiers.add(identifier);
+              uniquePorts.add(port);
+            }
           }
         }
-        final int uniquePortCount = uniquePorts.length;
 
         return Container(
           padding: EdgeInsets.symmetric(
@@ -33,10 +42,25 @@ class ChargerNum extends ConsumerWidget {
             children: [
               Row(
                 children: List.generate(
-                  uniquePortCount,
+                  uniquePorts.length,
                   (index) => Padding(
                     padding: const EdgeInsets.all(2.5),
-                    child: SvgPicture.asset('assets/icons/charger_icon.svg'),
+                    child: SizedBox(
+                      width: 20,
+                      child: Column(
+                        children: [
+                          // Text('${uniquePorts[index].power_model.outputValue.floor()} kW', style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 10),),
+                          (uniquePorts[index].power_plug_type.plugImageUrl !=
+                                      null &&
+                                  isValidUrl(uniquePorts[index]
+                                      .power_plug_type
+                                      .plugImageUrl!))
+                              ? Image.network(
+                                  "http://172.16.11.139:14000/api/v1/media/${uniquePorts[index].power_plug_type.plugImageUrl!}")
+                              : SvgPicture.asset('assets/icons/plug_icon.svg')
+                        ],
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -51,7 +75,7 @@ class ChargerNum extends ConsumerWidget {
       },
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (error, stack) {
-        print('Error: $error');
+        log('Error: $error');
         return Center(child: Text('Error: $error'));
       },
     );

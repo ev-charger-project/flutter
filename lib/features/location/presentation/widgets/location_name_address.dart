@@ -1,13 +1,11 @@
-
 import 'package:ev_charger/shared/domain/providers/location/location_provider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../../shared/domain/providers/location/user_location_provider.dart';
 import '../../../../shared/domain/providers/permission/permission_provider.dart';
-import '../../../notification/screens/permission_screen.dart';
+import '../../../notification/permission/screens/permission_screen.dart';
 
 import '../providers/distance_duration_provider.dart';
 
@@ -35,7 +33,7 @@ class LocationNameAddress extends ConsumerWidget {
             ),
             const SizedBox(height: 10),
             Text(
-              '${location.street}, ${location.district}, ${location.city}',
+              '${location.houseNumber != null ? '${location.houseNumber}, ' : ''}${location.street}, ${location.district != null ? '${location.street}, ' : ''}${location.city}',
               style: Theme.of(context).textTheme.bodyMedium,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
@@ -65,12 +63,12 @@ class LocationNameAddress extends ConsumerWidget {
     if (textPainter.didExceedMaxLines) {
       for (int i = 0; i < text.length; i++) {
         textPainter.text = TextSpan(
-            text: text.substring(0, i) + "\n" + text.substring(i),
+            text: "${text.substring(0, i)}\n${text.substring(i)}",
             style: style);
         textPainter.layout(maxWidth: maxWidth);
 
         if (!textPainter.didExceedMaxLines) {
-          return text.substring(0, i) + "\n" + text.substring(i);
+          return "${text.substring(0, i)}\n${text.substring(i)}";
         }
       }
     }

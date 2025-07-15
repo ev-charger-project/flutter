@@ -16,12 +16,15 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$UserEntity {
-  String get userId => throw _privateConstructorUsedError;
-  String get username => throw _privateConstructorUsedError;
-  String get email => throw _privateConstructorUsedError;
+  String? get userId => throw _privateConstructorUsedError;
+  String? get username => throw _privateConstructorUsedError;
+  String? get email => throw _privateConstructorUsedError;
+  List<LocationEntity>? get favourites => throw _privateConstructorUsedError;
   String? get phoneNumber => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of UserEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $UserEntityCopyWith<UserEntity> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -33,7 +36,11 @@ abstract class $UserEntityCopyWith<$Res> {
       _$UserEntityCopyWithImpl<$Res, UserEntity>;
   @useResult
   $Res call(
-      {String userId, String username, String email, String? phoneNumber});
+      {String? userId,
+      String? username,
+      String? email,
+      List<LocationEntity>? favourites,
+      String? phoneNumber});
 }
 
 /// @nodoc
@@ -46,27 +53,34 @@ class _$UserEntityCopyWithImpl<$Res, $Val extends UserEntity>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of UserEntity
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? userId = null,
-    Object? username = null,
-    Object? email = null,
+    Object? userId = freezed,
+    Object? username = freezed,
+    Object? email = freezed,
+    Object? favourites = freezed,
     Object? phoneNumber = freezed,
   }) {
     return _then(_value.copyWith(
-      userId: null == userId
+      userId: freezed == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
-              as String,
-      username: null == username
+              as String?,
+      username: freezed == username
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
-              as String,
-      email: null == email
+              as String?,
+      email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
+      favourites: freezed == favourites
+          ? _value.favourites
+          : favourites // ignore: cast_nullable_to_non_nullable
+              as List<LocationEntity>?,
       phoneNumber: freezed == phoneNumber
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
@@ -84,7 +98,11 @@ abstract class _$$UserEntityImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String userId, String username, String email, String? phoneNumber});
+      {String? userId,
+      String? username,
+      String? email,
+      List<LocationEntity>? favourites,
+      String? phoneNumber});
 }
 
 /// @nodoc
@@ -95,27 +113,34 @@ class __$$UserEntityImplCopyWithImpl<$Res>
       _$UserEntityImpl _value, $Res Function(_$UserEntityImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of UserEntity
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? userId = null,
-    Object? username = null,
-    Object? email = null,
+    Object? userId = freezed,
+    Object? username = freezed,
+    Object? email = freezed,
+    Object? favourites = freezed,
     Object? phoneNumber = freezed,
   }) {
     return _then(_$UserEntityImpl(
-      userId: null == userId
+      userId: freezed == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
-              as String,
-      username: null == username
+              as String?,
+      username: freezed == username
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
-              as String,
-      email: null == email
+              as String?,
+      email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
+      favourites: freezed == favourites
+          ? _value._favourites
+          : favourites // ignore: cast_nullable_to_non_nullable
+              as List<LocationEntity>?,
       phoneNumber: freezed == phoneNumber
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
@@ -128,23 +153,35 @@ class __$$UserEntityImplCopyWithImpl<$Res>
 
 class _$UserEntityImpl implements _UserEntity {
   const _$UserEntityImpl(
-      {required this.userId,
-      required this.username,
-      required this.email,
-      this.phoneNumber});
+      {this.userId,
+      this.username,
+      this.email,
+      final List<LocationEntity>? favourites,
+      this.phoneNumber})
+      : _favourites = favourites;
 
   @override
-  final String userId;
+  final String? userId;
   @override
-  final String username;
+  final String? username;
   @override
-  final String email;
+  final String? email;
+  final List<LocationEntity>? _favourites;
+  @override
+  List<LocationEntity>? get favourites {
+    final value = _favourites;
+    if (value == null) return null;
+    if (_favourites is EqualUnmodifiableListView) return _favourites;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   final String? phoneNumber;
 
   @override
   String toString() {
-    return 'UserEntity(userId: $userId, username: $username, email: $email, phoneNumber: $phoneNumber)';
+    return 'UserEntity(userId: $userId, username: $username, email: $email, favourites: $favourites, phoneNumber: $phoneNumber)';
   }
 
   @override
@@ -156,15 +193,19 @@ class _$UserEntityImpl implements _UserEntity {
             (identical(other.username, username) ||
                 other.username == username) &&
             (identical(other.email, email) || other.email == email) &&
+            const DeepCollectionEquality()
+                .equals(other._favourites, _favourites) &&
             (identical(other.phoneNumber, phoneNumber) ||
                 other.phoneNumber == phoneNumber));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, userId, username, email, phoneNumber);
+  int get hashCode => Object.hash(runtimeType, userId, username, email,
+      const DeepCollectionEquality().hash(_favourites), phoneNumber);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of UserEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$UserEntityImplCopyWith<_$UserEntityImpl> get copyWith =>
@@ -173,21 +214,27 @@ class _$UserEntityImpl implements _UserEntity {
 
 abstract class _UserEntity implements UserEntity {
   const factory _UserEntity(
-      {required final String userId,
-      required final String username,
-      required final String email,
+      {final String? userId,
+      final String? username,
+      final String? email,
+      final List<LocationEntity>? favourites,
       final String? phoneNumber}) = _$UserEntityImpl;
 
   @override
-  String get userId;
+  String? get userId;
   @override
-  String get username;
+  String? get username;
   @override
-  String get email;
+  String? get email;
+  @override
+  List<LocationEntity>? get favourites;
   @override
   String? get phoneNumber;
+
+  /// Create a copy of UserEntity
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$UserEntityImplCopyWith<_$UserEntityImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

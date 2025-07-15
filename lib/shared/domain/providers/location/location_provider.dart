@@ -10,3 +10,11 @@ final locationProvider =
   final currentLocationId = ref.watch(selectedLocationIdProvider);
   return await locationRepository.fetchLocationData(currentLocationId);
 });
+
+final nearbyProvider =
+    FutureProvider.autoDispose<List<LocationEntity>>((ref) async {
+  final locationRepository = ref.read(locationRepositoryProvider);
+  final currentLocation = ref.watch(locationProvider).value;
+  return await locationRepository.fetchNearby(
+      currentLocation!.latitude, currentLocation.longitude, 10);
+});

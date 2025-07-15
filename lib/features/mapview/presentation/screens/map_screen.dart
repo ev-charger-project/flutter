@@ -1,8 +1,7 @@
 import 'dart:async';
-import 'package:auto_route/annotations.dart';
+import 'dart:developer';
 import 'package:auto_route/auto_route.dart';
 import 'package:ev_charger/features/mapview/domain/providers/screen_center_provider.dart';
-import 'package:ev_charger/shared/domain/providers/openApp/openApp_provider.dart';
 import 'package:ev_charger/shared/presentation/widgets/bottom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,7 +13,7 @@ import '../../../../routes/app_route.dart';
 import '../../../../shared/domain/providers/location/user_location_provider.dart';
 import '../../../../shared/domain/providers/permission/permission_provider.dart';
 import '../../../location/presentation/providers/selected_location_id_provider.dart';
-import '../../../notification/screens/permission_screen.dart';
+import '../../../notification/permission/screens/permission_screen.dart';
 import '../../../search/domain/providers/search_query_provider.dart';
 import '../../../search/presentation/widgets/search_bar_and_filter.dart';
 import '../../domain/providers/is_info_visible_provider.dart';
@@ -50,6 +49,7 @@ class _MapScreenState extends ConsumerState<MapScreen>
   static const LatLng _fixedLocation = LatLng(10.8023163, 106.6645121);
 
   late TextEditingController _searchController;
+  double currentZoom = 16.0;
 
   static CameraPosition _initialCameraPosition(Position? currentLocation,
       {double? latitude, double? longitude}) {
@@ -108,18 +108,18 @@ class _MapScreenState extends ConsumerState<MapScreen>
     final currentLocation = ref.read(userLocationProvider);
     if (currentLocation != null) {
       LatLng targetLocation =
-      LatLng(currentLocation.latitude, currentLocation.longitude);
+          LatLng(currentLocation.latitude, currentLocation.longitude);
       CameraPosition cameraPosition = CameraPosition(
         target: targetLocation,
         zoom: 16,
       );
       final GoogleMapController controller = await _controller.future;
-      controller
-          .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+      controller.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
     }
   }
 
-  Future<void> _animateCameraToPosition(LatLng position, {double zoom = 16.0}) async {
+  Future<void> _animateCameraToPosition(LatLng position,
+      {double zoom = 16.0}) async {
     final GoogleMapController controller = await _controller.future;
     controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
       target: position,
@@ -142,20 +142,28 @@ class _MapScreenState extends ConsumerState<MapScreen>
         setState(() {
           _markers.clear();
           _markers.addAll(markers.map((marker) {
-            return marker.copyWith(
-              onTapParam: () async {
-                setState(() {
-                  ref.read(selectedLocationIdProvider.notifier).state = marker.markerId.value;
-                  ref.read(isInfoVisibleProvider.notifier).state = true;
-                });
-                await _animateCameraToPosition(marker.position, zoom: 18.0);
-              },
-            );
+            if (marker.markerId.value != 'currentLocation') {
+              return marker.copyWith(
+                onTapParam: () async {
+                  final controller = await _controller.future;
+
+                  currentZoom = await controller.getZoomLevel();
+
+                  setState(() {
+                    ref.read(selectedLocationIdProvider.notifier).state =
+                        marker.markerId.value;
+                    ref.read(isInfoVisibleProvider.notifier).state = true;
+                  });
+                  await _animateCameraToPosition(marker.position, zoom: 18.0);
+                },
+              );
+            }
+            return marker;
           }).toList());
         });
       },
       loading: () {},
-      error: (error, stack) => print('Error: $error'),
+      error: (error, stack) => log('Error: $error'),
     );
 
     return Scaffold(
@@ -204,7 +212,7 @@ class _MapScreenState extends ConsumerState<MapScreen>
             right: screenSize.width * 0.05,
             child: GestureDetector(
               onTap: () {
-                context.router.push(SearchRoute());
+                context.router.push(const SearchRoute());
               },
               child: SearchBarAndFilter(
                 controller: _searchController,
@@ -244,7 +252,6 @@ class _MapScreenState extends ConsumerState<MapScreen>
               },
             ),
           ),
-
           AnimatedPositioned(
             duration: const Duration(milliseconds: 300),
             bottom: isInfoVisible ? getShortInfoHeight() : 16.0,
@@ -254,7 +261,11 @@ class _MapScreenState extends ConsumerState<MapScreen>
               onPressed: () async {
                 await _checkLocationPermission();
               },
-              child: SvgPicture.asset('assets/icons/floating_button_icon.svg'),
+              child: SizedBox(
+                height: 30,
+                child:
+                    SvgPicture.asset('assets/icons/floating_button_icon.svg'),
+              ),
             ),
           ),
         ],

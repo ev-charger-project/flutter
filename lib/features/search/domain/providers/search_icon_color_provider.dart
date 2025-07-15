@@ -6,5 +6,5 @@ final SearchIconColorProvider = StateProvider<Color>((ref) {
   var textController = ref.watch(SearchQueryProvider);
   return textController.isEmpty
       ? Colors.black.withOpacity(0.45)
-      : Color(0xFF49454F);
+      : const Color(0xFF49454F);
 });

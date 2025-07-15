@@ -9,13 +9,17 @@ class SuggestionEntity with _$SuggestionEntity {
   const factory SuggestionEntity({
     required String locationId,
     required String locationName,
-    required String street,
-    required String district,
+    String? street,
+    String? district,
+    String? houseNumber,
+    String? state,
+    String? county,
     required double latitude,
     required double longitude,
     required String city,
     required String country,
     String? postalCode,
+    String? description,
   }) = _SuggestionEntity;
 }
 
@@ -28,11 +32,15 @@ class SuggestionMapper
       locationName: entityObject.locationName,
       street: entityObject.street,
       district: entityObject.district,
+      houseNumber: entityObject.houseNumber,
+      state: entityObject.state,
+      county: entityObject.county,
       city: entityObject.city,
       latitude: entityObject.latitude,
       longitude: entityObject.longitude,
       country: entityObject.country,
       postalCode: entityObject.postalCode,
+      description: entityObject.description,
     );
   }
 
@@ -43,11 +51,15 @@ class SuggestionMapper
       locationName: dataModelObject.locationName,
       street: dataModelObject.street,
       district: dataModelObject.district,
+      houseNumber: dataModelObject.houseNumber,
+      state: dataModelObject.state,
+      county: dataModelObject.county,
       city: dataModelObject.city,
       latitude: dataModelObject.latitude,
       longitude: dataModelObject.longitude,
       country: dataModelObject.country,
       postalCode: dataModelObject.postalCode,
+      description: dataModelObject.description,
     );
   }
 

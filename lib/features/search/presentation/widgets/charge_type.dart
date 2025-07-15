@@ -1,6 +1,15 @@
+import 'dart:developer';
+
+import 'package:ev_charger/shared/presentation/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+
+import '../providers/charge_type/checked_plugs_provider.dart';
+import '../providers/charge_type/hidden_plugs_provider.dart';
+import '../providers/charge_type/show_incompatible_plugs_provider.dart';
+import '../providers/charge_type/visible_plugs_provider.dart';
+
+import '../../../../shared/core/localization/localization.dart';
 
 class ChargeType extends ConsumerStatefulWidget {
   const ChargeType({super.key});
@@ -10,32 +19,84 @@ class ChargeType extends ConsumerStatefulWidget {
 }
 
 class _ChargeTypeState extends ConsumerState<ChargeType> {
-  // List of Booleans for each checkbox's state
-  List<bool> isCheckedList = List<bool>.filled(12, false);
+  void _toggleAll() {
+    final visiblePlugs = ref.read(visiblePlugsProvider.notifier);
+    final hiddenPlugs = ref.read(hiddenPlugsProvider.notifier);
+    final showIncompatiblePlugs =
+        ref.read(showIncompatiblePlugsProvider.notifier);
 
-  // Define a Boolean State of the Plugs
-  bool showIncompatiblePlugs = false;
+    bool shouldDetoggle = visiblePlugs.state.any((plug) => plug.isChecked) ||
+        hiddenPlugs.state.any((plug) => plug.isChecked);
+
+    visiblePlugs.state = visiblePlugs.state
+        .map((plug) => plug.copyWith(isChecked: !shouldDetoggle))
+        .toList();
+
+    hiddenPlugs.state = hiddenPlugs.state
+        .map((plug) => plug.copyWith(isChecked: !shouldDetoggle))
+        .toList();
+    if (!showIncompatiblePlugs.state) {
+      showIncompatiblePlugs.state = true;
+    }
+    ref.read(checkedPlugsProvider.notifier).updateCheckedPlugs();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
+    final visiblePlugs = ref.watch(visiblePlugsProvider);
+    final hiddenPlugs = ref.watch(hiddenPlugsProvider);
+    final showIncompatiblePlugs = ref.watch(showIncompatiblePlugsProvider);
+    final checkedPlugs = ref.watch(checkedPlugsProvider);
+    final totalPlugs = visiblePlugs.length + hiddenPlugs.length;
+
+    log('checkedPlugs: $checkedPlugs');
+    log('totalPlugs: $totalPlugs');
+
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 12),
+      padding: EdgeInsets.symmetric(vertical: screenSize.height * 0.014),
       child: Container(
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.all(screenSize.height * 0.014),
         decoration: BoxDecoration(
           color: Color(0xFFE9E9E9),
           borderRadius: BorderRadius.circular(8),
         ),
         child: Column(
           children: [
-            const Row(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  "Charge Type",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
+                Row(
+                  children: [
+                    Text(
+                      AppLocalizations.of(context).translate("Charge Type "),
+                      style: Theme.of(context).textTheme.displaySmall,
+                    ),
+                    Text(
+                      "($checkedPlugs of $totalPlugs)",
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                  ],
+                ),
+                ElevatedButton(
+                  onPressed: _toggleAll,
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Theme.of(context).colorScheme.primary,
+                    backgroundColor:
+                        Theme.of(context).moreGrey.withOpacity(0.96),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: screenSize.width * 0.024,
+                    ),
+                  ),
+                  child: Text(
+                    AppLocalizations.of(context).translate("Toggle All"),
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleSmall
+                        ?.copyWith(color: Theme.of(context).primaryColor),
                   ),
                 ),
               ],

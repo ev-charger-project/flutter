@@ -8,12 +8,8 @@ class MyApp extends ConsumerWidget {
   final appRouter = AppRouter();
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // final themeMode = ref.watch(appThemeProvider);
     return MaterialApp.router(
       title: 'Flutter TDD',
-      // theme: AppTheme.lightTheme,
-      // darkTheme: AppTheme.darkTheme,
-      // themeMode: themeMode,
       color: Colors.white,
       routeInformationParser: appRouter.defaultRouteParser(),
       routerDelegate: appRouter.delegate(),

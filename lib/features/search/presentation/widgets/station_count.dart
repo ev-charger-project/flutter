@@ -3,6 +3,26 @@ import 'package:ev_charger/shared/presentation/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../providers/station_count/selected_station_count_provider.dart';
+import 'station_count_object.dart';
+
+class ContainerColorsNotifier extends StateNotifier<List<Color>> {
+  ContainerColorsNotifier()
+      : super(List<Color>.filled(4, const Color(0xFFBCDEC5)));
+
+  void updateColors(int? selectedIndex, BuildContext context) {
+    state = List<Color>.filled(4, Theme.of(context).lightGreen);
+    if (selectedIndex != null) {
+      state[selectedIndex] = Theme.of(context).primaryColor;
+    }
+  }
+}
+
+final containerColorsProvider =
+    StateNotifierProvider<ContainerColorsNotifier, List<Color>>((ref) {
+  return ContainerColorsNotifier();
+});
+
 class StationCount extends ConsumerStatefulWidget {
   const StationCount({super.key});
 

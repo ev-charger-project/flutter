@@ -15,6 +15,12 @@ abstract class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
+    AccountRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const AccountScreen(),
+      );
+    },
     FilterRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -40,11 +46,21 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     SearchRoute.name: (routeData) {
-      final args = routeData.argsAs<SearchRouteArgs>(
-          orElse: () => const SearchRouteArgs());
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: SearchScreen(key: args.key),
+        child: const SearchScreen(),
+      );
+    },
+    SignInRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const SignInScreen(),
+      );
+    },
+    SignUpRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const SignUpScreen(),
       );
     },
     SplashRoute.name: (routeData) {
@@ -54,6 +70,20 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
   };
+}
+
+/// generated route for
+/// [AccountScreen]
+class AccountRoute extends PageRouteInfo<void> {
+  const AccountRoute({List<PageRouteInfo>? children})
+      : super(
+          AccountRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'AccountRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for
@@ -128,30 +158,44 @@ class MapRouteArgs {
 
 /// generated route for
 /// [SearchScreen]
-class SearchRoute extends PageRouteInfo<SearchRouteArgs> {
-  SearchRoute({
-    Key? key,
-    List<PageRouteInfo>? children,
-  }) : super(
+class SearchRoute extends PageRouteInfo<void> {
+  const SearchRoute({List<PageRouteInfo>? children})
+      : super(
           SearchRoute.name,
-          args: SearchRouteArgs(key: key),
           initialChildren: children,
         );
 
   static const String name = 'SearchRoute';
 
-  static const PageInfo<SearchRouteArgs> page = PageInfo<SearchRouteArgs>(name);
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
-class SearchRouteArgs {
-  const SearchRouteArgs({this.key});
+/// generated route for
+/// [SignInScreen]
+class SignInRoute extends PageRouteInfo<void> {
+  const SignInRoute({List<PageRouteInfo>? children})
+      : super(
+          SignInRoute.name,
+          initialChildren: children,
+        );
 
-  final Key? key;
+  static const String name = 'SignInRoute';
 
-  @override
-  String toString() {
-    return 'SearchRouteArgs{key: $key}';
-  }
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [SignUpScreen]
+class SignUpRoute extends PageRouteInfo<void> {
+  const SignUpRoute({List<PageRouteInfo>? children})
+      : super(
+          SignUpRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'SignUpRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for

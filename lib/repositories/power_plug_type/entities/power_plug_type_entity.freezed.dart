@@ -16,13 +16,17 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$PowerPlugTypeEntity {
+  String? get supplierName => throw _privateConstructorUsedError;
   String get powerModel => throw _privateConstructorUsedError;
   String get plugType => throw _privateConstructorUsedError;
-  String? get plugImage => throw _privateConstructorUsedError;
-  List<String>? get usedInRegions => throw _privateConstructorUsedError;
-  String? get additionalNotes => throw _privateConstructorUsedError;
+  bool? get fixedPlug => throw _privateConstructorUsedError;
+  String? get plugImageUrl => throw _privateConstructorUsedError;
+  String? get powerPlugRegion => throw _privateConstructorUsedError;
+  String? get additionalNote => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PowerPlugTypeEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $PowerPlugTypeEntityCopyWith<PowerPlugTypeEntity> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -34,11 +38,13 @@ abstract class $PowerPlugTypeEntityCopyWith<$Res> {
       _$PowerPlugTypeEntityCopyWithImpl<$Res, PowerPlugTypeEntity>;
   @useResult
   $Res call(
-      {String powerModel,
+      {String? supplierName,
+      String powerModel,
       String plugType,
-      String? plugImage,
-      List<String>? usedInRegions,
-      String? additionalNotes});
+      bool? fixedPlug,
+      String? plugImageUrl,
+      String? powerPlugRegion,
+      String? additionalNote});
 }
 
 /// @nodoc
@@ -51,16 +57,24 @@ class _$PowerPlugTypeEntityCopyWithImpl<$Res, $Val extends PowerPlugTypeEntity>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of PowerPlugTypeEntity
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? supplierName = freezed,
     Object? powerModel = null,
     Object? plugType = null,
-    Object? plugImage = freezed,
-    Object? usedInRegions = freezed,
-    Object? additionalNotes = freezed,
+    Object? fixedPlug = freezed,
+    Object? plugImageUrl = freezed,
+    Object? powerPlugRegion = freezed,
+    Object? additionalNote = freezed,
   }) {
     return _then(_value.copyWith(
+      supplierName: freezed == supplierName
+          ? _value.supplierName
+          : supplierName // ignore: cast_nullable_to_non_nullable
+              as String?,
       powerModel: null == powerModel
           ? _value.powerModel
           : powerModel // ignore: cast_nullable_to_non_nullable
@@ -69,17 +83,21 @@ class _$PowerPlugTypeEntityCopyWithImpl<$Res, $Val extends PowerPlugTypeEntity>
           ? _value.plugType
           : plugType // ignore: cast_nullable_to_non_nullable
               as String,
-      plugImage: freezed == plugImage
-          ? _value.plugImage
-          : plugImage // ignore: cast_nullable_to_non_nullable
+      fixedPlug: freezed == fixedPlug
+          ? _value.fixedPlug
+          : fixedPlug // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      plugImageUrl: freezed == plugImageUrl
+          ? _value.plugImageUrl
+          : plugImageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      usedInRegions: freezed == usedInRegions
-          ? _value.usedInRegions
-          : usedInRegions // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      additionalNotes: freezed == additionalNotes
-          ? _value.additionalNotes
-          : additionalNotes // ignore: cast_nullable_to_non_nullable
+      powerPlugRegion: freezed == powerPlugRegion
+          ? _value.powerPlugRegion
+          : powerPlugRegion // ignore: cast_nullable_to_non_nullable
+              as String?,
+      additionalNote: freezed == additionalNote
+          ? _value.additionalNote
+          : additionalNote // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
@@ -94,11 +112,13 @@ abstract class _$$PowerPlugTypeEntityImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String powerModel,
+      {String? supplierName,
+      String powerModel,
       String plugType,
-      String? plugImage,
-      List<String>? usedInRegions,
-      String? additionalNotes});
+      bool? fixedPlug,
+      String? plugImageUrl,
+      String? powerPlugRegion,
+      String? additionalNote});
 }
 
 /// @nodoc
@@ -109,16 +129,24 @@ class __$$PowerPlugTypeEntityImplCopyWithImpl<$Res>
       $Res Function(_$PowerPlugTypeEntityImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PowerPlugTypeEntity
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? supplierName = freezed,
     Object? powerModel = null,
     Object? plugType = null,
-    Object? plugImage = freezed,
-    Object? usedInRegions = freezed,
-    Object? additionalNotes = freezed,
+    Object? fixedPlug = freezed,
+    Object? plugImageUrl = freezed,
+    Object? powerPlugRegion = freezed,
+    Object? additionalNote = freezed,
   }) {
     return _then(_$PowerPlugTypeEntityImpl(
+      supplierName: freezed == supplierName
+          ? _value.supplierName
+          : supplierName // ignore: cast_nullable_to_non_nullable
+              as String?,
       powerModel: null == powerModel
           ? _value.powerModel
           : powerModel // ignore: cast_nullable_to_non_nullable
@@ -127,17 +155,21 @@ class __$$PowerPlugTypeEntityImplCopyWithImpl<$Res>
           ? _value.plugType
           : plugType // ignore: cast_nullable_to_non_nullable
               as String,
-      plugImage: freezed == plugImage
-          ? _value.plugImage
-          : plugImage // ignore: cast_nullable_to_non_nullable
+      fixedPlug: freezed == fixedPlug
+          ? _value.fixedPlug
+          : fixedPlug // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      plugImageUrl: freezed == plugImageUrl
+          ? _value.plugImageUrl
+          : plugImageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      usedInRegions: freezed == usedInRegions
-          ? _value._usedInRegions
-          : usedInRegions // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      additionalNotes: freezed == additionalNotes
-          ? _value.additionalNotes
-          : additionalNotes // ignore: cast_nullable_to_non_nullable
+      powerPlugRegion: freezed == powerPlugRegion
+          ? _value.powerPlugRegion
+          : powerPlugRegion // ignore: cast_nullable_to_non_nullable
+              as String?,
+      additionalNote: freezed == additionalNote
+          ? _value.additionalNote
+          : additionalNote // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -147,35 +179,32 @@ class __$$PowerPlugTypeEntityImplCopyWithImpl<$Res>
 
 class _$PowerPlugTypeEntityImpl implements _PowerPlugTypeEntity {
   const _$PowerPlugTypeEntityImpl(
-      {required this.powerModel,
+      {this.supplierName,
+      required this.powerModel,
       required this.plugType,
-      this.plugImage,
-      final List<String>? usedInRegions,
-      this.additionalNotes})
-      : _usedInRegions = usedInRegions;
+      this.fixedPlug,
+      this.plugImageUrl,
+      this.powerPlugRegion,
+      this.additionalNote});
 
+  @override
+  final String? supplierName;
   @override
   final String powerModel;
   @override
   final String plugType;
   @override
-  final String? plugImage;
-  final List<String>? _usedInRegions;
+  final bool? fixedPlug;
   @override
-  List<String>? get usedInRegions {
-    final value = _usedInRegions;
-    if (value == null) return null;
-    if (_usedInRegions is EqualUnmodifiableListView) return _usedInRegions;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
+  final String? plugImageUrl;
   @override
-  final String? additionalNotes;
+  final String? powerPlugRegion;
+  @override
+  final String? additionalNote;
 
   @override
   String toString() {
-    return 'PowerPlugTypeEntity(powerModel: $powerModel, plugType: $plugType, plugImage: $plugImage, usedInRegions: $usedInRegions, additionalNotes: $additionalNotes)';
+    return 'PowerPlugTypeEntity(supplierName: $supplierName, powerModel: $powerModel, plugType: $plugType, fixedPlug: $fixedPlug, plugImageUrl: $plugImageUrl, powerPlugRegion: $powerPlugRegion, additionalNote: $additionalNote)';
   }
 
   @override
@@ -183,23 +212,29 @@ class _$PowerPlugTypeEntityImpl implements _PowerPlugTypeEntity {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PowerPlugTypeEntityImpl &&
+            (identical(other.supplierName, supplierName) ||
+                other.supplierName == supplierName) &&
             (identical(other.powerModel, powerModel) ||
                 other.powerModel == powerModel) &&
             (identical(other.plugType, plugType) ||
                 other.plugType == plugType) &&
-            (identical(other.plugImage, plugImage) ||
-                other.plugImage == plugImage) &&
-            const DeepCollectionEquality()
-                .equals(other._usedInRegions, _usedInRegions) &&
-            (identical(other.additionalNotes, additionalNotes) ||
-                other.additionalNotes == additionalNotes));
+            (identical(other.fixedPlug, fixedPlug) ||
+                other.fixedPlug == fixedPlug) &&
+            (identical(other.plugImageUrl, plugImageUrl) ||
+                other.plugImageUrl == plugImageUrl) &&
+            (identical(other.powerPlugRegion, powerPlugRegion) ||
+                other.powerPlugRegion == powerPlugRegion) &&
+            (identical(other.additionalNote, additionalNote) ||
+                other.additionalNote == additionalNote));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, powerModel, plugType, plugImage,
-      const DeepCollectionEquality().hash(_usedInRegions), additionalNotes);
+  int get hashCode => Object.hash(runtimeType, supplierName, powerModel,
+      plugType, fixedPlug, plugImageUrl, powerPlugRegion, additionalNote);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PowerPlugTypeEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PowerPlugTypeEntityImplCopyWith<_$PowerPlugTypeEntityImpl> get copyWith =>
@@ -209,24 +244,33 @@ class _$PowerPlugTypeEntityImpl implements _PowerPlugTypeEntity {
 
 abstract class _PowerPlugTypeEntity implements PowerPlugTypeEntity {
   const factory _PowerPlugTypeEntity(
-      {required final String powerModel,
+      {final String? supplierName,
+      required final String powerModel,
       required final String plugType,
-      final String? plugImage,
-      final List<String>? usedInRegions,
-      final String? additionalNotes}) = _$PowerPlugTypeEntityImpl;
+      final bool? fixedPlug,
+      final String? plugImageUrl,
+      final String? powerPlugRegion,
+      final String? additionalNote}) = _$PowerPlugTypeEntityImpl;
 
+  @override
+  String? get supplierName;
   @override
   String get powerModel;
   @override
   String get plugType;
   @override
-  String? get plugImage;
+  bool? get fixedPlug;
   @override
-  List<String>? get usedInRegions;
+  String? get plugImageUrl;
   @override
-  String? get additionalNotes;
+  String? get powerPlugRegion;
   @override
-  @JsonKey(ignore: true)
+  String? get additionalNote;
+
+  /// Create a copy of PowerPlugTypeEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PowerPlugTypeEntityImplCopyWith<_$PowerPlugTypeEntityImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

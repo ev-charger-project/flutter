@@ -24,12 +24,18 @@ mixin _$SuggestionDataModel {
   String get locationId => throw _privateConstructorUsedError;
   @JsonKey(name: 'location_name')
   String get locationName => throw _privateConstructorUsedError;
+  @JsonKey(name: 'house_number')
+  String? get houseNumber => throw _privateConstructorUsedError;
   @JsonKey(name: 'street')
-  String get street => throw _privateConstructorUsedError;
+  String? get street => throw _privateConstructorUsedError;
   @JsonKey(name: 'district')
-  String get district => throw _privateConstructorUsedError;
+  String? get district => throw _privateConstructorUsedError;
+  @JsonKey(name: 'state')
+  String? get state => throw _privateConstructorUsedError;
   @JsonKey(name: 'city')
   String get city => throw _privateConstructorUsedError;
+  @JsonKey(name: 'county')
+  String? get county => throw _privateConstructorUsedError;
   @JsonKey(name: 'country')
   String get country => throw _privateConstructorUsedError;
   @JsonKey(name: 'latitude')
@@ -41,8 +47,12 @@ mixin _$SuggestionDataModel {
   @JsonKey(name: 'description')
   String? get description => throw _privateConstructorUsedError;
 
+  /// Serializes this SuggestionDataModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of SuggestionDataModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $SuggestionDataModelCopyWith<SuggestionDataModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -56,9 +66,12 @@ abstract class $SuggestionDataModelCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'id') String locationId,
       @JsonKey(name: 'location_name') String locationName,
-      @JsonKey(name: 'street') String street,
-      @JsonKey(name: 'district') String district,
+      @JsonKey(name: 'house_number') String? houseNumber,
+      @JsonKey(name: 'street') String? street,
+      @JsonKey(name: 'district') String? district,
+      @JsonKey(name: 'state') String? state,
       @JsonKey(name: 'city') String city,
+      @JsonKey(name: 'county') String? county,
       @JsonKey(name: 'country') String country,
       @JsonKey(name: 'latitude') double latitude,
       @JsonKey(name: 'longitude') double longitude,
@@ -76,14 +89,19 @@ class _$SuggestionDataModelCopyWithImpl<$Res, $Val extends SuggestionDataModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of SuggestionDataModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? locationId = null,
     Object? locationName = null,
-    Object? street = null,
-    Object? district = null,
+    Object? houseNumber = freezed,
+    Object? street = freezed,
+    Object? district = freezed,
+    Object? state = freezed,
     Object? city = null,
+    Object? county = freezed,
     Object? country = null,
     Object? latitude = null,
     Object? longitude = null,
@@ -99,18 +117,30 @@ class _$SuggestionDataModelCopyWithImpl<$Res, $Val extends SuggestionDataModel>
           ? _value.locationName
           : locationName // ignore: cast_nullable_to_non_nullable
               as String,
-      street: null == street
+      houseNumber: freezed == houseNumber
+          ? _value.houseNumber
+          : houseNumber // ignore: cast_nullable_to_non_nullable
+              as String?,
+      street: freezed == street
           ? _value.street
           : street // ignore: cast_nullable_to_non_nullable
-              as String,
-      district: null == district
+              as String?,
+      district: freezed == district
           ? _value.district
           : district // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
+      state: freezed == state
+          ? _value.state
+          : state // ignore: cast_nullable_to_non_nullable
+              as String?,
       city: null == city
           ? _value.city
           : city // ignore: cast_nullable_to_non_nullable
               as String,
+      county: freezed == county
+          ? _value.county
+          : county // ignore: cast_nullable_to_non_nullable
+              as String?,
       country: null == country
           ? _value.country
           : country // ignore: cast_nullable_to_non_nullable
@@ -146,9 +176,12 @@ abstract class _$$SuggestionImplCopyWith<$Res>
   $Res call(
       {@JsonKey(name: 'id') String locationId,
       @JsonKey(name: 'location_name') String locationName,
-      @JsonKey(name: 'street') String street,
-      @JsonKey(name: 'district') String district,
+      @JsonKey(name: 'house_number') String? houseNumber,
+      @JsonKey(name: 'street') String? street,
+      @JsonKey(name: 'district') String? district,
+      @JsonKey(name: 'state') String? state,
       @JsonKey(name: 'city') String city,
+      @JsonKey(name: 'county') String? county,
       @JsonKey(name: 'country') String country,
       @JsonKey(name: 'latitude') double latitude,
       @JsonKey(name: 'longitude') double longitude,
@@ -164,14 +197,19 @@ class __$$SuggestionImplCopyWithImpl<$Res>
       _$SuggestionImpl _value, $Res Function(_$SuggestionImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SuggestionDataModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? locationId = null,
     Object? locationName = null,
-    Object? street = null,
-    Object? district = null,
+    Object? houseNumber = freezed,
+    Object? street = freezed,
+    Object? district = freezed,
+    Object? state = freezed,
     Object? city = null,
+    Object? county = freezed,
     Object? country = null,
     Object? latitude = null,
     Object? longitude = null,
@@ -187,18 +225,30 @@ class __$$SuggestionImplCopyWithImpl<$Res>
           ? _value.locationName
           : locationName // ignore: cast_nullable_to_non_nullable
               as String,
-      street: null == street
+      houseNumber: freezed == houseNumber
+          ? _value.houseNumber
+          : houseNumber // ignore: cast_nullable_to_non_nullable
+              as String?,
+      street: freezed == street
           ? _value.street
           : street // ignore: cast_nullable_to_non_nullable
-              as String,
-      district: null == district
+              as String?,
+      district: freezed == district
           ? _value.district
           : district // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
+      state: freezed == state
+          ? _value.state
+          : state // ignore: cast_nullable_to_non_nullable
+              as String?,
       city: null == city
           ? _value.city
           : city // ignore: cast_nullable_to_non_nullable
               as String,
+      county: freezed == county
+          ? _value.county
+          : county // ignore: cast_nullable_to_non_nullable
+              as String?,
       country: null == country
           ? _value.country
           : country // ignore: cast_nullable_to_non_nullable
@@ -229,9 +279,12 @@ class _$SuggestionImpl implements _Suggestion {
   const _$SuggestionImpl(
       {@JsonKey(name: 'id') required this.locationId,
       @JsonKey(name: 'location_name') required this.locationName,
-      @JsonKey(name: 'street') required this.street,
-      @JsonKey(name: 'district') required this.district,
+      @JsonKey(name: 'house_number') this.houseNumber,
+      @JsonKey(name: 'street') this.street,
+      @JsonKey(name: 'district') this.district,
+      @JsonKey(name: 'state') this.state,
       @JsonKey(name: 'city') required this.city,
+      @JsonKey(name: 'county') this.county,
       @JsonKey(name: 'country') required this.country,
       @JsonKey(name: 'latitude') required this.latitude,
       @JsonKey(name: 'longitude') required this.longitude,
@@ -248,14 +301,23 @@ class _$SuggestionImpl implements _Suggestion {
   @JsonKey(name: 'location_name')
   final String locationName;
   @override
+  @JsonKey(name: 'house_number')
+  final String? houseNumber;
+  @override
   @JsonKey(name: 'street')
-  final String street;
+  final String? street;
   @override
   @JsonKey(name: 'district')
-  final String district;
+  final String? district;
+  @override
+  @JsonKey(name: 'state')
+  final String? state;
   @override
   @JsonKey(name: 'city')
   final String city;
+  @override
+  @JsonKey(name: 'county')
+  final String? county;
   @override
   @JsonKey(name: 'country')
   final String country;
@@ -274,7 +336,7 @@ class _$SuggestionImpl implements _Suggestion {
 
   @override
   String toString() {
-    return 'SuggestionDataModel(locationId: $locationId, locationName: $locationName, street: $street, district: $district, city: $city, country: $country, latitude: $latitude, longitude: $longitude, postalCode: $postalCode, description: $description)';
+    return 'SuggestionDataModel(locationId: $locationId, locationName: $locationName, houseNumber: $houseNumber, street: $street, district: $district, state: $state, city: $city, county: $county, country: $country, latitude: $latitude, longitude: $longitude, postalCode: $postalCode, description: $description)';
   }
 
   @override
@@ -286,10 +348,14 @@ class _$SuggestionImpl implements _Suggestion {
                 other.locationId == locationId) &&
             (identical(other.locationName, locationName) ||
                 other.locationName == locationName) &&
+            (identical(other.houseNumber, houseNumber) ||
+                other.houseNumber == houseNumber) &&
             (identical(other.street, street) || other.street == street) &&
             (identical(other.district, district) ||
                 other.district == district) &&
+            (identical(other.state, state) || other.state == state) &&
             (identical(other.city, city) || other.city == city) &&
+            (identical(other.county, county) || other.county == county) &&
             (identical(other.country, country) || other.country == country) &&
             (identical(other.latitude, latitude) ||
                 other.latitude == latitude) &&
@@ -301,12 +367,27 @@ class _$SuggestionImpl implements _Suggestion {
                 other.description == description));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, locationId, locationName, street,
-      district, city, country, latitude, longitude, postalCode, description);
+  int get hashCode => Object.hash(
+      runtimeType,
+      locationId,
+      locationName,
+      houseNumber,
+      street,
+      district,
+      state,
+      city,
+      county,
+      country,
+      latitude,
+      longitude,
+      postalCode,
+      description);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SuggestionDataModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SuggestionImplCopyWith<_$SuggestionImpl> get copyWith =>
@@ -324,9 +405,12 @@ abstract class _Suggestion implements SuggestionDataModel {
   const factory _Suggestion(
           {@JsonKey(name: 'id') required final String locationId,
           @JsonKey(name: 'location_name') required final String locationName,
-          @JsonKey(name: 'street') required final String street,
-          @JsonKey(name: 'district') required final String district,
+          @JsonKey(name: 'house_number') final String? houseNumber,
+          @JsonKey(name: 'street') final String? street,
+          @JsonKey(name: 'district') final String? district,
+          @JsonKey(name: 'state') final String? state,
           @JsonKey(name: 'city') required final String city,
+          @JsonKey(name: 'county') final String? county,
           @JsonKey(name: 'country') required final String country,
           @JsonKey(name: 'latitude') required final double latitude,
           @JsonKey(name: 'longitude') required final double longitude,
@@ -344,14 +428,23 @@ abstract class _Suggestion implements SuggestionDataModel {
   @JsonKey(name: 'location_name')
   String get locationName;
   @override
+  @JsonKey(name: 'house_number')
+  String? get houseNumber;
+  @override
   @JsonKey(name: 'street')
-  String get street;
+  String? get street;
   @override
   @JsonKey(name: 'district')
-  String get district;
+  String? get district;
+  @override
+  @JsonKey(name: 'state')
+  String? get state;
   @override
   @JsonKey(name: 'city')
   String get city;
+  @override
+  @JsonKey(name: 'county')
+  String? get county;
   @override
   @JsonKey(name: 'country')
   String get country;
@@ -367,8 +460,11 @@ abstract class _Suggestion implements SuggestionDataModel {
   @override
   @JsonKey(name: 'description')
   String? get description;
+
+  /// Create a copy of SuggestionDataModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SuggestionImplCopyWith<_$SuggestionImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

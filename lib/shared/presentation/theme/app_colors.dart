@@ -4,6 +4,8 @@ class AppColors {
   /// App primary color
   static const Color primary = Color(0xff34a853);
 
+  static const Color second_primary = Color(0xff9e44ef);
+
   /// App Light green color
   static const Color lightGreen = Color(0xffbcdec5);
 

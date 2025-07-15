@@ -17,6 +17,10 @@ class _PowerOutputState extends ConsumerState<PowerOutput> {
 
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
+    // Watch for changes in the range values
+    var currentRangeValues = ref.watch(rangeValuesProvider);
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 12),
       child: Container(
@@ -29,8 +33,14 @@ class _PowerOutputState extends ConsumerState<PowerOutput> {
           children: [
             Row(
               children: [
-                Text("Power Output",
-                    style: Theme.of(context).primaryTextTheme.displaySmall),
+                Text(
+                  AppLocalizations.of(context).translate("Power Output "),
+                  style: Theme.of(context).textTheme.displaySmall,
+                ),
+                Text(
+                  "(${currentRangeValues.start.round()} kW - ${currentRangeValues.end.round()} kW)",
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
               ],
             ),
             Divider(
@@ -55,7 +65,7 @@ class _PowerOutputState extends ConsumerState<PowerOutput> {
               child: SfRangeSlider(
                 min: 0,
                 max: 360,
-                values: _currentRangeValues,
+                values: currentRangeValues,
                 showLabels: true,
                 interval: 60,
                 enableTooltip: true,
@@ -65,7 +75,9 @@ class _PowerOutputState extends ConsumerState<PowerOutput> {
                 },
                 onChanged: (dynamic values) {
                   setState(() {
-                    _currentRangeValues = values;
+                    currentRangeValues = SfRangeValues(
+                        values.start.roundToDouble(),
+                        values.end.roundToDouble());
                   });
                 },
               ),

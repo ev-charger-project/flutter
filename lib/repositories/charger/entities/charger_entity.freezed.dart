@@ -16,11 +16,13 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$ChargerEntity {
-  String get station_name => throw _privateConstructorUsedError;
+  String? get station_name => throw _privateConstructorUsedError;
   String get availability => throw _privateConstructorUsedError;
   List<Port> get ports => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ChargerEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ChargerEntityCopyWith<ChargerEntity> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -31,7 +33,7 @@ abstract class $ChargerEntityCopyWith<$Res> {
           ChargerEntity value, $Res Function(ChargerEntity) then) =
       _$ChargerEntityCopyWithImpl<$Res, ChargerEntity>;
   @useResult
-  $Res call({String station_name, String availability, List<Port> ports});
+  $Res call({String? station_name, String availability, List<Port> ports});
 }
 
 /// @nodoc
@@ -44,18 +46,20 @@ class _$ChargerEntityCopyWithImpl<$Res, $Val extends ChargerEntity>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ChargerEntity
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? station_name = null,
+    Object? station_name = freezed,
     Object? availability = null,
     Object? ports = null,
   }) {
     return _then(_value.copyWith(
-      station_name: null == station_name
+      station_name: freezed == station_name
           ? _value.station_name
           : station_name // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       availability: null == availability
           ? _value.availability
           : availability // ignore: cast_nullable_to_non_nullable
@@ -76,7 +80,7 @@ abstract class _$$ChargerEntityImplCopyWith<$Res>
       __$$ChargerEntityImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String station_name, String availability, List<Port> ports});
+  $Res call({String? station_name, String availability, List<Port> ports});
 }
 
 /// @nodoc
@@ -87,18 +91,20 @@ class __$$ChargerEntityImplCopyWithImpl<$Res>
       _$ChargerEntityImpl _value, $Res Function(_$ChargerEntityImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ChargerEntity
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? station_name = null,
+    Object? station_name = freezed,
     Object? availability = null,
     Object? ports = null,
   }) {
     return _then(_$ChargerEntityImpl(
-      station_name: null == station_name
+      station_name: freezed == station_name
           ? _value.station_name
           : station_name // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       availability: null == availability
           ? _value.availability
           : availability // ignore: cast_nullable_to_non_nullable
@@ -115,13 +121,13 @@ class __$$ChargerEntityImplCopyWithImpl<$Res>
 
 class _$ChargerEntityImpl implements _ChargerEntity {
   const _$ChargerEntityImpl(
-      {required this.station_name,
+      {this.station_name,
       required this.availability,
       required final List<Port> ports})
       : _ports = ports;
 
   @override
-  final String station_name;
+  final String? station_name;
   @override
   final String availability;
   final List<Port> _ports;
@@ -153,7 +159,9 @@ class _$ChargerEntityImpl implements _ChargerEntity {
   int get hashCode => Object.hash(runtimeType, station_name, availability,
       const DeepCollectionEquality().hash(_ports));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ChargerEntity
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ChargerEntityImplCopyWith<_$ChargerEntityImpl> get copyWith =>
@@ -162,18 +170,21 @@ class _$ChargerEntityImpl implements _ChargerEntity {
 
 abstract class _ChargerEntity implements ChargerEntity {
   const factory _ChargerEntity(
-      {required final String station_name,
+      {final String? station_name,
       required final String availability,
       required final List<Port> ports}) = _$ChargerEntityImpl;
 
   @override
-  String get station_name;
+  String? get station_name;
   @override
   String get availability;
   @override
   List<Port> get ports;
+
+  /// Create a copy of ChargerEntity
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ChargerEntityImplCopyWith<_$ChargerEntityImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -183,7 +194,9 @@ mixin _$Port {
   PowerPlugTypeEntity get power_plug_type => throw _privateConstructorUsedError;
   PowerOutputEntity get power_model => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Port
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $PortCopyWith<Port> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -209,6 +222,8 @@ class _$PortCopyWithImpl<$Res, $Val extends Port>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Port
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -227,6 +242,8 @@ class _$PortCopyWithImpl<$Res, $Val extends Port>
     ) as $Val);
   }
 
+  /// Create a copy of Port
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $PowerPlugTypeEntityCopyWith<$Res> get power_plug_type {
@@ -235,6 +252,8 @@ class _$PortCopyWithImpl<$Res, $Val extends Port>
     });
   }
 
+  /// Create a copy of Port
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $PowerOutputEntityCopyWith<$Res> get power_model {
@@ -269,6 +288,8 @@ class __$$PortDataModelImplCopyWithImpl<$Res>
       _$PortDataModelImpl _value, $Res Function(_$PortDataModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Port
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -318,7 +339,9 @@ class _$PortDataModelImpl implements _PortDataModel {
   @override
   int get hashCode => Object.hash(runtimeType, power_plug_type, power_model);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Port
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PortDataModelImplCopyWith<_$PortDataModelImpl> get copyWith =>
@@ -334,8 +357,11 @@ abstract class _PortDataModel implements Port {
   PowerPlugTypeEntity get power_plug_type;
   @override
   PowerOutputEntity get power_model;
+
+  /// Create a copy of Port
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PortDataModelImplCopyWith<_$PortDataModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

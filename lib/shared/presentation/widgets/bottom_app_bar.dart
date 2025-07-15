@@ -46,8 +46,8 @@ class SimpleBottomAppBar extends StatelessWidget {
         assetName = 'assets/icons/route_icon.svg';
         label = 'Route';
         onPressed = () {
-          if (!_isCurrentRoute(context, LocationRoute.name)) {
-            context.router.push(const LocationRoute());
+          if (!_isCurrentRoute(context, RouteSearchRoute.name)) {
+            context.router.push(const RouteSearchRoute());
           }
         };
         isSelected = _isCurrentRoute(context, LocationRoute.name);
@@ -56,11 +56,11 @@ class SimpleBottomAppBar extends StatelessWidget {
         assetName = 'assets/icons/account_icon.svg';
         label = 'Account';
         onPressed = () {
-          if (!_isCurrentRoute(context, SearchRoute.name)) {
-            context.router.push(SearchRoute());
+          if (!_isCurrentRoute(context, AccountRoute.name)) {
+            context.router.push(const AccountRoute());
           }
         };
-        isSelected = _isCurrentRoute(context, SearchRoute.name);
+        isSelected = _isCurrentRoute(context, LocationRoute.name);
         break;
     }
 
@@ -72,7 +72,9 @@ class SimpleBottomAppBar extends StatelessWidget {
           Expanded(
             child: SvgPicture.asset(
               assetName,
-              color: isSelected ? Theme.of(context).colorScheme.primary : null,
+              color: isSelected
+                  ? Theme.of(context).colorScheme.primary
+                  : Theme.of(context).colorScheme.onSurface,
             ),
           ),
           const SizedBox(height: 1),
@@ -91,6 +93,7 @@ class SimpleBottomAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
+      color: Theme.of(context).colorScheme.secondary,
       shape: const CircularNotchedRectangle(),
       notchMargin: 6.0,
       child: Row(

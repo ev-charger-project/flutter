@@ -22,13 +22,21 @@ PowerOutputDataModel _$PowerOutputDataModelFromJson(Map<String, dynamic> json) {
 mixin _$PowerOutputDataModel {
   @JsonKey(name: 'output_value')
   double get outputValue => throw _privateConstructorUsedError;
-  @JsonKey(name: 'charging_speed')
-  String get chargingSpeed => throw _privateConstructorUsedError;
   @JsonKey(name: 'voltage')
   double get voltage => throw _privateConstructorUsedError;
+  @JsonKey(name: 'amperage')
+  double get amperage => throw _privateConstructorUsedError;
+  @JsonKey(name: 'charging_speed')
+  String? get chargingSpeed => throw _privateConstructorUsedError;
+  @JsonKey(name: 'description')
+  String? get description => throw _privateConstructorUsedError;
 
+  /// Serializes this PowerOutputDataModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PowerOutputDataModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $PowerOutputDataModelCopyWith<PowerOutputDataModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -41,8 +49,10 @@ abstract class $PowerOutputDataModelCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(name: 'output_value') double outputValue,
-      @JsonKey(name: 'charging_speed') String chargingSpeed,
-      @JsonKey(name: 'voltage') double voltage});
+      @JsonKey(name: 'voltage') double voltage,
+      @JsonKey(name: 'amperage') double amperage,
+      @JsonKey(name: 'charging_speed') String? chargingSpeed,
+      @JsonKey(name: 'description') String? description});
 }
 
 /// @nodoc
@@ -56,26 +66,38 @@ class _$PowerOutputDataModelCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of PowerOutputDataModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? outputValue = null,
-    Object? chargingSpeed = null,
     Object? voltage = null,
+    Object? amperage = null,
+    Object? chargingSpeed = freezed,
+    Object? description = freezed,
   }) {
     return _then(_value.copyWith(
       outputValue: null == outputValue
           ? _value.outputValue
           : outputValue // ignore: cast_nullable_to_non_nullable
               as double,
-      chargingSpeed: null == chargingSpeed
-          ? _value.chargingSpeed
-          : chargingSpeed // ignore: cast_nullable_to_non_nullable
-              as String,
       voltage: null == voltage
           ? _value.voltage
           : voltage // ignore: cast_nullable_to_non_nullable
               as double,
+      amperage: null == amperage
+          ? _value.amperage
+          : amperage // ignore: cast_nullable_to_non_nullable
+              as double,
+      chargingSpeed: freezed == chargingSpeed
+          ? _value.chargingSpeed
+          : chargingSpeed // ignore: cast_nullable_to_non_nullable
+              as String?,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -90,8 +112,10 @@ abstract class _$$PowerOutputDataModelImplCopyWith<$Res>
   @useResult
   $Res call(
       {@JsonKey(name: 'output_value') double outputValue,
-      @JsonKey(name: 'charging_speed') String chargingSpeed,
-      @JsonKey(name: 'voltage') double voltage});
+      @JsonKey(name: 'voltage') double voltage,
+      @JsonKey(name: 'amperage') double amperage,
+      @JsonKey(name: 'charging_speed') String? chargingSpeed,
+      @JsonKey(name: 'description') String? description});
 }
 
 /// @nodoc
@@ -102,26 +126,38 @@ class __$$PowerOutputDataModelImplCopyWithImpl<$Res>
       $Res Function(_$PowerOutputDataModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PowerOutputDataModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? outputValue = null,
-    Object? chargingSpeed = null,
     Object? voltage = null,
+    Object? amperage = null,
+    Object? chargingSpeed = freezed,
+    Object? description = freezed,
   }) {
     return _then(_$PowerOutputDataModelImpl(
       outputValue: null == outputValue
           ? _value.outputValue
           : outputValue // ignore: cast_nullable_to_non_nullable
               as double,
-      chargingSpeed: null == chargingSpeed
-          ? _value.chargingSpeed
-          : chargingSpeed // ignore: cast_nullable_to_non_nullable
-              as String,
       voltage: null == voltage
           ? _value.voltage
           : voltage // ignore: cast_nullable_to_non_nullable
               as double,
+      amperage: null == amperage
+          ? _value.amperage
+          : amperage // ignore: cast_nullable_to_non_nullable
+              as double,
+      chargingSpeed: freezed == chargingSpeed
+          ? _value.chargingSpeed
+          : chargingSpeed // ignore: cast_nullable_to_non_nullable
+              as String?,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -131,8 +167,10 @@ class __$$PowerOutputDataModelImplCopyWithImpl<$Res>
 class _$PowerOutputDataModelImpl implements _PowerOutputDataModel {
   const _$PowerOutputDataModelImpl(
       {@JsonKey(name: 'output_value') required this.outputValue,
-      @JsonKey(name: 'charging_speed') required this.chargingSpeed,
-      @JsonKey(name: 'voltage') required this.voltage});
+      @JsonKey(name: 'voltage') required this.voltage,
+      @JsonKey(name: 'amperage') required this.amperage,
+      @JsonKey(name: 'charging_speed') this.chargingSpeed,
+      @JsonKey(name: 'description') this.description});
 
   factory _$PowerOutputDataModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$PowerOutputDataModelImplFromJson(json);
@@ -141,15 +179,21 @@ class _$PowerOutputDataModelImpl implements _PowerOutputDataModel {
   @JsonKey(name: 'output_value')
   final double outputValue;
   @override
-  @JsonKey(name: 'charging_speed')
-  final String chargingSpeed;
-  @override
   @JsonKey(name: 'voltage')
   final double voltage;
+  @override
+  @JsonKey(name: 'amperage')
+  final double amperage;
+  @override
+  @JsonKey(name: 'charging_speed')
+  final String? chargingSpeed;
+  @override
+  @JsonKey(name: 'description')
+  final String? description;
 
   @override
   String toString() {
-    return 'PowerOutputDataModel(outputValue: $outputValue, chargingSpeed: $chargingSpeed, voltage: $voltage)';
+    return 'PowerOutputDataModel(outputValue: $outputValue, voltage: $voltage, amperage: $amperage, chargingSpeed: $chargingSpeed, description: $description)';
   }
 
   @override
@@ -159,17 +203,23 @@ class _$PowerOutputDataModelImpl implements _PowerOutputDataModel {
             other is _$PowerOutputDataModelImpl &&
             (identical(other.outputValue, outputValue) ||
                 other.outputValue == outputValue) &&
+            (identical(other.voltage, voltage) || other.voltage == voltage) &&
+            (identical(other.amperage, amperage) ||
+                other.amperage == amperage) &&
             (identical(other.chargingSpeed, chargingSpeed) ||
                 other.chargingSpeed == chargingSpeed) &&
-            (identical(other.voltage, voltage) || other.voltage == voltage));
+            (identical(other.description, description) ||
+                other.description == description));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, outputValue, chargingSpeed, voltage);
+  int get hashCode => Object.hash(
+      runtimeType, outputValue, voltage, amperage, chargingSpeed, description);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PowerOutputDataModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PowerOutputDataModelImplCopyWith<_$PowerOutputDataModelImpl>
@@ -188,8 +238,10 @@ class _$PowerOutputDataModelImpl implements _PowerOutputDataModel {
 abstract class _PowerOutputDataModel implements PowerOutputDataModel {
   const factory _PowerOutputDataModel(
           {@JsonKey(name: 'output_value') required final double outputValue,
-          @JsonKey(name: 'charging_speed') required final String chargingSpeed,
-          @JsonKey(name: 'voltage') required final double voltage}) =
+          @JsonKey(name: 'voltage') required final double voltage,
+          @JsonKey(name: 'amperage') required final double amperage,
+          @JsonKey(name: 'charging_speed') final String? chargingSpeed,
+          @JsonKey(name: 'description') final String? description}) =
       _$PowerOutputDataModelImpl;
 
   factory _PowerOutputDataModel.fromJson(Map<String, dynamic> json) =
@@ -199,13 +251,22 @@ abstract class _PowerOutputDataModel implements PowerOutputDataModel {
   @JsonKey(name: 'output_value')
   double get outputValue;
   @override
-  @JsonKey(name: 'charging_speed')
-  String get chargingSpeed;
-  @override
   @JsonKey(name: 'voltage')
   double get voltage;
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(name: 'amperage')
+  double get amperage;
+  @override
+  @JsonKey(name: 'charging_speed')
+  String? get chargingSpeed;
+  @override
+  @JsonKey(name: 'description')
+  String? get description;
+
+  /// Create a copy of PowerOutputDataModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PowerOutputDataModelImplCopyWith<_$PowerOutputDataModelImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

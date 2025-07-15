@@ -8,13 +8,14 @@ class AppTheme {
     return ThemeData(
       brightness: Brightness.dark,
       fontFamily: AppTextStyles.fontFamily,
-      primaryColor: AppColors.primary,
+      primaryColor: AppColors.second_primary,
       dividerColor: AppColors.dividerColor,
       colorScheme: const ColorScheme.dark(
-        primary: AppColors.primary,
-        secondary: AppColors.lightGrey,
+        primary: AppColors.second_primary,
+        secondary: Color(0xff313131),
         error: AppColors.error,
         surface: AppColors.black,
+        onSurface: AppColors.white,
       ).copyWith(
         surfaceTint: AppColors.transparentGrey, // Adding custom color
       ),
@@ -41,6 +42,7 @@ class AppTheme {
         primary: AppColors.primary,
         secondary: AppColors.white,
         error: AppColors.error,
+        onSurface: AppColors.black,
       ).copyWith(
         surfaceTint: AppColors.transparentGrey,
       ),

@@ -24,7 +24,7 @@ class Button extends StatefulWidget {
   // child widget
   final Widget child;
 
-  Button({
+  const Button({
     super.key,
     required this.onTap,
     required this.fillColor,
@@ -92,7 +92,7 @@ class _ButtonState extends State<Button> {
                       color: Colors.black
                           .withOpacity(widget.shadowOpacity ?? 0.25),
                       blurRadius: widget.shadowBlurRadius ?? 0.0,
-                      offset: widget.shadowOffset ?? Offset(0, 4),
+                      offset: widget.shadowOffset ?? const Offset(0, 4),
                     ),
                   ]
                 : [],
