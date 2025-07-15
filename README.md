@@ -104,8 +104,8 @@ Before you begin, ensure you have the following installed:
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/yourusername/ev_charger.git
-cd ev_charger
+git clone https://github.com/ev-charger-project/flutter.git
+cd flutter
 ```
 
 2. **Install dependencies**
@@ -115,7 +115,7 @@ flutter pub get
 
 3. **Set up Google Maps API**
    - Get an API key from [Google Cloud Console](https://console.cloud.google.com/)
-   - Add the API key to `android/app/src/main/AndroidManifest.xml`
+   - Add the API key to `\android\local.properties`
 
 4. **Run the app**
 ```bash
