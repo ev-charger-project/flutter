@@ -221,7 +221,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
       <td align="center">
         <img src="https://github.com/denda0duong.png" width="100px;" alt=""/>
         <br />
-        <sub><b>Your Name</b></sub>
+        <sub><b>denda</b></sub>
         <br />
         <a href="https://github.com/denda0duong">👨‍💻</a>
       </td>
