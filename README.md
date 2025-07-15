@@ -154,13 +154,36 @@ UI Layer → Riverpod Providers → Repository → API/Local Storage
 
 ---
 
-## 📱 Screenshots
+## 📱 UI Design & Flow
 
+### 🎨 Figma Design Flow
 <div align="center">
-  <img src="assets/screenshots/home_screen.png" width="200" alt="Home Screen">
-  <img src="assets/screenshots/map_view.png" width="200" alt="Map View">
-  <img src="assets/screenshots/station_details.png" width="200" alt="Station Details">
-  <img src="assets/screenshots/favorites.png" width="200" alt="Favorites">
+  <img src="assets/images/screenshots/figma_flow_1.png" width="600" alt="UI Flow - Screen 1">
+  <br><br>
+  <img src="assets/images/screenshots/figma_flow_2.png" width="600" alt="UI Flow - Screen 2">
+  <br><br>
+  <img src="assets/images/screenshots/figma_flow_3.png" width="600" alt="UI Flow - Screen 3">
+</div>
+
+*Complete UI flow showcasing the user journey from discovery to charging*
+
+### 📱 App Screenshots
+<div align="center">
+  <img src="assets/images/screenshots/map_view.jpg" height="300" alt="Map View">
+  &nbsp;&nbsp;
+  <img src="assets/images/screenshots/filter_screen.jpg" height="300" alt="Filter Screen">
+  &nbsp;&nbsp;
+  <img src="assets/images/screenshots/route_plan.jpg" height="300" alt="Route Planning">
+  &nbsp;&nbsp;
+  <img src="assets/images/screenshots/search_noresult.png" height="300" alt="Search No Results">
+  <br><br>
+  <img src="assets/images/screenshots/station_details_1.jpg" height="300" alt="Station Details">
+  &nbsp;&nbsp;
+  <img src="assets/images/screenshots/station_details_2.jpg" height="300" alt="Station Details 2">
+  &nbsp;&nbsp;
+  <img src="assets/images/screenshots/station_details_3.jpg" height="300" alt="Station Details 3">
+  &nbsp;&nbsp;
+  <img src="assets/images/screenshots/favorites.jpg" height="300" alt="Favorites">
 </div>
 
 ---
